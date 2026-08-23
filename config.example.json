@@ -1,6 +1,7 @@
 {
+  "provider": "volcengine-coding-plan",
   "api_key": "REPLACE_WITH_YOUR_API_KEY",
-  "base_url": "https://api.deepseek.com",
-  "model": "deepseek-v4-flash",
+  "model": "ark-code-latest",
+  "report_language": "zh-CN",
   "timeout": 120
 }

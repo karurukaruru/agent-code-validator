@@ -1,0 +1,7 @@
+{
+  "provider": "volcengine-agent-plan",
+  "api_key": "REPLACE_WITH_YOUR_AGENT_PLAN_API_KEY",
+  "model": "REPLACE_WITH_MODEL_ID_FROM_AGENT_PLAN_CONSOLE",
+  "report_language": "zh-CN",
+  "timeout": 120
+}

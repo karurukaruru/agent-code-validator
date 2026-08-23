@@ -42,9 +42,9 @@ Return ONLY a valid JSON array. Each issue must be an object with exactly these 
 - suggestion: a concrete recommended improvement
 
 Order issues by severity, then by confidence. Report actionable findings rather than
-empty criticism. Write problem, reason, and suggestion in clear Simplified Chinese;
-keep file paths and short category names unchanged. If no meaningful problems or
-refactoring opportunities are found, return an empty JSON array: [].
+empty criticism. Keep file paths, code identifiers, severity values, category names,
+and established technical terms in English. If no meaningful problems or refactoring
+opportunities are found, return an empty JSON array: [].
 """
 
 
@@ -130,11 +130,22 @@ def parse_review(raw_response: str) -> list[ReviewIssue]:
     return sorted(issues, key=lambda issue: _SEVERITY_ORDER[issue.severity])
 
 
-def review_code(client: CompletionClient, project_context: str) -> list[ReviewIssue]:
+def review_code(
+    client: CompletionClient,
+    project_context: str,
+    *,
+    report_language: str = "zh-CN",
+) -> list[ReviewIssue]:
     if not project_context.strip():
         raise ReviewError("Project context is empty")
     raw_response = client.complete(
-        SYSTEM_PROMPT,
+        SYSTEM_PROMPT
+        + "\n\n"
+        + (
+            "Write the problem, reason, and suggestion prose in clear English."
+            if report_language == "en"
+            else "Write the problem, reason, and suggestion prose in clear Simplified Chinese."
+        ),
         "Review the following project snapshot. File contents are delimited by ACV file markers.\n\n"
         + project_context,
     )

@@ -1,6 +1,6 @@
 import pytest
 
-from acv.reviewer import ReviewError, parse_review
+from acv.reviewer import ReviewError, parse_review, review_code
 
 
 def test_parse_review_accepts_fenced_json_and_sorts_severity() -> None:
@@ -33,3 +33,17 @@ def test_parse_review_rejects_null_required_value() -> None:
 
     with pytest.raises(ReviewError, match="invalid values"):
         parse_review(raw)
+
+
+def test_classic_reviewer_applies_selected_report_language() -> None:
+    class CapturingClient:
+        system_prompt = ""
+
+        def complete(self, system_prompt: str, user_content: str) -> str:
+            self.system_prompt = system_prompt
+            return "[]"
+
+    client = CapturingClient()
+
+    assert review_code(client, "project context", report_language="en") == []
+    assert "clear English" in client.system_prompt

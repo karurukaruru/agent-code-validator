@@ -1,0 +1,8 @@
+{
+  "provider": "openai-compatible",
+  "api_key": "REPLACE_WITH_YOUR_API_KEY",
+  "base_url": "https://YOUR_PROVIDER_API_ROOT",
+  "model": "REPLACE_WITH_YOUR_MODEL_ID",
+  "report_language": "zh-CN",
+  "timeout": 120
+}

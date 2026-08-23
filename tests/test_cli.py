@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 from acv import cli
+from tests.fake_provider import FakeLLMProvider
 
 
 class FakeClient:
@@ -84,3 +85,77 @@ def test_cli_handles_keyboard_interrupt(monkeypatch, capsys) -> None:
 
     assert status == 130
     assert "Cancelled by user" in capsys.readouterr().err
+
+
+def test_cli_agent_runs_end_to_end_with_fake_llm(
+    tmp_path: Path, monkeypatch, capsys
+) -> None:
+    project = tmp_path / "project"
+    project.mkdir()
+    (project / "app.py").write_text("print('hello')\n", encoding="utf-8")
+    report = tmp_path / "agent-review.md"
+    provider = FakeLLMProvider(
+        [
+            '{"action":"read_file","arguments":{"path":"app.py"}}',
+            '{"action":"finish","reason":"The only source file was inspected"}',
+            json.dumps(
+                {
+                    "issues": [
+                        {
+                            "severity": "medium",
+                            "category": "bug",
+                            "file": "app.py",
+                            "location": "line 1",
+                            "problem": "Terminal-visible finding",
+                            "evidence": "The inspected line demonstrates the finding.",
+                            "why_it_matters": "Users need to see the result immediately.",
+                            "suggested_improvement": "Print structured agent findings.",
+                            "confidence": "confirmed",
+                        }
+                    ]
+                }
+            ),
+        ]
+    )
+    monkeypatch.setattr(cli, "load_config", lambda path: object())
+    monkeypatch.setattr(cli, "LLMClient", lambda config: provider)
+
+    status = cli.main(
+        ["agent", str(project), "--output", str(report), "--max-steps", "5"]
+    )
+
+    output = capsys.readouterr()
+    assert status == 0
+    assert "Starting read-only Reviewer Agent" in output.out
+    assert "Agent step 1: read_file" in output.out
+    assert "Files inspected: 1" in output.out
+    assert "AI agent review results: 1 issue(s)" in output.out
+    assert "Problem: Terminal-visible finding" in output.out
+    assert "Evidence: The inspected line demonstrates the finding." in output.out
+    assert "Suggested change: Print structured agent findings." in output.out
+    assert "# ACV Review Report" in report.read_text(encoding="utf-8")
+
+
+def test_cli_agent_reviews_bundled_demo_project(
+    tmp_path: Path, monkeypatch
+) -> None:
+    demo = Path(__file__).parents[1] / "examples" / "demo_project"
+    report = tmp_path / "demo-agent-review.md"
+    provider = FakeLLMProvider(
+        [
+            '{"action":"read_file","arguments":{"path":"calculator.py"}}',
+            '{"action":"search_code","arguments":{"query":"average("}}',
+            '{"action":"read_file","arguments":{"path":"main.py"}}',
+            '{"action":"finish","reason":"Demo call path inspected"}',
+            '{"issues":[]}',
+        ]
+    )
+    monkeypatch.setattr(cli, "load_config", lambda path: object())
+    monkeypatch.setattr(cli, "LLMClient", lambda config: provider)
+
+    status = cli.main(["agent", str(demo), "--output", str(report)])
+
+    assert status == 0
+    text = report.read_text(encoding="utf-8")
+    assert "`calculator.py`" in text
+    assert "`main.py`" in text

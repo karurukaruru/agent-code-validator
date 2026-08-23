@@ -20,6 +20,15 @@ SUPPORTED_EXTENSIONS = {
 
 IGNORED_DIRECTORIES = {
     ".git",
+    ".cache",
+    ".idea",
+    ".mypy_cache",
+    ".next",
+    ".nox",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".tox",
+    ".vscode",
     "node_modules",
     "venv",
     ".venv",
@@ -27,6 +36,10 @@ IGNORED_DIRECTORIES = {
     "__pycache__",
     "dist",
     "build",
+    "coverage",
+    "htmlcov",
+    "out",
+    "site-packages",
     "target",
 }
 
@@ -62,6 +75,14 @@ def _looks_binary(data: bytes) -> bool:
     allowed_controls = {8, 9, 10, 12, 13}
     suspicious = sum(byte < 32 and byte not in allowed_controls for byte in sample)
     return suspicious / len(sample) > 0.10
+
+
+def _is_link_like(path: Path) -> bool:
+    """Reject symlinks and Windows junctions/reparse-style directory links."""
+    if path.is_symlink():
+        return True
+    is_junction = getattr(path, "is_junction", None)
+    return bool(callable(is_junction) and is_junction())
 
 
 def scan_project(
@@ -102,10 +123,26 @@ def scan_project(
         ):
             # Pruning here is materially faster than discovering files below these
             # often very large directories and filtering them afterward.
-            directory_names[:] = sorted(
-                name for name in directory_names if name.lower() not in IGNORED_DIRECTORIES
-            )
             current_path = Path(current_dir)
+            kept_directories: list[str] = []
+            for name in sorted(directory_names, key=str.lower):
+                if name.lower() in IGNORED_DIRECTORIES:
+                    continue
+                directory = current_path / name
+                try:
+                    if _is_link_like(directory):
+                        result.warnings.append(
+                            f"Skipped {directory.relative_to(root).as_posix()}: directory links are not scanned."
+                        )
+                        continue
+                    directory.resolve().relative_to(root)
+                except (OSError, ValueError) as exc:
+                    result.warnings.append(
+                        f"Skipped {directory.relative_to(root).as_posix()}: unsafe directory path ({exc})."
+                    )
+                    continue
+                kept_directories.append(name)
+            directory_names[:] = kept_directories
             candidates.extend(
                 current_path / name
                 for name in file_names
@@ -118,7 +155,7 @@ def scan_project(
     for path in candidates:
         relative_path = path.relative_to(root).as_posix()
         try:
-            if path.is_symlink():
+            if _is_link_like(path):
                 result.warnings.append(
                     f"Skipped {relative_path}: symbolic links are not scanned."
                 )
