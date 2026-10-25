@@ -37,6 +37,8 @@ The installed backend checks the exact reviewed `_utils.py` SHA-256 and distribu
 
 ## Supply your own bounded messages
 
+For already captured traces, `python -m patchcourt check baseline.json candidate.json --input original.json --output outputs/trace-check` checks both traces against their shared original message input. It uses the same three-contract display and reports NEEDS_REVIEW when the baseline is unhealthy. It does not establish where the supplied traces came from. Without `--input`, `check` retains its original comparison-only behavior. Invalid or unsupported original input causes abstention; JSON null does not silently disable the check.
+
 `--input messages.json` accepts a JSON array of 1–100 messages, at most 128 KB. Supported fields are explicit `role`, text/null `content`, optional text `name`, assistant OpenAI `tool_calls` with JSON-object argument strings, and tool `tool_call_id`. Tool IDs, nesting, Unicode and boolean/number distinctions are checked. Unknown roles, metadata, multimodal blocks, ambiguous JSON and invalid tool relationships abstain before execution. Inputs requiring known-secret redaction also abstain, so redaction cannot create a false semantic regression. Do not use real credentials as test payloads.
 
 ## Evidence and boundaries

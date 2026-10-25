@@ -1,0 +1,9 @@
+.......ss............................................................... [ 37%]
+........................................................................ [ 75%]
+............................................ss                           [100%]
+=========================== short test summary info ===========================
+SKIPPED [1] tests\test_agent_tools.py:80: Creating symbolic links is not permitted on this system
+SKIPPED [1] tests\test_agent_tools.py:96: Creating directory links is not permitted on this system
+SKIPPED [1] tests\test_scanner.py:64: Creating symbolic links is not permitted on this system
+SKIPPED [1] tests\test_scanner.py:82: Creating directory links is not permitted on this system
+186 passed, 4 skipped in 8.48s

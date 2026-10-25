@@ -1,6 +1,6 @@
 # PatchCourt — AI Agent Compatibility Guardian
 
-**Local development update (0.3.2):** see [Chinese handoff](HANDOFF_ZH.md), [completion criteria](FINISH_PLAN_ZH.md) and [next-agent prompt](NEXT_AGENT_PROMPT.md). The new [boundary runner](BOUNDARY_RUN.md) executes two reviewed serializer variants, captures actual boundaries and prevents identical broken outputs from passing. Eight source/installed-SDK scenarios and ten browser checks passed; the full local suite has 181 passes and four Windows permission skips. `live --knowledge-dir outputs/plans` also reuses exact matching plans after fresh checks, with one real first/repeat pair recorded in `evidence/glm-reuse`. This revision is not yet pushed; public 0.3.1 evidence below remains historical.
+**Local development update (0.3.2):** see [Chinese handoff](HANDOFF_ZH.md), [completion criteria](FINISH_PLAN_ZH.md) and [next-agent prompt](NEXT_AGENT_PROMPT.md). The new [boundary runner](BOUNDARY_RUN.md) executes two reviewed serializer variants, captures actual boundaries and prevents identical broken outputs from passing. Eight source/installed-SDK scenarios and ten browser checks passed; the full local suite has 186 passes and four Windows permission skips. `live --knowledge-dir outputs/plans` also reuses exact matching plans after fresh checks, with one real first/repeat pair recorded in `evidence/glm-reuse`. This revision is not yet pushed; public 0.3.1 evidence below remains historical.
 
 **Catch silent AI agent regressions before they reach production.**
 

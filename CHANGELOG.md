@@ -4,6 +4,7 @@ All notable changes to Agent Code Validator are documented here.
 
 ## [0.3.2] - 2026-10-25
 
+- Added optional `check --input` contract checks to detect equal-but-broken traces; `verify` now rejects missing/blank run IDs and non-object records. Five regression tests added; final local suite: 186 passed, four permission skips.
 - Added `boundary-run`: separate clean processes for reviewed serializer variants, source and installed-SDK backends, captured boundaries, original-input checks, explicit unhealthy-baseline verdicts and dashboard evidence. Eight real local scenarios and ten browser checks passed; no provider calls.
 - Clarified generated-test contract labels and normal-behavior controls; reasoning now rejects a wrong GLM response model or ambiguous completion choices.
 - Scoped offline readiness messages to the current execution instead of asserting absent credentials, video or public releases.

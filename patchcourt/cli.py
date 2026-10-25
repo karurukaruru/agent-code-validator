@@ -17,6 +17,7 @@ def main(argv=None):
     check = commands.add_parser("check", help="Compare two captured message-array JSON files")
     check.add_argument("baseline"); check.add_argument("candidate")
     check.add_argument("--output", default="outputs/check")
+    check.add_argument("--input", help="Original message-array JSON; also check that each trace preserves its semantics")
     boundary = commands.add_parser("boundary-run", help="Execute two reviewed NVIDIA serializer variants; no provider calls")
     boundary.add_argument("--baseline", choices=("upstream", "reviewed-patch"), default="reviewed-patch")
     boundary.add_argument("--candidate", choices=("upstream", "reviewed-patch"), default="upstream")
@@ -59,8 +60,12 @@ def main(argv=None):
         if args.command == "check":
             from .sentinel import check_trace_pair
             from .runner import make_report, export_report
-            case = check_trace_pair(read_json(args.baseline), read_json(args.candidate))
-            export_report(make_report([case]), args.output)
+            original = {"original_input": read_json(args.input)} if args.input else {}
+            case = check_trace_pair(read_json(args.baseline), read_json(args.candidate), **original)
+            report = make_report([case])
+            if args.input:
+                report["input"] = original["original_input"]
+            export_report(report, args.output)
             print(case["status"])
             return {"PASS": 0, "FAIL": 1}.get(case["status"], 2)
         if args.command == "boundary-run":
@@ -90,7 +95,10 @@ def main(argv=None):
             from .evidence import digest
             root = Path(args.directory)
             report, manifest = read_json(root / "report.json"), read_json(root / "manifest.json")
-            valid = digest(report) == manifest.get("report_sha256") and report.get("run_id") == manifest.get("run_id")
+            valid = (isinstance(report, dict) and isinstance(manifest, dict)
+                     and isinstance(report.get("run_id"), str) and bool(report["run_id"].strip())
+                     and report["run_id"] == manifest.get("run_id")
+                     and digest(report) == manifest.get("report_sha256"))
             print("PASS: report integrity matches; provenance is not authenticated" if valid else "FAIL: report integrity mismatch")
             return 0 if valid else 1
         if args.command == "feedback":

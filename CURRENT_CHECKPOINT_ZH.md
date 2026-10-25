@@ -1,6 +1,6 @@
 # 最终停止点与完整接手说明（2026-10-25）
 
-本文对应用户“额度约 41%，马上停止开发，写清所有事情并打包 ZIP”的最新指令。**本轮停止新增功能，仅完成打包和恢复验证。** 下一位 Agent 应在用户要求继续时接手；不要把交接误解为已经参赛或所有原需求均完成。
+用户最初在约 41% 额度时要求停止打包，随后在约 30% 时明确追加授权一两个小修并重新打包。**追加的两项小修现已完成，最终停止新增功能，仅完成打包和恢复验证。** 下一位 Agent 应在用户要求继续时接手；不要把交接误解为已经参赛或所有原需求均完成。
 
 ## 1. 项目到底是什么
 
@@ -21,7 +21,7 @@
 
 ## 3. 精确停止位置
 
-- 最新功能代码提交：`5976355`，内容是 reviewed serializer pair runner、可视化、测试和安装包。
+- 主要边界功能代码提交：`5976355`，内容是 reviewed serializer pair runner、可视化、测试和安装包。随后追加 `check --input` 原始输入校验和 `verify` 缺失/空白 run_id 防护；最终提交以包内 MANIFEST.json 为准。
 - 打包前还会有纯交接说明提交。**最终完整 HEAD 以 ZIP 根目录 MANIFEST.json 为准**，不要要求它等于上面的功能提交。
 - 分支：`patchcourt/award-build-20261024`。
 - 公开 0.3.1 代码提交：`37aba3524acd109fd588e495e48a49fe1afecc38`；公开文档提交：`80edbddb6c5556d04c66db3ad40eb4f93b11765f`。
@@ -35,6 +35,8 @@
 | 能力 | 入口 | 验证与限制 |
 |---|---|---|
 | 语义比较 | patchcourt/semantic.py；check 命令 | 严格处理工具关联、参数、部分多模态；未知格式弃权 |
+| 已有日志的输入检查 | check baseline.json candidate.json --input original.json | 两份日志相同但同时丢数据时不能误报兼容；原始输入不支持时弃权 |
+| 报告完整性检查 | verify DIRECTORY | 校验摘要及非空、相同的运行编号；畸形顶层结构不再导致崩溃或错误通过 |
 | 自动执行受控边界 | patchcourt/boundary_run.py；boundary-run 命令 | 两个子进程运行固定上游/修复序列化器；不是任意依赖版本管理 |
 | 边界捕获 | patchcourt/recorder.py | runner 自动记录 framework_input/adapter_output；未提供通用全框架 hook |
 | 历史问题及固定修复 | patchcourt/reproductions.py、fixtures/ | 来源和校验和固定；CrewAI 仍使用惰性协议类型 |
@@ -47,12 +49,12 @@
 
 ## 5. 验证事实与可打开的证据
 
-1. 最新本机完整测试：**181 passed, 4 skipped**，`evidence/tests/pytest-boundary-032.txt`；4 项是 Windows 不允许创建链接。
+1. 最新本机完整测试：**186 passed, 4 skipped**，`evidence/tests/pytest-final-032.txt`；4 项是 Windows 不允许创建链接。
 2. 新边界执行：`evidence/boundary-run/matrix.json`，8 个实际执行场景全部符合预期；其中 5 个源码场景、3 个安装 NVIDIA SDK 的场景。预期 FAIL/NEEDS_REVIEW 是检出问题，不是测试失败。
 3. 新页面：`evidence/boundary-run/browser/qa-results.json`，10 个 Chrome 检查通过；附桌面/手机截图。
-4. 新安装包：`evidence/tests/wheel-verification-boundary-032.json`，从 wheel 隔离解压，离线 demo 和新增子进程 runner 均执行成功。
-5. 0.3.2 wheel：116,882 bytes，SHA-256 `99a2f7186c1200960bfa582bb5f6d2ba693f0bf2d0e05eba637f6c5d8116a761`。`release/SHA256SUMS.json` 可复核。
-6. 密钥扫描：`evidence/tests/secret-scan-boundary-032.json`；最后交接新增文件还会随 ZIP 打包扫描，结果见外部 PACKAGE_VERIFICATION.json。
+4. 新安装包：`evidence/tests/wheel-verification-final-032.json`，从 wheel 隔离解压，离线 demo 和新增子进程 runner 均执行成功。
+5. 0.3.2 wheel：117,318 bytes，SHA-256 `be8121081e3320ed056a025e52b7254b0ba78f5859f6f7eb2a1f3f37f06b7287`。`release/SHA256SUMS.json` 可复核。
+6. 密钥扫描：`evidence/tests/secret-scan-final-032.json`；最后交接新增文件还会随 ZIP 打包扫描，结果见外部 PACKAGE_VERIFICATION.json。
 7. 真实 GLM 首轮/复用：`evidence/glm-reuse/`，3 请求/2472 tokens 与 2 请求/426 tokens；任务均成功。总计实际 GLM 记录 **34,632 tokens**。本轮边界 runner 和收尾没有增加付费模型请求。
 8. 公开旧 0.3.1 CI：Ubuntu Python 3.10/3.13 各 165 passed。**不是本地新版本的远端验证**。
 9. 95 秒真实 GLM 演示：`release/patchcourt-glm-live-demo.mp4`，英文配音、烧录英文字幕及中英 SRT。不是 NVIDIA 演示，也未上传 YouTube。
