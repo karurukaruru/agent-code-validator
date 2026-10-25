@@ -20,7 +20,7 @@ We executed historical tool-call loss in real NVIDIA SDK 1.4.3 and verified a re
 
 ## What remains
 
-Actual NVIDIA inference through Nebius, repeated platform findings, a demonstrated Tavily benefit, model-generated test execution, broader sandboxed repair, live task replay, public demo/video and authenticated form completion.
+Actual NVIDIA inference through Nebius, repeated platform findings, a demonstrated Tavily benefit, model-generated test execution, broader sandboxed repair, live task replay, public YouTube video and authenticated form completion. A downloadable offline test build is already public.
 
 ## Fields and release checklist
 
@@ -28,8 +28,8 @@ Actual NVIDIA inference through Nebius, repeated platform findings, a demonstrat
 |---|---|
 | Track/title/English description | Draft above |
 | Built With | Python; ACV; ASM; NVIDIA SDK; provider integrations must be described honestly as not yet live |
-| Public source URL | Existing repository; dedicated development branch publication must be confirmed |
-| Working demo/test-build URL | Local wheel and static export prepared; public judge access not confirmed |
+| Public source URL | [Published development branch](https://github.com/karurukaruru/agent-code-validator/tree/patchcourt/award-build-20261024) |
+| Working demo/test-build URL | [Download offline test build](https://raw.githubusercontent.com/karurukaruru/agent-code-validator/462fde1dbce1eb46b5f00df5e68cf7aa6bf2d368/release/patchcourt-demo-0.3.0.zip); anonymous download/hash verified |
 | Public YouTube, under 3 minutes | 112-second offline MP4 and English subtitles created; YouTube upload and live-enabled replacement remain pending |
 | NVIDIA model and Nebius usage | BLOCKED, no credentials |
 | Feedback section | BLOCKED, no actual experiments; use MOST_VALUABLE_FEEDBACK.md only after evidence exists |

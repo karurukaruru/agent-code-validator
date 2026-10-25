@@ -17,7 +17,7 @@ Evidence distinguishes implementation, local execution, mocked transport and liv
 | 11 Actionable platform findings | BLOCKED | No invented feedback |
 | 12 English Devpost materials | INCONCLUSIVE | Draft complete; private fields/eligibility unresolved |
 | 13 Demo video | INCONCLUSIVE | Actual 112-second offline recording with full English subtitles and decode validation; required public YouTube URL and live integration footage absent |
-| 14 Public judge release | BLOCKED | Local artifacts; publication unconfirmed |
+| 14 Public judge release | PASS (offline scope) | Dedicated public branch published; anonymous ZIP download and checksum verified. No live hosted execution or YouTube publication claimed |
 | 15 Credential exposure | PASS | Redaction tests and release scan find no configured secrets or credential/private-key patterns; scope-limited scan, not a universal privacy guarantee |
 | 16 Rules checked | PASS | Official sourced audit; personal eligibility unverified |
 
@@ -32,13 +32,14 @@ Evidence distinguishes implementation, local execution, mocked transport and liv
 7. Competition: live NVIDIA/Nebius requirement, form and public access unresolved. Bonus stacking restricted.
 8. Feedback: report honestly says no observed platform findings; not award-quality yet.
 9. Judge experience: independent reviewer assessed the dashboard and requested clear provenance and a reproducible entry path; see docs/JUDGE_REVIEW.md.
-10. Release: full local tests pass; package/entrypoint/security checks recorded as completed below. Remote CI/public hosting/video remain separate gates.
+10. Release: full local tests pass; package/entrypoint/security checks recorded below. Public offline build verified and Linux Python 3.10/3.13 CI passed. Live hosting and public YouTube remain separate gates.
 
 Remaining user-dependent work: legitimate Nebius/Tavily access, entrant/Devpost authentication, public video and final submission approval. Ordinary development choices do not require further approval. Do not submit this build as competition-compliant until blocked gates are resolved.
 
 ## Executed release checks
 
 - Python 3.13.14: 143 tests passed, 4 Windows link-creation permission skips (`evidence/tests/pytest-final.txt`).
+- GitHub Ubuntu CI: **147 passed** on Python 3.10 and **147 passed** on Python 3.13; demo, exported regression and benchmark steps passed. [Run 40155739894](https://github.com/karurukaruru/agent-code-validator/actions/runs/40155739894).
 - Independent reviews: 26 adversarial tests and 29 release security/correctness tests, included in the full suite.
 - Chrome: 14 checks with actual generated report, desktop/mobile screenshots, upload/export and no runtime errors.
 - Installed NVIDIA SDK: original FAIL, repaired copy PASS, five controls; no API calls.
@@ -47,4 +48,4 @@ Remaining user-dependent work: legitimate Nebius/Tavily access, entrant/Devpost 
 - Credential-pattern/configured-secret scan: no findings; exact scope and file count in `evidence/tests/secret-scan.json`.
 - Video: actual Chrome interactions sampled at 2 fps, encoded to a 112-second 1600x900 MP4; complete English subtitles, no audio, no live inference. Hashes and decode evidence in `evidence/video`.
 
-Local artifacts and checks do not by themselves establish successful remote publication or competition eligibility.
+Published implementation commit: `462fde1dbce1eb46b5f00df5e68cf7aa6bf2d368`, branch `patchcourt/award-build-20261024`. Its tree is byte-identical to the locally reviewed commit (tree `ebc2d4fb3174597a3371af5e597394a201738330`). Git transport failed twice, so authenticated GitHub object tools published the same content; a subsequent Git fetch confirmed it. Publication evidence is in `evidence/tests/public-download.json` and `github-actions.json`. These checks do not establish competition eligibility.
