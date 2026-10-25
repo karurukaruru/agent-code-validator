@@ -1,0 +1,1 @@
+PatchCourt's Nebius Reliability Lab is implemented, but this run contains no authenticated HTTP observations. We cannot yet claim NVIDIA/Nemotron runtime use, platform defects or measured reliability. Actual feedback requires legitimate API access and repeated recorded experiments.

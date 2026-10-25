@@ -1,0 +1,7 @@
+* text=auto
+# Preserve byte-exact source snapshots, raw logs, checksums and release assets.
+patchcourt/fixtures/* -text -whitespace
+examples/reproductions/*.txt -text -whitespace
+examples/reproductions/*LICENSE -text -whitespace
+evidence/** -text -whitespace
+release/** -text -whitespace

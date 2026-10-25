@@ -1,0 +1,138 @@
+{
+  "recorded_at": "2026-10-24T11:23:21.651853+00:00",
+  "issue": "https://github.com/langchain-ai/langchain-nvidia/issues/387",
+  "package": "langchain-nvidia-ai-endpoints",
+  "version": "1.4.3",
+  "installation_command": "python -m pip install --target .sdk-nvidia --index-url https://pypi.org/simple langchain-nvidia-ai-endpoints==1.4.3",
+  "installation": "Succeeded from official PyPI wheels into isolated local target",
+  "source_sha256": "ec8d2ef813a184d37a347f493242124319dbe3c6f6926124ba2f8a3560ed2531",
+  "patched_sha256": "51a0f92a17fbae9c84b9bac6ae15644f0f7de1c15d294f6f9a025047bf57f6f3",
+  "python": "3.13.14 (tags/v3.13.14:fd17997, Jun 10 2026, 13:03:48) [MSC v.1944 64 bit (AMD64)]",
+  "dependencies": {
+    "PyYAML": "6.0.3",
+    "aiohappyeyeballs": "2.7.1",
+    "aiohttp": "3.14.5",
+    "aiosignal": "1.4.0",
+    "annotated-types": "0.8.0",
+    "anyio": "4.15.1",
+    "attrs": "26.1.0",
+    "certifi": "2026.10.23",
+    "charset-normalizer": "3.5.2",
+    "distro": "1.9.0",
+    "frozenlist": "1.8.0",
+    "h11": "0.16.0",
+    "httpcore": "1.0.9",
+    "httpcore2": "2.16.0",
+    "httpx": "0.28.1",
+    "httpx2": "2.16.0",
+    "idna": "3.20",
+    "jsonpatch": "1.36",
+    "jsonpointer": "3.4",
+    "langchain-core": "1.7.0",
+    "langchain-nvidia-ai-endpoints": "1.4.3",
+    "langchain-protocol": "0.0.20",
+    "langsmith": "0.14.12",
+    "multidict": "7.2.0",
+    "orjson": "3.13.0",
+    "packaging": "26.3",
+    "propcache": "0.5.4",
+    "pydantic": "2.14.1",
+    "pydantic_core": "2.50.1",
+    "requests": "2.34.2",
+    "requests-toolbelt": "1.0.0",
+    "sniffio": "1.3.1",
+    "tenacity": "9.2.1",
+    "truststore": "0.10.5",
+    "typing-inspection": "0.4.4",
+    "typing_extensions": "4.16.0",
+    "urllib3": "2.8.0",
+    "uuid_utils": "0.18.0",
+    "websockets": "17.3",
+    "xxhash": "4.0.2",
+    "yarl": "1.25.1",
+    "zstandard": "0.25.0"
+  },
+  "child_environment_allowlist": [
+    "COMSPEC",
+    "HOME",
+    "LANGCHAIN_TRACING_V2",
+    "LANGSMITH_TRACING",
+    "SystemRoot",
+    "TEMP",
+    "TMP",
+    "USERPROFILE",
+    "WINDIR"
+  ],
+  "network_policy": "Python audit hook rejects socket connect, DNS resolution, and bind; no provider requests. This is not an OS sandbox claim.",
+  "returncode": 0,
+  "stderr": "",
+  "result": {
+    "status": "REPRODUCED_AND_REPAIRED",
+    "before": {
+      "status": "FAIL",
+      "wire": {
+        "role": "assistant",
+        "content": ""
+      }
+    },
+    "after": {
+      "status": "PASS",
+      "wire": {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "id": "real-a",
+            "type": "function",
+            "function": {
+              "name": "inventory",
+              "arguments": "{\"sku\": \"東京\", \"quantity\": 0, \"available\": false}"
+            }
+          },
+          {
+            "id": "real-b",
+            "type": "function",
+            "function": {
+              "name": "price",
+              "arguments": "{\"sku\": \"B\", \"options\": {\"currency\": \"JPY\"}}"
+            }
+          }
+        ]
+      }
+    },
+    "expected_calls": [
+      {
+        "id": "real-a",
+        "name": "inventory",
+        "args": {
+          "sku": "東京",
+          "quantity": 0,
+          "available": false
+        }
+      },
+      {
+        "id": "real-b",
+        "name": "price",
+        "args": {
+          "sku": "B",
+          "options": {
+            "currency": "JPY"
+          }
+        }
+      }
+    ],
+    "controls": {
+      "plain_user": true,
+      "plain_system": true,
+      "empty_tool_result": true,
+      "legacy_tool_calls": true,
+      "second_call_mutation_detected": true
+    },
+    "real_message_class": "<class 'langchain_core.messages.ai.AIMessage'>",
+    "original_function_module": "langchain_nvidia_ai_endpoints._utils",
+    "real_sdk_imported": true,
+    "provider_called": false,
+    "scope": "Installed pinned SDK serializer with real LangChain message classes; reviewed patched module copy. No model or provider end-to-end claim.",
+    "credential_environment_present": false
+  }
+}

@@ -1,0 +1,19 @@
+--- a/nvidia_utils.py.txt
++++ b/nvidia_utils.py.txt
+@@ -140,7 +140,15 @@
+             # If function call only, content is None not empty string
+             if message_dict["content"] == "":
+                 message_dict["content"] = None
+-        if "tool_calls" in message.additional_kwargs:
++        if message.tool_calls:
++            message_dict["tool_calls"] = [
++                {"id": c["id"], "type": "function", "function": {
++                    "name": c["name"], "arguments": json.dumps(c["args"], ensure_ascii=False)
++                }} for c in message.tool_calls
++            ]
++            if message_dict["content"] == "":
++                message_dict["content"] = None
++        elif "tool_calls" in message.additional_kwargs:
+             message_dict["tool_calls"] = message.additional_kwargs["tool_calls"]
+             # If tool calls only, content is None not empty string
+             if message_dict["content"] == "":

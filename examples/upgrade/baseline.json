@@ -1,0 +1,4 @@
+[
+  {"role":"assistant","content":"","tool_calls":[{"id":"call_1","type":"function","function":{"name":"inventory","arguments":"{\"sku\":\"A\"}"}}]},
+  {"role":"tool","tool_call_id":"call_1","content":"{\"quantity\":3}"}
+]

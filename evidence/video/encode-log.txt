@@ -1,0 +1,65 @@
+Input #0, image2, from 'frames/frame-%05d.png':
+  Duration: 00:01:52.00, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: png, rgb24(pc, gbr/unknown/unknown), 1600x780, 2 fps, 2 tbr, 2 tbn
+[Parsed_ass_1 @ 000002af56b0afc0] libass API version: 0x1703000
+[Parsed_ass_1 @ 000002af56b0afc0] libass source: commit: 0.17.3-32-g5298859c298d3c570d8d7e3b883a0d63490659b8
+[Parsed_ass_1 @ 000002af56b0afc0] Shaper: FriBidi 1.0.16 (SIMPLE) HarfBuzz-ng 10.0.1 (COMPLEX)
+[Parsed_ass_1 @ 000002af56b0afc0] Using font provider directwrite (with GDI)
+[Parsed_ass_1 @ 000002af56b0afc0] Added subtitle file: 'captions.ass' (3 styles, 12 events)
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))
+Press [q] to stop, [?] for help
+[Parsed_ass_1 @ 000002af54b42180] libass API version: 0x1703000
+[Parsed_ass_1 @ 000002af54b42180] libass source: commit: 0.17.3-32-g5298859c298d3c570d8d7e3b883a0d63490659b8
+[Parsed_ass_1 @ 000002af54b42180] Shaper: FriBidi 1.0.16 (SIMPLE) HarfBuzz-ng 10.0.1 (COMPLEX)
+[Parsed_ass_1 @ 000002af54b42180] Using font provider directwrite (with GDI)
+[Parsed_ass_1 @ 000002af54b42180] Added subtitle file: 'captions.ass' (3 styles, 12 events)
+[Parsed_ass_1 @ 000002af54b42180] fontselect: (Arial, 400, 0) -> ArialMT, 0, ArialMT
+[libx264 @ 000002af54b20940] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+[libx264 @ 000002af54b20940] profile High, level 4.0, 4:2:0, 8-bit
+[libx264 @ 000002af54b20940] 264 - core 164 r3192 c24e06c - H.264/MPEG-4 AVC codec - Copyleft 2003-2024 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=12 lookahead_threads=2 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=20.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+Output #0, mp4, to 'patchcourt-offline-demo.mp4':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(tv, progressive), 1600x900, q=2-31, 30 fps, 15360 tbn
+      Metadata:
+        encoder         : Lavc61.19.100 libx264
+      Side data:
+        cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+frame=  134 fps=0.0 q=26.0 size=       0KiB time=00:00:04.40 bitrate=   0.1kbits/s speed=8.43x    
+frame=  320 fps=312 q=26.0 size=     256KiB time=00:00:10.60 bitrate= 197.9kbits/s speed=10.3x    
+frame=  518 fps=336 q=26.0 size=     256KiB time=00:00:17.20 bitrate= 121.9kbits/s speed=11.2x    
+frame=  733 fps=356 q=26.0 size=     256KiB time=00:00:24.36 bitrate=  86.1kbits/s speed=11.8x    
+frame=  942 fps=366 q=26.0 size=     256KiB time=00:00:31.33 bitrate=  66.9kbits/s speed=12.2x    
+frame= 1154 fps=373 q=26.0 size=     512KiB time=00:00:38.40 bitrate= 109.2kbits/s speed=12.4x    
+frame= 1348 fps=374 q=26.0 size=     512KiB time=00:00:44.86 bitrate=  93.5kbits/s speed=12.4x    
+frame= 1558 fps=378 q=26.0 size=     768KiB time=00:00:51.86 bitrate= 121.3kbits/s speed=12.6x    
+frame= 1774 fps=382 q=26.0 size=     768KiB time=00:00:59.06 bitrate= 106.5kbits/s speed=12.7x    
+frame= 1980 fps=384 q=26.0 size=    1024KiB time=00:01:05.93 bitrate= 127.2kbits/s speed=12.8x    
+frame= 2186 fps=385 q=26.0 size=    1024KiB time=00:01:12.80 bitrate= 115.2kbits/s speed=12.8x    
+frame= 2390 fps=386 q=26.0 size=    1024KiB time=00:01:19.60 bitrate= 105.4kbits/s speed=12.9x    
+frame= 2572 fps=384 q=26.0 size=    1280KiB time=00:01:25.66 bitrate= 122.4kbits/s speed=12.8x    
+frame= 2770 fps=383 q=26.0 size=    1280KiB time=00:01:32.26 bitrate= 113.7kbits/s speed=12.8x    
+frame= 2966 fps=383 q=26.0 size=    1536KiB time=00:01:38.80 bitrate= 127.4kbits/s speed=12.8x    
+frame= 3158 fps=382 q=26.0 size=    1792KiB time=00:01:45.20 bitrate= 139.5kbits/s speed=12.7x    
+[mp4 @ 000002af54b422c0] Starting second pass: moving the moov atom to the beginning of the file
+[out#0/mp4 @ 000002af54b20080] video:1823KiB audio:0KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 2.203066%
+frame= 3360 fps=388 q=-1.0 Lsize=    1863KiB time=00:01:51.93 bitrate= 136.4kbits/s speed=12.9x    
+[libx264 @ 000002af54b20940] frame I:16    Avg QP:10.12  size: 84513
+[libx264 @ 000002af54b20940] frame P:846   Avg QP:10.53  size:   382
+[libx264 @ 000002af54b20940] frame B:2498  Avg QP:10.71  size:    76
+[libx264 @ 000002af54b20940] consecutive B-frames:  0.8%  0.0%  0.4% 98.8%
+[libx264 @ 000002af54b20940] mb I  I16..4: 60.9% 22.1% 17.0%
+[libx264 @ 000002af54b20940] mb P  I16..4:  0.1%  0.2%  0.1%  P16..4:  0.1%  0.0%  0.0%  0.0%  0.0%    skip:99.5%
+[libx264 @ 000002af54b20940] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  0.5%  0.0%  0.0%  direct: 0.0%  skip:99.5%  L0:62.3% L1:37.7% BI: 0.0%
+[libx264 @ 000002af54b20940] 8x8 transform intra:26.3% inter:4.3%
+[libx264 @ 000002af54b20940] coded y,uvDC,uvAC intra: 11.3% 15.7% 14.3% inter: 0.0% 0.0% 0.0%
+[libx264 @ 000002af54b20940] i16 v,h,dc,p: 69% 29%  3%  0%
+[libx264 @ 000002af54b20940] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 49% 22% 29%  0%  0%  0%  0%  0%  0%
+[libx264 @ 000002af54b20940] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 37% 30% 15%  2%  3%  3%  4%  2%  4%
+[libx264 @ 000002af54b20940] i8c dc,h,v,p: 69% 22%  8%  1%
+[libx264 @ 000002af54b20940] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 000002af54b20940] ref P L0: 79.2%  1.5% 18.2%  1.0%
+[libx264 @ 000002af54b20940] ref B L0: 46.7% 53.1%  0.2%
+[libx264 @ 000002af54b20940] ref B L1: 99.6%  0.4%
+[libx264 @ 000002af54b20940] kb/s:133.30

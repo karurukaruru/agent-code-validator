@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "agent-code-validator"
-version = "0.2.0"
-description = "A lightweight, read-only agentic source code review CLI"
+version = "0.3.0"
+description = "PatchCourt compatibility evidence and ACV source review"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
@@ -25,9 +25,13 @@ classifiers = [
 
 [project.scripts]
 acv = "acv.cli:main"
+patchcourt = "patchcourt.cli:main"
 
 [tool.setuptools.packages.find]
-include = ["acv*"]
+include = ["acv*", "patchcourt*"]
+
+[tool.setuptools.package-data]
+patchcourt = ["web/*.html", "fixtures/*.txt", "fixtures/*LICENSE"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

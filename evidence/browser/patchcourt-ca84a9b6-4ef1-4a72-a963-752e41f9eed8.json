@@ -1,0 +1,1457 @@
+{
+  "schema_version": "1.0",
+  "run_id": "ca84a9b6-4ef1-4a72-a963-752e41f9eed8",
+  "created_at": "2026-10-24T13:25:12.122787+00:00",
+  "mode": "offline",
+  "environment": {
+    "python": "3.13.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "patchcourt": "0.3.0"
+  },
+  "summary": {
+    "pass": 3,
+    "fail": 11,
+    "inconclusive": 1,
+    "needs_review": 1
+  },
+  "cases": [
+    {
+      "id": "langchain-nvidia-387",
+      "title": "Normalized tool calls disappear at the NVIDIA adapter",
+      "status": "FAIL",
+      "findings": [
+        {
+          "code": "ORPHAN_RESULT",
+          "path": "/1/tool_call_id",
+          "message": "Tool result lacks an earlier unmatched call"
+        },
+        {
+          "code": "ORPHAN_RESULT",
+          "path": "/2/tool_call_id",
+          "message": "Tool result lacks an earlier unmatched call"
+        },
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/tool_calls/0",
+          "expected": {
+            "id": "call_a",
+            "name": "inventory",
+            "args": {
+              "sku": "A",
+              "options": {
+                "warehouse": 2
+              }
+            }
+          },
+          "actual": null,
+          "message": "Observable message semantics changed"
+        },
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/tool_calls/1",
+          "expected": {
+            "id": "call_b",
+            "name": "price",
+            "args": {
+              "sku": "A"
+            }
+          },
+          "actual": null,
+          "message": "Observable message semantics changed"
+        }
+      ],
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": ""
+        },
+        {
+          "role": "tool",
+          "content": "{\"quantity\":3}",
+          "tool_call_id": "call_a"
+        },
+        {
+          "role": "tool",
+          "content": "{\"price\":7}",
+          "tool_call_id": "call_b"
+        }
+      ],
+      "provenance": {
+        "file": "nvidia_utils.py.txt",
+        "sha256": "ea569d556ed537e15bf5eea3db555adc9b4fb003a92543c70f1c719a9c47c873",
+        "git_blob": "8c23b708e8511c70e771f48fe71b4309d201f61b",
+        "version": "upstream source blob (not a verified 1.4.3 wheel)",
+        "url": "https://github.com/langchain-ai/langchain-nvidia/issues/387",
+        "kind": "audited upstream function execution with inert LangChain stubs",
+        "full_sdk_verified": false
+      },
+      "repair": {
+        "status": "VERIFIED",
+        "origin": "reviewed deterministic source patch, not model-generated",
+        "before": [
+          {
+            "role": "assistant",
+            "content": ""
+          },
+          {
+            "role": "tool",
+            "content": "{\"quantity\":3}",
+            "tool_call_id": "call_a"
+          },
+          {
+            "role": "tool",
+            "content": "{\"price\":7}",
+            "tool_call_id": "call_b"
+          }
+        ],
+        "after": [
+          {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_a",
+                "type": "function",
+                "function": {
+                  "name": "inventory",
+                  "arguments": "{\"sku\": \"A\", \"options\": {\"warehouse\": 2}}"
+                }
+              },
+              {
+                "id": "call_b",
+                "type": "function",
+                "function": {
+                  "name": "price",
+                  "arguments": "{\"sku\": \"A\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "content": "{\"quantity\":3}",
+            "tool_call_id": "call_a"
+          },
+          {
+            "role": "tool",
+            "content": "{\"price\":7}",
+            "tool_call_id": "call_b"
+          }
+        ],
+        "controls": {
+          "plain_text": true,
+          "legacy": true,
+          "empty_tool_result": true
+        },
+        "diff": "--- a/nvidia_utils.py.txt\n+++ b/nvidia_utils.py.txt\n@@ -140,7 +140,15 @@\n             # If function call only, content is None not empty string\n             if message_dict[\"content\"] == \"\":\n                 message_dict[\"content\"] = None\n-        if \"tool_calls\" in message.additional_kwargs:\n+        if message.tool_calls:\n+            message_dict[\"tool_calls\"] = [\n+                {\"id\": c[\"id\"], \"type\": \"function\", \"function\": {\n+                    \"name\": c[\"name\"], \"arguments\": json.dumps(c[\"args\"], ensure_ascii=False)\n+                }} for c in message.tool_calls\n+            ]\n+            if message_dict[\"content\"] == \"\":\n+                message_dict[\"content\"] = None\n+        elif \"tool_calls\" in message.additional_kwargs:\n             message_dict[\"tool_calls\"] = message.additional_kwargs[\"tool_calls\"]\n             # If tool calls only, content is None not empty string\n             if message_dict[\"content\"] == \"\":\n",
+        "scope": "source-boundary harness only"
+      },
+      "task_replay": {
+        "before": {
+          "status": "FAIL",
+          "reason": "Cannot associate tool results with requests",
+          "kind": "deterministic task simulation"
+        },
+        "after": {
+          "status": "PASS",
+          "inventory_value": 21,
+          "kind": "deterministic task simulation"
+        }
+      },
+      "execution": true,
+      "duration_ms": 15.341
+    },
+    {
+      "id": "crewai-8434",
+      "title": "Gemini formatter silently removes a vision observation",
+      "status": "FAIL",
+      "baseline": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Describe this image"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jS9sAAAAASUVORK5CYII="
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "text": "Describe this image",
+        "image_count": 0
+      },
+      "findings": [
+        {
+          "code": "LOST_IMAGE",
+          "path": "/0/content/1",
+          "expected": 1,
+          "actual": 0,
+          "message": "Upstream formatter lost the input image bytes"
+        }
+      ],
+      "provenance": {
+        "file": "crewai_gemini.py.txt",
+        "sha256": "715e68f80b32cbd97011bf8c616b3746149454083a32b163cf2010f136a63383",
+        "git_blob": "1129d411257ce66d199f49ecb230c797374def24",
+        "version": "1.15.28 tag source",
+        "url": "https://github.com/crewAIInc/crewAI/issues/8434",
+        "kind": "audited upstream method with inert Gemini types and identity base formatter",
+        "full_sdk_verified": false
+      },
+      "repair": {
+        "status": "VERIFIED",
+        "origin": "reviewed deterministic source patch, not model-generated",
+        "before": {
+          "image_count": 0
+        },
+        "after": {
+          "image_count": 1,
+          "bytes_preserved": true
+        },
+        "controls": {
+          "plain_text": true,
+          "remote_url_explicitly_rejected": true
+        },
+        "diff": "--- a/crewai_gemini.py.txt\n+++ b/crewai_gemini.py.txt\n@@ -591,6 +591,16 @@\n                     if isinstance(item, dict):\n                         if \"text\" in item:\n                             parts.append(types.Part.from_text(text=str(item[\"text\"])))\n+                        elif item.get(\"type\") == \"image_url\":\n+                            image = item.get(\"image_url\", {})\n+                            url = image.get(\"url\", \"\") if isinstance(image, dict) else image\n+                            if not isinstance(url, str) or not url.startswith(\"data:image/\") or \";base64,\" not in url:\n+                                raise ValueError(\"Unsupported image_url: provide an image data URI\")\n+                            header, encoded = url.split(\",\", 1)\n+                            parts.append(types.Part.from_bytes(\n+                                data=base64.b64decode(encoded, validate=True),\n+                                mime_type=header[5:].split(\";\")[0],\n+                            ))\n                         elif \"inlineData\" in item:\n                             inline = item[\"inlineData\"]\n                             parts.append(\n",
+        "scope": "source-boundary harness only"
+      },
+      "task_replay": {
+        "before": {
+          "status": "FAIL",
+          "reason": "No image supplied to vision task"
+        },
+        "after": {
+          "status": "INCONCLUSIVE",
+          "reason": "Image restored; real vision task requires model inference"
+        }
+      },
+      "execution": true,
+      "duration_ms": 47.221
+    },
+    {
+      "id": "unchanged-tool-workflow",
+      "title": "Unchanged Tool Workflow",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "expected_status": "PASS",
+      "provenance": "negative control",
+      "status": "PASS",
+      "findings": [],
+      "execution": true,
+      "duration_ms": 0.104
+    },
+    {
+      "id": "json-formatting-equivalence",
+      "title": "Json Formatting Equivalence",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": null,
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{ \"options\": {\"warehouse\": 2}, \"sku\": \"A\" }"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "expected_status": "PASS",
+      "provenance": "negative control",
+      "status": "PASS",
+      "findings": [],
+      "execution": true,
+      "duration_ms": 0.06
+    },
+    {
+      "id": "dropped-tool-calls",
+      "title": "Dropped Tool Calls",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": ""
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "expected_status": "FAIL",
+      "provenance": "controlled mutation",
+      "status": "FAIL",
+      "findings": [
+        {
+          "code": "ORPHAN_RESULT",
+          "path": "/1/tool_call_id",
+          "message": "Tool result lacks an earlier unmatched call"
+        },
+        {
+          "code": "ORPHAN_RESULT",
+          "path": "/2/tool_call_id",
+          "message": "Tool result lacks an earlier unmatched call"
+        },
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/tool_calls/0",
+          "expected": {
+            "id": "call_a",
+            "name": "inventory",
+            "args": {
+              "sku": "A",
+              "options": {
+                "warehouse": 2
+              }
+            }
+          },
+          "actual": null,
+          "message": "Observable message semantics changed"
+        },
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/tool_calls/1",
+          "expected": {
+            "id": "call_b",
+            "name": "price",
+            "args": {
+              "sku": "A"
+            }
+          },
+          "actual": null,
+          "message": "Observable message semantics changed"
+        }
+      ],
+      "execution": true,
+      "duration_ms": 0.041
+    },
+    {
+      "id": "missing-call-id",
+      "title": "Missing Call Id",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "expected_status": "FAIL",
+      "provenance": "controlled mutation",
+      "status": "FAIL",
+      "findings": [
+        {
+          "code": "MISSING_ID",
+          "path": "/0/tool_calls",
+          "message": "Tool call has no non-empty identifier"
+        },
+        {
+          "code": "ORPHAN_RESULT",
+          "path": "/1/tool_call_id",
+          "message": "Tool result lacks an earlier unmatched call"
+        },
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/tool_calls/0/id",
+          "expected": "call_a",
+          "actual": null,
+          "message": "Observable message semantics changed"
+        }
+      ],
+      "execution": true,
+      "duration_ms": 0.075
+    },
+    {
+      "id": "duplicate-call-id",
+      "title": "Duplicate Call Id",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "expected_status": "FAIL",
+      "provenance": "controlled mutation",
+      "status": "FAIL",
+      "findings": [
+        {
+          "code": "DUPLICATE_ID",
+          "path": "/0/tool_calls",
+          "message": "Duplicate tool call identifier call_a"
+        },
+        {
+          "code": "ORPHAN_RESULT",
+          "path": "/2/tool_call_id",
+          "message": "Tool result lacks an earlier unmatched call"
+        },
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/tool_calls/1/id",
+          "expected": "call_b",
+          "actual": "call_a",
+          "message": "Observable message semantics changed"
+        }
+      ],
+      "execution": true,
+      "duration_ms": 0.096
+    },
+    {
+      "id": "nested-argument-corruption",
+      "title": "Nested Argument Corruption",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":9}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "expected_status": "FAIL",
+      "provenance": "controlled mutation",
+      "status": "FAIL",
+      "findings": [
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/tool_calls/0/args/options/warehouse",
+          "expected": 2,
+          "actual": 9,
+          "message": "Observable message semantics changed"
+        }
+      ],
+      "execution": true,
+      "duration_ms": 0.118
+    },
+    {
+      "id": "orphan-tool-result",
+      "title": "Orphan Tool Result",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_z",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "expected_status": "FAIL",
+      "provenance": "controlled mutation",
+      "status": "FAIL",
+      "findings": [
+        {
+          "code": "ORPHAN_RESULT",
+          "path": "/1/tool_call_id",
+          "message": "Tool result lacks an earlier unmatched call"
+        },
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/1/tool_call_id",
+          "expected": "call_a",
+          "actual": "call_z",
+          "message": "Observable message semantics changed"
+        }
+      ],
+      "execution": true,
+      "duration_ms": 0.178
+    },
+    {
+      "id": "invalid-role-conversion",
+      "title": "Invalid Role Conversion",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "user",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "expected_status": "FAIL",
+      "provenance": "controlled mutation",
+      "status": "FAIL",
+      "findings": [
+        {
+          "code": "INVALID_CANDIDATE",
+          "path": "",
+          "message": "Only assistant messages may contain tool calls"
+        }
+      ],
+      "execution": true,
+      "duration_ms": 0.063
+    },
+    {
+      "id": "truncated-arguments",
+      "title": "Truncated Arguments",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"unfinished\":"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "expected_status": "FAIL",
+      "provenance": "controlled mutation",
+      "status": "FAIL",
+      "findings": [
+        {
+          "code": "INVALID_CANDIDATE",
+          "path": "",
+          "message": "Invalid JSON tool arguments"
+        }
+      ],
+      "execution": true,
+      "duration_ms": 0.201
+    },
+    {
+      "id": "image-control",
+      "title": "Image Control",
+      "baseline": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Count items"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,aW1hZ2U=",
+                "detail": "high"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Count items"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,aW1hZ2U=",
+                "detail": "high"
+              }
+            }
+          ]
+        }
+      ],
+      "expected_status": "PASS",
+      "provenance": "negative control",
+      "status": "PASS",
+      "findings": [],
+      "execution": true,
+      "duration_ms": 0.049
+    },
+    {
+      "id": "lost-image-reference",
+      "title": "Lost Image Reference",
+      "baseline": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Count items"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,aW1hZ2U=",
+                "detail": "high"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Count items"
+            }
+          ]
+        }
+      ],
+      "expected_status": "FAIL",
+      "provenance": "controlled mutation",
+      "status": "FAIL",
+      "findings": [
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/content/1",
+          "expected": {
+            "type": "image_url",
+            "url": "data:image/png;base64,aW1hZ2U=",
+            "detail": "high"
+          },
+          "actual": null,
+          "message": "Observable message semantics changed"
+        }
+      ],
+      "execution": true,
+      "duration_ms": 0.018
+    },
+    {
+      "id": "lost-image-detail",
+      "title": "Lost Image Detail",
+      "baseline": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Count items"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,aW1hZ2U=",
+                "detail": "high"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Count items"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,aW1hZ2U=",
+                "detail": "low"
+              }
+            }
+          ]
+        }
+      ],
+      "expected_status": "FAIL",
+      "provenance": "controlled mutation",
+      "status": "FAIL",
+      "findings": [
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/content/1/detail",
+          "expected": "high",
+          "actual": "low",
+          "message": "Observable message semantics changed"
+        }
+      ],
+      "execution": true,
+      "duration_ms": 0.018
+    },
+    {
+      "id": "unsupported-audio-abstention",
+      "title": "Unsupported Audio Abstention",
+      "baseline": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "audio",
+              "data": "opaque"
+            }
+          ]
+        }
+      ],
+      "candidate": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "audio",
+              "data": "opaque"
+            }
+          ]
+        }
+      ],
+      "expected_status": "INCONCLUSIVE",
+      "provenance": "negative control",
+      "status": "INCONCLUSIVE",
+      "findings": [
+        {
+          "code": "BASELINE_UNSUPPORTED",
+          "path": "",
+          "message": "Unsupported content part type: audio"
+        }
+      ],
+      "execution": true,
+      "duration_ms": 0.022
+    },
+    {
+      "id": "invalid-baseline-abstention",
+      "title": "Invalid Baseline Abstention",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "missing",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "missing",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "expected_status": "NEEDS_REVIEW",
+      "provenance": "negative control",
+      "status": "NEEDS_REVIEW",
+      "findings": [
+        {
+          "code": "ORPHAN_RESULT",
+          "path": "/1/tool_call_id",
+          "message": "Invalid baseline: Tool result lacks an earlier unmatched call"
+        }
+      ],
+      "execution": true,
+      "duration_ms": 0.059
+    }
+  ],
+  "knowledge": {
+    "record_id": "146f309fbb6b55e82db7f79db9b06539e4117271e351740072adfd0d3757d90f",
+    "prior_run_hit": false,
+    "reused": true,
+    "lookup_ms": 0.134,
+    "verification_skipped": false,
+    "benefit": "retrieves scoped prior evidence; no model token savings measured"
+  },
+  "lab": {
+    "status": "BLOCKED",
+    "live_requests": 0,
+    "reason": "No Nebius credentials; mocked client tests are not platform experiments"
+  },
+  "limitations": [
+    "No Nebius/Nemotron or Tavily credentials: no live model or search claims.",
+    "Historical reproductions execute hash-pinned upstream functions with inert SDK stubs; full SDK environments are not validated.",
+    "NVIDIA snapshot is an upstream blob, not a verified release wheel; CrewAI snapshot comes from tag 1.15.28.",
+    "Task recovery is a deterministic tool-protocol simulation, not a stochastic model outcome.",
+    "Repair candidates are reviewed deterministic patches, not Nemotron-generated.",
+    "The runner does not execute arbitrary repositories or model-generated Python; container execution is not implemented.",
+    "Local knowledge is integrity-checked, not cryptographically authenticated against malicious writers."
+  ],
+  "acceptance_gates": [
+    {
+      "id": 1,
+      "title": "Real NVIDIA inference through Nebius",
+      "status": "BLOCKED",
+      "evidence": "No credentials supplied"
+    },
+    {
+      "id": 2,
+      "title": "Product end to end",
+      "status": "PASS",
+      "evidence": "Offline detection, reproduction, repair verification, reports and viewer; live path excluded"
+    },
+    {
+      "id": 3,
+      "title": "Authentic compatibility defect",
+      "status": "PASS",
+      "evidence": "Pinned upstream source-boundary reproduction; full SDK remains unverified"
+    },
+    {
+      "id": 4,
+      "title": "Nemotron-generated test executes",
+      "status": "BLOCKED",
+      "evidence": "No real inference"
+    },
+    {
+      "id": 5,
+      "title": "Repair independently verified",
+      "status": "PASS",
+      "evidence": "Fixed deterministic assertions and negative controls; source-boundary scope"
+    },
+    {
+      "id": 6,
+      "title": "Normal behavior controls",
+      "status": "PASS",
+      "evidence": "See recorded control cases"
+    },
+    {
+      "id": 7,
+      "title": "ASM save and reuse",
+      "status": "PASS",
+      "evidence": "Exact source/version/environment key; contract rerun"
+    },
+    {
+      "id": 8,
+      "title": "Documented CLI",
+      "status": "INCONCLUSIVE",
+      "evidence": "See TESTING.md for separately executed CLI smoke checks"
+    },
+    {
+      "id": 9,
+      "title": "Evidence demo interface",
+      "status": "INCONCLUSIVE",
+      "evidence": "Static evidence viewer; browser verification recorded separately"
+    },
+    {
+      "id": 10,
+      "title": "Real reliability experiments",
+      "status": "BLOCKED",
+      "evidence": "Live credentials unavailable"
+    },
+    {
+      "id": 11,
+      "title": "Reproducible platform feedback",
+      "status": "BLOCKED",
+      "evidence": "No observed platform findings; preparation is not feedback evidence"
+    },
+    {
+      "id": 12,
+      "title": "English Devpost materials",
+      "status": "INCONCLUSIVE",
+      "evidence": "Draft prepared; authenticated form not inspected"
+    },
+    {
+      "id": 13,
+      "title": "Demo video",
+      "status": "BLOCKED",
+      "evidence": "Script prepared; real video recording and public YouTube URL missing"
+    },
+    {
+      "id": 14,
+      "title": "Public judge-accessible release",
+      "status": "BLOCKED",
+      "evidence": "Local build only until branch/release publication confirmed"
+    },
+    {
+      "id": 15,
+      "title": "No exposed credentials",
+      "status": "INCONCLUSIVE",
+      "evidence": "Redaction tested; release scan required"
+    },
+    {
+      "id": 16,
+      "title": "Official requirements checked",
+      "status": "PASS",
+      "evidence": "COMPETITION_AUDIT.md; entrant eligibility and private fields remain unverified"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "probe": "invalid_model_error",
+  "attempt": 1,
+  "model": null,
+  "parameters": {
+    "model": "patchcourt-intentionally-nonexistent-model",
+    "temperature": 0,
+    "max_tokens": 256,
+    "messages": [
+      {
+        "role": "user",
+        "content": "Return exactly {\"ok\":true}."
+      }
+    ]
+  },
+  "status": "BLOCKED",
+  "reason": "Missing NEBIUS_API_KEY",
+  "request": {
+    "status": "BLOCKED",
+    "reason": "Missing NEBIUS_API_KEY",
+    "provenance": "not executed",
+    "latency_ms": null,
+    "usage": null,
+    "cost_usd": null
+  }
+}

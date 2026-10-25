@@ -1,0 +1,70 @@
+{
+  "identity": {
+    "software": "langchain-nvidia-ai-endpoints",
+    "version": "upstream source blob (not a verified 1.4.3 wheel)",
+    "boundary": "convert_message_to_dict",
+    "source_sha256": "ea569d556ed537e15bf5eea3db555adc9b4fb003a92543c70f1c719a9c47c873",
+    "environment": {
+      "python": "3.13.14",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "patchcourt": "0.3.0"
+    }
+  },
+  "evidence_level": "verified",
+  "scope": "this exact execution environment only",
+  "verified_at": "2026-10-24T13:33:10.027517+00:00",
+  "evidence": {
+    "status": "FAIL",
+    "execution": true,
+    "run_id": "629024a1-fac0-4598-bbf9-23a85339b12f",
+    "findings": [
+      {
+        "code": "ORPHAN_RESULT",
+        "path": "/1/tool_call_id",
+        "message": "Tool result lacks an earlier unmatched call"
+      },
+      {
+        "code": "ORPHAN_RESULT",
+        "path": "/2/tool_call_id",
+        "message": "Tool result lacks an earlier unmatched call"
+      },
+      {
+        "code": "SEMANTIC_CHANGE",
+        "path": "/0/tool_calls/0",
+        "expected": {
+          "id": "call_a",
+          "name": "inventory",
+          "args": {
+            "sku": "A",
+            "options": {
+              "warehouse": 2
+            }
+          }
+        },
+        "actual": null,
+        "message": "Observable message semantics changed"
+      },
+      {
+        "code": "SEMANTIC_CHANGE",
+        "path": "/0/tool_calls/1",
+        "expected": {
+          "id": "call_b",
+          "name": "price",
+          "args": {
+            "sku": "A"
+          }
+        },
+        "actual": null,
+        "message": "Observable message semantics changed"
+      }
+    ],
+    "scope": "upstream function with inert SDK types"
+  },
+  "revalidation_triggers": [
+    "source hash",
+    "dependency version",
+    "environment",
+    "contract change"
+  ],
+  "integrity": "2ba1fb982939f2144d0538bede0c0e2df5f02f586a07cd92eff8d4af0bb7fef2"
+}

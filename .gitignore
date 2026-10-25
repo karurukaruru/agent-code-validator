@@ -14,3 +14,11 @@ self_review.md
 outputs/
 .env
 .DS_Store
+.test-deps/
+.env.*
+!*.example
+evidence/private/
+.local-tmp/
+.sdk-nvidia/
+.video-deps/
+*.crdownload

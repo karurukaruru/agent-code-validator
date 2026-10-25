@@ -1,0 +1,19 @@
+--- a/crewai_gemini.py.txt
++++ b/crewai_gemini.py.txt
+@@ -591,6 +591,16 @@
+                     if isinstance(item, dict):
+                         if "text" in item:
+                             parts.append(types.Part.from_text(text=str(item["text"])))
++                        elif item.get("type") == "image_url":
++                            image = item.get("image_url", {})
++                            url = image.get("url", "") if isinstance(image, dict) else image
++                            if not isinstance(url, str) or not url.startswith("data:image/") or ";base64," not in url:
++                                raise ValueError("Unsupported image_url: provide an image data URI")
++                            header, encoded = url.split(",", 1)
++                            parts.append(types.Part.from_bytes(
++                                data=base64.b64decode(encoded, validate=True),
++                                mime_type=header[5:].split(";")[0],
++                            ))
+                         elif "inlineData" in item:
+                             inline = item["inlineData"]
+                             parts.append(

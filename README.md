@@ -1,120 +1,76 @@
-# Agent Code Validator (ACV)
+# PatchCourt — AI Agent Compatibility Guardian
 
-[简体中文](README.zh-CN.md) · [Detailed usage](使用说明.md) · [Changelog](CHANGELOG.md)
+**Catch silent AI agent regressions before they reach production.**
 
-ACV is a small Python CLI that reviews a local source-code project with an OpenAI-compatible LLM. v0.2 adds a read-only Reviewer Agent that explores code incrementally with bounded tools instead of sending the whole project in one request.
+An agent can execute its tools, then fail on the next request because an SDK adapter silently removed their identifiers. PatchCourt compares message semantics, reproduces failures, verifies scoped repairs, and exports evidence that developers can inspect.
 
-ACV analyzes code only. It does not edit project files, run shell commands or tests, install packages, or integrate with pull requests.
+**Working offline developer build; not submission-ready.** NVIDIA SDK 1.4.3 was actually installed and its serialization defect reproduced and repaired locally. No real Nebius/Nemotron or Tavily calls have occurred. Their integrations are implemented and tested with explicit mocks. See [acceptance gates](FINAL_REVIEW.md).
 
-## What's new in v0.2
+[Download the offline test build](release/README.md) · [Inspect the real browser screenshot](evidence/browser/desktop-repair.png)
 
-- Added an evidence-driven, read-only Reviewer Agent with `list_files`, `read_file`, and `search_code` tools.
-- Added native model Tool Calling with strict JSON fallback for compatible providers that do not support tools.
-- Added detailed findings to both the terminal and Markdown report, including evidence, impact, confidence, and suggested fixes.
-- Added Chinese/English report selection through `report_language` and `--language`.
-- Added dedicated Volcengine Ark Coding Plan and Agent Plan provider presets, while retaining generic OpenAI-compatible APIs.
-- Hardened project isolation against absolute paths, traversal, ignored directories, symbolic links, and Windows reparse-point escapes.
-- Removed artificial response-token parameters from API requests; investigation remains bounded by agent steps and tool-output limits.
-- Replaced the Chinese Windows launcher name with the portable English `Start-ACV.cmd`.
+## Run the demonstration
 
-## Review modes
-
-- `acv agent <project>` — the v0.2 Reviewer Agent lists project source files, chooses what to read or search next, follows evidence, and stops autonomously.
-- `acv review <project>` — the original v0.1 snapshot review flow, kept compatible.
-
-## What it reviews
-
-- Bugs and runtime failures
-- Security and performance risks
-- Architecture and error handling
-- Maintainability and testability
-- Code smells, unnecessary complexity, and refactoring opportunities
-
-Supported files: Python, JavaScript, TypeScript, Java, C, C++, headers, and Go.
-
-## Quick start
-
-Requires Python 3.10+ and an OpenAI-compatible API.
+Python 3.10+; these commands require no extra packages or API keys:
 
 ```bash
-python -m venv .venv
-.venv/bin/python -m pip install -e .       # macOS/Linux
-.venv\Scripts\python -m pip install -e .  # Windows
+python -m patchcourt demo --output outputs/patchcourt
+python -m patchcourt serve outputs/patchcourt --port 8765
 ```
 
-For Volcengine Ark Coding Plan, copy `config.example.json` to `config.json`:
+Open <http://127.0.0.1:8765>. The first case shows missing calls, a reviewed repair, and deterministic inventory-task recovery to **21**. The second shows CrewAI/Gemini image loss. The viewer displays provenance and limits beside results. Alternatively open exported `index.html` and select `report.json` with **Open evidence**.
 
-```json
-{
-  "provider": "volcengine-coding-plan",
-  "api_key": "your-coding-plan-api-key",
-  "model": "ark-code-latest",
-  "report_language": "zh-CN",
-  "timeout": 120
-}
-```
+Red **FAIL** is the historical defect's compatibility verdict. The demo command succeeds when it reproduces expected failures and controls; repair verification has its own result. The bundled demo uses audited source functions with inert SDK types. The stronger, separately executed installed-SDK result is [here](evidence/full-sdk/README.md).
 
-The provider preset automatically uses the Coding Plan OpenAI-compatible gateway. Do not replace it with the standard Ark `/api/v3` gateway, which does not consume the Coding Plan subscription quota.
-
-For Volcengine Ark Agent Plan, copy `config.volcengine-agent-plan.example.json` instead and enter a model ID currently enabled in the Agent Plan console. Its preset uses the separate Agent Plan gateway. Coding Plan, Agent Plan, and standard Ark API keys are not interchangeable.
-
-For another OpenAI-compatible provider, start from `config.openai-compatible.example.json`. `config.json` is ignored by Git.
-
-Set `report_language` to `zh-CN` or `en`. Explanatory prose follows that setting; file paths, code identifiers, severity/category values, and established technical terms remain in English. A single run can override it with `--language en` or `--language zh-CN`.
-
-Run the v0.2 Reviewer Agent:
+## Use in a project
 
 ```bash
-acv agent /path/to/project
+python -m pip install -e .
+patchcourt --help
+patchcourt inspect ./my-agent --dependency langchain-nvidia-ai-endpoints --from-version 1.4.2 --to-version 1.4.3
+patchcourt check baseline-messages.json candidate-messages.json --output outputs/upgrade
+patchcourt verify outputs/upgrade
 ```
 
-The default investigation limit is 15 model steps. It can be changed explicitly:
+`inspect` reuses ACV's bounded read-only tools and returns candidate boundaries, never a defect based on version alone. `check` compares JSON message arrays: **exit 0 PASS**, **1 FAIL**, **2 INCONCLUSIVE/NEEDS_REVIEW/input error**. [Example traces](examples/upgrade) and `patchcourt.recorder.BoundaryRecorder` provide an explicit recording interface. Project code is not automatically imported.
+
+Supported: OpenAI-style and normalized LangChain calls, IDs, nested arguments, tool-result linkage, roles, text, image references/detail, and single-choice streaming reconstruction. Unknown semantic fields abstain. The Gemini historical case has a dedicated harness; generic Gemini trace coverage is not claimed.
+
+## Evidence and knowledge
+
+- Two credited upstream defects: [LangChain NVIDIA #387](https://github.com/langchain-ai/langchain-nvidia/issues/387), [CrewAI #8434](https://github.com/crewAIInc/crewAI/issues/8434).
+- Hash-pinned source, reviewed repair diffs, negative controls, counterexample minimization, JSON/Markdown reports and exported regression tests.
+- Real installed NVIDIA SDK reproduction, with exact dependencies, clean child environment and independent assertions.
+- ASM-derived version/source/environment-scoped observations. Reuse retrieves prior evidence and still reruns verification.
+- Static evidence viewer and GitHub Actions integration; no public remote-code execution.
+
+These are historical known defects, not new discoveries. Read [reproduction scope](REPRODUCTION_GUIDE.md), [benchmark limits](BENCHMARK.md) and [security](SECURITY.md).
+
+## Nebius Reliability Lab
+
+Configure `NEBIUS_API_KEY`, an accessible `NEBIUS_MODEL`, and `TAVILY_API_KEY` locally. No secrets belong in source or the viewer.
 
 ```bash
-acv agent /path/to/project --max-steps 20 --output reports/agent-review.md
+python -m patchcourt lab --trials 3 --output outputs/lab-run-1
+python -m patchcourt feedback outputs/lab-run-1 --output outputs/feedback
+python -m patchcourt reason patchcourt/semantic.py outputs/patchcourt/minimal-counterexample.json --tavily --output outputs/reasoning.json
 ```
 
-Run the classic v0.1-compatible review:
+The lab discovers models through `https://api.tokenfactory.nebius.com/v1`, schedules repeated schema/tool/stream/error probes, preserves every trial, and records usage/latency without inventing cost. Use a new output directory for each lab run. Missing credentials produce BLOCKED records.
 
-```bash
-acv review /path/to/project
-```
+The feedback command turns recorded HTTP trials into counts, uncertainty, concrete reproductions, developer impact, recommendations and acceptance tests. Mocked/blocked runs cannot produce platform findings. Expected invalid-model errors remain positive contract evidence, not false bug reports. Drafts require technical review and the actual Devpost field remains unverified.
 
-Windows workspace launcher (defaults to v0.2 agent mode):
+Nemotron is wired for source inspection, protocol hypotheses, declarative tests, explanations and repair proposals. Its cases are evaluated by deterministic contracts; model-generated Python and repairs never execute. Tavily retrieves allowlisted official documentation for a paired comparison. **Neither model contribution nor Tavily benefit is live verified. No platform defect is claimed.**
 
-```powershell
-.\Start-ACV.cmd D:\path\to\project
-```
-
-Use classic review mode explicitly when needed:
-
-```powershell
-.\Start-ACV.cmd D:\path\to\project review
-```
-
-Findings are printed in the terminal. The Windows launcher stores reports in the workspace-level `acv_outputs` directory. A normal installed command stores them in `./outputs` unless `--output` is supplied.
-
-```bash
-acv review /path/to/project --output reports/review.md
-```
-
-## Tests
+## Test and package
 
 ```bash
 python -m pip install -r requirements.txt
 python -m pytest
+python -m patchcourt benchmark --output outputs/benchmark
+python -m unittest discover -s outputs/patchcourt -p test_regression.py
+python -m pip wheel --no-deps . --wheel-dir dist
 ```
 
-Tests use fake providers and a local OpenAI-compatible HTTP server. They do not require a real API key.
+Without pytest: `python -m unittest tests.test_patchcourt_core tests.test_patchcourt_adversarial tests.test_patchcourt_lab`.
 
-## Reviewer Agent safety
-
-The agent has only three inspection tools: `list_files`, `read_file`, and `search_code`. Every path is resolved against the requested project root. Absolute paths, `..` traversal, dependency/cache/build directories, symbolic links, oversized reads, and unsupported source types are rejected. Tool output, history size, repeated calls, and total steps are bounded. Native model tool calling is preferred; providers that reject it automatically use a strict JSON action fallback.
-
-## Privacy and limitations
-
-Source code selected by the snapshot reviewer or Reviewer Agent is sent to the API provider configured by the user. Check that provider's privacy and retention policy before reviewing private code. LLM findings can be incomplete or incorrect and should complement tests and human review.
-
-## License
-
-Released under the [MIT License](LICENSE).
+Original `acv agent` and `acv review` remain available; [original instructions](docs/ACV_README.md) are retained. See [architecture](ARCHITECTURE.md), [testing](TESTING.md), [competition changes](COMPETITION_CHANGELOG.md), [Devpost draft](DEVPOST_SUBMISSION.md) and [demo script](DEMO_SCRIPT.md). MIT license; upstream source and ASM attribution are retained. No award or final submission is claimed.

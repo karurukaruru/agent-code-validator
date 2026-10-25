@@ -1,0 +1,26 @@
+{
+  "dependency": "langchain-nvidia-ai-endpoints",
+  "baseline_version": "1.4.2",
+  "candidate_version": "1.4.3",
+  "discovered_dependencies": [],
+  "boundary_candidates": [
+    {
+      "query": "tool_calls",
+      "observation": "Search results for 'tool_calls': 0 match(es) shown\n(no matches found)"
+    },
+    {
+      "query": "image_url",
+      "observation": "Search results for 'image_url': 0 match(es) shown\n(no matches found)"
+    },
+    {
+      "query": "convert_message",
+      "observation": "Search results for 'convert_message': 0 match(es) shown\n(no matches found)"
+    },
+    {
+      "query": "format_messages",
+      "observation": "Search results for 'format_messages': 0 match(es) shown\n(no matches found)"
+    }
+  ],
+  "status": "NEEDS_REVIEW",
+  "reason": "Source matches identify inspection targets, not defects. Supply executed baseline/candidate traces for a verdict."
+}

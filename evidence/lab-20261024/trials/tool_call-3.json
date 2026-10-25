@@ -1,0 +1,53 @@
+{
+  "probe": "tool_call",
+  "attempt": 3,
+  "model": null,
+  "parameters": {
+    "model": null,
+    "temperature": 0,
+    "max_tokens": 256,
+    "messages": [
+      {
+        "role": "user",
+        "content": "Call report with ok=true."
+      }
+    ],
+    "tools": [
+      {
+        "type": "function",
+        "function": {
+          "name": "report",
+          "description": "Report whether the probe is ready",
+          "parameters": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "ok"
+            ],
+            "properties": {
+              "ok": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "tool_choice": {
+      "type": "function",
+      "function": {
+        "name": "report"
+      }
+    }
+  },
+  "status": "BLOCKED",
+  "reason": "Missing NEBIUS_API_KEY",
+  "request": {
+    "status": "BLOCKED",
+    "reason": "Missing NEBIUS_API_KEY",
+    "provenance": "not executed",
+    "latency_ms": null,
+    "usage": null,
+    "cost_usd": null
+  }
+}

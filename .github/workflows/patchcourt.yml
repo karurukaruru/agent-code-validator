@@ -1,0 +1,26 @@
+name: PatchCourt compatibility gate
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  offline-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        python: ['3.10', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install -e . pytest==8.4.2
+      - run: python -m pytest
+      - run: python -m patchcourt demo --output evidence/ci
+      - run: python -m unittest discover -s evidence/ci -p test_regression.py
+      - run: python -m patchcourt benchmark --output evidence/ci-benchmark
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compatibility-evidence-${{ matrix.python }}
+          path: evidence/ci*

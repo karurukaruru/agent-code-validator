@@ -1,0 +1,555 @@
+{
+  "schema_version": 1,
+  "kind": "live provider reliability lab",
+  "created_at": "2026-10-24T13:26:56.237696+00:00",
+  "status": "BLOCKED",
+  "environment": {
+    "python": "3.13.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "patchcourt": "0.3.0"
+  },
+  "selected_model": null,
+  "nemotron_selected": false,
+  "discovery": {
+    "provider": "nebius",
+    "endpoint": "https://api.tokenfactory.nebius.com/v1/models",
+    "timestamp": "2026-10-24T13:26:56.237628+00:00",
+    "provenance": "not executed",
+    "status": "BLOCKED",
+    "http_status": null,
+    "latency_ms": null,
+    "usage": null,
+    "cost_usd": null,
+    "cost_note": "Unknown; no pricing assumption or zero-cost claim",
+    "parameters": null,
+    "reason": "Missing NEBIUS_API_KEY",
+    "models": [],
+    "nemotron_models": []
+  },
+  "trials": [
+    {
+      "probe": "structured_json",
+      "attempt": 1,
+      "model": null,
+      "parameters": {
+        "model": null,
+        "temperature": 0,
+        "max_tokens": 256,
+        "messages": [
+          {
+            "role": "user",
+            "content": "Return exactly {\"ok\":true}."
+          }
+        ],
+        "response_format": {
+          "type": "json_schema",
+          "json_schema": {
+            "name": "probe",
+            "strict": true,
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "ok"
+              ],
+              "properties": {
+                "ok": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      },
+      "status": "BLOCKED",
+      "reason": "Missing NEBIUS_API_KEY",
+      "request": {
+        "status": "BLOCKED",
+        "reason": "Missing NEBIUS_API_KEY",
+        "provenance": "not executed",
+        "latency_ms": null,
+        "usage": null,
+        "cost_usd": null
+      }
+    },
+    {
+      "probe": "structured_json",
+      "attempt": 2,
+      "model": null,
+      "parameters": {
+        "model": null,
+        "temperature": 0,
+        "max_tokens": 256,
+        "messages": [
+          {
+            "role": "user",
+            "content": "Return exactly {\"ok\":true}."
+          }
+        ],
+        "response_format": {
+          "type": "json_schema",
+          "json_schema": {
+            "name": "probe",
+            "strict": true,
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "ok"
+              ],
+              "properties": {
+                "ok": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      },
+      "status": "BLOCKED",
+      "reason": "Missing NEBIUS_API_KEY",
+      "request": {
+        "status": "BLOCKED",
+        "reason": "Missing NEBIUS_API_KEY",
+        "provenance": "not executed",
+        "latency_ms": null,
+        "usage": null,
+        "cost_usd": null
+      }
+    },
+    {
+      "probe": "structured_json",
+      "attempt": 3,
+      "model": null,
+      "parameters": {
+        "model": null,
+        "temperature": 0,
+        "max_tokens": 256,
+        "messages": [
+          {
+            "role": "user",
+            "content": "Return exactly {\"ok\":true}."
+          }
+        ],
+        "response_format": {
+          "type": "json_schema",
+          "json_schema": {
+            "name": "probe",
+            "strict": true,
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "ok"
+              ],
+              "properties": {
+                "ok": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      },
+      "status": "BLOCKED",
+      "reason": "Missing NEBIUS_API_KEY",
+      "request": {
+        "status": "BLOCKED",
+        "reason": "Missing NEBIUS_API_KEY",
+        "provenance": "not executed",
+        "latency_ms": null,
+        "usage": null,
+        "cost_usd": null
+      }
+    },
+    {
+      "probe": "tool_call",
+      "attempt": 1,
+      "model": null,
+      "parameters": {
+        "model": null,
+        "temperature": 0,
+        "max_tokens": 256,
+        "messages": [
+          {
+            "role": "user",
+            "content": "Call report with ok=true."
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "report",
+              "description": "Report whether the probe is ready",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "ok"
+                ],
+                "properties": {
+                  "ok": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "tool_choice": {
+          "type": "function",
+          "function": {
+            "name": "report"
+          }
+        }
+      },
+      "status": "BLOCKED",
+      "reason": "Missing NEBIUS_API_KEY",
+      "request": {
+        "status": "BLOCKED",
+        "reason": "Missing NEBIUS_API_KEY",
+        "provenance": "not executed",
+        "latency_ms": null,
+        "usage": null,
+        "cost_usd": null
+      }
+    },
+    {
+      "probe": "tool_call",
+      "attempt": 2,
+      "model": null,
+      "parameters": {
+        "model": null,
+        "temperature": 0,
+        "max_tokens": 256,
+        "messages": [
+          {
+            "role": "user",
+            "content": "Call report with ok=true."
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "report",
+              "description": "Report whether the probe is ready",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "ok"
+                ],
+                "properties": {
+                  "ok": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "tool_choice": {
+          "type": "function",
+          "function": {
+            "name": "report"
+          }
+        }
+      },
+      "status": "BLOCKED",
+      "reason": "Missing NEBIUS_API_KEY",
+      "request": {
+        "status": "BLOCKED",
+        "reason": "Missing NEBIUS_API_KEY",
+        "provenance": "not executed",
+        "latency_ms": null,
+        "usage": null,
+        "cost_usd": null
+      }
+    },
+    {
+      "probe": "tool_call",
+      "attempt": 3,
+      "model": null,
+      "parameters": {
+        "model": null,
+        "temperature": 0,
+        "max_tokens": 256,
+        "messages": [
+          {
+            "role": "user",
+            "content": "Call report with ok=true."
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "report",
+              "description": "Report whether the probe is ready",
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "ok"
+                ],
+                "properties": {
+                  "ok": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "tool_choice": {
+          "type": "function",
+          "function": {
+            "name": "report"
+          }
+        }
+      },
+      "status": "BLOCKED",
+      "reason": "Missing NEBIUS_API_KEY",
+      "request": {
+        "status": "BLOCKED",
+        "reason": "Missing NEBIUS_API_KEY",
+        "provenance": "not executed",
+        "latency_ms": null,
+        "usage": null,
+        "cost_usd": null
+      }
+    },
+    {
+      "probe": "streaming",
+      "attempt": 1,
+      "model": null,
+      "parameters": {
+        "model": null,
+        "temperature": 0,
+        "max_tokens": 256,
+        "messages": [
+          {
+            "role": "user",
+            "content": "Return exactly {\"ok\":true}."
+          }
+        ],
+        "stream": true,
+        "stream_options": {
+          "include_usage": true
+        }
+      },
+      "status": "BLOCKED",
+      "reason": "Missing NEBIUS_API_KEY",
+      "request": {
+        "status": "BLOCKED",
+        "reason": "Missing NEBIUS_API_KEY",
+        "provenance": "not executed",
+        "latency_ms": null,
+        "usage": null,
+        "cost_usd": null
+      }
+    },
+    {
+      "probe": "streaming",
+      "attempt": 2,
+      "model": null,
+      "parameters": {
+        "model": null,
+        "temperature": 0,
+        "max_tokens": 256,
+        "messages": [
+          {
+            "role": "user",
+            "content": "Return exactly {\"ok\":true}."
+          }
+        ],
+        "stream": true,
+        "stream_options": {
+          "include_usage": true
+        }
+      },
+      "status": "BLOCKED",
+      "reason": "Missing NEBIUS_API_KEY",
+      "request": {
+        "status": "BLOCKED",
+        "reason": "Missing NEBIUS_API_KEY",
+        "provenance": "not executed",
+        "latency_ms": null,
+        "usage": null,
+        "cost_usd": null
+      }
+    },
+    {
+      "probe": "streaming",
+      "attempt": 3,
+      "model": null,
+      "parameters": {
+        "model": null,
+        "temperature": 0,
+        "max_tokens": 256,
+        "messages": [
+          {
+            "role": "user",
+            "content": "Return exactly {\"ok\":true}."
+          }
+        ],
+        "stream": true,
+        "stream_options": {
+          "include_usage": true
+        }
+      },
+      "status": "BLOCKED",
+      "reason": "Missing NEBIUS_API_KEY",
+      "request": {
+        "status": "BLOCKED",
+        "reason": "Missing NEBIUS_API_KEY",
+        "provenance": "not executed",
+        "latency_ms": null,
+        "usage": null,
+        "cost_usd": null
+      }
+    },
+    {
+      "probe": "invalid_model_error",
+      "attempt": 1,
+      "model": null,
+      "parameters": {
+        "model": "patchcourt-intentionally-nonexistent-model",
+        "temperature": 0,
+        "max_tokens": 256,
+        "messages": [
+          {
+            "role": "user",
+            "content": "Return exactly {\"ok\":true}."
+          }
+        ]
+      },
+      "status": "BLOCKED",
+      "reason": "Missing NEBIUS_API_KEY",
+      "request": {
+        "status": "BLOCKED",
+        "reason": "Missing NEBIUS_API_KEY",
+        "provenance": "not executed",
+        "latency_ms": null,
+        "usage": null,
+        "cost_usd": null
+      }
+    },
+    {
+      "probe": "invalid_model_error",
+      "attempt": 2,
+      "model": null,
+      "parameters": {
+        "model": "patchcourt-intentionally-nonexistent-model",
+        "temperature": 0,
+        "max_tokens": 256,
+        "messages": [
+          {
+            "role": "user",
+            "content": "Return exactly {\"ok\":true}."
+          }
+        ]
+      },
+      "status": "BLOCKED",
+      "reason": "Missing NEBIUS_API_KEY",
+      "request": {
+        "status": "BLOCKED",
+        "reason": "Missing NEBIUS_API_KEY",
+        "provenance": "not executed",
+        "latency_ms": null,
+        "usage": null,
+        "cost_usd": null
+      }
+    },
+    {
+      "probe": "invalid_model_error",
+      "attempt": 3,
+      "model": null,
+      "parameters": {
+        "model": "patchcourt-intentionally-nonexistent-model",
+        "temperature": 0,
+        "max_tokens": 256,
+        "messages": [
+          {
+            "role": "user",
+            "content": "Return exactly {\"ok\":true}."
+          }
+        ]
+      },
+      "status": "BLOCKED",
+      "reason": "Missing NEBIUS_API_KEY",
+      "request": {
+        "status": "BLOCKED",
+        "reason": "Missing NEBIUS_API_KEY",
+        "provenance": "not executed",
+        "latency_ms": null,
+        "usage": null,
+        "cost_usd": null
+      }
+    }
+  ],
+  "ablation": {
+    "status": "BLOCKED",
+    "reason": "Missing NEBIUS_API_KEY"
+  },
+  "summary": {
+    "structured_json": {
+      "planned": 3,
+      "executed": 0,
+      "passed": 0,
+      "failed": 0,
+      "blocked": 3,
+      "pass_rate": null,
+      "median_latency_ms": null
+    },
+    "tool_call": {
+      "planned": 3,
+      "executed": 0,
+      "passed": 0,
+      "failed": 0,
+      "blocked": 3,
+      "pass_rate": null,
+      "median_latency_ms": null
+    },
+    "streaming": {
+      "planned": 3,
+      "executed": 0,
+      "passed": 0,
+      "failed": 0,
+      "blocked": 3,
+      "pass_rate": null,
+      "median_latency_ms": null
+    },
+    "invalid_model_error": {
+      "planned": 3,
+      "executed": 0,
+      "passed": 0,
+      "failed": 0,
+      "blocked": 3,
+      "pass_rate": null,
+      "median_latency_ms": null
+    }
+  },
+  "budget": {
+    "maximum_http_calls": 16,
+    "maximum_output_tokens": 7168,
+    "per_request_timeout_seconds": 30,
+    "retries": 0
+  },
+  "cost_usd": null,
+  "cost_note": "Unknown; provider usage recorded without invented pricing",
+  "scope": "Synthetic protocol observations only; no universal model compatibility or production reliability claim",
+  "credential_gates": {
+    "nebius": {
+      "status": "BLOCKED",
+      "variable": "NEBIUS_API_KEY"
+    },
+    "tavily": {
+      "status": "BLOCKED",
+      "variable": "TAVILY_API_KEY"
+    }
+  },
+  "completed_at": "2026-10-24T13:26:56.413573+00:00"
+}

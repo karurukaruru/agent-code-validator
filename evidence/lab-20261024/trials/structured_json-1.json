@@ -1,0 +1,45 @@
+{
+  "probe": "structured_json",
+  "attempt": 1,
+  "model": null,
+  "parameters": {
+    "model": null,
+    "temperature": 0,
+    "max_tokens": 256,
+    "messages": [
+      {
+        "role": "user",
+        "content": "Return exactly {\"ok\":true}."
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "probe",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "ok"
+          ],
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  },
+  "status": "BLOCKED",
+  "reason": "Missing NEBIUS_API_KEY",
+  "request": {
+    "status": "BLOCKED",
+    "reason": "Missing NEBIUS_API_KEY",
+    "provenance": "not executed",
+    "latency_ms": null,
+    "usage": null,
+    "cost_usd": null
+  }
+}

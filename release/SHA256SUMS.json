@@ -1,0 +1,18 @@
+{
+  "patchcourt-offline-demo.mp4": {
+    "bytes": 1907981,
+    "sha256": "875e48b0a44a3e4e84a9b769a3bc5df48151ff389e8ddd8fc5458236996d229b"
+  },
+  "patchcourt-offline-demo.en.srt": {
+    "bytes": 1981,
+    "sha256": "37db69236e9afcc6f962bbbde185d9a0a76b5846d105ad8cf199993072a083ce"
+  },
+  "patchcourt-demo-0.3.0.zip": {
+    "bytes": 20968,
+    "sha256": "9b9b079d7d8b898c3d5ffa41477b101b96e412ae17ce829232bf2cc74b3bb1de"
+  },
+  "agent_code_validator-0.3.0-py3-none-any.whl": {
+    "bytes": 90150,
+    "sha256": "66179ddd7cdcb32711e5d04059a4c65bb1574b1c240740c1df25f798ae57659c"
+  }
+}

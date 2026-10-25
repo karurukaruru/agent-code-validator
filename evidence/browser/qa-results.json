@@ -1,0 +1,29 @@
+{
+  "checked_at": "2026-10-24T13:32:37.388Z",
+  "browser": "Chrome/155.0.8059.86",
+  "mode": "headless loopback",
+  "report": "outputs/judge-check/report.json",
+  "exported_report": "patchcourt-fbe1211f-ff1e-4ce0-b0cd-9efa4a3cef0b.json",
+  "checks": [
+    "Real report auto-loaded with 16 cases",
+    "Offline limitations visible",
+    "Recorded summary displayed",
+    "First authentic source case selected",
+    "Desktop has no horizontal overflow",
+    "Repair replay exposes restored value 21",
+    "Repair is explicitly not model-generated",
+    "Case selection and findings work",
+    "Lab remains BLOCKED",
+    "Acceptance gates rendered",
+    "Mobile has no horizontal overflow",
+    "Local report file upload works",
+    "JSON export preserves actual run identity",
+    "No runtime exceptions observed"
+  ],
+  "errors": [],
+  "limits": [
+    "No live provider/model calls",
+    "Not a clean-machine installation test",
+    "Keyboard/screen-reader traversal not fully tested"
+  ]
+}

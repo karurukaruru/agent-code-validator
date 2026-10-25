@@ -1,0 +1,15 @@
+{
+  "status": "BLOCKED",
+  "kind": "untrusted model proposal",
+  "executed_repairs": false,
+  "source_scope": {
+    "input_characters": 11815,
+    "sent_character_limit": 16000,
+    "truncated": false
+  },
+  "model": null,
+  "retrieval": null,
+  "provenance": "not executed",
+  "case_results": [],
+  "reason": "Missing NEBIUS_API_KEY"
+}

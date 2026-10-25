@@ -1,0 +1,42 @@
+{
+  "status": "VERIFIED",
+  "duration_seconds": 112.0,
+  "width": 1600,
+  "height": 900,
+  "full_decode_check": "PASS",
+  "audio": "none; full English subtitles burned in and supplied as SRT",
+  "capture_fps": 2,
+  "output_fps": 30,
+  "offline": true,
+  "live_inference": false,
+  "source_report_sha256": "eae7760638d8fdc56216b2945c728161cb963ebf7c5b8c15051aee6544900e32",
+  "source_report_run_id": "fbe1211f-ff1e-4ce0-b0cd-9efa4a3cef0b",
+  "encoder": {
+    "package": "imageio-ffmpeg",
+    "version": "0.6.0",
+    "origin": "https://pypi.org/project/imageio-ffmpeg/0.6.0/",
+    "binary_sha256": "2ce797a0f88d7f067180338fb227f7b1928ea727bd9a4d7a1d022f7c52af71a3"
+  },
+  "assets": [
+    {
+      "path": "dist/video/patchcourt-offline-demo.mp4",
+      "bytes": 1907981,
+      "sha256": "875e48b0a44a3e4e84a9b769a3bc5df48151ff389e8ddd8fc5458236996d229b"
+    },
+    {
+      "path": "dist/video/patchcourt-offline-demo.en.srt",
+      "bytes": 1981,
+      "sha256": "37db69236e9afcc6f962bbbde185d9a0a76b5846d105ad8cf199993072a083ce"
+    },
+    {
+      "path": "dist/video/transcript.md",
+      "bytes": 2395,
+      "sha256": "df086792bb5ae9e8851b88eaaebb91379506050651a399edfce18886cb7e911e"
+    },
+    {
+      "path": "dist/video/captions.ass",
+      "bytes": 2939,
+      "sha256": "d8fcd39b437b21b9d7ef6a26fa1de970803a597cdd4f8f3a880046643d5ea43c"
+    }
+  ]
+}

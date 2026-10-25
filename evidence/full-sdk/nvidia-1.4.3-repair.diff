@@ -1,0 +1,27 @@
+--- a/langchain_nvidia_ai_endpoints/_utils.py
++++ b/langchain_nvidia_ai_endpoints/_utils.py
+@@ -1,5 +1,6 @@
+ from __future__ import annotations
+ 
++import json
+ import logging
+ import urllib.parse
+ from typing import (
+@@ -127,7 +128,16 @@
+             # If function call only, content is None not empty string
+             if message_dict["content"] == "":
+                 message_dict["content"] = None
+-        if "tool_calls" in message.additional_kwargs:
++        if message.tool_calls:
++            message_dict["tool_calls"] = [
++                {"id": call["id"], "type": "function", "function": {
++                    "name": call["name"],
++                    "arguments": json.dumps(call["args"], ensure_ascii=False)
++                }} for call in message.tool_calls
++            ]
++            if message_dict["content"] == "":
++                message_dict["content"] = None
++        elif "tool_calls" in message.additional_kwargs:
+             message_dict["tool_calls"] = message.additional_kwargs["tool_calls"]
+             # If tool calls only, content is None not empty string
+             if message_dict["content"] == "":
