@@ -1,0 +1,103 @@
+{
+  "provider": "glm",
+  "endpoint": "https://open.bigmodel.cn/api/paas/v4/chat/completions",
+  "timestamp": "2026-10-25T06:24:25.988782+00:00",
+  "provenance": "live HTTP attempt",
+  "status": "PASS",
+  "http_status": 200,
+  "latency_ms": 1133.136,
+  "usage": {
+    "completion_tokens": 15,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 113,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 128
+  },
+  "cost_usd": null,
+  "cost_note": "Unknown; no pricing assumption or zero-cost claim",
+  "parameters": {
+    "model": "glm-5.3-flash",
+    "max_tokens": 2048,
+    "reasoning_effort": "low",
+    "temperature": 1,
+    "messages": [
+      {
+        "role": "system",
+        "content": "Use the provided tools to compute inventory value. Do not invent stock or price. Call both inventory and price for SKU A, in the same response if possible. After both tool results, return only JSON with sku and inventory_value."
+      },
+      {
+        "role": "user",
+        "content": "What is the inventory value of SKU A? Use inventory and price before calculating."
+      },
+      {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "id": "call_-7142419734372280439",
+            "type": "function",
+            "function": {
+              "name": "inventory",
+              "arguments": "{\"sku\": \"A\"}"
+            }
+          },
+          {
+            "id": "call_-7142419734372280438",
+            "type": "function",
+            "function": {
+              "name": "price",
+              "arguments": "{\"sku\": \"A\"}"
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "content": "{\"quantity\": 3}",
+        "tool_call_id": "call_-7142419734372280439"
+      },
+      {
+        "role": "tool",
+        "content": "{\"price\": 7}",
+        "tool_call_id": "call_-7142419734372280438"
+      }
+    ],
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "request_id": null,
+  "raw_response": "{\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"message\":{\"content\":\"{\\\"sku\\\": \\\"A\\\", \\\"inventory_value\\\": 21}\",\"role\":\"assistant\"}}],\"created\":1792909466,\"id\":\"202610251424266f565783a3874ce3\",\"model\":\"glm-5.3-flash\",\"object\":\"chat.completion\",\"request_id\":\"202610251424266f565783a3874ce3\",\"usage\":{\"completion_tokens\":15,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":113,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":128}}",
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "content": "{\"sku\": \"A\", \"inventory_value\": 21}",
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1792909466,
+    "id": "202610251424266f565783a3874ce3",
+    "model": "glm-5.3-flash",
+    "object": "chat.completion",
+    "request_id": "202610251424266f565783a3874ce3",
+    "usage": {
+      "completion_tokens": 15,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "prompt_tokens": 113,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "total_tokens": 128
+    }
+  }
+}

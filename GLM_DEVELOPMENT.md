@@ -1,5 +1,7 @@
 # Live development evidence — 0.3.1, October 25, 2026
 
+**0.3.2 handoff supplement:** `live --knowledge-dir` now persists successful mappings and reuses only an exact source/environment/verifier match, with fresh checks and task execution. The actual pair in `evidence/glm-reuse` passed with 3 requests / 2,472 tokens on the first run and 2 requests / 426 tokens on reuse. New usage: 2,898 tokens; cumulative recorded GLM usage: 34,632. This is one exact-repeat sample, not a general savings estimate. Local tests: 168 passed, 4 Windows permission skips; no remote 0.3.2 CI yet. See HANDOFF_ZH.md and FINISH_PLAN_ZH.md. The original 0.3.1 accounting below remains historical.
+
 PatchCourt is now a tested live developer prototype. It demonstrates a real model proposal, independent verification, a deliberately corrupted repair being rejected, and a real GLM tool conversation recovering the expected fixture result. This is narrower than completion of the original mission and does not establish Nebius/NVIDIA competition eligibility.
 
 ## Executed evidence

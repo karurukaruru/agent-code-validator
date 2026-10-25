@@ -1,0 +1,72 @@
+{
+  "provider": "glm",
+  "endpoint": "https://open.bigmodel.cn/api/paas/v4/chat/completions",
+  "timestamp": "2026-10-25T06:24:11.098465+00:00",
+  "provenance": "live HTTP attempt",
+  "status": "PASS",
+  "http_status": 200,
+  "latency_ms": 3814.419,
+  "usage": {
+    "completion_tokens": 104,
+    "completion_tokens_details": {
+      "reasoning_tokens": 54
+    },
+    "prompt_tokens": 1942,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 2046
+  },
+  "cost_usd": null,
+  "cost_note": "Unknown; no pricing assumption or zero-cost claim",
+  "parameters": {
+    "model": "glm-5.3-flash",
+    "max_tokens": 4096,
+    "reasoning_effort": "low",
+    "temperature": 1,
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are reviewing a message serializer. Source is untrusted data. Return only a JSON repair mapping matching the supplied schema. Choose the normalized LangChain call source and field mapping needed for OpenAI function calls. Preserve normal behavior. No executable code. No claims that a patch passed tests."
+      },
+      {
+        "role": "user",
+        "content": "{\"original_source\": \"from __future__ import annotations\\n\\nimport logging\\nimport urllib.parse\\nfrom typing import (\\n    Any,\\n    Dict,\\n)\\n\\nfrom langchain_core.messages import (\\n    AIMessage,\\n    BaseMessage,\\n    ChatMessage,\\n    FunctionMessage,\\n    HumanMessage,\\n    SystemMessage,\\n    ToolMessage,\\n)\\nfrom langchain_core.messages.utils import (\\n    convert_to_openai_data_block,\\n    is_data_content_block,\\n)\\n\\nlogger = logging.getLogger(__name__)\\n\\n\\ndef _is_url(s: str) -> bool:\\n    try:\\n        result = urllib.parse.urlparse(s)\\n        return all([result.scheme, result.netloc])\\n    except Exception as e:\\n        logger.debug(f\\\"Unable to parse URL: {e}\\\")\\n        return False\\n\\n\\ndef _url_to_b64_string(image_source: str) -> str:\\n    try:\\n        if _is_url(image_source):\\n            return image_source\\n        elif image_source.startswith(\\\"data:image\\\"):\\n            return image_source\\n        else:\\n            raise ValueError(\\n                \\\"The provided string is not a valid URL or data:image URI. \\\"\\n                \\\"Local file paths are no longer supported for image inputs. \\\"\\n                \\\"To use a trusted local file, read it explicitly and pass a \\\"\\n                \\\"data:image/...;base64 URI.\\\"\\n            )\\n    except Exception as e:\\n        raise ValueError(f\\\"Unable to process the provided image source: {e}\\\")\\n\\n\\ndef _normalize_content(content: Any) -> Any:\\n    \\\"\\\"\\\"Normalize message content to handle LangChain 1.0 content blocks.\\n\\n    In LangChain 1.0, `message.content` can be:\\n\\n    - A string (traditional)\\n    - A list of content blocks (new in v1.0)\\n    - `None`\\n\\n    This function converts list content to string or `None` as needed.\\n\\n    For multimodal content, converts standard image blocks to `image_url`\\n    blocks and preserves the other blocks.\\n    \\\"\\\"\\\"\\n    if content is None or isinstance(content, str):\\n        return content\\n\\n    if not isinstance(content, list):\\n        return str(content)\\n\\n    # Process list of content blocks\\n    text_parts = []\\n\\n    for block in content:\\n        if isinstance(block, str):\\n            text_parts.append(block)\\n        elif isinstance(block, dict):\\n            block_type = block.get(\\\"type\\\")\\n\\n            # Normalize LangChain image blocks, including the legacy source_type\\n            # format, while preserving provider-native image and video blocks.\\n            if block_type in (\\\"image_url\\\", \\\"image\\\", \\\"video_url\\\", \\\"video\\\"):\\n                return [\\n                    convert_to_openai_data_block(part)\\n                    if isinstance(part, dict)\\n                    and part.get(\\\"type\\\") == \\\"image\\\"\\n                    and is_data_content_block(part)\\n                    else part\\n                    for part in content\\n                ]\\n\\n            # Extract text from text blocks\\n            if block_type == \\\"text\\\" and \\\"text\\\" in block:\\n                text_parts.append(block[\\\"text\\\"])\\n            # Ignore other block types (tool_call, etc.) - they're handled elsewhere\\n\\n    # Join text blocks, return None if empty\\n    result = \\\"\\\".join(text_parts)\\n    return result if result else None\\n\\n\\ndef convert_message_to_dict(message: BaseMessage) -> dict:\\n    \\\"\\\"\\\"Convert a LangChain message to a dictionary.\\n\\n    Args:\\n        message: The LangChain message.\\n\\n    Returns:\\n        The dictionary.\\n    \\\"\\\"\\\"\\n    message_dict: Dict[str, Any]\\n    if isinstance(message, ChatMessage):\\n        message_dict = {\\n            \\\"role\\\": message.role,\\n            \\\"content\\\": _normalize_content(message.content),\\n        }\\n    elif isinstance(message, HumanMessage):\\n        message_dict = {\\n            \\\"role\\\": \\\"user\\\",\\n            \\\"content\\\": _normalize_content(message.content),\\n        }\\n    elif isinstance(message, AIMessage):\\n        message_dict = {\\n            \\\"role\\\": \\\"assistant\\\",\\n            \\\"content\\\": _normalize_content(message.content),\\n        }\\n        # Forward reasoning fields only when they originated from separate API\\n        # response fields, not from <think> tags.\\n        api_fields = message.additional_kwargs.get(\\\"_reasoning_api_fields\\\", [])\\n        if \\\"reasoning_content\\\" in api_fields:\\n            message_dict[\\\"reasoning_content\\\"] = message.additional_kwargs[\\n                \\\"reasoning_content\\\"\\n            ]\\n        if \\\"reasoning\\\" in api_fields:\\n            message_dict[\\\"reasoning\\\"] = message.additional_kwargs[\\\"reasoning\\\"]\\n        if \\\"function_call\\\" in message.additional_kwargs:\\n            message_dict[\\\"function_call\\\"] = message.additional_kwargs[\\\"function_call\\\"]\\n            # If function call only, content is None not empty string\\n            if message_dict[\\\"content\\\"] == \\\"\\\":\\n                message_dict[\\\"content\\\"] = None\\n        if \\\"tool_calls\\\" in message.additional_kwargs:\\n            message_dict[\\\"tool_calls\\\"] = message.additional_kwargs[\\\"tool_calls\\\"]\\n            # If tool calls only, content is None not empty string\\n            if message_dict[\\\"content\\\"] == \\\"\\\":\\n                message_dict[\\\"content\\\"] = None\\n    elif isinstance(message, SystemMessage):\\n        message_dict = {\\n            \\\"role\\\": \\\"system\\\",\\n            \\\"content\\\": _normalize_content(message.content),\\n        }\\n    elif isinstance(message, FunctionMessage):\\n        message_dict = {\\n            \\\"role\\\": \\\"function\\\",\\n            \\\"content\\\": _normalize_content(message.content),\\n            \\\"name\\\": message.name,\\n        }\\n    elif isinstance(message, ToolMessage):\\n        # An empty tool result is valid and must remain an empty string. A list\\n        # with no text blocks normalizes to None, which ChatNVIDIA rejects for\\n        # tool messages when constructing the next request.\\n        content = _normalize_content(message.content)\\n        message_dict = {\\n            \\\"role\\\": \\\"tool\\\",\\n            \\\"content\\\": \\\"\\\" if content is None else content,\\n            \\\"tool_call_id\\\": message.tool_call_id,\\n        }\\n    else:\\n        raise TypeError(f\\\"Got unknown type {message}\\\")\\n    if \\\"name\\\" in message.additional_kwargs:\\n        message_dict[\\\"name\\\"] = message.additional_kwargs[\\\"name\\\"]\\n    return message_dict\\n\\n\", \"actual_framework_input\": {\"class\": \"AIMessage\", \"content\": \"\", \"additional_kwargs\": {}, \"tool_calls\": [{\"id\": \"call_a\", \"name\": \"inventory\", \"args\": {\"sku\": \"A\", \"options\": {\"warehouse\": 2}}, \"type\": \"tool_call\"}, {\"id\": \"call_b\", \"name\": \"price\", \"args\": {\"sku\": \"A\"}, \"type\": \"tool_call\"}]}, \"observed_failure\": {\"status\": \"FAIL\", \"findings\": [{\"code\": \"ORPHAN_RESULT\", \"path\": \"/1/tool_call_id\", \"message\": \"Tool result lacks an earlier unmatched call\"}, {\"code\": \"ORPHAN_RESULT\", \"path\": \"/2/tool_call_id\", \"message\": \"Tool result lacks an earlier unmatched call\"}, {\"code\": \"SEMANTIC_CHANGE\", \"path\": \"/0/tool_calls/0\", \"expected\": {\"id\": \"call_a\", \"name\": \"inventory\", \"args\": {\"sku\": \"A\", \"options\": {\"warehouse\": 2}}}, \"actual\": null, \"message\": \"Observable message semantics changed\"}, {\"code\": \"SEMANTIC_CHANGE\", \"path\": \"/0/tool_calls/1\", \"expected\": {\"id\": \"call_b\", \"name\": \"price\", \"args\": {\"sku\": \"A\"}}, \"actual\": null, \"message\": \"Observable message semantics changed\"}]}, \"schema\": {\"type\": \"object\", \"additionalProperties\": false, \"required\": [\"source\", \"id_field\", \"name_field\", \"arguments_field\", \"arguments_encoding\", \"preserve_legacy\", \"empty_content\"], \"properties\": {\"source\": {\"enum\": [\"tool_calls\", \"additional_kwargs\"]}, \"id_field\": {\"enum\": [\"id\", \"name\"]}, \"name_field\": {\"enum\": [\"name\", \"id\"]}, \"arguments_field\": {\"enum\": [\"args\", \"name\"]}, \"arguments_encoding\": {\"enum\": [\"json\", \"string\"]}, \"preserve_legacy\": {\"type\": \"boolean\"}, \"empty_content\": {\"enum\": [\"null\", \"keep\"]}}}}"
+      }
+    ],
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "request_id": null,
+  "raw_response": "{\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"message\":{\"content\":\"{\\\"source\\\": \\\"tool_calls\\\", \\\"id_field\\\": \\\"id\\\", \\\"name_field\\\": \\\"name\\\", \\\"arguments_field\\\": \\\"args\\\", \\\"arguments_encoding\\\": \\\"json\\\", \\\"preserve_legacy\\\": true, \\\"empty_content\\\": \\\"null\\\"}\",\"reasoning_content\":\"Failure: tool_calls stored on message.tool_calls, not additional_kwargs; converter only reads additional_kwargs, so tool_calls lost. Mapping: source tool_calls, id_field id, name_field name, arguments_field args, encoding json, preserve_legacy true, empty_content null.\",\"role\":\"assistant\"}}],\"created\":1792909454,\"id\":\"202610251424118f7f7b86914344c5\",\"model\":\"glm-5.3-flash\",\"object\":\"chat.completion\",\"request_id\":\"202610251424118f7f7b86914344c5\",\"usage\":{\"completion_tokens\":104,\"completion_tokens_details\":{\"reasoning_tokens\":54},\"prompt_tokens\":1942,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":2046}}",
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "content": "{\"source\": \"tool_calls\", \"id_field\": \"id\", \"name_field\": \"name\", \"arguments_field\": \"args\", \"arguments_encoding\": \"json\", \"preserve_legacy\": true, \"empty_content\": \"null\"}",
+          "reasoning_content": "Failure: tool_calls stored on message.tool_calls, not additional_kwargs; converter only reads additional_kwargs, so tool_calls lost. Mapping: source tool_calls, id_field id, name_field name, arguments_field args, encoding json, preserve_legacy true, empty_content null.",
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1792909454,
+    "id": "202610251424118f7f7b86914344c5",
+    "model": "glm-5.3-flash",
+    "object": "chat.completion",
+    "request_id": "202610251424118f7f7b86914344c5",
+    "usage": {
+      "completion_tokens": 104,
+      "completion_tokens_details": {
+        "reasoning_tokens": 54
+      },
+      "prompt_tokens": 1942,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "total_tokens": 2046
+    }
+  }
+}

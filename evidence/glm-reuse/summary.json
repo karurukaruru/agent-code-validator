@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "provenance": "actual GLM HTTP requests; no synthetic transport",
+  "requests": 5,
+  "total_reported_tokens": 2898,
+  "runs": [
+    {
+      "status": "PASS",
+      "repair_source": "model_proposal",
+      "knowledge": {
+        "enabled": true,
+        "hit": false,
+        "revalidated": false,
+        "saved": true,
+        "record_id": "7d609045c023e8baf6496025341d9567e112b5e74af2000f87af670a488d3ef2",
+        "scope": "Exact matching prior plan only; all independent checks, mutation and task rerun. No measured token-savings claim."
+      },
+      "requests": 3,
+      "tokens": 2472,
+      "duration_ms": 9678.52
+    },
+    {
+      "status": "PASS",
+      "repair_source": "cached_verified_plan",
+      "knowledge": {
+        "enabled": true,
+        "hit": true,
+        "revalidated": true,
+        "saved": false,
+        "record_id": "7d609045c023e8baf6496025341d9567e112b5e74af2000f87af670a488d3ef2",
+        "scope": "Exact matching prior plan only; all independent checks, mutation and task rerun. No measured token-savings claim."
+      },
+      "requests": 2,
+      "tokens": 426,
+      "duration_ms": 6347.842
+    }
+  ],
+  "scope": "Exact repeated fixture workflow, not generalization; request counts observed, no causal latency or dollar-savings claim"
+}

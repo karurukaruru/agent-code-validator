@@ -1,0 +1,703 @@
+{
+  "kind": "live GLM adapter repair and fixture task",
+  "status": "PASS",
+  "model": "glm-5.3-flash",
+  "provider": "glm",
+  "created_at": "2026-10-25T06:24:20.778622+00:00",
+  "events": [
+    {
+      "time": "2026-10-25T06:24:20.781307+00:00",
+      "stage": "detect",
+      "status": "FAIL",
+      "message": "Two tool calls disappear in the historical adapter; tool results become orphaned.",
+      "findings": [
+        {
+          "code": "ORPHAN_RESULT",
+          "path": "/1/tool_call_id",
+          "message": "Tool result lacks an earlier unmatched call"
+        },
+        {
+          "code": "ORPHAN_RESULT",
+          "path": "/2/tool_call_id",
+          "message": "Tool result lacks an earlier unmatched call"
+        },
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/tool_calls/0",
+          "expected": {
+            "id": "call_a",
+            "name": "inventory",
+            "args": {
+              "sku": "A",
+              "options": {
+                "warehouse": 2
+              }
+            }
+          },
+          "actual": null,
+          "message": "Observable message semantics changed"
+        },
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/tool_calls/1",
+          "expected": {
+            "id": "call_b",
+            "name": "price",
+            "args": {
+              "sku": "A"
+            }
+          },
+          "actual": null,
+          "message": "Observable message semantics changed"
+        }
+      ]
+    },
+    {
+      "time": "2026-10-25T06:24:20.801870+00:00",
+      "stage": "verify",
+      "status": "VERIFIED",
+      "message": "Previously saved repair reran all independent checks.",
+      "checks": [
+        {
+          "name": "two_calls",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "plain_text",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "system_text",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "nested_unicode",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "empty_arguments",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "boolean_not_integer",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "empty_tool_result",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "legacy_calls",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "time": "2026-10-25T06:24:20.802850+00:00",
+      "stage": "knowledge",
+      "status": "PASS",
+      "message": "Reused a prior mapping after fresh independent verification; no new proposal request."
+    },
+    {
+      "time": "2026-10-25T06:24:20.817040+00:00",
+      "stage": "mutation",
+      "status": "PASS",
+      "message": "A deliberately corrupted repair was rejected by the same verifier."
+    },
+    {
+      "time": "2026-10-25T06:24:20.818469+00:00",
+      "stage": "task",
+      "status": "RUNNING",
+      "message": "Starting a real GLM tool conversation with local inventory and price fixtures."
+    },
+    {
+      "time": "2026-10-25T06:24:25.985462+00:00",
+      "stage": "tools",
+      "status": "PASS",
+      "message": "Actual model tool calls survived the repaired adapter; original adapter failed locally.",
+      "tools": [
+        "inventory",
+        "price"
+      ],
+      "before": "FAIL",
+      "after": "PASS"
+    },
+    {
+      "time": "2026-10-25T06:24:27.125068+00:00",
+      "stage": "task",
+      "status": "PASS",
+      "message": "The real model conversation recovered the expected inventory value: 21.",
+      "answer": {
+        "sku": "A",
+        "inventory_value": 21
+      }
+    },
+    {
+      "time": "2026-10-25T06:24:27.129835+00:00",
+      "stage": "complete",
+      "status": "PASS",
+      "message": "Workflow finished; every request and failed candidate remains recorded."
+    }
+  ],
+  "requests": [
+    {
+      "name": "task-turn-1",
+      "status": "PASS",
+      "reserved": 3558,
+      "http_status": 200,
+      "latency_ms": 5157.581,
+      "usage": {
+        "completion_tokens": 20,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "prompt_tokens": 278,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "total_tokens": 298
+      }
+    },
+    {
+      "name": "task-turn-2",
+      "status": "PASS",
+      "reserved": 3574,
+      "http_status": 200,
+      "latency_ms": 1133.136,
+      "usage": {
+        "completion_tokens": 15,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "prompt_tokens": 113,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "total_tokens": 128
+      }
+    }
+  ],
+  "reserved_token_upper_estimate": 7132,
+  "limits": {
+    "max_requests": 8,
+    "input_bytes_plus_output_budget": 200000,
+    "automatic_retries": 0
+  },
+  "competition_eligibility": "Does not establish required Nebius/NVIDIA runtime use",
+  "scope": "Actual GLM HTTP inference and local fixture tools; adapter executes audited source with inert SDK message types; model repair is data, never arbitrary Python",
+  "repair_source": "cached_verified_plan",
+  "knowledge": {
+    "enabled": true,
+    "hit": true,
+    "revalidated": true,
+    "saved": false,
+    "record_id": "7d609045c023e8baf6496025341d9567e112b5e74af2000f87af670a488d3ef2",
+    "scope": "Exact matching prior plan only; all independent checks, mutation and task rerun. No measured token-savings claim."
+  },
+  "before": {
+    "baseline": [
+      {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "id": "call_a",
+            "type": "function",
+            "function": {
+              "name": "inventory",
+              "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+            }
+          },
+          {
+            "id": "call_b",
+            "type": "function",
+            "function": {
+              "name": "price",
+              "arguments": "{\"sku\":\"A\"}"
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_a",
+        "content": "{\"quantity\":3}"
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_b",
+        "content": "{\"price\":7}"
+      }
+    ],
+    "candidate": [
+      {
+        "role": "assistant",
+        "content": ""
+      },
+      {
+        "role": "tool",
+        "content": "{\"quantity\":3}",
+        "tool_call_id": "call_a"
+      },
+      {
+        "role": "tool",
+        "content": "{\"price\":7}",
+        "tool_call_id": "call_b"
+      }
+    ],
+    "verdict": {
+      "status": "FAIL",
+      "findings": [
+        {
+          "code": "ORPHAN_RESULT",
+          "path": "/1/tool_call_id",
+          "message": "Tool result lacks an earlier unmatched call"
+        },
+        {
+          "code": "ORPHAN_RESULT",
+          "path": "/2/tool_call_id",
+          "message": "Tool result lacks an earlier unmatched call"
+        },
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/tool_calls/0",
+          "expected": {
+            "id": "call_a",
+            "name": "inventory",
+            "args": {
+              "sku": "A",
+              "options": {
+                "warehouse": 2
+              }
+            }
+          },
+          "actual": null,
+          "message": "Observable message semantics changed"
+        },
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/tool_calls/1",
+          "expected": {
+            "id": "call_b",
+            "name": "price",
+            "args": {
+              "sku": "A"
+            }
+          },
+          "actual": null,
+          "message": "Observable message semantics changed"
+        }
+      ]
+    }
+  },
+  "plan": {
+    "source": "tool_calls",
+    "id_field": "id",
+    "name_field": "name",
+    "arguments_field": "args",
+    "arguments_encoding": "json",
+    "preserve_legacy": true,
+    "empty_content": "null"
+  },
+  "verification": {
+    "status": "VERIFIED",
+    "checks": [
+      {
+        "name": "two_calls",
+        "status": "PASS",
+        "findings": []
+      },
+      {
+        "name": "plain_text",
+        "status": "PASS",
+        "findings": []
+      },
+      {
+        "name": "system_text",
+        "status": "PASS",
+        "findings": []
+      },
+      {
+        "name": "nested_unicode",
+        "status": "PASS",
+        "findings": []
+      },
+      {
+        "name": "empty_arguments",
+        "status": "PASS",
+        "findings": []
+      },
+      {
+        "name": "boolean_not_integer",
+        "status": "PASS",
+        "findings": []
+      },
+      {
+        "name": "empty_tool_result",
+        "status": "PASS",
+        "findings": []
+      },
+      {
+        "name": "legacy_calls",
+        "status": "PASS"
+      }
+    ],
+    "scope": "Declarative mapping over hash-pinned upstream adapter with inert SDK message types; no model Python executed"
+  },
+  "repair_attempts": [],
+  "mutation_check": {
+    "status": "PASS",
+    "mutant": {
+      "source": "tool_calls",
+      "id_field": "name",
+      "name_field": "name",
+      "arguments_field": "args",
+      "arguments_encoding": "json",
+      "preserve_legacy": true,
+      "empty_content": "null"
+    },
+    "verification": {
+      "status": "REJECTED",
+      "checks": [
+        {
+          "name": "two_calls",
+          "status": "FAIL",
+          "findings": [
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/1/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/2/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/0/id",
+              "expected": "call_a",
+              "actual": "inventory",
+              "message": "Observable message semantics changed"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/1/id",
+              "expected": "call_b",
+              "actual": "price",
+              "message": "Observable message semantics changed"
+            }
+          ]
+        },
+        {
+          "name": "plain_text",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "system_text",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "nested_unicode",
+          "status": "FAIL",
+          "findings": [
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/1/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/2/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/0/id",
+              "expected": "call_a",
+              "actual": "inventory",
+              "message": "Observable message semantics changed"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/1/id",
+              "expected": "call_b",
+              "actual": "price",
+              "message": "Observable message semantics changed"
+            }
+          ]
+        },
+        {
+          "name": "empty_arguments",
+          "status": "FAIL",
+          "findings": [
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/1/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/2/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/0/id",
+              "expected": "call_a",
+              "actual": "inventory",
+              "message": "Observable message semantics changed"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/1/id",
+              "expected": "call_b",
+              "actual": "price",
+              "message": "Observable message semantics changed"
+            }
+          ]
+        },
+        {
+          "name": "boolean_not_integer",
+          "status": "FAIL",
+          "findings": [
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/1/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/2/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/0/id",
+              "expected": "call_a",
+              "actual": "inventory",
+              "message": "Observable message semantics changed"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/1/id",
+              "expected": "call_b",
+              "actual": "price",
+              "message": "Observable message semantics changed"
+            }
+          ]
+        },
+        {
+          "name": "empty_tool_result",
+          "status": "FAIL",
+          "findings": [
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/1/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/2/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/0/id",
+              "expected": "call_a",
+              "actual": "inventory",
+              "message": "Observable message semantics changed"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/1/id",
+              "expected": "call_b",
+              "actual": "price",
+              "message": "Observable message semantics changed"
+            }
+          ]
+        },
+        {
+          "name": "legacy_calls",
+          "status": "PASS"
+        }
+      ],
+      "scope": "Declarative mapping over hash-pinned upstream adapter with inert SDK message types; no model Python executed"
+    }
+  },
+  "response_projection": "Raw provider replies preserved. Optional integer call.index must equal list position before removal at the framework boundary. All other unknown call/function fields rejected.",
+  "live_boundaries": [
+    {
+      "before": {
+        "status": "FAIL",
+        "findings": [
+          {
+            "code": "ORPHAN_RESULT",
+            "path": "/1/tool_call_id",
+            "message": "Tool result lacks an earlier unmatched call"
+          },
+          {
+            "code": "ORPHAN_RESULT",
+            "path": "/2/tool_call_id",
+            "message": "Tool result lacks an earlier unmatched call"
+          },
+          {
+            "code": "SEMANTIC_CHANGE",
+            "path": "/0/tool_calls/0",
+            "expected": {
+              "id": "call_-7142419734372280439",
+              "name": "inventory",
+              "args": {
+                "sku": "A"
+              }
+            },
+            "actual": null,
+            "message": "Observable message semantics changed"
+          },
+          {
+            "code": "SEMANTIC_CHANGE",
+            "path": "/0/tool_calls/1",
+            "expected": {
+              "id": "call_-7142419734372280438",
+              "name": "price",
+              "args": {
+                "sku": "A"
+              }
+            },
+            "actual": null,
+            "message": "Observable message semantics changed"
+          }
+        ]
+      },
+      "after": {
+        "status": "PASS",
+        "findings": []
+      },
+      "input": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "arguments": "{\"sku\":\"A\"}",
+                "name": "inventory"
+              },
+              "id": "call_-7142419734372280439",
+              "type": "function"
+            },
+            {
+              "function": {
+                "arguments": "{\"sku\":\"A\"}",
+                "name": "price"
+              },
+              "id": "call_-7142419734372280438",
+              "type": "function"
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_-7142419734372280439",
+          "content": "{\"quantity\": 3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_-7142419734372280438",
+          "content": "{\"price\": 7}"
+        }
+      ],
+      "broken": [
+        {
+          "role": "assistant",
+          "content": ""
+        },
+        {
+          "role": "tool",
+          "content": "{\"quantity\": 3}",
+          "tool_call_id": "call_-7142419734372280439"
+        },
+        {
+          "role": "tool",
+          "content": "{\"price\": 7}",
+          "tool_call_id": "call_-7142419734372280438"
+        }
+      ],
+      "repaired": [
+        {
+          "role": "assistant",
+          "content": null,
+          "tool_calls": [
+            {
+              "id": "call_-7142419734372280439",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\": \"A\"}"
+              }
+            },
+            {
+              "id": "call_-7142419734372280438",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\": \"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "content": "{\"quantity\": 3}",
+          "tool_call_id": "call_-7142419734372280439"
+        },
+        {
+          "role": "tool",
+          "content": "{\"price\": 7}",
+          "tool_call_id": "call_-7142419734372280438"
+        }
+      ]
+    }
+  ],
+  "task": {
+    "tools": [
+      {
+        "tool": "inventory",
+        "arguments": {
+          "sku": "A"
+        },
+        "result": {
+          "quantity": 3
+        }
+      },
+      {
+        "tool": "price",
+        "arguments": {
+          "sku": "A"
+        },
+        "result": {
+          "price": 7
+        }
+      }
+    ],
+    "answer": {
+      "sku": "A",
+      "inventory_value": 21
+    },
+    "status": "PASS",
+    "scope": "Live GLM conversation with actual local fixture tool execution; broken adapter rejected locally before an invalid HTTP submission"
+  },
+  "duration_ms": 6347.842,
+  "completed_at": "2026-10-25T06:24:27.127155+00:00",
+  "total_reported_tokens": 426,
+  "cost_usd": null
+}

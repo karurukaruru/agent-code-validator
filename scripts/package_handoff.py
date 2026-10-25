@@ -115,7 +115,7 @@ MANIFEST.json 含每个文件 SHA-256；外部 .sha256 文件校验整个 ZIP。
         start = instructions.encode()
         z.writestr('START_HERE_中文.md', start)
         records.append({'path':'START_HERE_中文.md','bytes':len(start),'sha256':hashlib.sha256(start).hexdigest()})
-        manifest = {'version':'0.3.2','head':head,'branch':branch,'files':records,'git_history_blobs_scanned':blobs,'known_credential_values_scanned':len(secrets),'secrets_included':False,'live_api_calls_during_handoff':0,'excluded':['credentials','.env','private launchers','browser profiles/cookies','virtual environments','dependency caches'],'note':'MANIFEST.json does not hash itself; verify whole archive using the adjacent SHA256 file.'}
+        manifest = {'version':'0.3.2','head':head,'branch':branch,'files':records,'git_history_blobs_scanned':blobs,'known_credential_values_scanned':len(secrets),'secrets_included':False,'packaging_network_calls':0,'excluded':['credentials','.env','private launchers','browser profiles/cookies','virtual environments','dependency caches'],'note':'MANIFEST.json does not hash itself; verify whole archive using the adjacent SHA256 file. Development API usage is recorded separately in project/HANDOFF_ZH.md.'}
         z.writestr('MANIFEST.json',json.dumps(manifest,ensure_ascii=False,indent=2).encode())
     with zipfile.ZipFile(archive) as z:
         for entry in records:

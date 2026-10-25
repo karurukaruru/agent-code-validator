@@ -6,7 +6,9 @@ All notable changes to Agent Code Validator are documented here.
 
 - Clarified generated-test contract labels and normal-behavior controls; reasoning now rejects a wrong GLM response model or ambiguous completion choices.
 - Scoped offline readiness messages to the current execution instead of asserting absent credentials, video or public releases.
-- Prepared a portable development handoff with Chinese instructions, history, evidence and video source assets. No new live API experiments or remote CI are claimed for this version.
+- Added opt-in verified plan reuse, scoped by adapter source, environment and verification code; all checks and task execution rerun. Corrupt/invalid cached plans stop before API calls and unsuccessful tasks never enter knowledge.
+- Recorded one actual GLM pair: three first-run requests and two repeat-run requests, 2,898 total tokens, both tasks pass. This is exact-repeat evidence, not a general savings estimate. No remote CI is claimed for this version.
+- Prepared a portable development handoff with Chinese completion criteria, history, evidence and video source assets.
 
 ## [0.3.1] - 2026-10-25
 

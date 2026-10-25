@@ -10,12 +10,13 @@
 
 公开稳定版：0.3.1，分支 `patchcourt/award-build-20261024`，代码提交 `37aba3524acd109fd588e495e48a49fe1afecc38`，文档提交 `80edbddb6c5556d04c66db3ad40eb4f93b11765f`。公开地址：https://github.com/karurukaruru/agent-code-validator/tree/patchcourt/award-build-20261024 。
 
-本交接版是 **0.3.2，仅本地新增提交，尚未推送**。只做两项收尾：
+本交接版是 **0.3.2，仅本地新增提交，尚未推送**。先做两项收尾，随后按用户追加要求补充一个功能：
 
 1. 明确生成测试时 PASS/FAIL/INCONCLUSIVE/NEEDS_REVIEW 的语义、正常行为对照；拒绝 GLM 返回其他模型或不唯一的 completion，防止错误推理证据被接受。
 2. 离线报告不再断言“没有凭证、没有视频、尚未公开”，只陈述本次离线运行未验证相关能力。版本号随本版更新。
+3. `live --knowledge-dir` 保存并复用精确匹配的已验证修复方案。源码、运行环境、验证器代码改变时失效；命中后仍重跑 8 项检查、损坏 ID 检查和真实工具任务；缓存篡改或复验失败时在付费请求前停止，失败任务不进入知识库。
 
-新提示词尚未进行额外真实推理评估，不能宣称提高了模型准确率。本轮没有真实 API 消耗。
+新提示词尚未进行额外真实推理评估，不能宣称提高了模型准确率。新增复用功能已做一次有上限的真实 GLM 对照：首次 3 请求 / 2472 tokens，复用 2 请求 / 426 tokens，共 5 请求 / 2898 tokens，两次均通过；证据在 `evidence/glm-reuse/`。只证明该精确重复样例跳过了方案生成请求，不证明泛化或普遍节省比例。
 
 ## 用户要求优先
 
@@ -27,11 +28,11 @@
 
 ## 已经验证
 
-- 0.3.2 本机：**163 passed, 4 skipped**，`evidence/tests/pytest-handoff-032.txt`。4 项是 Windows 不允许创建符号链接。新增两项测试为模型响应验证。
+- 0.3.2 本机：**168 passed, 4 skipped**，`evidence/tests/pytest-handoff-032.txt`。4 项是 Windows 不允许创建符号链接。相对公开版新增 2 项模型响应验证和 5 项复用/篡改/失效/失败不入库测试。
 - 0.3.1 远端：Ubuntu Python 3.10 和 3.13 均 **165 passed**，`evidence/tests/github-actions-glm.json`。这不是 0.3.2 的 CI 结果；交接版尚未跑远端 CI。
-- 真实 GLM：共六次工作流尝试，前四次开发失败保留、后两次成功。录制那次 3 次请求、2480 tokens、8/8 独立校验、故意损坏 ID 被拒绝、实际本地工具回传数量 3 和单价 7、模型答案 21。
+- 真实 GLM：原六次工作流尝试中前四次开发失败保留、后两次成功；此次又增加首次保存与复用两次成功，共八次，期间代码变化，不能作为模型成功率基准。录制那次 3 次请求、2480 tokens、8/8 独立校验、故意损坏 ID 被拒绝、实际本地工具回传数量 3 和单价 7、模型答案 21。
 - 五组开发评估：70 行全部执行。C 不带搜索 14/14；D 带 Tavily 13/14；没有证明搜索提升。原 ACV 审查任务与直接分类任务不同，不能据此宣称整体优劣。
-- 已记录 GLM 总用量 31,734 tokens；两次 Tavily basic 搜索共 2 credits。美元费用未知。后续实验必须另记，不能覆盖原证据。
+- 已记录 GLM 总用量 **34,632 tokens**（原 31,734 + 新 2,898）；两次 Tavily basic 搜索共 2 credits。美元费用未知。后续实验必须另记，不能覆盖原证据。
 - 13 项真实 Chrome 工作台检查通过。95 秒实际浏览器视频有英文合成配音、英文烧录字幕、英文和中文 SRT；从未上传 YouTube。
 - 真正安装 NVIDIA SDK 1.4.3 的离线复现已执行；这不等于调用 NVIDIA 模型。CrewAI 目前仍只执行固定源函数。
 
@@ -48,6 +49,8 @@ python -m venv .venv
 ```
 
 以上命令不会使用付费 API。macOS/Linux 用 `.venv/bin/python` 替换解释器路径。真实工作台另开终端，在安全配置 GLM_API_KEY 后运行 `python -m patchcourt live-demo --port 8780`，访问 `http://127.0.0.1:8780`。每次点击会真实调用 GLM；服务器最多接受三次运行。`benchmark --provider glm` 最多三次模型请求和一次 Tavily 搜索，必须显式运行。
+
+复用功能目前在 CLI 显式启用，工作台仍保持原默认行为：先运行 `python -m patchcourt live --output outputs/first --knowledge-dir outputs/verified-plans`，再运行 `python -m patchcourt live --output outputs/repeat --knowledge-dir outputs/verified-plans`。两次仍会调用真实 GLM。不能复用已存在的非空输出目录；换电脑的环境身份可能不同，从而正确触发新提案。缓存不是可信签名，任何命中都必须执行验证。
 
 新安装包位于 `release/agent_code_validator-0.3.2-py3-none-any.whl`。开发推荐 `pip install -e .`，保证修改生效。旧 0.3.0/0.3.1 安装包和证据为历史资料，不能误当最新代码。
 

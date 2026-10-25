@@ -1,0 +1,43 @@
+{
+  "identity": {
+    "software": "langchain-nvidia-ai-endpoints",
+    "version": "upstream source blob (not a verified 1.4.3 wheel)",
+    "boundary": "convert_message_to_dict",
+    "source_sha256": "ea569d556ed537e15bf5eea3db555adc9b4fb003a92543c70f1c719a9c47c873",
+    "environment": {
+      "python": "3.13.14",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "patchcourt": "0.3.2"
+    },
+    "model": "glm-5.3-flash",
+    "verification_sha256": "96cd4f040d75a79602e59951d0c18e2d16e38d12147caef655e018a99245eae3"
+  },
+  "evidence_level": "verified",
+  "scope": "this exact execution environment only",
+  "verified_at": "2026-10-25T06:24:20.764681+00:00",
+  "evidence": {
+    "status": "PASS",
+    "execution": true,
+    "plan": {
+      "source": "tool_calls",
+      "id_field": "id",
+      "name_field": "name",
+      "arguments_field": "args",
+      "arguments_encoding": "json",
+      "preserve_legacy": true,
+      "empty_content": "null"
+    },
+    "provider": "glm",
+    "model": "glm-5.3-flash",
+    "source_run_created_at": "2026-10-25T06:24:11.087972+00:00",
+    "scope": "Mapping passed independent checks, corrupted-ID rejection and fixture-task execution; integrity is not authenticated provenance"
+  },
+  "revalidation_triggers": [
+    "source hash",
+    "dependency version",
+    "environment",
+    "contract change"
+  ],
+  "integrity": "d3be923b72a9d0e4d4663dfe38027e6122be5da64f8c2351df1e0d67899aae29",
+  "reuse_policy": "Prior observation only; execute contract again before current PASS"
+}

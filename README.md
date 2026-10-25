@@ -1,6 +1,6 @@
 # PatchCourt — AI Agent Compatibility Guardian
 
-**Local handoff update (0.3.2):** see [Chinese handoff](HANDOFF_ZH.md) and [next-agent prompt](NEXT_AGENT_PROMPT.md). Two small reasoning/reporting fixes passed 163 local tests with four Windows permission skips. This handoff revision is not yet pushed; the public 0.3.1 evidence below remains historical and unchanged.
+**Local handoff update (0.3.2):** see [Chinese handoff](HANDOFF_ZH.md), [completion criteria](FINISH_PLAN_ZH.md) and [next-agent prompt](NEXT_AGENT_PROMPT.md). Reasoning/reporting fixes and verified repair-plan reuse passed 168 local tests with four Windows permission skips. `live --knowledge-dir outputs/plans` reuses exact matching plans only after fresh independent checks; task execution still calls GLM. One actual pair used three requests on first execution and two on reuse; raw evidence is in `evidence/glm-reuse`. This handoff revision is not yet pushed; the public 0.3.1 evidence below remains historical and unchanged.
 
 **Catch silent AI agent regressions before they reach production.**
 

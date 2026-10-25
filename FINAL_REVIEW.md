@@ -1,5 +1,7 @@
 # Final review — live development release 0.3.1
 
+**Local 0.3.2 handoff update:** 168 local tests passed, four Windows permission skips; bounded plan reuse now reruns verification and the task, with one actual first/repeat pair recorded in `evidence/glm-reuse`. The new version remains unpushed. `HANDOFF_ZH.md` and `FINISH_PLAN_ZH.md` are the current handoff and acceptance criteria; the 0.3.1 review below remains historical.
+
 The GLM development path runs end to end, with preserved raw responses, failed attempts, independent repair controls, actual local tool execution, a reviewed narrated video and an executable comparison. This is a scoped prototype, not completion of the full original mission or a competition-compliant submission.
 
 | Gate | Current result | Evidence or limitation |

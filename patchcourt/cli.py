@@ -40,6 +40,7 @@ def main(argv=None):
     serve.add_argument("directory", nargs="?", default="outputs/patchcourt"); serve.add_argument("--port", type=int, default=8765)
     live = commands.add_parser("live", help="Run the GLM 5.3 Flash repair and fixture-tool workflow")
     live.add_argument("--output", required=True)
+    live.add_argument("--knowledge-dir", help="Reuse exact verified mapping after all checks rerun; task still makes real API calls")
     live_demo = commands.add_parser("live-demo", help="Loopback-only interactive GLM workbench; at most three fixed runs per server")
     live_demo.add_argument("--output", default="outputs/live-demo"); live_demo.add_argument("--port",type=int,default=8780)
     args = parser.parse_args(argv)
@@ -101,7 +102,7 @@ def main(argv=None):
             return serve_static(args.directory, args.port)
         if args.command == "live":
             from .live_workflow import run_live_workflow
-            result=run_live_workflow(args.output)
+            result=run_live_workflow(args.output,knowledge_dir=args.knowledge_dir)
             print(json.dumps({"status":result['status'],"output":args.output,"tokens":result['total_reported_tokens']}))
             return 0 if result['status']=='PASS' else 1
         if args.command == "live-demo":

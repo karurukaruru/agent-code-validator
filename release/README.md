@@ -1,5 +1,7 @@
 # Downloadable developer build
 
+Local handoff update: `agent_code_validator-0.3.2-py3-none-any.whl` contains the latest reasoning/reporting fixes and opt-in verified plan reuse. It passed isolated package verification and 168 local tests (four Windows permission skips). This handoff build is not yet published; the 0.3.1 public-download/CI records below are historical. See `../HANDOFF_ZH.md` and `../FINISH_PLAN_ZH.md` for current status and completion criteria.
+
 - `agent_code_validator-0.3.1-py3-none-any.whl`: Python 3.10+ package. Install with `python -m pip install <wheel-path>`. Configure local GLM_API_KEY and run `patchcourt live-demo --port 8780`, or run `patchcourt demo --output outputs/patchcourt` without keys.
 - `patchcourt-glm-live-demo.mp4`: actual 95-second live GLM browser workflow, English synthesized narration and burned-in English captions.
 - `patchcourt-live.en.srt` / `patchcourt-live.zh.srt`: complete English/Chinese subtitle files.
