@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "anonymous": true,
+  "commit": "37aba3524acd109fd588e495e48a49fe1afecc38",
+  "checked_at": "2026-10-25T04:56:05.3101727Z",
+  "artifacts": [
+    {
+      "file": "agent_code_validator-0.3.1-py3-none-any.whl",
+      "url": "https://raw.githubusercontent.com/karurukaruru/agent-code-validator/37aba3524acd109fd588e495e48a49fe1afecc38/release/agent_code_validator-0.3.1-py3-none-any.whl",
+      "sha256": "e42d9997c8dee070ba039b7f4ac4a4ca751b4e340ae03bc3d82177f3e8655625",
+      "status": "PASS"
+    },
+    {
+      "file": "patchcourt-glm-live-demo.mp4",
+      "url": "https://raw.githubusercontent.com/karurukaruru/agent-code-validator/37aba3524acd109fd588e495e48a49fe1afecc38/release/patchcourt-glm-live-demo.mp4",
+      "sha256": "5e88ef8425fe2ef6afe597602eb77952d24e7d62268c8e5dff1329c6c6084a2a",
+      "status": "PASS"
+    }
+  ]
+}

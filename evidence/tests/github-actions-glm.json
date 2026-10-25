@@ -1,0 +1,229 @@
+{
+  "head_sha": "37aba3524acd109fd588e495e48a49fe1afecc38",
+  "status": "completed",
+  "conclusion": "success",
+  "html_url": "https://github.com/karurukaruru/agent-code-validator/actions/runs/40163644009",
+  "checked_at": "2026-10-25T04:56:45.0799394Z",
+  "jobs": [
+    {
+      "name": "offline-evidence (3.10)",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/karurukaruru/agent-code-validator/actions/runs/40163644009/job/121080155793",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-25T04:55:28Z",
+          "completed_at": "2026-10-25T04:55:29Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-25T04:55:29Z",
+          "completed_at": "2026-10-25T04:55:31Z"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-25T04:55:31Z",
+          "completed_at": "2026-10-25T04:55:32Z"
+        },
+        {
+          "name": "Run python -m pip install -e . pytest==8.4.2",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-25T04:55:32Z",
+          "completed_at": "2026-10-25T04:55:38Z"
+        },
+        {
+          "name": "Run python -m pytest",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-25T04:55:38Z",
+          "completed_at": "2026-10-25T04:55:44Z"
+        },
+        {
+          "name": "Run python -m patchcourt demo --output evidence/ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-25T04:55:44Z",
+          "completed_at": "2026-10-25T04:55:44Z"
+        },
+        {
+          "name": "Run python -m unittest discover -s evidence/ci -p test_regression.py",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-25T04:55:44Z",
+          "completed_at": "2026-10-25T04:55:44Z"
+        },
+        {
+          "name": "Run python -m patchcourt benchmark --output evidence/ci-benchmark",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-25T04:55:44Z",
+          "completed_at": "2026-10-25T04:55:44Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-25T04:55:44Z",
+          "completed_at": "2026-10-25T04:55:45Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-25T04:55:45Z",
+          "completed_at": "2026-10-25T04:55:45Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-10-25T04:55:45Z",
+          "completed_at": "2026-10-25T04:55:45Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-10-25T04:55:45Z",
+          "completed_at": "2026-10-25T04:55:45Z"
+        }
+      ]
+    },
+    {
+      "name": "offline-evidence (3.13)",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/karurukaruru/agent-code-validator/actions/runs/40163644009/job/121080155955",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-25T04:55:29Z",
+          "completed_at": "2026-10-25T04:55:30Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-25T04:55:30Z",
+          "completed_at": "2026-10-25T04:55:32Z"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-25T04:55:32Z",
+          "completed_at": "2026-10-25T04:55:33Z"
+        },
+        {
+          "name": "Run python -m pip install -e . pytest==8.4.2",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-25T04:55:33Z",
+          "completed_at": "2026-10-25T04:55:44Z"
+        },
+        {
+          "name": "Run python -m pytest",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-25T04:55:44Z",
+          "completed_at": "2026-10-25T04:55:50Z"
+        },
+        {
+          "name": "Run python -m patchcourt demo --output evidence/ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-25T04:55:50Z",
+          "completed_at": "2026-10-25T04:55:50Z"
+        },
+        {
+          "name": "Run python -m unittest discover -s evidence/ci -p test_regression.py",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-25T04:55:50Z",
+          "completed_at": "2026-10-25T04:55:50Z"
+        },
+        {
+          "name": "Run python -m patchcourt benchmark --output evidence/ci-benchmark",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-25T04:55:50Z",
+          "completed_at": "2026-10-25T04:55:50Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-25T04:55:50Z",
+          "completed_at": "2026-10-25T04:55:52Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-25T04:55:52Z",
+          "completed_at": "2026-10-25T04:55:52Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-10-25T04:55:52Z",
+          "completed_at": "2026-10-25T04:55:52Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-10-25T04:55:52Z",
+          "completed_at": "2026-10-25T04:55:52Z"
+        }
+      ]
+    }
+  ],
+  "observed_test_log_summaries": [
+    {
+      "job_id": 121080155793,
+      "python": "3.10",
+      "summary": "165 passed in 3.51s"
+    },
+    {
+      "job_id": 121080155955,
+      "python": "3.13",
+      "summary": "165 passed in 3.96s"
+    }
+  ]
+}

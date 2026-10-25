@@ -7,4 +7,6 @@
 
 The new wheel's CLI and packaged resources are checked from an isolated extraction. The live workflow is bounded, executes local fixture tools and never arbitrary model Python. API credentials are not included. GLM use does not establish Nebius/NVIDIA competition eligibility. Full scope: ../GLM_DEVELOPMENT.md.
 
+The 0.3.1 wheel and live video were anonymously downloaded from commit `37aba3524acd109fd588e495e48a49fe1afecc38`; both SHA-256 checksums matched. This commit also passed all 165 tests on Ubuntu Python 3.10 and 3.13. See `../evidence/tests/public-download-glm.json` and `../evidence/tests/github-actions-glm.json`.
+
 Archived 0.3.0 assets remain available: patchcourt-demo-0.3.0.zip (unpack, open index.html, select report.json), the older wheel, and the 112-second silent offline video/subtitle. They are explicitly historical and do not include the new live workflow. Their anonymous public download was verified in evidence/tests/public-download.json.

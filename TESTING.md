@@ -6,7 +6,7 @@ New coverage checks exact GLM routing/no FlashX fallback, credential redaction, 
 
 Actual HTTP experiments are separately in evidence/glm-live and evidence/glm-evaluation. Browser checks: 13 live workbench checks in evidence/live-browser plus 14 earlier offline viewer checks in evidence/browser. Video: complete decode and six-frame visual inspection in evidence/live-video. Package: scripts/verify_wheel.py and evidence/tests/wheel-verification-glm.json. Configured-value and token-marker scan: scripts/release_check.py and evidence/tests/secret-scan-glm.json.
 
-Run `python -m pytest -ra` after installing requirements and pytest 8.4.2. The historical 0.3.0 CI described below is not a claim about new code; latest commit CI must be observed separately.
+Run `python -m pytest -ra` after installing requirements and pytest 8.4.2. New 0.3.1 commit `37aba3524acd109fd588e495e48a49fe1afecc38` passed **165/165 tests on Ubuntu Python 3.10 and 3.13**, including the four Windows skips. Both jobs also passed the demo, exported regression and offline benchmark steps. [Actual run](https://github.com/karurukaruru/agent-code-validator/actions/runs/40163644009); job evidence is in `evidence/tests/github-actions-glm.json`. The historical section below concerns the prior build.
 
 ## Historical 0.3.0 verification
 

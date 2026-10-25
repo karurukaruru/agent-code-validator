@@ -1,3 +1,7 @@
+## October 25 — version 0.3.1 live development
+
+Added exact GLM 5.3 Flash inference, bounded declarative repair proposals, independent verification, actual fixture-tool recovery, a protected local workbench, all five development evaluation arms, and a 95-second narrated live video. All rejected attempts and negative Tavily results remain published. This GLM path is development evidence and does not establish Nebius/NVIDIA eligibility. Release commit `37aba3524acd109fd588e495e48a49fe1afecc38` passed all 165 tests on Ubuntu Python 3.10 and 3.13; anonymous wheel/video downloads were verified. See GLM_DEVELOPMENT.md and REQUIREMENTS_GAP_AUDIT.md for exact scope and remaining work.
+
 # Competition-period changes
 
 Build date: October 24, 2026, inside the period beginning August 26.

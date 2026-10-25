@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "artifact": "agent_code_validator-0.3.1-py3-none-any.whl",
+  "sha256": "e42d9997c8dee070ba039b7f4ac4a4ca751b4e340ae03bc3d82177f3e8655625",
+  "bytes": 109236,
+  "all_source_entries_equal_reviewed_workspace_bytes": 36,
+  "all_archive_entries_scanned": 42,
+  "known_credential_values_found": 0,
+  "private_or_environment_files": 0,
+  "remaining_entries": "standard generated package metadata and MIT license",
+  "destination": "existing karurukaruru/agent-code-validator development branch",
+  "authorization": "Original user mission lines 799-800 permits commits and pushing dedicated branch; line 835 requires judge-installable public release"
+}
