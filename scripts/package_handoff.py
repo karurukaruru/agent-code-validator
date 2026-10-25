@@ -89,7 +89,7 @@ def main():
     # Browser profiles/cookies and machine-bound environments are excluded.
     instructions = '''# PatchCourt 完整开发交接包
 
-1. 解压后先读 project/HANDOFF_ZH.md，再把 project/NEXT_AGENT_PROMPT.md 发给新 Agent。
+1. 解压后先读 project/HANDOFF_ZH.md 和 project/FINISH_PLAN_ZH.md，再把 project/NEXT_AGENT_PROMPT.md 发给新 Agent。后者会要求持续推进到逐项验收，而不是只写计划。
 2. project/ 是最新源码；repository.bundle 是完整 Git 历史；context/ 包含原任务、原始 ACV/ASM 快照和初审；media/ 是演示原始帧、配音和成片。
 3. 推荐恢复 Git：git clone repository.bundle work --branch patchcourt/award-build-20261024
 4. 修改远端：git -C work remote set-url origin https://github.com/karurukaruru/agent-code-validator.git
