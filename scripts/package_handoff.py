@@ -89,12 +89,13 @@ def main():
     # Browser profiles/cookies and machine-bound environments are excluded.
     instructions = '''# PatchCourt 完整开发交接包
 
-1. 解压后先读 project/HANDOFF_ZH.md 和 project/FINISH_PLAN_ZH.md，再把 project/NEXT_AGENT_PROMPT.md 发给新 Agent。后者会要求持续推进到逐项验收，而不是只写计划。
+1. 解压后先读 project/CURRENT_CHECKPOINT_ZH.md（最终停止点及详细说明）、project/HANDOFF_ZH.md 和 project/FINISH_PLAN_ZH.md，再把 project/NEXT_AGENT_PROMPT.md 发给新 Agent。用户已在约 41% 额度时要求停止本轮新增开发；新 Agent 按用户后续续做要求推进。
 2. project/ 是最新源码；repository.bundle 是完整 Git 历史；context/ 包含原任务、原始 ACV/ASM 快照和初审；media/ 是演示原始帧、配音和成片。
 3. 推荐恢复 Git：git clone repository.bundle work --branch patchcourt/award-build-20261024
 4. 修改远端：git -C work remote set-url origin https://github.com/karurukaruru/agent-code-validator.git
 5. 进入 work（或 project），使用 Python 3.10+：python -m venv .venv，然后用该虚拟环境的 Python 执行 pip install -e . pytest==8.4.2。
 6. python -m pytest -ra；python -m patchcourt demo --output outputs/check。不需 API 即可验证。
+   新功能：python -m patchcourt boundary-run --output outputs/boundary。默认检出已知回归，exit 1 / FAIL 是预期结果；随后 python -m patchcourt verify outputs/boundary 应通过。详见 project/BOUNDARY_RUN.md。
 7. 要重剪视频，将 media/live-video/ 复制到 work/dist/live-video/；录制脚本的 Chrome/ffmpeg 路径需要匹配新电脑。
 
 密钥、私人凭证文件、浏览器配置/会话、旧机器虚拟环境和依赖缓存不包含在包内。真实 API 需要重新安全配置；用户仅授权 glm-5.3-flash，禁止恢复 NVIDIA 调用或替换成 FlashX。完整约束和未完成项见交接文档。

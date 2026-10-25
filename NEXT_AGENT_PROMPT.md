@@ -2,9 +2,11 @@
 
 请用中文接手当前 PatchCourt 工程，直接执行，不要重新做泛泛规划或重复询问已明确的选择。
 
+先读 `CURRENT_CHECKPOINT_ZH.md`：用户已要求原会话在 41% 额度时停止开发并完整交接，新的继续开发需以用户把本包交给你续做的请求为准。
+
 先阅读 `HANDOFF_ZH.md`、`FINISH_PLAN_ZH.md`、`REQUIREMENTS_GAP_AUDIT.md`、`BOUNDARY_RUN.md`、`GLM_DEVELOPMENT.md`、`FINAL_REVIEW.md` 和 `BENCHMARK.md`；随后查看 Git 状态、当前版本和 `evidence/tests/pytest-boundary-032.txt`。0.3.2 已有推理/报告修正、已验证方案复用及自动执行固定 NVIDIA 边界的 runner；本地 181 项通过、4 项跳过，真实 GLM 复用实测及 8 组新边界执行都已完成，但尚未推送。不要误把公开 0.3.1 的 CI 当作新版本 CI。
 
-最终目标是达到可正式参加 Nebius × NVIDIA 竞赛的交付水平，尽量提高至少一个真实奖项的机会。当前约 70% 只是粗略工程判断；没有保证奖或可量化获奖概率。仍有实际工程、平台研究和提交缺口，不是只差密钥。
+最终目标是达到可正式参加 Nebius × NVIDIA 竞赛的交付水平，尽量提高至少一个真实奖项的机会。最新约 75%（暂不计 NVIDIA/Nebius 接入约 85%）只是粗略工程判断；没有保证奖或可量化获奖概率。仍有实际工程、平台研究和提交缺口，不是只差密钥。
 
 当前用户明确只授权 `glm-5.3-flash`，不得调用 FlashX、替代型号或 NVIDIA/Nebius 模型。密钥不随包提供；先完成不需要密钥的工作。只有必须缺少用户输入才能继续的步骤才询问，不要重问日常实现决策。若以后恢复比赛平台调用，必须先获得用户新的明确授权。
 
