@@ -12,7 +12,7 @@ from .knowledge import KnowledgeStore
 
 
 LIMITATIONS = [
-    "No Nebius/Nemotron or Tavily credentials: no live model or search claims.",
+    "This offline command makes no model or search requests, regardless of configured credentials; inspect separate live evidence for those results.",
     "Historical reproductions execute hash-pinned upstream functions with inert SDK stubs; full SDK environments are not validated.",
     "NVIDIA snapshot is an upstream blob, not a verified release wheel; CrewAI snapshot comes from tag 1.15.28.",
     "Task recovery is a deterministic tool-protocol simulation, not a stochastic model outcome.",
@@ -27,7 +27,7 @@ def acceptance_gates(report):
     repairs = [c for c in report["cases"] if "repair" in c]
     controls = [c for c in report["cases"] if c.get("expected_status") == "PASS"]
     gates = [
-        (1, "Real NVIDIA inference through Nebius", "BLOCKED", "No credentials supplied"),
+        (1, "Real NVIDIA inference through Nebius", "BLOCKED", "Not executed by this offline command; see separate provider evidence"),
         (2, "Product end to end", "PASS", "Offline detection, reproduction, repair verification, reports and viewer; live path excluded"),
         (3, "Authentic compatibility defect", "PASS" if by_id.get("crewai-8434", {}).get("status") == "FAIL" else "FAIL", "Pinned upstream source-boundary reproduction; full SDK remains unverified"),
         (4, "Nemotron-generated test executes", "BLOCKED", "No real inference"),
@@ -36,11 +36,11 @@ def acceptance_gates(report):
         (7, "ASM save and reuse", "PASS" if report["knowledge"]["reused"] else "FAIL", "Exact source/version/environment key; contract rerun"),
         (8, "Documented CLI", "INCONCLUSIVE", "See TESTING.md for separately executed CLI smoke checks"),
         (9, "Evidence demo interface", "INCONCLUSIVE", "Static evidence viewer; browser verification recorded separately"),
-        (10, "Real reliability experiments", "BLOCKED", "Live credentials unavailable"),
+        (10, "Real reliability experiments", "BLOCKED", "Not executed by this offline command; use an explicitly authorized lab run"),
         (11, "Reproducible platform feedback", "BLOCKED", "No observed platform findings; preparation is not feedback evidence"),
         (12, "English Devpost materials", "INCONCLUSIVE", "Draft prepared; authenticated form not inspected"),
-        (13, "Demo video", "BLOCKED", "Script prepared; real video recording and public YouTube URL missing"),
-        (14, "Public judge-accessible release", "BLOCKED", "Local build only until branch/release publication confirmed"),
+        (13, "Demo video", "INCONCLUSIVE", "This run does not verify video publication; see DEMO_SCRIPT.md and separate video evidence"),
+        (14, "Public judge-accessible release", "INCONCLUSIVE", "This run does not verify public downloads; see release/README.md and separate download evidence"),
         (15, "No exposed credentials", "INCONCLUSIVE", "Redaction tested; release scan required"),
         (16, "Official requirements checked", "PASS", "COMPETITION_AUDIT.md; entrant eligibility and private fields remain unverified"),
     ]
@@ -49,7 +49,7 @@ def acceptance_gates(report):
 
 def make_report(case_results):
     counts = Counter(c["status"].lower() for c in case_results)
-    return {"schema_version": "1.0", "run_id": str(uuid.uuid4()), "created_at": now(), "mode": "offline", "environment": environment(), "summary": {k: counts[k] for k in ("pass", "fail", "inconclusive", "needs_review")}, "cases": case_results, "knowledge": {}, "lab": {"status": "BLOCKED", "live_requests": 0, "reason": "No Nebius credentials; mocked client tests are not platform experiments"}, "limitations": LIMITATIONS}
+    return {"schema_version": "1.0", "run_id": str(uuid.uuid4()), "created_at": now(), "mode": "offline", "environment": environment(), "summary": {k: counts[k] for k in ("pass", "fail", "inconclusive", "needs_review")}, "cases": case_results, "knowledge": {}, "lab": {"status": "BLOCKED", "live_requests": 0, "reason": "Offline execution; credentials and live platform behavior are not evaluated here"}, "limitations": LIMITATIONS}
 
 
 def export_report(report, output):

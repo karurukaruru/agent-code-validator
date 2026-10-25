@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "agent-code-validator"
-version = "0.3.1"
+version = "0.3.2"
 description = "PatchCourt compatibility evidence and ACV source review"
 readme = "README.md"
 requires-python = ">=3.10"

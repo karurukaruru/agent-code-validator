@@ -7,7 +7,7 @@ import tempfile
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-wheel = ROOT / "dist" / (sys.argv[1] if len(sys.argv)>1 else "agent_code_validator-0.3.1-py3-none-any.whl")
+wheel = ROOT / "dist" / (sys.argv[1] if len(sys.argv)>1 else "agent_code_validator-0.3.2-py3-none-any.whl")
 with tempfile.TemporaryDirectory(dir=ROOT / ".local-tmp") as tmp:
     target = Path(tmp)
     with zipfile.ZipFile(wheel) as archive:

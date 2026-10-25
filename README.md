@@ -1,5 +1,7 @@
 # PatchCourt — AI Agent Compatibility Guardian
 
+**Local handoff update (0.3.2):** see [Chinese handoff](HANDOFF_ZH.md) and [next-agent prompt](NEXT_AGENT_PROMPT.md). Two small reasoning/reporting fixes passed 163 local tests with four Windows permission skips. This handoff revision is not yet pushed; the public 0.3.1 evidence below remains historical and unchanged.
+
 **Catch silent AI agent regressions before they reach production.**
 
 An agent can execute its tools, then fail on the next request because an SDK adapter silently removed their identifiers. PatchCourt compares message semantics, reproduces failures, verifies scoped repairs, and exports evidence that developers can inspect.

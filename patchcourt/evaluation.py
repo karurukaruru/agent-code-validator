@@ -9,6 +9,7 @@ from pathlib import Path
 import time
 
 from acv.reviewer import review_code
+from . import __version__
 from . import providers
 from .counterexamples import cases
 from .evidence import digest, environment, now, strict_json, write_json
@@ -136,7 +137,7 @@ def evaluate(output):
             else:
                 store = KnowledgeStore(root / "knowledge")
                 for c in inputs:
-                    identity = {"software": "patchcourt-trace-comparator", "version": "0.3.1", "boundary": c["id"], "source_sha256": digest(c), "environment": report["environment"], "contract_sha256": digest(CONTRACT)}
+                    identity = {"software": "patchcourt-trace-comparator", "version": __version__, "boundary": c["id"], "source_sha256": digest(c), "environment": report["environment"], "contract_sha256": digest(CONTRACT)}
                     current = compare_messages(c["baseline"], c["candidate"])["status"]
                     proposed = predictions.get(c["id"], {}).get("status")
                     if proposed in {"PASS", "FAIL"} and proposed == current:

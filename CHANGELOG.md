@@ -2,6 +2,12 @@
 
 All notable changes to Agent Code Validator are documented here.
 
+## [0.3.2] - 2026-10-25
+
+- Clarified generated-test contract labels and normal-behavior controls; reasoning now rejects a wrong GLM response model or ambiguous completion choices.
+- Scoped offline readiness messages to the current execution instead of asserting absent credentials, video or public releases.
+- Prepared a portable development handoff with Chinese instructions, history, evidence and video source assets. No new live API experiments or remote CI are claimed for this version.
+
 ## [0.3.1] - 2026-10-25
 
 - Added exact GLM 5.3 Flash routing, bounded model-proposed adapter mappings, independent controls and live fixture-tool recovery.
