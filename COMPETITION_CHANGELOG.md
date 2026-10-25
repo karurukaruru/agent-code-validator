@@ -1,3 +1,12 @@
+## October 25 — version 0.4.0 controlled release execution
+
+Added actual 1.4.3/1.5.0 SDK environment preparation and comparison, pinned common
+dependencies, runtime/inventory verification, independent boundary execution,
+four-scenario controls/recovery, stronger stream validation, and an upgrade
+evidence viewer. Added an installed CrewAI formatter reproduction. All new work
+is local and uses no paid/model API requests. Exact results and remaining gates
+are in [DEVELOPMENT_REVIEW_ZH.md](DEVELOPMENT_REVIEW_ZH.md).
+
 ## October 25 — version 0.3.1 live development
 
 Added exact GLM 5.3 Flash inference, bounded declarative repair proposals, independent verification, actual fixture-tool recovery, a protected local workbench, all five development evaluation arms, and a 95-second narrated live video. All rejected attempts and negative Tavily results remain published. This GLM path is development evidence and does not establish Nebius/NVIDIA eligibility. Release commit `37aba3524acd109fd588e495e48a49fe1afecc38` passed all 165 tests on Ubuntu Python 3.10 and 3.13; anonymous wheel/video downloads were verified. See GLM_DEVELOPMENT.md and REQUIREMENTS_GAP_AUDIT.md for exact scope and remaining work.

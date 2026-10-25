@@ -1,0 +1,43 @@
+{
+  "status": "PASS",
+  "rows": [
+    {
+      "scenario": "upgrade",
+      "expected": "NEEDS_REVIEW",
+      "actual": "NEEDS_REVIEW",
+      "integrity": true,
+      "real_sdk_workers": true,
+      "recovery": true,
+      "passed": true
+    },
+    {
+      "scenario": "text-control",
+      "expected": "PASS",
+      "actual": "PASS",
+      "integrity": true,
+      "real_sdk_workers": true,
+      "recovery": true,
+      "passed": true
+    },
+    {
+      "scenario": "regression",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "integrity": true,
+      "real_sdk_workers": true,
+      "recovery": true,
+      "passed": true
+    },
+    {
+      "scenario": "recovery",
+      "expected": "NEEDS_REVIEW",
+      "actual": "NEEDS_REVIEW",
+      "integrity": true,
+      "real_sdk_workers": true,
+      "recovery": true,
+      "passed": true
+    }
+  ],
+  "provider_requests": 0,
+  "scope": "Four controlled installed-SDK serializer scenarios; no model inference or full agent application execution"
+}

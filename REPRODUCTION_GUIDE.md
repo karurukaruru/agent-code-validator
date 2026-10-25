@@ -12,6 +12,16 @@ Stronger evidence was also executed: official PyPI `langchain-nvidia-ai-endpoint
 
 [Upstream issue #8434](https://github.com/crewAIInc/crewAI/issues/8434). Source from tag `1.15.28`, Git blob `1129d411257ce66d199f49ecb230c797374def24`, SHA-256 `715e68f80b32cbd97011bf8c616b3746149454083a32b163cf2010f136a63383`.
 
-The original Gemini formatting method runs with inert Part/Content types and an identity base formatter. A PNG data URI loses its image part. The reviewed patch preserves bytes/MIME, passes text controls and rejects unsupported remote URLs. Held-out tests check multiple images and malformed base64. Full CrewAI installation and live vision outcomes are **not verified**.
+The dependency-free demo runs the original Gemini formatting method with inert Part/Content types and an identity base formatter. A PNG data URI loses its image part. The reviewed patch preserves bytes/MIME, passes text controls and rejects unsupported remote URLs. Held-out tests check multiple images and malformed base64.
+
+Version 0.4.0 also executed a separate **installed SDK formatter reproduction**:
+CrewAI/crewai-core 1.15.28, real BaseLLM formatting and google-genai 1.65.0 types.
+Two image data payloads are lost before repair and preserved after it; all eight controls
+pass. Exact dependencies, failed attempts and results are in `evidence/crewai-sdk`.
+Run `python examples/reproductions/full_sdk_crewai.py --output outputs/crewai-new`
+after installing `crewai[google-genai]==1.15.28` into `.sdk-crewai`. The script
+uses Pydantic `model_construct` to avoid API client initialization and overrides
+only a hash-checked, reviewed formatter method on a subclass. Installed files
+remain unchanged. Neither client construction nor a live vision outcome is verified.
 
 These are credited known defects, not new discoveries. Hash mismatches refuse execution. Fixed patches do not modify installed packages or user repositories. The inventory replay is a deterministic task simulation; restored image bytes alone do not prove vision-task success.

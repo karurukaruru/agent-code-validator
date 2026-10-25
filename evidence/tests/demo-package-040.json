@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "archive": "patchcourt-demo-0.4.0.zip",
+  "files": 11,
+  "report_version": "0.4.0",
+  "viewer_matches_browser_tested_source": true,
+  "sha256": "3e6c84f8f066d6fbf514df61237deebc022d7861c90724af3489eacbb8c8cdef"
+}

@@ -24,3 +24,22 @@ jobs:
         with:
           name: compatibility-evidence-${{ matrix.python }}
           path: evidence/ci*
+  installed-sdk:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -e .
+      - run: python scripts/verify_sdk_upgrade.py --environment-dir outputs/sdk-environments --output evidence/ci-sdk-upgrade --prepare
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: installed-sdk-${{ matrix.os }}
+          path: evidence/ci-sdk-upgrade

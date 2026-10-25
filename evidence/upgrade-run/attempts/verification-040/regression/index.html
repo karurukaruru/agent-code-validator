@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <meta name="description" content="Inspect real evidence of AI agent compatibility regressions with PatchCourt.">
+  <title>PatchCourt — Compatibility evidence</title>
+  <style>
+    :root{--paper:#f6f5f1;--surface:#fff;--ink:#182227;--muted:#626c71;--line:#dedfd9;--blue:#244bd6;--blue-soft:#edf1ff;--amber:#8b4b0b;--amber-soft:#fff2d9;--red:#a83130;--red-soft:#fff0ed;--green:#256449;--green-soft:#eaf5ee;--mono:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;--sans:Inter,"Segoe UI",Arial,sans-serif}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.5}button,input{font:inherit}button,.file-button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.45}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--blue);outline-offset:4px}button{color:inherit}.skip{position:absolute;top:-80px;left:16px;z-index:10;padding:10px;background:var(--surface);color:var(--blue)}.skip:focus{top:8px}.wrap{width:min(1440px,100%);margin:auto;padding:0 42px}header{height:84px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:20px}.brand{display:flex;align-items:center;gap:12px;font-size:22px;font-weight:750;letter-spacing:-1px}.brandmark{width:32px;height:36px;position:relative;display:grid;place-items:center;border:2px solid var(--ink);border-radius:4px 4px 11px 11px;font-family:var(--mono);font-size:15px;letter-spacing:-3px;padding-right:3px}.brand small{font-size:10px;letter-spacing:1.6px;text-transform:uppercase;font-weight:650;color:var(--muted);margin-left:12px;border-left:1px solid var(--line);padding-left:20px}.actions{display:flex;gap:9px;align-items:center}.button{border:1px solid var(--line);background:var(--surface);border-radius:5px;padding:9px 14px;font-size:12px;font-weight:650;text-decoration:none;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}.button:hover:not(:disabled){border-color:var(--blue);color:var(--blue)}.button.primary{background:var(--blue);border-color:var(--blue);color:white}.button.primary:hover{background:#1b3eaf;color:white}.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:1.8px;font-weight:600;text-transform:uppercase}.hero{padding:43px 0 30px;display:grid;grid-template-columns:1.4fr 1fr;align-items:end;gap:48px}.hero .eyebrow{display:flex;align-items:center;gap:8px;color:var(--blue)}.dot{height:6px;width:6px;border-radius:50%;background:currentColor;display:inline-block}.hero h1{font-size:clamp(29px,3.1vw,44px);letter-spacing:-1.7px;line-height:1.13;margin:14px 0 0;font-weight:620}.hero h1 span{color:var(--blue)}.hero p{max-width:380px;margin:0 0 3px;font-size:14px;line-height:1.7;color:var(--muted)}.hero p strong{color:var(--ink);font-weight:600}.notice{display:flex;align-items:center;gap:11px;background:#edede6;padding:12px 16px;border:1px solid var(--line);border-radius:5px;margin-bottom:22px;font-size:12px;color:#4a5355}.notice.error{background:var(--red-soft);border-color:#eac2b9;color:var(--red)}.notice.success{background:var(--blue-soft);border-color:#d5ddfa;color:#344c8a}.notice .notice-icon{font-family:var(--mono);font-size:15px;flex:none}.notice p{margin:0}.notice span{overflow-wrap:anywhere}.overview{display:grid;grid-template-columns:1.7fr repeat(4,1fr);background:var(--surface);border:1px solid var(--line);border-radius:7px;margin-bottom:28px;overflow:hidden}.run-meta{padding:21px 24px}.run-meta .eyebrow{color:var(--muted);margin-bottom:11px}.run-id{font-family:var(--mono);font-size:12px;font-weight:600;overflow-wrap:anywhere}.run-sub{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:7px}.stat{padding:20px 24px;border-left:1px solid var(--line);position:relative}.stat .number{display:block;font-size:32px;font-family:var(--mono);letter-spacing:-1px;line-height:1.2;margin:3px 0 8px}.stat .label{font-size:11px;color:var(--muted)}.stat.fail .number{color:var(--red)}.stat.pass .number{color:var(--green)}.stat.review .number{color:var(--amber)}.workspace{display:grid;grid-template-columns:290px minmax(0,1fr);gap:24px}.section-heading{display:flex;align-items:center;justify-content:space-between;margin:0 0 12px}.section-heading h2{font-size:11px;font-weight:650;letter-spacing:1.6px;text-transform:uppercase;margin:0}.small-count{font-family:var(--mono);color:var(--muted);font-size:10px}.cases{display:flex;flex-direction:column;gap:8px}.case-button{padding:16px;text-align:left;border:1px solid var(--line);border-radius:5px;background:transparent;width:100%;position:relative}.case-button:hover{background:#eeeee8}.case-button[aria-pressed=true]{background:var(--surface);border-color:var(--blue);box-shadow:inset 3px 0 var(--blue)}.case-button .case-top{display:flex;justify-content:space-between;gap:8px;margin-bottom:12px}.case-number{font-family:var(--mono);color:var(--muted);font-size:10px}.case-button h3{font-size:13px;line-height:1.5;margin:0;font-weight:650;overflow-wrap:anywhere}.case-id{color:var(--muted);font-size:10px;font-family:var(--mono);margin-top:9px;overflow-wrap:anywhere}.badge{font-family:var(--mono);font-size:9px;letter-spacing:.35px;padding:3px 7px;border-radius:3px;display:inline-flex;align-items:center;gap:5px;line-height:1.3;background:#eeeee9;color:#5b6465;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}.badge.fail{background:var(--red-soft);color:var(--red)}.badge.pass{background:var(--green-soft);color:var(--green)}.badge.review,.badge.blocked{background:var(--amber-soft);color:var(--amber)}.badge.info{background:var(--blue-soft);color:var(--blue)}.aside-note{font-size:11px;color:var(--muted);line-height:1.7;margin-top:19px;padding:0 4px}.panel{background:var(--surface);border:1px solid var(--line);border-radius:7px;overflow:hidden;min-width:0}.panel-top{padding:24px 26px 18px;display:flex;align-items:flex-start;justify-content:space-between;gap:15px}.panel-top .eyebrow{color:var(--muted);font-size:9px;margin-bottom:8px}.panel-top h2{font-size:21px;font-weight:620;letter-spacing:-.5px;line-height:1.3;margin:0;overflow-wrap:anywhere}.case-description{font-size:12px;color:var(--muted);margin:12px 0 0;max-width:680px}.tabs{display:flex;gap:25px;padding:0 26px;border-bottom:1px solid var(--line);overflow-x:auto}.tab{padding:15px 0 13px;background:none;border:0;border-bottom:2px solid transparent;font-size:11px;font-weight:650;white-space:nowrap;color:var(--muted)}.tab[aria-pressed=true]{border-bottom-color:var(--blue);color:var(--blue)}.pane{padding:22px 26px 26px}.pane[hidden]{display:none}.mini-label{font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:1.3px;text-transform:uppercase;margin:0 0 12px}.diff-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.diff-head p{font-size:12px;margin:0;color:var(--muted)}.diff-grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:5px;overflow:hidden}.diff-side{min-width:0}.diff-side+.diff-side{border-left:1px solid var(--line)}.code-head{display:flex;justify-content:space-between;gap:8px;padding:11px 14px;background:#f8f8f5;font-family:var(--mono);font-size:10px;border-bottom:1px solid var(--line)}.code-head .hint{color:var(--muted)}pre{font-family:var(--mono);font-size:11px;line-height:1.75;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;margin:0;max-height:430px;overflow:auto;padding:17px;background:#fcfcfa;tab-size:2}.diff-side pre{min-height:230px}.empty{padding:46px 25px;color:var(--muted);text-align:center;font-size:12px;line-height:1.8}.empty strong{display:block;font-size:16px;color:var(--ink);margin-bottom:7px;font-weight:600}.finding{border:1px solid #edd5ba;background:#fffcf5;border-radius:5px;margin-top:14px;overflow:hidden}.finding-top{padding:12px 14px;display:flex;gap:9px;align-items:flex-start}.finding-top .mark{color:var(--amber);font-family:var(--mono);font-size:15px;line-height:1.2}.finding-top h3{font-size:12px;margin:0 0 4px;font-weight:650}.finding-top p{font-size:11px;color:#75634d;margin:0;overflow-wrap:anywhere}.finding-path{font-family:var(--mono);font-size:10px;margin:0;padding:0 14px 12px 38px;color:var(--amber);overflow-wrap:anywhere}.comparison{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #edd5ba;background:var(--surface)}.comparison>div{min-width:0;padding:12px 14px}.comparison>div+div{border-left:1px solid #edd5ba}.comparison .mini-label{margin-bottom:7px}.comparison pre{padding:0;background:transparent;font-size:10px;max-height:180px}.change-list{margin-top:16px}.change-row{display:grid;grid-template-columns:minmax(110px,.8fr) 1fr 1fr;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:10px;line-height:1.7;overflow-wrap:anywhere}.change-row>div{padding:10px 12px;min-width:0}.change-row .path{color:var(--muted);background:#f8f8f5}.change-row .old{background:var(--green-soft);color:var(--green)}.change-row .new{background:var(--red-soft);color:var(--red)}.change-row.header{font-size:9px;letter-spacing:.8px;text-transform:uppercase;color:var(--muted)}.change-row.header>div{background:#f8f8f5}.subtle{font-size:11px;color:var(--muted);line-height:1.7;margin:14px 0 0}.panel-foot{border-top:1px solid var(--line);padding:11px 26px;display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-family:var(--mono);font-size:9px;background:#fdfdfa;overflow-wrap:anywhere}.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:28px 0}.support-card{border:1px solid var(--line);border-radius:6px;background:var(--surface);padding:21px 24px;min-width:0}.support-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px}.support-top h2{font-size:13px;margin:0;font-weight:650}.support-card p{font-size:12px;color:var(--muted);line-height:1.7;margin:8px 0}.support-card details{margin-top:14px;border-top:1px solid var(--line);padding-top:11px}summary{font-size:11px;color:var(--blue);cursor:pointer}details pre{margin-top:12px;border-radius:4px;max-height:260px}.acceptance{margin-bottom:28px;border-top:1px solid var(--line);padding-top:23px}.gate-list{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}.gate{border:1px solid var(--line);border-radius:5px;padding:12px 14px;background:var(--surface);font-size:11px;display:flex;justify-content:space-between;gap:10px;align-items:flex-start;overflow-wrap:anywhere}.limitations{padding-left:18px;color:var(--muted);font-size:11px;line-height:1.8}.limitations li{padding:3px 0;overflow-wrap:anywhere}footer{border-top:1px solid var(--line);padding:19px 0 28px;display:flex;justify-content:space-between;gap:20px;color:var(--muted);font-size:10px}.footer-brand{color:var(--ink);font-weight:600}#file{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}.sr-status{min-height:0}
+    .workspace>.panel{align-self:start}.cases{max-height:650px;overflow-y:auto;padding-right:3px;scrollbar-width:thin}
+    [hidden]{display:none!important}.upgrade{margin:0 0 26px;background:var(--surface);border:1px solid var(--line);border-radius:7px;overflow:hidden}.upgrade-heading{padding:23px 26px 20px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px}.upgrade-heading .eyebrow{color:var(--muted);letter-spacing:1.1px;overflow-wrap:anywhere}.upgrade-heading h2{font-size:24px;font-weight:620;letter-spacing:-.65px;margin:9px 0 8px;line-height:1.25}.upgrade-heading p{margin:0;max-width:820px;font-size:12px;color:var(--muted);line-height:1.7}.upgrade-heading>.badge{margin-top:3px;flex-shrink:0}.release-grid{display:grid;grid-template-columns:1fr 1fr;margin:0 26px 22px;border:1px solid var(--line);border-radius:5px;overflow:hidden}.release{padding:18px 20px;min-width:0}.release+.release{border-left:1px solid var(--line)}.release-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:15px}.release-top .mini-label{margin:0}.release-version{font-family:var(--mono);font-size:27px;line-height:1.2;letter-spacing:-1px;margin:6px 0 0;overflow-wrap:anywhere}.release-data{margin:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);font-size:11px;gap:9px 16px;align-items:start}.release-data dt{color:var(--muted)}.release-data dd{margin:0;overflow-wrap:anywhere;text-align:right}.environment-strip{display:grid;grid-template-columns:1.1fr 1.3fr 1fr;border-top:1px solid var(--line);background:#fafaf7}.environment-check{padding:15px 22px;min-width:0}.environment-check+.environment-check{border-left:1px solid var(--line)}.environment-check .mini-label{margin-bottom:6px;letter-spacing:.7px}.environment-check p{font-size:11px;line-height:1.6;margin:0;overflow-wrap:anywhere}.environment-check .badge{margin-bottom:5px}.upgrade-scope{padding:10px 26px;border-top:1px solid var(--line);font-size:10px;color:var(--muted);margin:0}.worker-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:15px 0 18px}.worker{border:1px solid var(--line);border-radius:5px;min-width:0;padding:16px}.worker .support-top{align-items:flex-start}.worker h3{font-size:13px;font-weight:650;margin:0}.worker .release-data{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);font-size:10px;gap:10px}.worker .release-data dd{font-family:var(--mono)}.worker details{border-top:1px solid var(--line);padding-top:11px;margin-top:14px}.worker details pre{font-size:10px;padding:12px}.worker-error{font-size:11px;color:var(--red);overflow-wrap:anywhere}.contract-group{margin-top:22px}.contract-group h3{font-size:12px;margin:0 0 10px}.event-entry{border-top:1px solid var(--line);margin-top:12px;padding-top:10px}.event-entry p{font-size:10px;color:var(--muted);font-family:var(--mono);overflow-wrap:anywhere}.event-entry pre{font-size:10px}
+    @media(max-width:760px){.upgrade-heading{padding:19px 18px 17px;flex-wrap:wrap;gap:9px}.upgrade-heading h2{font-size:22px}.upgrade-heading>.badge{order:-1}.upgrade-heading>div{width:100%}.release-grid{margin:0 18px 18px;grid-template-columns:1fr}.release+.release{border-left:0;border-top:1px solid var(--line)}.release{padding:16px}.release-version{font-size:25px}.environment-strip{grid-template-columns:1fr}.environment-check{padding:13px 18px}.environment-check+.environment-check{border-left:0;border-top:1px solid var(--line)}.upgrade-scope{padding:11px 18px}.worker-grid{grid-template-columns:1fr}.release-data{gap:9px 12px}}
+    @media(min-width:1450px){.wrap{padding:0 50px}.hero{padding-top:48px}}
+    @media(max-width:1050px){.wrap{padding:0 25px}.workspace{grid-template-columns:240px minmax(0,1fr);gap:18px}.brand small{display:none}.hero{gap:25px}.overview{grid-template-columns:1.5fr repeat(4,1fr)}.stat{padding:20px 17px}.panel-top,.pane{padding-left:20px;padding-right:20px}.tabs{padding:0 20px;gap:20px}.gate-list{grid-template-columns:1fr 1fr}}
+    @media(max-width:760px){.wrap{padding:0 18px}header{height:auto;min-height:76px;flex-wrap:wrap;padding:17px 0;gap:15px}.brand{font-size:21px}.actions{gap:6px}.button{padding:8px 10px;font-size:11px}.hero{grid-template-columns:1fr;padding-top:30px;gap:19px}.hero h1{font-size:35px}.hero p{max-width:540px;font-size:13px}.overview{grid-template-columns:repeat(4,1fr)}.run-meta{grid-column:1/-1;border-bottom:1px solid var(--line);padding:14px 18px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.run-meta .eyebrow{margin:0;width:100%}.run-sub{margin:0}.stat{padding:17px 13px}.stat:nth-child(2){border-left:0}.stat .number{font-size:26px}.stat .label{font-size:10px}.workspace{grid-template-columns:1fr}.cases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-height:280px;overflow:auto}.case-button{padding:13px}.aside-note{margin:12px 0 6px}.bottom-grid{grid-template-columns:1fr;gap:14px}.panel-top h2{font-size:19px}.panel-top{padding-top:20px}.diff-grid{grid-template-columns:1fr}.diff-side+.diff-side{border-left:0;border-top:1px solid var(--line)}.diff-side pre{min-height:140px;max-height:300px}.pane{padding:18px}.change-row{grid-template-columns:minmax(95px,.8fr) 1fr 1fr;font-size:9px}.change-row>div{padding:8px}.gate-list{grid-template-columns:1fr}.panel-foot{padding:12px 18px;flex-wrap:wrap}.notice{align-items:flex-start}.hero h1 span{display:block}footer{flex-direction:column;gap:6px}}
+    @media(prefers-reduced-motion:no-preference){button{transition:background .15s,border-color .15s}.panel{animation:enter .25s ease-out}@keyframes enter{from{opacity:.6;transform:translateY(3px)}to{opacity:1;transform:none}}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to evidence</a>
+  <div class="wrap">
+    <header>
+      <div class="brand"><span class="brandmark" aria-hidden="true">[ ]</span>PatchCourt<small>Compatibility guardian</small></div>
+      <div class="actions">
+        <button id="reload" class="button" type="button" title="Load report.json from this directory">Reload report</button>
+        <button id="export" class="button" type="button" disabled>Export JSON <span aria-hidden="true">↗</span></button>
+        <button id="open-file" class="button primary" type="button">Open evidence <span aria-hidden="true">＋</span></button>
+        <input id="file" type="file" accept=".json,application/json" aria-label="Choose a PatchCourt JSON report">
+      </div>
+    </header>
+    <main id="main">
+      <section class="hero" aria-label="Product introduction">
+        <div><div class="eyebrow"><span class="dot"></span>Trust the evidence. Check the boundary.</div><h1 id="hero-title">The tool ran.<br><span>The next request forgot it.</span></h1></div>
+        <p id="hero-description">Catch silent regressions between an AI framework and its provider. <strong>See what changed, what broke, and what the tests actually prove.</strong></p>
+      </section>
+      <div id="notice" class="notice" role="status" aria-live="polite"><span class="notice-icon" aria-hidden="true">↳</span><p id="notice-text">Loading local report. No evidence has been loaded yet.</p></div>
+      <section id="upgrade-summary" class="upgrade" aria-label="SDK upgrade comparison" hidden></section>
+      <section class="overview" aria-label="Report summary">
+        <div class="run-meta"><div class="eyebrow">Recorded verdicts</div><div id="run-id" class="run-id">Awaiting a report</div><div id="run-sub" class="run-sub">Schema 1.0 · local evidence viewer</div></div>
+        <div class="stat pass"><span id="count-pass" class="number">—</span><span class="label">Passed</span></div>
+        <div class="stat fail"><span id="count-fail" class="number">—</span><span class="label">Failed</span></div>
+        <div class="stat"><span id="count-inconclusive" class="number">—</span><span class="label">Inconclusive</span></div>
+        <div class="stat review"><span id="count-needs_review" class="number">—</span><span class="label">Needs review</span></div>
+      </section>
+      <section class="workspace" aria-label="Compatibility cases">
+        <aside>
+          <div class="section-heading"><h2>Case files</h2><span id="case-count" class="small-count">NO DATA</span></div>
+          <div id="cases" class="cases"><div class="empty"><strong>Evidence comes first.</strong>Open a report to inspect recorded cases.</div></div>
+          <p class="aside-note">A version change is a reason to investigate. It is not, by itself, proof of a defect.</p>
+        </aside>
+        <article class="panel" aria-labelledby="case-title">
+          <div class="panel-top"><div><div id="case-context" class="eyebrow">Boundary inspection</div><h2 id="case-title">No case selected</h2><p id="case-description" class="case-description">Load a report generated by the PatchCourt CLI, or open an exported JSON file.</p></div><span id="case-status" class="badge">NO EVIDENCE</span></div>
+          <div class="tabs" role="group" aria-label="Evidence view">
+            <button class="tab" type="button" data-pane="protocol" aria-pressed="true">Protocol diff</button>
+            <button class="tab" type="button" data-pane="findings" aria-pressed="false">Findings <span id="finding-count"></span></button>
+            <button class="tab" type="button" data-pane="repair" aria-pressed="false">Repair & replay</button>
+            <button class="tab" type="button" data-pane="provenance" aria-pressed="false">Provenance</button>
+          </div>
+          <div id="pane-protocol" class="pane"><div class="empty">Recorded baseline and candidate payloads will appear here.</div></div>
+          <div id="pane-findings" class="pane" hidden></div>
+          <div id="pane-repair" class="pane" hidden></div>
+          <div id="pane-provenance" class="pane" hidden></div>
+          <div class="panel-foot"><span id="case-footer">No inferred or simulated results</span><span id="case-duration">Execution time: not recorded</span></div>
+        </article>
+      </section>
+      <section class="bottom-grid" aria-label="Research and knowledge">
+        <article class="support-card"><div class="support-top"><h2>Nebius Reliability Lab</h2><span id="lab-status" class="badge">NOT RECORDED</span></div><p id="lab-description">Live API experiments must have their own evidence. Loading this viewer does not perform inference.</p><details><summary>Inspect lab evidence</summary><pre id="lab-data">No lab evidence in this report.</pre></details></article>
+        <article class="support-card"><div class="support-top"><h2>Reusable compatibility knowledge</h2><span id="knowledge-status" class="badge">NOT RECORDED</span></div><p id="knowledge-description">A verified observation can become a versioned contract. Knowledge reuse is shown only when recorded.</p><details><summary>Inspect knowledge record</summary><pre id="knowledge-data">No knowledge evidence in this report.</pre></details></article>
+      </section>
+      <section class="acceptance" aria-label="Acceptance and limitations"><div class="section-heading"><h2>Acceptance & limitations</h2><span class="small-count">CLAIMS REQUIRE EVIDENCE</span></div><p id="acceptance-note" class="subtle">No acceptance gates have been provided. This viewer does not certify submission readiness.</p><div id="gates" class="gate-list"></div><ul id="limitations" class="limitations"></ul></section>
+    </main>
+    <footer><span><span class="footer-brand">PatchCourt</span> / AI agent compatibility guardian</span><span>Local report viewer · No API requests triggered · Evidence, not promises.</span></footer>
+  </div>
+  <script>
+    'use strict';
+    const $ = (id) => document.getElementById(id);
+    const MAX_BYTES = 10 * 1024 * 1024;
+    let report = null;
+    let selectedCase = -1;
+    let activePane = 'protocol';
+    let loadSequence = 0;
+    const own = (value, key) => value != null && Object.prototype.hasOwnProperty.call(value, key);
+    const isObject = (value) => value !== null && typeof value === 'object' && !Array.isArray(value);
+    const stringify = (value) => value === undefined ? 'Not recorded' : typeof value === 'string' ? value : JSON.stringify(value, null, 2);
+    const text = (value, fallback = 'Not recorded') => value === undefined || value === null ? fallback : typeof value === 'object' ? JSON.stringify(value) : String(value);
+    const normalize = (status) => text(status, 'NOT RECORDED').toUpperCase().replace(/[ -]+/g, '_');
+    function node(tag, className, value) { const el = document.createElement(tag); if (className) el.className = className; if (value !== undefined) el.textContent = value; return el; }
+    function badge(status) { const label = normalize(status); const kind = label === 'PASS' || label === 'VERIFIED' ? 'pass' : label === 'FAIL' ? 'fail' : label === 'NEEDS_REVIEW' ? 'review' : label === 'BLOCKED' ? 'blocked' : label === 'READY' || label === 'EXECUTED' ? 'info' : ''; return node('span', 'badge ' + kind, label.replaceAll('_', ' ')); }
+    function setBadge(id, status) { const target = $(id); const source = badge(status); target.textContent = source.textContent; target.className = source.className; }
+    function notice(message, kind = '') { $('notice-text').textContent = message; $('notice').className = 'notice ' + kind; }
+    function empty(target, message) { target.replaceChildren(node('div', 'empty', message)); }
+    function labeledJSON(label, value) { const section = node('div'); section.append(node('p', 'mini-label', label), node('pre', '', stringify(value))); return section; }
+    function pair(leftTitle, left, rightTitle, right) { const grid = node('div', 'diff-grid'); [[leftTitle, left], [rightTitle, right]].forEach(([title, value]) => { const side = node('section', 'diff-side'); const heading = node('div', 'code-head'); heading.append(node('span', '', title), node('span', 'hint', 'RECORDED DATA')); side.append(heading, node('pre', '', stringify(value))); grid.append(side); }); return grid; }
+    function sideVersion(side, item = {}) {
+      const provenance = isObject(item.provenance) ? item.provenance : {};
+      const environment = isObject(report.environments) && isObject(report.environments[side]) ? report.environments[side] : {};
+      const execution = isObject(report.executions) && isObject(report.executions[side]) ? report.executions[side] : {};
+      return text(provenance[side + '_version'] || (isObject(report.inspection) ? report.inspection[side + '_version'] : undefined) || environment.version || (isObject(execution.provenance) ? execution.provenance.version : undefined), 'Version not recorded');
+    }
+    function toolCallCount(messages) { return Array.isArray(messages) ? messages.reduce((sum, message) => sum + (isObject(message) && Array.isArray(message.tool_calls) ? message.tool_calls.length : 0), 0) : null; }
+    function dataRow(list, label, value) { const detail = node('dd'); detail.append(value instanceof Node ? value : node('span', '', text(value))); list.append(node('dt', '', label), detail); }
+    function upgradeExplanation(item) {
+      const contracts = isObject(item.contracts) ? item.contracts : {};
+      const baseline = isObject(contracts.baseline) ? normalize(contracts.baseline.status) : 'NOT_RECORDED';
+      const candidate = isObject(contracts.candidate) ? normalize(contracts.candidate.status) : 'NOT_RECORDED';
+      const status = normalize(item.status || report.status);
+      const expected = toolCallCount(report.input);
+      if (baseline === 'FAIL' && candidate === 'FAIL') return {
+        title:expected > 0 && toolCallCount(item.baseline) === 0 && toolCallCount(item.candidate) === 0 ? 'Both releases lose the tool calls.' : 'Both releases violate the input contract.',
+        detail:'The baseline already fails. NEEDS_REVIEW does not mean passed, and these results do not establish a newly introduced upgrade regression. Both releases require investigation.'};
+      if (baseline === 'FAIL' && candidate === 'PASS') return {title:'The candidate restores the input contract.', detail:'The baseline is unhealthy, so this comparison remains NEEDS_REVIEW. Inspect the restored behavior before accepting an upgrade; this run does not certify compatibility.'};
+      if (baseline === 'PASS' && candidate === 'FAIL') return {title:'The candidate breaks a preserved input contract.', detail:'The baseline preserves this input; the candidate does not. Inspect the contract findings and captured SDK outputs for the recorded regression.'};
+      if (status === 'PASS' && baseline === 'PASS' && candidate === 'PASS') return {title:'Both releases preserve the tested input.', detail:'PASS applies to this recorded input and boundary only. It does not certify other inputs, end-to-end application behavior, or live provider compatibility.'};
+      const first = Array.isArray(item.findings) ? item.findings.find(isObject) : null;
+      return {title:'The upgrade verdict is unresolved.', detail:'No compatibility conclusion can be drawn from incomplete execution or contract evidence.' + (first ? ' ' + text(first.message, '') : '')};
+    }
+    function dependencyParity(item) {
+      const environments = isObject(report.environments) ? report.environments : {};
+      if (!isObject(environments.baseline) || !isObject(environments.candidate) || !isObject(environments.baseline.dependencies) || !isObject(environments.candidate.dependencies)) return {label:'NOT RECORDED', detail:'Shared dependency versions are unavailable.'};
+      const packageName = text(isObject(item.provenance) ? item.provenance.dependency : undefined, isObject(report.inspection) ? report.inspection.dependency : '').toLowerCase().replaceAll('_','-');
+      if (!packageName) return {label:'NOT RECORDED', detail:'The SDK package identity is unavailable.'};
+      const common = (dependencies) => Object.entries(dependencies).map(([name, version]) => [name.toLowerCase().replaceAll('_','-'), version]).filter(([name]) => name !== packageName).sort(([a],[b]) => a.localeCompare(b));
+      const before = common(environments.baseline.dependencies), after = common(environments.candidate.dependencies);
+      if (!before.length || !after.length) return {label:'NOT RECORDED', detail:'No shared dependency inventory is recorded.'};
+      return JSON.stringify(before) === JSON.stringify(after) ? {label:'MATCHED', detail:before.length + ' shared package versions match in the recorded inventories.'} : {label:'MISMATCH', detail:'Non-SDK dependency versions differ. This run cannot isolate the SDK change.'};
+    }
+    function renderUpgrade(item = {}) {
+      const section = $('upgrade-summary'), upgrade = report.mode === 'upgrade-run'; section.hidden = !upgrade; section.replaceChildren();
+      $('hero-title').replaceChildren(document.createTextNode(upgrade ? 'SDK upgrades.' : 'The tool ran.'), node('br'), node('span', '', upgrade ? 'Evidence before confidence.' : 'The next request forgot it.'));
+      $('hero-description').replaceChildren(document.createTextNode(upgrade ? 'Compare unmodified SDK releases against the same input. ' : 'Catch silent regressions between an AI framework and its provider. '), node('strong', '', upgrade ? 'Separate an existing failure from an upgrade regression.' : 'See what changed, what broke, and what the tests actually prove.'));
+      document.querySelector('[data-pane=repair]').textContent = upgrade ? 'Task results' : 'Repair & replay';
+      if (!upgrade) return;
+      const provenance = isObject(item.provenance) ? item.provenance : {};
+      const explanation = upgradeExplanation(item), heading = node('div', 'upgrade-heading'), content = node('div');
+      content.append(node('div', 'eyebrow', text(provenance.dependency, isObject(report.inspection) ? text(report.inspection.dependency, 'SDK release comparison') : 'SDK release comparison') + ' · ' + sideVersion('baseline', item) + ' → ' + sideVersion('candidate', item)), node('h2', '', explanation.title), node('p', '', explanation.detail));
+      heading.append(content, badge(item.status || report.status)); section.append(heading);
+      const versions = node('div', 'release-grid'); versions.id = 'upgrade-releases';
+      for (const [side, label, taskKey] of [['baseline', 'Baseline', 'before'], ['candidate', 'Candidate', 'after']]) {
+        const environment = isObject(report.environments) && isObject(report.environments[side]) ? report.environments[side] : {};
+        const execution = isObject(report.executions) && isObject(report.executions[side]) ? report.executions[side] : {};
+        const contract = isObject(item.contracts) && isObject(item.contracts[side]) ? item.contracts[side] : {};
+        const task = isObject(item.task_replay) && isObject(item.task_replay[taskKey]) ? item.task_replay[taskKey] : {};
+        const card = node('section', 'release'); card.setAttribute('aria-label', label + ' release');
+        const top = node('div', 'release-top'), name = node('div'); name.append(node('p', 'mini-label', label + ' release'), node('h3', 'release-version', sideVersion(side, item))); top.append(name, badge(contract.status));
+        const data = node('dl', 'release-data'); dataRow(data, 'Input contract', badge(contract.status)); dataRow(data, 'SDK subprocess', badge(execution.status)); dataRow(data, 'Environment inventory', badge(environment.status));
+        const expected = toolCallCount(report.input), actual = toolCallCount(item[side]);
+        dataRow(data, 'Tool calls preserved', expected === null || actual === null ? 'Not recorded' : expected === 0 ? 'No input tool calls' : actual + ' / ' + expected + ' input calls');
+        dataRow(data, 'Deterministic task', task.status ? badge(task.status) : 'Not recorded'); card.append(top, data); versions.append(card);
+      }
+      section.append(versions);
+      const strip = node('div', 'environment-strip'), parity = dependencyParity(item);
+      const environmentValues = isObject(report.environments) ? ['baseline','candidate'].map((side) => report.environments[side]) : [];
+      const ready = environmentValues.filter((value) => isObject(value) && value.status === 'READY').length;
+      for (const [label, value] of [['Environment verification', ready + ' / 2 inventories READY. ' + (ready === 2 ? 'Source and dependency identities checked by the runner.' : 'Inspect environment errors in Provenance.')], ['Shared dependencies · ' + parity.label, parity.detail], ['Provider requests', own(report, 'provider_requests') ? text(report.provider_requests) + (report.provider_requests === 0 ? ' recorded · No model inference in this run.' : ' recorded · Inspect execution evidence.') : 'Not recorded. No live verification can be inferred.']]) {
+        const check = node('div', 'environment-check'); check.append(node('p', 'mini-label', label), node('p', '', value)); strip.append(check);
+      }
+      section.append(strip, node('p', 'upgrade-scope', 'Scope: local SDK serializer execution. Task replay is deterministic; no live provider behavior is established. Evidence is displayed as recorded, not independently authenticated.'));
+    }
+    function validate(data) {
+      if (!isObject(data) || data.schema_version !== '1.0' || !Array.isArray(data.cases)) throw new Error('Expected a PatchCourt schema 1.0 report with a cases array.');
+      const pending = [{value:data, depth:0}]; let nodes = 0;
+      while (pending.length) {
+        const current = pending.pop();
+        if (++nodes > 100000 || current.depth > 64) throw new Error('Report structure exceeds the viewer safety limit.');
+        if (current.value !== null && typeof current.value === 'object') for (const value of Object.values(current.value)) pending.push({value, depth:current.depth + 1});
+      }
+      if (data.cases.length > 2000) throw new Error('This viewer supports up to 2,000 cases per report.');
+      if (!data.cases.every(isObject)) throw new Error('Every case must be a JSON object.');
+      if (!isObject(data.summary)) throw new Error('The report must include a summary object.');
+      for (const key of ['pass', 'fail', 'inconclusive', 'needs_review']) if (!Number.isInteger(data.summary[key]) || data.summary[key] < 0) throw new Error('Summary counts must be non-negative integers: ' + key + '.');
+      return data;
+    }
+    function accept(data, origin) {
+      const next = validate(data);
+      report = next;
+      selectedCase = report.cases.findIndex((item) => normalize(item.status) === 'FAIL');
+      if (selectedCase < 0 && report.cases.length) selectedCase = 0;
+      $('run-id').textContent = text(report.run_id, 'Run ID not recorded');
+      $('run-sub').textContent = text(report.created_at, 'Timestamp not recorded') + ' · ' + text(report.mode, 'mode not recorded');
+      for (const key of ['pass', 'fail', 'inconclusive', 'needs_review']) $('count-' + key).textContent = report.summary[key];
+      $('case-count').textContent = String(report.cases.length).padStart(2, '0') + ' RECORDED';
+      $('export').disabled = false;
+      const totals = {pass:0, fail:0, inconclusive:0, needs_review:0};
+      report.cases.forEach((item) => { const key = normalize(item.status).toLowerCase(); if (own(totals, key)) totals[key]++; });
+      const mismatch = Object.keys(totals).some((key) => totals[key] !== report.summary[key]) || Object.values(totals).reduce((sum, value) => sum + value, 0) !== report.cases.length;
+      const offline = String(report.mode).toLowerCase() === 'offline';
+      notice('Loaded ' + origin + '. ' + (report.mode === 'upgrade-run' ? 'Real SDK release comparison · local serializer evidence. No live model or provider verification.' : offline ? 'Offline run — this report does not establish live model or API verification.' : 'Recorded mode: ' + text(report.mode) + '. A mode label alone does not prove live verification.') + (mismatch ? ' Warning: summary counts differ from case verdicts; displayed totals are the report’s declared counts.' : ''), mismatch ? 'error' : 'success');
+      renderCases(); renderCase(); renderResearch();
+    }
+    function renderCases() {
+      const list = $('cases'); list.replaceChildren();
+      if (!report.cases.length) { empty(list, 'This report contains no case results.'); return; }
+      report.cases.forEach((item, index) => {
+        const button = node('button', 'case-button'); button.type = 'button'; button.setAttribute('aria-pressed', String(index === selectedCase));
+        const top = node('div', 'case-top'); top.append(node('span', 'case-number', 'CASE ' + String(index + 1).padStart(2, '0')), badge(item.status));
+        button.append(top, node('h3', '', text(item.title, text(item.id, 'Untitled case'))), node('div', 'case-id', text(item.id, 'ID not recorded')));
+        button.addEventListener('click', () => { selectedCase = index; for (const [i, element] of [...list.children].entries()) element.setAttribute('aria-pressed', String(i === index)); renderCase(); });
+        list.append(button);
+      });
+    }
+    function differences(before, after) {
+      const changes = []; let visited = 0;
+      function walk(a, b, path, depth) {
+        if (changes.length >= 80 || ++visited > 5000) { changes.truncated = true; return; }
+        if (JSON.stringify(a) === JSON.stringify(b)) return;
+        if (depth < 9 && isObject(a) && isObject(b)) { const keys = [...new Set([...Object.keys(a), ...Object.keys(b)])].sort(); for (const key of keys) walk(own(a,key) ? a[key] : undefined, own(b,key) ? b[key] : undefined, path + '/' + key.replaceAll('~','~0').replaceAll('/','~1'), depth + 1); }
+        else changes.push({path:path || '/', before:a, after:b});
+      }
+      walk(before, after, '', 0); return changes;
+    }
+    function renderProtocol(item) {
+      const pane = $('pane-protocol'); pane.replaceChildren();
+      if (isObject(item.contracts)) {
+        const checks = node('div', 'gate-list'); checks.id = 'boundary-contracts';
+        for (const [key, label] of [['baseline', 'Input preserved by baseline'], ['candidate', 'Input preserved by candidate'], ['difference', 'Baseline → candidate comparison']]) {
+          const row = node('div', 'gate'); row.append(node('span', '', label), badge(isObject(item.contracts[key]) ? item.contracts[key].status : undefined)); checks.append(row);
+        }
+        pane.append(checks, node('p', 'subtle', item.direction === 'candidate_restores_contract' ? 'The candidate restores the input contract. Overall NEEDS_REVIEW remains because the baseline is already broken.' : 'Both implementations are checked against the original input. Matching broken outputs cannot establish a PASS.'));
+        if (own(report, 'input')) { const input = node('details'); input.style.marginBottom = '18px'; input.append(node('summary', '', 'Original input and contract findings'), labeledJSON('Original input', report.input), labeledJSON('Contract results', item.contracts)); pane.append(input); }
+      }
+      const head = node('div', 'diff-head'); head.append(node('p', '', 'Inspect the boundary, not just the final answer.'), node('span', 'badge info', 'BASELINE → CANDIDATE')); pane.append(head, pair(report.mode === 'upgrade-run' ? 'Baseline · ' + sideVersion('baseline', item) : 'Baseline', item.baseline, report.mode === 'upgrade-run' ? 'Candidate · ' + sideVersion('candidate', item) : 'Candidate', item.candidate));
+      if (own(item, 'baseline') && own(item, 'candidate')) {
+        const changes = differences(item.baseline, item.candidate);
+        if (changes.length) {
+          const table = node('div', 'change-list'); const header = node('div', 'change-row header'); ['JSON pointer', 'Baseline value', 'Candidate value'].forEach((name) => header.append(node('div', '', name))); table.append(header);
+          changes.forEach((change) => { const row = node('div', 'change-row'); row.append(node('div', 'path', change.path), node('div', 'old', change.before === undefined ? '[absent]' : stringify(change.before)), node('div', 'new', change.after === undefined ? '[absent]' : stringify(change.after))); table.append(row); });
+          pane.append(table, node('p', 'subtle', 'Structural comparison of recorded payloads; a changed value is not automatically a semantic defect. Up to 80 differences shown. Read the findings for the runner’s classification.'));
+        } else pane.append(node('p', 'subtle', changes.truncated ? 'The structural inspection limit was reached. Inspect the raw payloads; this comparison is incomplete.' : 'No structural differences found in the recorded payloads. This alone does not establish compatibility.'));
+      }
+    }
+    function renderFindings(item) {
+      const pane = $('pane-findings'); pane.replaceChildren(); const findings = Array.isArray(item.findings) ? item.findings : [];
+      const groups = report.mode === 'upgrade-run' && isObject(item.contracts) ? ['baseline','candidate','difference'].map((side) => ({side, contract:item.contracts[side]})).filter(({contract}) => isObject(contract) && Array.isArray(contract.findings) && contract.findings.length) : [];
+      const count = findings.length + groups.reduce((sum, {contract}) => sum + contract.findings.length, 0);
+      $('finding-count').textContent = count ? '(' + count + ')' : '';
+      if (!count) { empty(pane, 'No findings were recorded for this case. See its verdict and provenance before drawing a conclusion.'); return; }
+      function appendFinding(target, finding) {
+        if (!isObject(finding)) { target.append(node('pre', '', stringify(finding))); return; }
+        const card = node('section', 'finding'); const head = node('div', 'finding-top'); const content = node('div'); content.append(node('h3', '', text(finding.code, 'Finding')), node('p', '', text(finding.message, 'No explanation recorded.'))); head.append(node('span', 'mark', '↳'), content); card.append(head, node('p', 'finding-path', text(finding.path, 'Path not recorded')));
+        if (own(finding, 'expected') || own(finding, 'actual')) { const comparison = node('div', 'comparison'); comparison.append(labeledJSON('Expected', finding.expected), labeledJSON('Actual', finding.actual)); card.append(comparison); } target.append(card);
+      }
+      findings.forEach((finding) => appendFinding(pane, finding));
+      for (const {side, contract} of groups) { const group = node('section', 'contract-group'); group.append(node('h3', '', side === 'difference' ? 'Baseline → candidate comparison' : (side === 'baseline' ? 'Baseline' : 'Candidate') + ' · ' + sideVersion(side, item) + ' against original input')); contract.findings.forEach((finding) => appendFinding(group, finding)); pane.append(group); }
+    }
+    function renderRepair(item) {
+      const pane = $('pane-repair'); pane.replaceChildren();
+      if (!own(item, 'repair') && !own(item, 'task_replay')) { empty(pane, 'No repair or task replay evidence was recorded. No recovery claim can be made from this case.'); return; }
+      if (isObject(item.repair)) { const head = node('div', 'diff-head'); head.append(node('p', '', 'Repair verification'), badge(item.repair.status)); pane.append(head, pair('Before repair', item.repair.before, 'After repair', item.repair.after)); const detail = node('details'); detail.style.marginTop = '14px'; detail.append(node('summary', '', 'Complete repair evidence'), node('pre', '', stringify(item.repair))); pane.append(detail); }
+      else if (own(item, 'repair')) pane.append(labeledJSON('Repair', item.repair));
+      if (isObject(item.task_replay)) { const label = node('p', 'mini-label', 'Task-level impact replay'); label.style.marginTop = '25px'; pane.append(label, pair(report.mode === 'upgrade-run' ? 'Baseline task · ' + sideVersion('baseline', item) : 'Task before', item.task_replay.before, report.mode === 'upgrade-run' ? 'Candidate task · ' + sideVersion('candidate', item) : 'Task after', item.task_replay.after)); }
+      else if (own(item, 'task_replay')) pane.append(labeledJSON('Task replay', item.task_replay));
+      pane.append(node('p', 'subtle', 'These are recorded outcomes. A generated patch is a proposal until independently executed. A deterministic replay and a live model-driven task are different forms of evidence.'));
+    }
+    function renderWorkers(pane, item) {
+      const grid = node('div', 'worker-grid'); grid.id = 'sdk-workers';
+      pane.append(node('p', 'mini-label', 'Installed SDK subprocesses'));
+      for (const [side, label] of [['baseline','Baseline'], ['candidate','Candidate']]) {
+        const execution = isObject(report.executions) && isObject(report.executions[side]) ? report.executions[side] : {};
+        const environment = isObject(report.environments) && isObject(report.environments[side]) ? report.environments[side] : {};
+        const provenance = isObject(execution.provenance) ? execution.provenance : {};
+        const worker = node('section', 'worker'), top = node('div', 'support-top'); top.append(node('h3', '', label + ' · ' + sideVersion(side, item)), badge(execution.status)); worker.append(top);
+        const data = node('dl', 'release-data');
+        dataRow(data, 'Backend', provenance.backend); dataRow(data, 'Executed version', provenance.version); dataRow(data, 'Real SDK classes', provenance.real_sdk_classes === true ? 'Yes, recorded' : provenance.real_sdk_classes === false ? 'No' : undefined);
+        dataRow(data, 'Process ID / exit code', text(execution.pid) + ' / ' + text(execution.exit_code)); dataRow(data, 'Duration', typeof execution.duration_ms === 'number' && Number.isFinite(execution.duration_ms) ? execution.duration_ms.toLocaleString(undefined, {maximumFractionDigits:2}) + ' ms' : undefined);
+        dataRow(data, 'Provider requests', execution.provider_requests); dataRow(data, 'Input conversion', isObject(execution.input_conversion) ? badge(execution.input_conversion.status) : 'Not recorded'); dataRow(data, 'Environment inventory', badge(environment.status));
+        const source = typeof provenance.source_sha256 === 'string' && provenance.source_sha256.length === 64 ? provenance.source_sha256 : null;
+        dataRow(data, 'Executed source hash', source && typeof provenance.executed_source_sha256 === 'string' ? source === provenance.executed_source_sha256 ? 'Matches recorded source' : 'MISMATCH' : 'Not recorded'); worker.append(data);
+        if (execution.error || environment.error) worker.append(node('p', 'worker-error', text(execution.error || environment.error)));
+        const identity = node('details'); identity.append(node('summary', '', 'Source hashes and environment identity'), labeledJSON('Source SHA-256', provenance.source_sha256), labeledJSON('Executed source SHA-256', provenance.executed_source_sha256), labeledJSON('Inventory SHA-256', environment.inventory_sha256), labeledJSON('Environment root', environment.root), labeledJSON('Installation', environment.installation)); worker.append(identity);
+        const dependencies = node('details'); dependencies.append(node('summary', '', 'Recorded dependency versions'), labeledJSON('Environment inventory', environment.dependencies), labeledJSON('Worker imports', provenance.dependencies)); worker.append(dependencies);
+        const events = node('details'); events.append(node('summary', '', 'Captured boundary events'));
+        if (Array.isArray(execution.events) && execution.events.length) execution.events.forEach((event) => { const entry = node('section', 'event-entry'); if (isObject(event)) entry.append(node('p', '', text(event.stage) + ' · ' + text(event.timestamp)), node('pre', '', stringify(event.payload))); else entry.append(node('pre', '', stringify(event))); events.append(entry); });
+        else events.append(node('p', 'subtle', 'No boundary events recorded.')); worker.append(events);
+        const process = node('details'); process.append(node('summary', '', 'Process environment and stderr'), labeledJSON('Environment variable allowlist', execution.environment_allowlist), labeledJSON('Captured stderr', execution.stderr)); worker.append(process); grid.append(worker);
+      }
+      pane.append(grid);
+      const details = node('details'); details.append(node('summary', '', 'Complete worker and environment JSON'), labeledJSON('Executions', report.executions), labeledJSON('Environments', report.environments)); pane.append(details);
+    }
+    function renderCase() {
+      if (selectedCase < 0) { renderUpgrade(); $('case-title').textContent = 'No case selected'; $('case-context').textContent = 'Boundary inspection'; $('case-description').textContent = 'The loaded report contains no cases.'; setBadge('case-status', 'NO EVIDENCE'); $('finding-count').textContent = ''; $('case-footer').textContent = 'No case evidence'; $('case-duration').textContent = 'Execution time: not recorded'; for (const pane of ['protocol','findings','repair','provenance']) empty($('pane-'+pane), 'No case evidence in this report.'); return; }
+      const item = report.cases[selectedCase];
+      renderUpgrade(item);
+      $('case-title').textContent = text(item.title, text(item.id, 'Untitled case')); $('case-context').textContent = 'Case ' + String(selectedCase + 1).padStart(2,'0') + ' / ' + text(item.id, 'ID not recorded'); setBadge('case-status', item.status);
+      const first = Array.isArray(item.findings) ? item.findings.find(isObject) : null;
+      $('case-description').textContent = first ? text(first.message, 'Inspect the recorded findings and execution evidence.') : 'Inspect the recorded boundary data and provenance. No finding explanation was recorded.';
+      $('case-footer').textContent = 'Provenance: ' + (isObject(item.provenance) ? text(item.provenance.kind || item.provenance.type || item.provenance.source, 'see provenance record') : text(item.provenance));
+      $('case-duration').textContent = 'Execution time: ' + (typeof item.duration_ms === 'number' && Number.isFinite(item.duration_ms) ? item.duration_ms.toLocaleString(undefined, {maximumFractionDigits:2}) + ' ms' : 'not recorded');
+      renderProtocol(item); renderFindings(item); renderRepair(item);
+      const pane = $('pane-provenance'); pane.replaceChildren(); if (report.mode === 'upgrade-run') renderWorkers(pane, item); pane.append(labeledJSON('Case provenance', item.provenance)); const details = node('details'); details.style.marginTop = '18px'; details.append(node('summary', '', 'Complete case JSON'), node('pre', '', stringify(item))); pane.append(details, node('p', 'subtle', 'Provenance is supplied by the report. This viewer displays it without independently authenticating its source or reproducing its execution.'));
+      if (report.mode === 'boundary-run' && isObject(report.executions)) { const execution = node('details'); execution.append(node('summary', '', 'Worker execution, captured boundaries and dependency versions'), node('pre', '', stringify(report.executions))); pane.append(execution); }
+    }
+    function renderResearch() {
+      const lab = report.lab; setBadge('lab-status', isObject(lab) ? lab.status : undefined); $('lab-data').textContent = stringify(lab);
+      $('lab-description').textContent = isObject(lab) && (lab.message || lab.reason || lab.description) ? text(lab.message || lab.reason || lab.description) : 'Inspect the recorded experiment evidence below. This viewer makes no inference calls and does not verify provider claims.';
+      const knowledge = report.knowledge; setBadge('knowledge-status', isObject(knowledge) ? knowledge.status || 'RECORDED' : undefined); $('knowledge-data').textContent = stringify(knowledge);
+      $('knowledge-description').textContent = isObject(knowledge) && (knowledge.message || knowledge.description) ? text(knowledge.message || knowledge.description) : 'Inspect the saved or reused contracts and their evidence. The presence of a knowledge record does not itself prove correctness.';
+      const gates = Array.isArray(report.acceptance_gates) ? report.acceptance_gates : Array.isArray(report.gates) ? report.gates : [];
+      $('gates').replaceChildren(); $('acceptance-note').textContent = gates.length ? 'Acceptance statuses as recorded by the producer. Inspect their evidence before treating a gate as satisfied.' : 'No acceptance gates have been provided. This viewer does not certify submission readiness.';
+      gates.forEach((gate) => { const row = node('div', 'gate'); const content = node('div'); content.append(node('span', '', isObject(gate) ? text(gate.title || gate.name || gate.id, 'Unnamed gate') : text(gate))); if (isObject(gate) && (gate.evidence || gate.reason)) content.append(node('p', 'subtle', text(gate.evidence || gate.reason))); row.append(content, badge(isObject(gate) ? gate.status : undefined)); $('gates').append(row); });
+      $('limitations').replaceChildren(); const limits = Array.isArray(report.limitations) ? report.limitations : []; limits.forEach((limit) => $('limitations').append(node('li', '', text(limit))));
+      if (!limits.length) $('limitations').append(node('li', '', 'No limitations listed by the report producer. This is not evidence that the run has none.'));
+    }
+    async function reload() {
+      const sequence = ++loadSequence; $('reload').disabled = true; notice('Loading ./report.json …'); const controller = new AbortController(); const timeout = setTimeout(() => controller.abort(), 10000);
+      try {
+        const response = await fetch('./report.json', {cache:'no-store', credentials:'omit', signal:controller.signal});
+        if (!response.ok) throw new Error('report.json returned HTTP ' + response.status + '.');
+        if (Number(response.headers.get('content-length')) > MAX_BYTES) throw new Error('Report exceeds the 10 MB viewer limit.');
+        const raw = await response.text(); if (new Blob([raw]).size > MAX_BYTES) throw new Error('Report exceeds the 10 MB viewer limit.');
+        if (sequence === loadSequence) accept(JSON.parse(raw), './report.json');
+      } catch (error) { if (sequence === loadSequence) notice((report ? 'Previous report retained. ' : 'No report loaded. ') + 'Use Open evidence to select a CLI-generated JSON report. ' + (location.protocol === 'file:' ? 'Automatic loading needs a local HTTP server.' : text(error.message)), 'error'); }
+      finally { clearTimeout(timeout); if (sequence === loadSequence) $('reload').disabled = false; }
+    }
+    $('open-file').addEventListener('click', () => $('file').click());
+    $('file').addEventListener('change', async (event) => {
+      const file = event.target.files[0]; if (!file) return; const sequence = ++loadSequence; $('reload').disabled = false;
+      try { if (file.size > MAX_BYTES) throw new Error('Report exceeds the 10 MB viewer limit.'); const raw = await file.text(); if (sequence === loadSequence) accept(JSON.parse(raw), file.name); }
+      catch (error) { if (sequence === loadSequence) notice('Could not open evidence: ' + text(error.message) + (report ? ' Previous report retained.' : ' No report loaded.'), 'error'); }
+      event.target.value = '';
+    });
+    $('reload').addEventListener('click', reload);
+    $('export').addEventListener('click', () => { if (!report) return; const url = URL.createObjectURL(new Blob([JSON.stringify(report, null, 2) + '\n'], {type:'application/json'})); const link = document.createElement('a'); link.href = url; link.download = 'patchcourt-' + text(report.run_id, 'report').replace(/[^a-zA-Z0-9._-]/g, '_').slice(0,80) + '.json'; document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000); });
+    document.querySelectorAll('[data-pane]').forEach((button) => button.addEventListener('click', () => { activePane = button.dataset.pane; document.querySelectorAll('[data-pane]').forEach((tab) => tab.setAttribute('aria-pressed', String(tab.dataset.pane === activePane))); ['protocol','findings','repair','provenance'].forEach((name) => $('pane-'+name).hidden = name !== activePane); }));
+    reload();
+  </script>
+</body>
+</html>

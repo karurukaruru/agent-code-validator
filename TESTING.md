@@ -1,4 +1,31 @@
-# Testing and verification — 0.3.1
+# Testing and verification — 0.4.0
+
+Current local suite: **222 passed, 4 skipped**, CPython 3.12.13 / pytest 8.4.2.
+Raw output: `evidence/tests/pytest-040.txt`. Added protocol and upgrade tests cover
+malformed streams, ambiguous identities, unchanged broken outputs, environment
+tampering, stale pins/runtime, dependency drift, credential isolation, sensitive
+argument omission, worker failures and preserved evidence.
+
+The actual installed SDK matrix has **4/4 expected outcomes** in
+`evidence/upgrade-run/real-sdk/matrix.json`. Installed CrewAI formatting and its
+reviewed repair pass eight controls in `evidence/crewai-sdk`. Chrome checks pass
+**41/41** with desktop/mobile screenshots in `evidence/upgrade-run/browser`.
+Wheel isolation, packaged constraints and CLI verification are recorded in
+`evidence/tests/wheel-verification-040.json`. No new model/provider call occurred.
+The new Windows/Ubuntu installed-SDK CI job is configured, not remotely verified.
+
+```bash
+python -m pytest -ra
+python scripts/verify_sdk_upgrade.py --environment-dir outputs/sdk-envs --prepare --output outputs/sdk-matrix
+node tests/browser_upgrade_check.cjs
+python -m build --wheel --no-isolation
+python scripts/verify_wheel.py
+```
+
+Browser QA uses saved evidence by default and an installed Chrome/Edge with
+Node 22+. Full limitations and current gates: [development review](DEVELOPMENT_REVIEW_ZH.md).
+
+## Historical 0.3.2 and 0.3.1 verification
 
 **Latest local build (0.3.2): 186 passed, 4 skipped**, recorded in `evidence/tests/pytest-final-032.txt`. Thirteen new boundary tests cover real child processes, unhealthy baselines, custom input, missing/changed SDKs, credential isolation, deadlines, output limits and preserved evidence. Eight actual source/installed-SDK matrix cases and ten Chrome viewer checks are in `evidence/boundary-run`. The rebuilt wheel executes its packaged boundary workers (`evidence/tests/wheel-verification-final-032.json`). Separate real GLM reuse evidence remains in `evidence/glm-reuse`. There is no 0.3.2 remote CI claim; the records below concern 0.3.1.
 

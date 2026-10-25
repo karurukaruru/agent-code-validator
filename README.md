@@ -1,6 +1,6 @@
 # PatchCourt — AI Agent Compatibility Guardian
 
-**Local development update (0.3.2):** see [Chinese handoff](HANDOFF_ZH.md), [completion criteria](FINISH_PLAN_ZH.md) and [next-agent prompt](NEXT_AGENT_PROMPT.md). The new [boundary runner](BOUNDARY_RUN.md) executes two reviewed serializer variants, captures actual boundaries and prevents identical broken outputs from passing. Eight source/installed-SDK scenarios and ten browser checks passed; the full local suite has 186 passes and four Windows permission skips. `live --knowledge-dir outputs/plans` also reuses exact matching plans after fresh checks, with one real first/repeat pair recorded in `evidence/glm-reuse`. This revision is not yet pushed; public 0.3.1 evidence below remains historical.
+**0.4.0 local development:** [Controlled SDK upgrades](UPGRADE_RUN.md) now connect repository discovery to two real installed releases, with shared dependency pins, environment revalidation and captured boundaries. Equal broken releases cannot pass. Stream validation has also been hardened. See the [current development review](DEVELOPMENT_REVIEW_ZH.md) for executed evidence and outstanding competition gates. Earlier 0.3.1–0.3.2 evidence below remains historical; this local revision has not been published.
 
 **Catch silent AI agent regressions before they reach production.**
 
@@ -34,6 +34,9 @@ python -m patchcourt serve outputs/patchcourt --port 8765
 
 Open <http://127.0.0.1:8765>. The first case shows missing calls, a reviewed repair, and deterministic inventory-task recovery to **21**. The second shows CrewAI/Gemini image loss. The viewer displays provenance and limits beside results. Alternatively open exported `index.html` and select `report.json` with **Open evidence**.
 
+On Windows, double-click **Start-PatchCourt.cmd** to create a fresh offline demo
+and open the local viewer. No API key is required.
+
 Red **FAIL** is the historical defect's compatibility verdict. The demo command succeeds when it reproduces expected failures and controls; repair verification has its own result. The bundled demo uses audited source functions with inert SDK types. The stronger, separately executed installed-SDK result is [here](evidence/full-sdk/README.md).
 
 ## Use in a project
@@ -49,6 +52,17 @@ patchcourt verify outputs/upgrade
 `inspect` reuses ACV's bounded read-only tools and returns candidate boundaries, never a defect based on version alone. `check` compares JSON message arrays: **exit 0 PASS**, **1 FAIL**, **2 INCONCLUSIVE/NEEDS_REVIEW/input error**. [Example traces](examples/upgrade) and `patchcourt.recorder.BoundaryRecorder` provide an explicit recording interface. Project code is not automatically imported.
 
 Supported: OpenAI-style and normalized LangChain calls, IDs, nested arguments, tool-result linkage, roles, text, image references/detail, and single-choice streaming reconstruction. Unknown semantic fields abstain. The Gemini historical case has a dedicated harness; generic Gemini trace coverage is not claimed.
+
+To execute a controlled real SDK upgrade instead of supplying traces:
+
+```bash
+patchcourt upgrade-run ./my-agent --from-version 1.4.3 --to-version 1.5.0 --environment-dir outputs/sdk-environments --prepare --output outputs/sdk-upgrade
+```
+
+`--prepare` opts into official wheel downloads; later runs reuse verified
+environments without installation. Only the two reviewed releases are supported.
+The default tool fixture is broken in both, so **NEEDS_REVIEW / exit 2 is the
+expected observation**. See [the four-scenario check and limits](UPGRADE_RUN.md).
 
 ## Evidence and knowledge
 

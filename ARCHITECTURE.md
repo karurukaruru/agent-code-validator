@@ -18,4 +18,12 @@ recorded traces / pinned upstream functions / provider probes
 
 `runner.py` orchestrates cases, replay, minimization, reports and benchmark schedules. `cli.py` supplies trace checking, discovery, demo, lab and static loopback serving. The viewer treats loaded data as text and has no execution endpoint.
 
+`upgrade_run.py` connects ACV discovery to two reviewed, unmodified NVIDIA
+release environments. Explicit wheel-only preparation records installation and
+file inventories. Shared constraints, Python identity and every dependency file
+are checked before clean workers execute. `boundary_run.complete_pair` applies
+one input-contract gate to release comparisons and reviewed patch comparisons;
+an unhealthy baseline always remains NEEDS_REVIEW. `scripts/verify_sdk_upgrade.py`
+executes the release pair, text control, scoped regression and recovery.
+
 Not implemented: a general repository sandbox, arbitrary automated patch execution, full framework coverage or AUL preferences. No correctness inference depends on user preferences.

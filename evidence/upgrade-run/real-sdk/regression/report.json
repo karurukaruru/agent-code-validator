@@ -1,0 +1,617 @@
+{
+  "schema_version": "1.0",
+  "run_id": "fa5524f1-8aa3-430e-8999-1e3144ffb17a",
+  "created_at": "2026-10-25T12:57:40.547519+00:00",
+  "mode": "boundary-run",
+  "environment": {
+    "python": "3.12.13",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "patchcourt": "0.4.0"
+  },
+  "summary": {
+    "pass": 0,
+    "fail": 1,
+    "inconclusive": 0,
+    "needs_review": 0
+  },
+  "cases": [
+    {
+      "id": "nvidia-boundary-pair",
+      "title": "Executed NVIDIA serializer boundary pair",
+      "status": "FAIL",
+      "execution": true,
+      "findings": [
+        {
+          "code": "ORPHAN_RESULT",
+          "path": "/1/tool_call_id",
+          "message": "Tool result lacks an earlier unmatched call"
+        },
+        {
+          "code": "ORPHAN_RESULT",
+          "path": "/2/tool_call_id",
+          "message": "Tool result lacks an earlier unmatched call"
+        },
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/tool_calls/0",
+          "expected": {
+            "id": "call_a",
+            "name": "inventory",
+            "args": {
+              "sku": "A",
+              "options": {
+                "warehouse": 2
+              }
+            }
+          },
+          "actual": null,
+          "message": "Observable message semantics changed"
+        },
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/tool_calls/1",
+          "expected": {
+            "id": "call_b",
+            "name": "price",
+            "args": {
+              "sku": "A"
+            }
+          },
+          "actual": null,
+          "message": "Observable message semantics changed"
+        }
+      ],
+      "provenance": {
+        "baseline_variant": "reviewed-patch",
+        "candidate_variant": "upstream",
+        "kind": "reviewed local serializer execution; no model inference"
+      },
+      "duration_ms": 2366.496,
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": null,
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\": \"A\", \"options\": {\"warehouse\": 2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\": \"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "content": "{\"quantity\":3}",
+          "tool_call_id": "call_a"
+        },
+        {
+          "role": "tool",
+          "content": "{\"price\":7}",
+          "tool_call_id": "call_b"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": ""
+        },
+        {
+          "role": "tool",
+          "content": "{\"quantity\":3}",
+          "tool_call_id": "call_a"
+        },
+        {
+          "role": "tool",
+          "content": "{\"price\":7}",
+          "tool_call_id": "call_b"
+        }
+      ],
+      "contracts": {
+        "baseline": {
+          "status": "PASS",
+          "findings": []
+        },
+        "candidate": {
+          "status": "FAIL",
+          "findings": [
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/1/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/2/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/0",
+              "expected": {
+                "id": "call_a",
+                "name": "inventory",
+                "args": {
+                  "sku": "A",
+                  "options": {
+                    "warehouse": 2
+                  }
+                }
+              },
+              "actual": null,
+              "message": "Observable message semantics changed"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/1",
+              "expected": {
+                "id": "call_b",
+                "name": "price",
+                "args": {
+                  "sku": "A"
+                }
+              },
+              "actual": null,
+              "message": "Observable message semantics changed"
+            }
+          ]
+        },
+        "difference": {
+          "status": "FAIL",
+          "findings": [
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/1/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/2/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/0",
+              "expected": {
+                "id": "call_a",
+                "name": "inventory",
+                "args": {
+                  "sku": "A",
+                  "options": {
+                    "warehouse": 2
+                  }
+                }
+              },
+              "actual": null,
+              "message": "Observable message semantics changed"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/1",
+              "expected": {
+                "id": "call_b",
+                "name": "price",
+                "args": {
+                  "sku": "A"
+                }
+              },
+              "actual": null,
+              "message": "Observable message semantics changed"
+            }
+          ]
+        }
+      },
+      "task_replay": {
+        "before": {
+          "status": "PASS",
+          "inventory_value": 21,
+          "kind": "deterministic task simulation"
+        },
+        "after": {
+          "status": "FAIL",
+          "reason": "Cannot associate tool results with requests",
+          "kind": "deterministic task simulation"
+        }
+      },
+      "direction": "regression"
+    }
+  ],
+  "knowledge": {},
+  "lab": {
+    "status": "BLOCKED",
+    "live_requests": 0,
+    "reason": "Offline execution; credentials and live platform behavior are not evaluated here"
+  },
+  "limitations": [
+    "Two reviewed implementations of one serializer; not an automatic dependency upgrade or arbitrary repository runner.",
+    "Supports text and OpenAI function-call inputs only; unsupported metadata and content abstain.",
+    "Separate -I -S processes, clean environment, timeout, output budget and Python audit hook; not an OS security sandbox. Installed dependencies must be trusted.",
+    "Input is checked against each output. An unhealthy baseline cannot establish a regression verdict, even when both outputs match.",
+    "No model, search, or provider requests. Hash checks provide integrity, not independent authentication."
+  ],
+  "status": "FAIL",
+  "input": [
+    {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "id": "call_a",
+          "type": "function",
+          "function": {
+            "name": "inventory",
+            "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+          }
+        },
+        {
+          "id": "call_b",
+          "type": "function",
+          "function": {
+            "name": "price",
+            "arguments": "{\"sku\":\"A\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_a",
+      "content": "{\"quantity\":3}"
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_b",
+      "content": "{\"price\":7}"
+    }
+  ],
+  "executions": {
+    "baseline": {
+      "status": "EXECUTED",
+      "variant": "reviewed-patch",
+      "pid": 6080,
+      "provenance": {
+        "backend": "installed-sdk",
+        "real_sdk_classes": true,
+        "source_sha256": "ec8d2ef813a184d37a347f493242124319dbe3c6f6926124ba2f8a3560ed2531",
+        "executed_source_sha256": "60ccdf4dd515d74825da5fdd28c08b6c03e5e0403810ec2560d78a8df020321c",
+        "version": "1.4.3",
+        "dependencies": {
+          "aiohappyeyeballs": "2.7.1",
+          "aiohttp": "3.14.5",
+          "aiosignal": "1.4.0",
+          "annotated-types": "0.8.0",
+          "anyio": "4.15.1",
+          "attrs": "26.1.0",
+          "certifi": "2026.10.23",
+          "charset-normalizer": "3.5.2",
+          "distro": "1.9.0",
+          "frozenlist": "1.8.0",
+          "h11": "0.16.0",
+          "httpcore2": "2.16.0",
+          "httpx2": "2.16.0",
+          "idna": "3.20",
+          "jsonpatch": "1.37",
+          "jsonpointer": "3.5",
+          "langchain-core": "1.4.7",
+          "langchain-nvidia-ai-endpoints": "1.4.3",
+          "langchain-protocol": "0.0.20",
+          "langsmith": "0.14.12",
+          "multidict": "7.2.1",
+          "orjson": "3.13.0",
+          "packaging": "26.3",
+          "propcache": "0.5.4",
+          "pydantic": "2.14.1",
+          "pydantic_core": "2.50.1",
+          "PyYAML": "6.0.3",
+          "requests": "2.34.2",
+          "requests-toolbelt": "1.0.0",
+          "sniffio": "1.3.1",
+          "tenacity": "9.2.1",
+          "truststore": "0.10.5",
+          "typing_extensions": "4.16.0",
+          "typing-inspection": "0.4.4",
+          "urllib3": "2.8.0",
+          "uuid_utils": "0.18.0",
+          "websockets": "17.3",
+          "xxhash": "4.0.2",
+          "yarl": "1.25.1",
+          "zstandard": "0.25.0"
+        }
+      },
+      "events": [
+        {
+          "stage": "framework_input",
+          "timestamp": "2026-10-25T12:57:41.680488+00:00",
+          "payload": [
+            {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "name": "inventory",
+                  "args": {
+                    "sku": "A",
+                    "options": {
+                      "warehouse": 2
+                    }
+                  },
+                  "id": "call_a",
+                  "type": "tool_call"
+                },
+                {
+                  "name": "price",
+                  "args": {
+                    "sku": "A"
+                  },
+                  "id": "call_b",
+                  "type": "tool_call"
+                }
+              ]
+            },
+            {
+              "role": "tool",
+              "content": "{\"quantity\":3}",
+              "tool_call_id": "call_a"
+            },
+            {
+              "role": "tool",
+              "content": "{\"price\":7}",
+              "tool_call_id": "call_b"
+            }
+          ]
+        },
+        {
+          "stage": "adapter_output",
+          "timestamp": "2026-10-25T12:57:41.681038+00:00",
+          "payload": [
+            {
+              "role": "assistant",
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "call_a",
+                  "type": "function",
+                  "function": {
+                    "name": "inventory",
+                    "arguments": "{\"sku\": \"A\", \"options\": {\"warehouse\": 2}}"
+                  }
+                },
+                {
+                  "id": "call_b",
+                  "type": "function",
+                  "function": {
+                    "name": "price",
+                    "arguments": "{\"sku\": \"A\"}"
+                  }
+                }
+              ]
+            },
+            {
+              "role": "tool",
+              "content": "{\"quantity\":3}",
+              "tool_call_id": "call_a"
+            },
+            {
+              "role": "tool",
+              "content": "{\"price\":7}",
+              "tool_call_id": "call_b"
+            }
+          ]
+        }
+      ],
+      "output": [
+        {
+          "role": "assistant",
+          "content": null,
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\": \"A\", \"options\": {\"warehouse\": 2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\": \"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "content": "{\"quantity\":3}",
+          "tool_call_id": "call_a"
+        },
+        {
+          "role": "tool",
+          "content": "{\"price\":7}",
+          "tool_call_id": "call_b"
+        }
+      ],
+      "input_conversion": {
+        "status": "PASS",
+        "findings": []
+      },
+      "provider_requests": 0,
+      "duration_ms": 1175.74,
+      "exit_code": 0,
+      "environment_allowlist": [
+        "HOME",
+        "LANGCHAIN_TRACING_V2",
+        "LANGSMITH_TRACING",
+        "SystemRoot",
+        "TEMP",
+        "TMP",
+        "USERPROFILE",
+        "WINDIR"
+      ],
+      "stderr": ""
+    },
+    "candidate": {
+      "status": "EXECUTED",
+      "variant": "upstream",
+      "pid": 4128,
+      "provenance": {
+        "backend": "installed-sdk",
+        "real_sdk_classes": true,
+        "source_sha256": "ec8d2ef813a184d37a347f493242124319dbe3c6f6926124ba2f8a3560ed2531",
+        "executed_source_sha256": "ec8d2ef813a184d37a347f493242124319dbe3c6f6926124ba2f8a3560ed2531",
+        "version": "1.4.3",
+        "dependencies": {
+          "aiohappyeyeballs": "2.7.1",
+          "aiohttp": "3.14.5",
+          "aiosignal": "1.4.0",
+          "annotated-types": "0.8.0",
+          "anyio": "4.15.1",
+          "attrs": "26.1.0",
+          "certifi": "2026.10.23",
+          "charset-normalizer": "3.5.2",
+          "distro": "1.9.0",
+          "frozenlist": "1.8.0",
+          "h11": "0.16.0",
+          "httpcore2": "2.16.0",
+          "httpx2": "2.16.0",
+          "idna": "3.20",
+          "jsonpatch": "1.37",
+          "jsonpointer": "3.5",
+          "langchain-core": "1.4.7",
+          "langchain-nvidia-ai-endpoints": "1.4.3",
+          "langchain-protocol": "0.0.20",
+          "langsmith": "0.14.12",
+          "multidict": "7.2.1",
+          "orjson": "3.13.0",
+          "packaging": "26.3",
+          "propcache": "0.5.4",
+          "pydantic": "2.14.1",
+          "pydantic_core": "2.50.1",
+          "PyYAML": "6.0.3",
+          "requests": "2.34.2",
+          "requests-toolbelt": "1.0.0",
+          "sniffio": "1.3.1",
+          "tenacity": "9.2.1",
+          "truststore": "0.10.5",
+          "typing_extensions": "4.16.0",
+          "typing-inspection": "0.4.4",
+          "urllib3": "2.8.0",
+          "uuid_utils": "0.18.0",
+          "websockets": "17.3",
+          "xxhash": "4.0.2",
+          "yarl": "1.25.1",
+          "zstandard": "0.25.0"
+        }
+      },
+      "events": [
+        {
+          "stage": "framework_input",
+          "timestamp": "2026-10-25T12:57:42.862971+00:00",
+          "payload": [
+            {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "name": "inventory",
+                  "args": {
+                    "sku": "A",
+                    "options": {
+                      "warehouse": 2
+                    }
+                  },
+                  "id": "call_a",
+                  "type": "tool_call"
+                },
+                {
+                  "name": "price",
+                  "args": {
+                    "sku": "A"
+                  },
+                  "id": "call_b",
+                  "type": "tool_call"
+                }
+              ]
+            },
+            {
+              "role": "tool",
+              "content": "{\"quantity\":3}",
+              "tool_call_id": "call_a"
+            },
+            {
+              "role": "tool",
+              "content": "{\"price\":7}",
+              "tool_call_id": "call_b"
+            }
+          ]
+        },
+        {
+          "stage": "adapter_output",
+          "timestamp": "2026-10-25T12:57:42.862971+00:00",
+          "payload": [
+            {
+              "role": "assistant",
+              "content": ""
+            },
+            {
+              "role": "tool",
+              "content": "{\"quantity\":3}",
+              "tool_call_id": "call_a"
+            },
+            {
+              "role": "tool",
+              "content": "{\"price\":7}",
+              "tool_call_id": "call_b"
+            }
+          ]
+        }
+      ],
+      "output": [
+        {
+          "role": "assistant",
+          "content": ""
+        },
+        {
+          "role": "tool",
+          "content": "{\"quantity\":3}",
+          "tool_call_id": "call_a"
+        },
+        {
+          "role": "tool",
+          "content": "{\"price\":7}",
+          "tool_call_id": "call_b"
+        }
+      ],
+      "input_conversion": {
+        "status": "PASS",
+        "findings": []
+      },
+      "provider_requests": 0,
+      "duration_ms": 1190.756,
+      "exit_code": 0,
+      "environment_allowlist": [
+        "HOME",
+        "LANGCHAIN_TRACING_V2",
+        "LANGSMITH_TRACING",
+        "SystemRoot",
+        "TEMP",
+        "TMP",
+        "USERPROFILE",
+        "WINDIR"
+      ],
+      "stderr": ""
+    }
+  }
+}

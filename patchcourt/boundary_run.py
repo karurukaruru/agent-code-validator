@@ -16,11 +16,15 @@ import sys
 import tempfile
 import time
 
-from .evidence import canonical, sanitize, strict_json
+from .evidence import canonical, sanitize, strict_json, validate_shape
 from .semantic import compare_messages
 
 VARIANTS = ("upstream", "reviewed-patch")
 SDK_HASH = "ec8d2ef813a184d37a347f493242124319dbe3c6f6926124ba2f8a3560ed2531"
+SDK_RELEASES = {
+    "1.4.3": SDK_HASH,
+    "1.5.0": "72be0432f302852d3d8c2b22be0778c14ceb406ce4b7755c7a4f6b2de97ddf03",
+}
 INPUT_LIMIT = 128_000
 OUTPUT_LIMIT = 2_000_000
 TIMEOUT = 45
@@ -28,6 +32,7 @@ TIMEOUT = 45
 
 def validate_input(messages):
     """Do not silently project unsupported fields into the supported protocol."""
+    validate_shape(messages)
     if len(canonical(messages).encode("utf-8")) > INPUT_LIMIT:
         raise ValueError("Boundary input exceeds 128 KB")
     if not isinstance(messages, list) or not 1 <= len(messages) <= 100:
@@ -57,6 +62,9 @@ def validate_input(messages):
                     or set(call["function"]) != {"name", "arguments"}
                     or not isinstance(call["function"]["arguments"], str)):
                 raise ValueError("Supply complete OpenAI function tool calls with JSON argument strings")
+            arguments = strict_json(call["function"]["arguments"])
+            if canonical(sanitize(arguments)) != canonical(arguments):
+                raise ValueError("Tool arguments require secret redaction; abstaining rather than comparing altered evidence")
 
 
 def _converter(variant, sdk_root):
@@ -71,13 +79,19 @@ def _converter(variant, sdk_root):
         }
     sdk = Path(sdk_root).resolve()
     raw = (sdk / "langchain_nvidia_ai_endpoints" / "_utils.py").read_bytes()
-    if hashlib.sha256(raw).hexdigest() != SDK_HASH:
-        raise ValueError("Installed NVIDIA serializer is not the reviewed 1.4.3 source")
     versions = {d.metadata["Name"]: d.version for d in importlib.metadata.distributions(path=[str(sdk)])}
-    if versions.get("langchain-nvidia-ai-endpoints") != "1.4.3":
+    version = versions.get("langchain-nvidia-ai-endpoints")
+    expected_hash = SDK_RELEASES.get(version) if variant == "release" else SDK_HASH
+    if not expected_hash or hashlib.sha256(raw).hexdigest() != expected_hash:
+        raise ValueError("Installed NVIDIA serializer is not the reviewed " + (str(version) if variant == "release" else "1.4.3") + " source")
+    if variant != "release" and version != "1.4.3":
         raise ValueError("Installed NVIDIA distribution metadata must be version 1.4.3")
+    if variant == "release":
+        # Check again in the worker immediately before importing the target.
+        from .upgrade_run import validate_environment
+        validate_environment(sdk, version)
     # Explicit trusted local dependency target; -S prevents site/.pth startup.
-    sys.path.append(str(sdk))
+    sys.path.insert(0, str(sdk))
     from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, ToolMessage
     text = raw.decode("utf-8")
     if variant == "reviewed-patch":
@@ -85,28 +99,30 @@ def _converter(variant, sdk_root):
             raise ValueError("Reviewed SDK patch precondition mismatch")
         text = text.replace("import logging", "import json\nimport logging", 1).replace(NVIDIA_OLD, NVIDIA_NEW, 1)
     namespace = {"__name__": "patchcourt_reviewed_nvidia_serializer"}
-    exec(compile(text, "reviewed:nvidia-1.4.3", "exec"), namespace)
+    exec(compile(text, "reviewed:nvidia-" + version, "exec"), namespace)
     return namespace["convert_message_to_dict"], {
         "AIMessage": AIMessage, "HumanMessage": HumanMessage,
         "SystemMessage": SystemMessage, "ToolMessage": ToolMessage,
     }, {
         "backend": "installed-sdk", "real_sdk_classes": True,
-        "source_sha256": SDK_HASH, "executed_source_sha256": hashlib.sha256(text.encode()).hexdigest(),
-        "version": "1.4.3", "dependencies": versions,
+        "source_sha256": expected_hash, "executed_source_sha256": hashlib.sha256(text.encode()).hexdigest(),
+        "version": version, "dependencies": versions,
     }
 
 
 def _child(request):
     """Private entry point accepts data and two fixed variants, never source code."""
     from .recorder import BoundaryRecorder
-    if request["variant"] not in VARIANTS:
+    if request["variant"] not in (*VARIANTS, "release"):
         raise ValueError("Unknown reviewed variant")
+    if request["variant"] == "release" and not request["sdk_root"]:
+        raise ValueError("Release execution requires an installed SDK target")
     messages = request["messages"]
     validate_input(messages)
 
     def audit(event, args):
         if event.startswith("socket.") or event in {"subprocess.Popen", "os.system", "os.posix_spawn", "os.fork", "os.exec", "os.spawn"}:
-            raise RuntimeError("Network and subprocess operations forbidden by offline boundary policy")
+            raise RuntimeError("Offline boundary policy forbids audit event: " + event)
 
     sys.addaudithook(audit)
     convert, types, provenance = _converter(request["variant"], request["sdk_root"])
@@ -177,8 +193,15 @@ def _run_side(messages, variant, sdk_root):
                 return {**metadata, "status": "INCONCLUSIVE", "error": failure or "Child process failed"}
             try:
                 result = strict_json(raw.decode("utf-8"))
-                if not isinstance(result, dict) or result.get("variant") != variant:
+                if (not isinstance(result, dict) or result.get("variant") != variant
+                        or result.get("status") not in {"EXECUTED", "INCONCLUSIVE"}):
                     raise ValueError("Unexpected child result")
+                if result["status"] == "EXECUTED" and (
+                        not isinstance(result.get("provenance"), dict)
+                        or not isinstance(result.get("output"), list)
+                        or not isinstance(result.get("input_conversion"), dict)
+                        or result.get("provider_requests") != 0):
+                    raise ValueError("Incomplete executed child result")
             except (UnicodeError, ValueError) as exc:
                 return {**metadata, "status": "INCONCLUSIVE", "error": str(exc)}
             return {**result, **metadata}
@@ -219,6 +242,8 @@ def run_boundary(output, *, baseline="reviewed-patch", candidate="upstream", mes
     try:
         validate_input(messages)
     except (ValueError, TypeError, KeyError) as exc:
+        report["input"] = None
+        report["input_omitted_reason"] = "Unsupported input is not retained in exported evidence"
         case["findings"] = [{"code": "UNSUPPORTED_INPUT", "message": str(exc)}]
         return export_report(report, root)
     for side, variant in (("baseline", baseline), ("candidate", candidate)):
@@ -226,9 +251,19 @@ def run_boundary(output, *, baseline="reviewed-patch", candidate="upstream", mes
             report["executions"][side] = _run_side(messages, variant, sdk_root)
         except OSError as exc:
             report["executions"][side] = {"status": "INCONCLUSIVE", "error": str(exc), "variant": variant}
+    return complete_pair(report, case, messages, default_task, root)
+
+
+def complete_pair(report, case, messages, default_task, root):
+    """Apply the same input contract gates to fixed patches and real releases."""
+    from .counterexamples import replay
+    from .runner import export_report
     runs = report["executions"]
     case["duration_ms"] = round(sum(r.get("duration_ms", 0) for r in runs.values()), 3)
-    if any(r["status"] != "EXECUTED" or r["input_conversion"]["status"] != "PASS" for r in runs.values()):
+    if (set(runs) != {"baseline", "candidate"}
+            or any(r.get("status") != "EXECUTED" or not isinstance(r.get("input_conversion"), dict)
+                   or r["input_conversion"].get("status") != "PASS"
+                   or not isinstance(r.get("output"), list) for r in runs.values())):
         case["findings"] = [{"code": "EXECUTION_UNCERTAIN", "message": "A worker or its input conversion did not complete successfully; see executions"}]
     else:
         a, b = runs["baseline"]["output"], runs["candidate"]["output"]

@@ -2,6 +2,7 @@
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from patchcourt.cli import main
 from patchcourt.counterexamples import tool_conversation
@@ -10,6 +11,18 @@ from patchcourt.sentinel import check_trace_pair
 
 
 class TraceInputTests(unittest.TestCase):
+    def test_explicit_null_input_never_selects_a_demo_or_prepares_dependencies(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / "input.json").write_text("null", encoding="utf-8")
+            args = ["--input", str(root / "input.json"), "--output", str(root / "report")]
+            with patch("patchcourt.boundary_run.run_boundary") as boundary, patch("patchcourt.upgrade_run.run_upgrade") as upgrade:
+                self.assertEqual(main(["boundary-run", *args]), 2)
+                self.assertEqual(main(["upgrade-run", temp, "--from-version", "1.4.3", "--to-version", "1.5.0",
+                                       "--environment-dir", str(root / "envs"), "--prepare", *args]), 2)
+            boundary.assert_not_called(); upgrade.assert_not_called()
+            self.assertFalse((root / "report").exists())
+
     def test_equal_lost_text_is_not_healthy(self):
         original = [{"role": "user", "content": "important context"}]
         damaged = [{"role": "user", "content": ""}]

@@ -1,0 +1,88 @@
+{
+  "checked_at": "2026-10-25T13:03:33.269Z",
+  "status": "PASS",
+  "browser": "Chrome/155.0.8059.85",
+  "mode": "installed headless browser, loopback only",
+  "viewer_sha256": "6a9a0e470ef1e4a3e8769f21bafe30515aef261590ecb6104823f0bce568add3",
+  "reports": {
+    "upgrade": {
+      "path": "evidence/upgrade-run/real-sdk/upgrade/report.json",
+      "run_id": "8170c723-d7fa-4db5-82b5-ddc6c2a0b8cb",
+      "status": "NEEDS_REVIEW",
+      "sha256": "c452e4be92d870ebc0ce69559f2db915dddfa18de5e322d908b145b3a0b8a1a6"
+    },
+    "text": {
+      "path": "evidence/upgrade-run/real-sdk/text-control/report.json",
+      "run_id": "c0609d24-e3b9-49dd-8ca5-70411915db1c",
+      "status": "PASS",
+      "sha256": "5edd0a6714937e52d2ee6c490245aa13b3d4b59eb337b2ec5680ffd85c933ffc"
+    },
+    "uncertain": {
+      "path": "evidence/upgrade-run/attempts/sdk-upgrade-first/report.json",
+      "run_id": "7c041074-7efe-4f40-a285-a6e28d123393",
+      "status": "INCONCLUSIVE",
+      "sha256": "c843dc4b1bdcbf9e30de5f9302d283be2c5d89490bd7353508d8bc7056403c07"
+    }
+  },
+  "exported_report": "patchcourt-8170c723-d7fa-4db5-82b5-ddc6c2a0b8cb.json",
+  "captures": [
+    "desktop-summary.png",
+    "desktop-protocol.png",
+    "desktop-task-results.png",
+    "desktop-provenance.png",
+    "mobile-summary-protocol.png",
+    "mobile-provenance.png",
+    "desktop-text-control.png",
+    "mobile-inconclusive.png",
+    "desktop-inconclusive.png"
+  ],
+  "checks": [
+    "Real double-failure report renders as NEEDS_REVIEW",
+    "Headline makes lost tool calls visible",
+    "Existing failure is not represented as a new upgrade regression",
+    "Both versions and lost 0/2 calls are visible",
+    "Both deterministic tasks display FAIL",
+    "Environment readiness and matching shared dependencies are visible",
+    "Zero provider requests and local execution scope are visible",
+    "Summary counts remain zero passes, one needs-review",
+    "Desktop summary has no horizontal overflow",
+    "Case selection retains the recorded identity",
+    "protocol tab activates",
+    "Protocol tab exposes all three independent contracts",
+    "findings tab activates",
+    "Findings include lost-call evidence for both SDK releases",
+    "repair tab activates",
+    "Task tab names baseline and candidate with real versions",
+    "provenance tab activates",
+    "Provenance exposes separate real SDK subprocesses",
+    "Worker source hashes match recorded executed sources",
+    "Source identity disclosure opens",
+    "Captured framework input and adapter output can be inspected",
+    "Mobile 390px provenance has no horizontal overflow",
+    "Mobile 320px provenance has no horizontal overflow",
+    "protocol tab activates",
+    "provenance tab activates",
+    "Mobile 390px expanded provenance has no horizontal overflow",
+    "Open evidence opens the native file chooser",
+    "Local JSON upload works",
+    "Reload report loads sibling JSON",
+    "Export JSON preserves the complete recorded report",
+    "Real text control PASS is scoped to its recorded input",
+    "Text control does not claim lost tool calls",
+    "Text PASS desktop has no horizontal overflow",
+    "Text PASS mobile has no horizontal overflow",
+    "Incomplete execution is clearly INCONCLUSIVE",
+    "Missing executions and tasks remain Not recorded",
+    "provenance tab activates",
+    "Environment errors are accessible in uncertain provenance",
+    "Uncertain mobile report has no horizontal overflow",
+    "Uncertain desktop report has no horizontal overflow",
+    "No browser JavaScript errors observed"
+  ],
+  "errors": [],
+  "limits": [
+    "No live provider or model calls",
+    "Viewer displays recorded provenance without independently authenticating it",
+    "Keyboard and screen reader traversal not fully tested"
+  ]
+}

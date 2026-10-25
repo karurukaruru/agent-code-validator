@@ -6,6 +6,18 @@ from pathlib import Path
 from .evidence import read_json, write_json
 
 
+def _boundary_input(path):
+    if path is None:
+        return None
+    from .boundary_run import INPUT_LIMIT
+    if Path(path).stat().st_size > INPUT_LIMIT:
+        raise ValueError("Boundary input exceeds 128 KB")
+    value = read_json(path)
+    if not isinstance(value, list):
+        raise ValueError("Explicit boundary input must be a message-array JSON; null does not select the demo fixture")
+    return value
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(prog="patchcourt", description="Catch silent AI agent compatibility regressions with executable evidence.")
     from . import __version__
@@ -24,6 +36,15 @@ def main(argv=None):
     boundary.add_argument("--input", help="Text/tool-call message-array JSON; defaults to two-tool regression fixture")
     boundary.add_argument("--sdk-root", help="Trusted installed NVIDIA 1.4.3 dependency target; otherwise use pinned source with inert classes")
     boundary.add_argument("--output", required=True, help="New evidence directory; existing directories are never overwritten")
+    upgrade = commands.add_parser("upgrade-run", help="Inspect a repository and execute two real, reviewed NVIDIA SDK releases")
+    upgrade.add_argument("repository", help="Read-only source discovery; repository code is never imported")
+    upgrade.add_argument("--from-version", choices=("1.4.3", "1.5.0"), required=True)
+    upgrade.add_argument("--to-version", choices=("1.4.3", "1.5.0"), required=True)
+    upgrade.add_argument("--environment-dir", required=True, help="Dedicated dependency targets, verified before every execution")
+    upgrade.add_argument("--prepare", action="store_true", help="Opt into installing official, wheel-only dependencies in new targets")
+    upgrade.add_argument("--wheelhouse", help="With --prepare, install offline from this trusted wheel directory")
+    upgrade.add_argument("--input", help="Text/tool-call message-array JSON; otherwise use the deterministic two-tool task")
+    upgrade.add_argument("--output", required=True, help="New evidence directory")
     inspect = commands.add_parser("inspect", help="Find candidate adapter boundaries without executing repository code")
     inspect.add_argument("repository"); inspect.add_argument("--dependency", required=True)
     inspect.add_argument("--from-version", required=True); inspect.add_argument("--to-version", required=True)
@@ -69,11 +90,16 @@ def main(argv=None):
             print(case["status"])
             return {"PASS": 0, "FAIL": 1}.get(case["status"], 2)
         if args.command == "boundary-run":
-            from .boundary_run import run_boundary, INPUT_LIMIT
-            if args.input and Path(args.input).stat().st_size > INPUT_LIMIT:
-                raise ValueError("Boundary input exceeds 128 KB")
+            from .boundary_run import run_boundary
             report = run_boundary(args.output, baseline=args.baseline, candidate=args.candidate,
-                                  messages=read_json(args.input) if args.input else None, sdk_root=args.sdk_root)
+                                  messages=_boundary_input(args.input), sdk_root=args.sdk_root)
+            print(json.dumps({"status": report["status"], "output": str(Path(args.output).resolve()), "provider_requests": 0}))
+            return {"PASS": 0, "FAIL": 1}.get(report["status"], 2)
+        if args.command == "upgrade-run":
+            from .upgrade_run import run_upgrade
+            report = run_upgrade(args.repository, args.output, baseline=args.from_version, candidate=args.to_version,
+                                 environment_dir=args.environment_dir, prepare=args.prepare, wheelhouse=args.wheelhouse,
+                                 messages=_boundary_input(args.input))
             print(json.dumps({"status": report["status"], "output": str(Path(args.output).resolve()), "provider_requests": 0}))
             return {"PASS": 0, "FAIL": 1}.get(report["status"], 2)
         if args.command == "inspect":

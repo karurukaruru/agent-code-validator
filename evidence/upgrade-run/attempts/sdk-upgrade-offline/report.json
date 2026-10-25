@@ -1,0 +1,685 @@
+{
+  "schema_version": "1.0",
+  "run_id": "f8893543-58c5-43f3-9495-caf16174bdc1",
+  "created_at": "2026-10-25T12:44:34.204288+00:00",
+  "mode": "upgrade-run",
+  "environment": {
+    "python": "3.12.13",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "patchcourt": "0.3.2"
+  },
+  "summary": {
+    "pass": 0,
+    "fail": 0,
+    "inconclusive": 0,
+    "needs_review": 1
+  },
+  "cases": [
+    {
+      "id": "nvidia-release-upgrade",
+      "title": "NVIDIA SDK 1.4.3 → 1.5.0",
+      "status": "NEEDS_REVIEW",
+      "execution": true,
+      "findings": [
+        {
+          "code": "UNHEALTHY_BASELINE",
+          "message": "Baseline already violates the input contract; cannot certify compatibility from this baseline"
+        }
+      ],
+      "provenance": {
+        "kind": "Two unmodified installed SDK releases; no model inference",
+        "dependency": "langchain-nvidia-ai-endpoints",
+        "baseline_version": "1.4.3",
+        "candidate_version": "1.5.0"
+      },
+      "duration_ms": 3899.812,
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": ""
+        },
+        {
+          "role": "tool",
+          "content": "{\"quantity\":3}",
+          "tool_call_id": "call_a"
+        },
+        {
+          "role": "tool",
+          "content": "{\"price\":7}",
+          "tool_call_id": "call_b"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": ""
+        },
+        {
+          "role": "tool",
+          "content": "{\"quantity\":3}",
+          "tool_call_id": "call_a"
+        },
+        {
+          "role": "tool",
+          "content": "{\"price\":7}",
+          "tool_call_id": "call_b"
+        }
+      ],
+      "contracts": {
+        "baseline": {
+          "status": "FAIL",
+          "findings": [
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/1/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/2/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/0",
+              "expected": {
+                "id": "call_a",
+                "name": "inventory",
+                "args": {
+                  "sku": "A",
+                  "options": {
+                    "warehouse": 2
+                  }
+                }
+              },
+              "actual": null,
+              "message": "Observable message semantics changed"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/1",
+              "expected": {
+                "id": "call_b",
+                "name": "price",
+                "args": {
+                  "sku": "A"
+                }
+              },
+              "actual": null,
+              "message": "Observable message semantics changed"
+            }
+          ]
+        },
+        "candidate": {
+          "status": "FAIL",
+          "findings": [
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/1/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/2/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/0",
+              "expected": {
+                "id": "call_a",
+                "name": "inventory",
+                "args": {
+                  "sku": "A",
+                  "options": {
+                    "warehouse": 2
+                  }
+                }
+              },
+              "actual": null,
+              "message": "Observable message semantics changed"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/1",
+              "expected": {
+                "id": "call_b",
+                "name": "price",
+                "args": {
+                  "sku": "A"
+                }
+              },
+              "actual": null,
+              "message": "Observable message semantics changed"
+            }
+          ]
+        },
+        "difference": {
+          "status": "NEEDS_REVIEW",
+          "findings": [
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/1/tool_call_id",
+              "message": "Invalid baseline: Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/2/tool_call_id",
+              "message": "Invalid baseline: Tool result lacks an earlier unmatched call"
+            }
+          ]
+        }
+      },
+      "task_replay": {
+        "before": {
+          "status": "FAIL",
+          "reason": "Cannot associate tool results with requests",
+          "kind": "deterministic task simulation"
+        },
+        "after": {
+          "status": "FAIL",
+          "reason": "Cannot associate tool results with requests",
+          "kind": "deterministic task simulation"
+        }
+      },
+      "direction": "baseline_and_candidate_unhealthy"
+    }
+  ],
+  "knowledge": {},
+  "lab": {
+    "status": "BLOCKED",
+    "live_requests": 0,
+    "reason": "Offline execution; credentials and live platform behavior are not evaluated here"
+  },
+  "limitations": [
+    "Executes only reviewed NVIDIA 1.4.3 and 1.5.0 text/tool serializers with real LangChain message classes.",
+    "Repository inspection is read-only; application code and arbitrary model patches are never executed.",
+    "Pinned common dependencies must match across both environments; SDK releases remain unmodified.",
+    "Separate clean processes with deadlines and audit hooks; not an OS security sandbox. Dependencies must be trusted.",
+    "Checks the original input as well as the version difference. Matching broken releases cannot PASS.",
+    "Task replay is deterministic. No provider, model, Tavily or other paid requests are made.",
+    "Inventories and checksums detect changes; they do not authenticate an untrusted local writer."
+  ],
+  "status": "NEEDS_REVIEW",
+  "input": [
+    {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "id": "call_a",
+          "type": "function",
+          "function": {
+            "name": "inventory",
+            "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+          }
+        },
+        {
+          "id": "call_b",
+          "type": "function",
+          "function": {
+            "name": "price",
+            "arguments": "{\"sku\":\"A\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_a",
+      "content": "{\"quantity\":3}"
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_b",
+      "content": "{\"price\":7}"
+    }
+  ],
+  "executions": {
+    "baseline": {
+      "status": "EXECUTED",
+      "variant": "release",
+      "pid": 12268,
+      "provenance": {
+        "backend": "installed-sdk",
+        "real_sdk_classes": true,
+        "source_sha256": "ec8d2ef813a184d37a347f493242124319dbe3c6f6926124ba2f8a3560ed2531",
+        "executed_source_sha256": "ec8d2ef813a184d37a347f493242124319dbe3c6f6926124ba2f8a3560ed2531",
+        "version": "1.4.3",
+        "dependencies": {
+          "aiohappyeyeballs": "2.7.1",
+          "aiohttp": "3.14.5",
+          "aiosignal": "1.4.0",
+          "annotated-types": "0.8.0",
+          "anyio": "4.15.1",
+          "attrs": "26.1.0",
+          "certifi": "2026.10.23",
+          "charset-normalizer": "3.5.2",
+          "distro": "1.9.0",
+          "frozenlist": "1.8.0",
+          "h11": "0.16.0",
+          "httpcore2": "2.16.0",
+          "httpx2": "2.16.0",
+          "idna": "3.20",
+          "jsonpatch": "1.37",
+          "jsonpointer": "3.5",
+          "langchain-core": "1.4.7",
+          "langchain-nvidia-ai-endpoints": "1.4.3",
+          "langchain-protocol": "0.0.20",
+          "langsmith": "0.14.12",
+          "multidict": "7.2.1",
+          "orjson": "3.13.0",
+          "packaging": "26.3",
+          "propcache": "0.5.4",
+          "pydantic": "2.14.1",
+          "pydantic_core": "2.50.1",
+          "PyYAML": "6.0.3",
+          "requests": "2.34.2",
+          "requests-toolbelt": "1.0.0",
+          "sniffio": "1.3.1",
+          "tenacity": "9.2.1",
+          "truststore": "0.10.5",
+          "typing_extensions": "4.16.0",
+          "typing-inspection": "0.4.4",
+          "urllib3": "2.8.0",
+          "uuid_utils": "0.18.0",
+          "websockets": "17.3",
+          "xxhash": "4.0.2",
+          "yarl": "1.25.1",
+          "zstandard": "0.25.0"
+        }
+      },
+      "events": [
+        {
+          "stage": "framework_input",
+          "timestamp": "2026-10-25T12:44:52.328567+00:00",
+          "payload": [
+            {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "name": "inventory",
+                  "args": {
+                    "sku": "A",
+                    "options": {
+                      "warehouse": 2
+                    }
+                  },
+                  "id": "call_a",
+                  "type": "tool_call"
+                },
+                {
+                  "name": "price",
+                  "args": {
+                    "sku": "A"
+                  },
+                  "id": "call_b",
+                  "type": "tool_call"
+                }
+              ]
+            },
+            {
+              "role": "tool",
+              "content": "{\"quantity\":3}",
+              "tool_call_id": "call_a"
+            },
+            {
+              "role": "tool",
+              "content": "{\"price\":7}",
+              "tool_call_id": "call_b"
+            }
+          ]
+        },
+        {
+          "stage": "adapter_output",
+          "timestamp": "2026-10-25T12:44:52.328567+00:00",
+          "payload": [
+            {
+              "role": "assistant",
+              "content": ""
+            },
+            {
+              "role": "tool",
+              "content": "{\"quantity\":3}",
+              "tool_call_id": "call_a"
+            },
+            {
+              "role": "tool",
+              "content": "{\"price\":7}",
+              "tool_call_id": "call_b"
+            }
+          ]
+        }
+      ],
+      "output": [
+        {
+          "role": "assistant",
+          "content": ""
+        },
+        {
+          "role": "tool",
+          "content": "{\"quantity\":3}",
+          "tool_call_id": "call_a"
+        },
+        {
+          "role": "tool",
+          "content": "{\"price\":7}",
+          "tool_call_id": "call_b"
+        }
+      ],
+      "input_conversion": {
+        "status": "PASS",
+        "findings": []
+      },
+      "provider_requests": 0,
+      "duration_ms": 1950.43,
+      "exit_code": 0,
+      "environment_allowlist": [
+        "HOME",
+        "LANGCHAIN_TRACING_V2",
+        "LANGSMITH_TRACING",
+        "SystemRoot",
+        "TEMP",
+        "TMP",
+        "USERPROFILE",
+        "WINDIR"
+      ],
+      "stderr": ""
+    },
+    "candidate": {
+      "status": "EXECUTED",
+      "variant": "release",
+      "pid": 7192,
+      "provenance": {
+        "backend": "installed-sdk",
+        "real_sdk_classes": true,
+        "source_sha256": "72be0432f302852d3d8c2b22be0778c14ceb406ce4b7755c7a4f6b2de97ddf03",
+        "executed_source_sha256": "72be0432f302852d3d8c2b22be0778c14ceb406ce4b7755c7a4f6b2de97ddf03",
+        "version": "1.5.0",
+        "dependencies": {
+          "aiohappyeyeballs": "2.7.1",
+          "aiohttp": "3.14.5",
+          "aiosignal": "1.4.0",
+          "annotated-types": "0.8.0",
+          "anyio": "4.15.1",
+          "attrs": "26.1.0",
+          "certifi": "2026.10.23",
+          "charset-normalizer": "3.5.2",
+          "distro": "1.9.0",
+          "frozenlist": "1.8.0",
+          "h11": "0.16.0",
+          "httpcore2": "2.16.0",
+          "httpx2": "2.16.0",
+          "idna": "3.20",
+          "jsonpatch": "1.37",
+          "jsonpointer": "3.5",
+          "langchain-core": "1.4.7",
+          "langchain-nvidia-ai-endpoints": "1.5.0",
+          "langchain-protocol": "0.0.20",
+          "langsmith": "0.14.12",
+          "multidict": "7.2.1",
+          "orjson": "3.13.0",
+          "packaging": "26.3",
+          "propcache": "0.5.4",
+          "pydantic": "2.14.1",
+          "pydantic_core": "2.50.1",
+          "PyYAML": "6.0.3",
+          "requests": "2.34.2",
+          "requests-toolbelt": "1.0.0",
+          "sniffio": "1.3.1",
+          "tenacity": "9.2.1",
+          "truststore": "0.10.5",
+          "typing_extensions": "4.16.0",
+          "typing-inspection": "0.4.4",
+          "urllib3": "2.8.0",
+          "uuid_utils": "0.18.0",
+          "websockets": "17.3",
+          "xxhash": "4.0.2",
+          "yarl": "1.25.1",
+          "zstandard": "0.25.0"
+        }
+      },
+      "events": [
+        {
+          "stage": "framework_input",
+          "timestamp": "2026-10-25T12:44:54.248120+00:00",
+          "payload": [
+            {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "name": "inventory",
+                  "args": {
+                    "sku": "A",
+                    "options": {
+                      "warehouse": 2
+                    }
+                  },
+                  "id": "call_a",
+                  "type": "tool_call"
+                },
+                {
+                  "name": "price",
+                  "args": {
+                    "sku": "A"
+                  },
+                  "id": "call_b",
+                  "type": "tool_call"
+                }
+              ]
+            },
+            {
+              "role": "tool",
+              "content": "{\"quantity\":3}",
+              "tool_call_id": "call_a"
+            },
+            {
+              "role": "tool",
+              "content": "{\"price\":7}",
+              "tool_call_id": "call_b"
+            }
+          ]
+        },
+        {
+          "stage": "adapter_output",
+          "timestamp": "2026-10-25T12:44:54.249047+00:00",
+          "payload": [
+            {
+              "role": "assistant",
+              "content": ""
+            },
+            {
+              "role": "tool",
+              "content": "{\"quantity\":3}",
+              "tool_call_id": "call_a"
+            },
+            {
+              "role": "tool",
+              "content": "{\"price\":7}",
+              "tool_call_id": "call_b"
+            }
+          ]
+        }
+      ],
+      "output": [
+        {
+          "role": "assistant",
+          "content": ""
+        },
+        {
+          "role": "tool",
+          "content": "{\"quantity\":3}",
+          "tool_call_id": "call_a"
+        },
+        {
+          "role": "tool",
+          "content": "{\"price\":7}",
+          "tool_call_id": "call_b"
+        }
+      ],
+      "input_conversion": {
+        "status": "PASS",
+        "findings": []
+      },
+      "provider_requests": 0,
+      "duration_ms": 1949.382,
+      "exit_code": 0,
+      "environment_allowlist": [
+        "HOME",
+        "LANGCHAIN_TRACING_V2",
+        "LANGSMITH_TRACING",
+        "SystemRoot",
+        "TEMP",
+        "TMP",
+        "USERPROFILE",
+        "WINDIR"
+      ],
+      "stderr": ""
+    }
+  },
+  "environments": {
+    "baseline": {
+      "status": "READY",
+      "version": "1.4.3",
+      "root": "D:\\nv\\PatchCourt-Handoff-0.3.2-20261025\\work\\outputs\\sdk-offline-environments\\nvidia-1.4.3",
+      "inventory_sha256": "b735e6c8d0863a1e101356774ee9a27d3f04f3b03f6d24033794db2b95ff0c83",
+      "dependencies": {
+        "aiohappyeyeballs": "2.7.1",
+        "aiohttp": "3.14.5",
+        "aiosignal": "1.4.0",
+        "annotated-types": "0.8.0",
+        "anyio": "4.15.1",
+        "attrs": "26.1.0",
+        "certifi": "2026.10.23",
+        "charset-normalizer": "3.5.2",
+        "distro": "1.9.0",
+        "frozenlist": "1.8.0",
+        "h11": "0.16.0",
+        "httpcore2": "2.16.0",
+        "httpx2": "2.16.0",
+        "idna": "3.20",
+        "jsonpatch": "1.37",
+        "jsonpointer": "3.5",
+        "langchain-core": "1.4.7",
+        "langchain-nvidia-ai-endpoints": "1.4.3",
+        "langchain-protocol": "0.0.20",
+        "langsmith": "0.14.12",
+        "multidict": "7.2.1",
+        "orjson": "3.13.0",
+        "packaging": "26.3",
+        "propcache": "0.5.4",
+        "pydantic": "2.14.1",
+        "pydantic-core": "2.50.1",
+        "pyyaml": "6.0.3",
+        "requests": "2.34.2",
+        "requests-toolbelt": "1.0.0",
+        "sniffio": "1.3.1",
+        "tenacity": "9.2.1",
+        "truststore": "0.10.5",
+        "typing-extensions": "4.16.0",
+        "typing-inspection": "0.4.4",
+        "urllib3": "2.8.0",
+        "uuid-utils": "0.18.0",
+        "websockets": "17.3",
+        "xxhash": "4.0.2",
+        "yarl": "1.25.1",
+        "zstandard": "0.25.0"
+      },
+      "installation": {
+        "python": "3.12.13",
+        "wheel_only": true,
+        "source": "local-wheelhouse",
+        "pip_report_sha256": "206d5c1bb9a0cb53a23b8a1d2dbd036a8ab6346049118355c2d256889c3c7f68",
+        "constraints_sha256": "23a3de4df055a4e87b47e268751a19b95371e34024a13cc7f8a5b2a9ea36dec1",
+        "duration_ms": 5107.244
+      },
+      "reused": false
+    },
+    "candidate": {
+      "status": "READY",
+      "version": "1.5.0",
+      "root": "D:\\nv\\PatchCourt-Handoff-0.3.2-20261025\\work\\outputs\\sdk-offline-environments\\nvidia-1.5.0",
+      "inventory_sha256": "6d94dd643ba72a9cd8d968862e2627569ad21cfc529862396eb38bed5c361065",
+      "dependencies": {
+        "aiohappyeyeballs": "2.7.1",
+        "aiohttp": "3.14.5",
+        "aiosignal": "1.4.0",
+        "annotated-types": "0.8.0",
+        "anyio": "4.15.1",
+        "attrs": "26.1.0",
+        "certifi": "2026.10.23",
+        "charset-normalizer": "3.5.2",
+        "distro": "1.9.0",
+        "frozenlist": "1.8.0",
+        "h11": "0.16.0",
+        "httpcore2": "2.16.0",
+        "httpx2": "2.16.0",
+        "idna": "3.20",
+        "jsonpatch": "1.37",
+        "jsonpointer": "3.5",
+        "langchain-core": "1.4.7",
+        "langchain-nvidia-ai-endpoints": "1.5.0",
+        "langchain-protocol": "0.0.20",
+        "langsmith": "0.14.12",
+        "multidict": "7.2.1",
+        "orjson": "3.13.0",
+        "packaging": "26.3",
+        "propcache": "0.5.4",
+        "pydantic": "2.14.1",
+        "pydantic-core": "2.50.1",
+        "pyyaml": "6.0.3",
+        "requests": "2.34.2",
+        "requests-toolbelt": "1.0.0",
+        "sniffio": "1.3.1",
+        "tenacity": "9.2.1",
+        "truststore": "0.10.5",
+        "typing-extensions": "4.16.0",
+        "typing-inspection": "0.4.4",
+        "urllib3": "2.8.0",
+        "uuid-utils": "0.18.0",
+        "websockets": "17.3",
+        "xxhash": "4.0.2",
+        "yarl": "1.25.1",
+        "zstandard": "0.25.0"
+      },
+      "installation": {
+        "python": "3.12.13",
+        "wheel_only": true,
+        "source": "local-wheelhouse",
+        "pip_report_sha256": "c47a727cb6508a34d8ad88238b201322c28514bab03dff39116628c9d2ec1849",
+        "constraints_sha256": "23a3de4df055a4e87b47e268751a19b95371e34024a13cc7f8a5b2a9ea36dec1",
+        "duration_ms": 5277.585
+      },
+      "reused": false
+    }
+  },
+  "provider_requests": 0,
+  "inspection": {
+    "dependency": "langchain-nvidia-ai-endpoints",
+    "baseline_version": "1.4.3",
+    "candidate_version": "1.5.0",
+    "discovered_dependencies": [],
+    "boundary_candidates": [
+      {
+        "query": "tool_calls",
+        "observation": "Search results for 'tool_calls': 0 match(es) shown\n(no matches found)"
+      },
+      {
+        "query": "image_url",
+        "observation": "Search results for 'image_url': 0 match(es) shown\n(no matches found)"
+      },
+      {
+        "query": "convert_message",
+        "observation": "Search results for 'convert_message': 0 match(es) shown\n(no matches found)"
+      },
+      {
+        "query": "format_messages",
+        "observation": "Search results for 'format_messages': 0 match(es) shown\n(no matches found)"
+      }
+    ],
+    "status": "NEEDS_REVIEW",
+    "reason": "Source matches identify inspection targets, not defects. Supply executed baseline/candidate traces for a verdict."
+  }
+}

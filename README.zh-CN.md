@@ -1,4 +1,29 @@
-> 2026-10-25 更新：0.3.1 已有真实 GLM 修复、工具任务、五组评估和 95 秒配音视频；完整状态见 [GLM_DEVELOPMENT.md](GLM_DEVELOPMENT.md)。下文保留先前版本说明，不能据此宣称已满足比赛或完成全部原始需求。
+> 2026-10-25 更新：本地开发版 **0.4.0** 增加真实 SDK 双版本自动执行、环境完整性检查和流式协议加固。最新结果与未完成事项见 [本轮开发 review](DEVELOPMENT_REVIEW_ZH.md)。旧版本的 GLM 证据仍在 [GLM_DEVELOPMENT.md](GLM_DEVELOPMENT.md)，不能替代比赛指定平台的实测。
+
+## PatchCourt 0.4.0 快速体验
+
+Windows 双击 `Start-PatchCourt.cmd`，会生成新的离线证据并打开本机演示。
+也可以直接运行：
+
+```powershell
+python -m patchcourt demo --output outputs/my-demo
+python -m patchcourt serve outputs/my-demo --port 8765
+```
+
+打开 http://127.0.0.1:8765。演示保留真实历史源码的故障、固定修复验证和恢复到 **21** 的确定性工具任务；无需 API Key。
+
+比较两个真正安装的 SDK 版本：
+
+```powershell
+python -m pip install -e .
+python -m patchcourt upgrade-run ./my-agent --from-version 1.4.3 --to-version 1.5.0 --environment-dir outputs/sdk-environments --prepare --output outputs/sdk-upgrade
+```
+
+`--prepare` 允许下载官方 wheel 并创建独立依赖目录；不传时只复验现有环境，不会联网安装。仓库扫描只读，不执行应用代码。当前只覆盖已审查的 NVIDIA SDK 1.4.3 与 1.5.0 的文本/工具消息序列化。
+
+默认样例中两个版本都会丢工具调用，因此返回 **NEEDS_REVIEW / exit 2**：这表示原版已有问题，需要检查，不能因为输出相同就宣布兼容。健康文本对照返回 PASS；固定修复另有独立验证。完整命令、范围和四场景验证见 [UPGRADE_RUN.md](UPGRADE_RUN.md)。
+
+下方保留原 ACV 功能说明。
 
 # Agent Code Validator（ACV）
 

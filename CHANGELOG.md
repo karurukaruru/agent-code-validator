@@ -2,6 +2,15 @@
 
 All notable changes to Agent Code Validator are documented here.
 
+## [0.4.0] - 2026-10-25
+
+- Added `upgrade-run`: read-only discovery, explicit wheel-only preparation of two real SDK releases, shared dependency pins, complete environment revalidation, independent workers and original-input contract gates.
+- Added a reproducible four-scenario installed-SDK matrix and Windows/Ubuntu CI job. Both unmodified releases losing tool calls remains NEEDS_REVIEW; reviewed patch recovery is separately verified.
+- Hardened stream container/index/finish validation and tool-call identity checks, preserving legitimate fragmented calls and usage-only tails.
+- Added an upgrade evidence overview, actual environment/worker provenance, mobile browser checks, a Windows offline launcher and current package-resource verification.
+- Added an installed CrewAI formatter reproduction with real BaseLLM and Google SDK types; scope and recorded outcomes are in the current development review.
+- No new model inference, paid API experiment, remote publication or competition submission is claimed.
+
 ## [0.3.2] - 2026-10-25
 
 - Added optional `check --input` contract checks to detect equal-but-broken traces; `verify` now rejects missing/blank run IDs and non-object records. Five regression tests added; final local suite: 186 passed, four permission skips.

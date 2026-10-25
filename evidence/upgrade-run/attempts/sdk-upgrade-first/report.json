@@ -1,0 +1,127 @@
+{
+  "schema_version": "1.0",
+  "run_id": "7c041074-7efe-4f40-a285-a6e28d123393",
+  "created_at": "2026-10-25T12:39:47.145847+00:00",
+  "mode": "upgrade-run",
+  "environment": {
+    "python": "3.12.13",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "patchcourt": "0.3.2"
+  },
+  "summary": {
+    "pass": 0,
+    "fail": 0,
+    "inconclusive": 1,
+    "needs_review": 0
+  },
+  "cases": [
+    {
+      "id": "nvidia-release-upgrade",
+      "title": "NVIDIA SDK 1.4.3 → 1.5.0",
+      "status": "INCONCLUSIVE",
+      "execution": false,
+      "findings": [
+        {
+          "code": "ENVIRONMENT_UNAVAILABLE",
+          "message": "Prepare fresh SDK targets with --prepare; inspect environment errors and installation logs"
+        }
+      ],
+      "provenance": {
+        "kind": "Two unmodified installed SDK releases; no model inference",
+        "dependency": "langchain-nvidia-ai-endpoints",
+        "baseline_version": "1.4.3",
+        "candidate_version": "1.5.0"
+      }
+    }
+  ],
+  "knowledge": {},
+  "lab": {
+    "status": "BLOCKED",
+    "live_requests": 0,
+    "reason": "Offline execution; credentials and live platform behavior are not evaluated here"
+  },
+  "limitations": [
+    "Executes only reviewed NVIDIA 1.4.3 and 1.5.0 text/tool serializers with real LangChain message classes.",
+    "Repository inspection is read-only; application code and arbitrary model patches are never executed.",
+    "Pinned common dependencies must match across both environments; SDK releases remain unmodified.",
+    "Separate clean processes with deadlines and audit hooks; not an OS security sandbox. Dependencies must be trusted.",
+    "Checks the original input as well as the version difference. Matching broken releases cannot PASS.",
+    "Task replay is deterministic. No provider, model, Tavily or other paid requests are made.",
+    "Inventories and checksums detect changes; they do not authenticate an untrusted local writer."
+  ],
+  "status": "INCONCLUSIVE",
+  "input": [
+    {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "id": "call_a",
+          "type": "function",
+          "function": {
+            "name": "inventory",
+            "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+          }
+        },
+        {
+          "id": "call_b",
+          "type": "function",
+          "function": {
+            "name": "price",
+            "arguments": "{\"sku\":\"A\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_a",
+      "content": "{\"quantity\":3}"
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_b",
+      "content": "{\"price\":7}"
+    }
+  ],
+  "executions": {},
+  "environments": {
+    "baseline": {
+      "status": "INCONCLUSIVE",
+      "version": "1.4.3",
+      "error": "SDK environment inventory changed; create a fresh environment"
+    },
+    "candidate": {
+      "status": "INCONCLUSIVE",
+      "version": "1.5.0",
+      "error": "SDK environment inventory changed; create a fresh environment"
+    }
+  },
+  "provider_requests": 0,
+  "inspection": {
+    "dependency": "langchain-nvidia-ai-endpoints",
+    "baseline_version": "1.4.3",
+    "candidate_version": "1.5.0",
+    "discovered_dependencies": [],
+    "boundary_candidates": [
+      {
+        "query": "tool_calls",
+        "observation": "Search results for 'tool_calls': 0 match(es) shown\n(no matches found)"
+      },
+      {
+        "query": "image_url",
+        "observation": "Search results for 'image_url': 0 match(es) shown\n(no matches found)"
+      },
+      {
+        "query": "convert_message",
+        "observation": "Search results for 'convert_message': 0 match(es) shown\n(no matches found)"
+      },
+      {
+        "query": "format_messages",
+        "observation": "Search results for 'format_messages': 0 match(es) shown\n(no matches found)"
+      }
+    ],
+    "status": "NEEDS_REVIEW",
+    "reason": "Source matches identify inspection targets, not defects. Supply executed baseline/candidate traces for a verdict."
+  }
+}

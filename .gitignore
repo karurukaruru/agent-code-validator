@@ -5,6 +5,9 @@ __pycache__/
 .coverage
 htmlcov/
 .venv/
+.venv-dev/
+.wheelhouse/
+.venv-*/
 venv/
 dist/
 build/
@@ -20,5 +23,7 @@ outputs/
 evidence/private/
 .local-tmp/
 .sdk-nvidia/
+.sdk-crewai/
+.sdk-environments/
 .video-deps/
 *.crdownload
