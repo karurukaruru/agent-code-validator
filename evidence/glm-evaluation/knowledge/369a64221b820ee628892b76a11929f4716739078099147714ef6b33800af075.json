@@ -1,0 +1,30 @@
+{
+  "identity": {
+    "software": "patchcourt-trace-comparator",
+    "version": "0.3.1",
+    "boundary": "case-11",
+    "source_sha256": "4a93bdd780a480a073edf04fb4c5b3bb18f9f00f158d811c0db4173d18fb206b",
+    "environment": {
+      "python": "3.13.14",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "patchcourt": "0.3.0"
+    },
+    "contract_sha256": "5a77b53224af6ceb0107133878176c7fe013cd22916ee54d547543f38ecadeb1"
+  },
+  "evidence_level": "verified",
+  "scope": "this exact execution environment only",
+  "verified_at": "2026-10-25T04:41:10.092330+00:00",
+  "evidence": {
+    "status": "FAIL",
+    "execution": true,
+    "model_proposal": "FAIL",
+    "scope": "Model classification independently checked on this exact trace"
+  },
+  "revalidation_triggers": [
+    "source hash",
+    "dependency version",
+    "environment",
+    "contract change"
+  ],
+  "integrity": "0bd56f9b3d3f6d67ed1be794a14fbc372e72f764b5614c8cb4214844080b99d0"
+}

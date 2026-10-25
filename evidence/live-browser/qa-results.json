@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "checks": [
+    "Actual recorded workflow completed",
+    "Unauthenticated POST cannot trigger model calls",
+    "Cross-origin POST rejected",
+    "Arbitrary payload rejected",
+    "Credential file path unavailable",
+    "Recovered task displayed",
+    "Independent checks displayed",
+    "Negative control displayed",
+    "Desktop has no horizontal overflow",
+    "Repair tab shows actual mapping and controls",
+    "Mobile has no horizontal overflow",
+    "No browser runtime exceptions",
+    "Read-only QA and rejected requests caused no inference"
+  ],
+  "errors": [],
+  "source_report_created_at": "2026-10-25T04:31:56.162715+00:00"
+}

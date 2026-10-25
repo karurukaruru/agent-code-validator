@@ -1,18 +1,34 @@
 {
-  "patchcourt-offline-demo.mp4": {
-    "bytes": 1907981,
-    "sha256": "875e48b0a44a3e4e84a9b769a3bc5df48151ff389e8ddd8fc5458236996d229b"
+  "agent_code_validator-0.3.0-py3-none-any.whl": {
+    "sha256": "66179ddd7cdcb32711e5d04059a4c65bb1574b1c240740c1df25f798ae57659c",
+    "bytes": 90150
   },
-  "patchcourt-offline-demo.en.srt": {
-    "bytes": 1981,
-    "sha256": "37db69236e9afcc6f962bbbde185d9a0a76b5846d105ad8cf199993072a083ce"
+  "agent_code_validator-0.3.1-py3-none-any.whl": {
+    "sha256": "e42d9997c8dee070ba039b7f4ac4a4ca751b4e340ae03bc3d82177f3e8655625",
+    "bytes": 109236
   },
   "patchcourt-demo-0.3.0.zip": {
-    "bytes": 20968,
-    "sha256": "9b9b079d7d8b898c3d5ffa41477b101b96e412ae17ce829232bf2cc74b3bb1de"
+    "sha256": "9b9b079d7d8b898c3d5ffa41477b101b96e412ae17ce829232bf2cc74b3bb1de",
+    "bytes": 20968
   },
-  "agent_code_validator-0.3.0-py3-none-any.whl": {
-    "bytes": 90150,
-    "sha256": "66179ddd7cdcb32711e5d04059a4c65bb1574b1c240740c1df25f798ae57659c"
+  "patchcourt-glm-live-demo.mp4": {
+    "sha256": "5e88ef8425fe2ef6afe597602eb77952d24e7d62268c8e5dff1329c6c6084a2a",
+    "bytes": 2517864
+  },
+  "patchcourt-live.en.srt": {
+    "sha256": "fc278b90d9a4474691d31f76a00bedfa52cb0fbbecd90072cdd34368cfd87d5b",
+    "bytes": 1981
+  },
+  "patchcourt-live.zh.srt": {
+    "sha256": "7ef3149c24e726c6d6b195dcb81419b38922714f5b016f97973838ab5c28d0de",
+    "bytes": 1479
+  },
+  "patchcourt-offline-demo.en.srt": {
+    "sha256": "37db69236e9afcc6f962bbbde185d9a0a76b5846d105ad8cf199993072a083ce",
+    "bytes": 1981
+  },
+  "patchcourt-offline-demo.mp4": {
+    "sha256": "875e48b0a44a3e4e84a9b769a3bc5df48151ff389e8ddd8fc5458236996d229b",
+    "bytes": 1907981
   }
 }

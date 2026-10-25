@@ -105,7 +105,7 @@ def benchmark(output):
             elif arm == "E-ASM":
                 row = {"outcome": "INCONCLUSIVE", "executed": False, "reason": "Knowledge lookup is not an independent classifier; only demo reuse measured"}
             else:
-                row = {"outcome": "BLOCKED", "executed": False, "reason": "No authorized model credentials"}
+                row = {"outcome": "BLOCKED", "executed": False, "reason": "Offline benchmark never makes API calls; use --provider glm for the explicit development comparison"}
             rows.append({"case": case["id"], "provenance": case["provenance"], "arm": arm, "expected": case["expected_status"], **row, "duration_ms": round((time.perf_counter()-started)*1000,3), "tokens": 0 if arm == "A-simple-deterministic" else None, "cost_usd": 0 if arm == "A-simple-deterministic" else None})
     executed = [r for r in rows if r["executed"]]
     metrics = {"true_positives": sum(r["expected"] == r["outcome"] == "FAIL" for r in executed), "false_positives": sum(r["expected"] == "PASS" and r["outcome"] == "FAIL" for r in executed), "false_negatives": sum(r["expected"] == "FAIL" and r["outcome"] != "FAIL" for r in executed), "true_negatives": sum(r["expected"] == r["outcome"] == "PASS" for r in executed), "correct_abstentions": sum(r["expected"] in {"INCONCLUSIVE", "NEEDS_REVIEW"} and r["outcome"] == r["expected"] for r in executed)}

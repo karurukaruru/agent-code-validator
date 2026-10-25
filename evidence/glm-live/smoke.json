@@ -1,0 +1,64 @@
+{
+  "provider": "glm",
+  "endpoint": "https://open.bigmodel.cn/api/paas/v4/chat/completions",
+  "timestamp": "2026-10-25T03:39:39.468559+00:00",
+  "provenance": "live HTTP attempt",
+  "status": "PASS",
+  "http_status": 200,
+  "latency_ms": 1112.853,
+  "usage": {
+    "completion_tokens": 7,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 21,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 28
+  },
+  "cost_usd": null,
+  "cost_note": "Unknown; no pricing assumption or zero-cost claim",
+  "parameters": {
+    "model": "glm-5.3-flash",
+    "max_tokens": 1024,
+    "reasoning_effort": "low",
+    "temperature": 1,
+    "messages": [
+      {
+        "role": "user",
+        "content": "Reply with exactly PATCHCOURT_READY."
+      }
+    ]
+  },
+  "request_id": null,
+  "raw_response": "{\"choices\":[{\"finish_reason\":\"stop\",\"index\":0,\"message\":{\"content\":\"PATCHCOURT_READY\",\"role\":\"assistant\"}}],\"created\":1792899580,\"id\":\"20261025113939667a9fdb84614ab1\",\"model\":\"glm-5.3-flash\",\"object\":\"chat.completion\",\"request_id\":\"20261025113939667a9fdb84614ab1\",\"usage\":{\"completion_tokens\":7,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":21,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":28}}",
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "content": "PATCHCOURT_READY",
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1792899580,
+    "id": "20261025113939667a9fdb84614ab1",
+    "model": "glm-5.3-flash",
+    "object": "chat.completion",
+    "request_id": "20261025113939667a9fdb84614ab1",
+    "usage": {
+      "completion_tokens": 7,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "prompt_tokens": 21,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "total_tokens": 28
+    }
+  }
+}

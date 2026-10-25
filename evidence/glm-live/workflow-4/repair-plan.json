@@ -1,0 +1,9 @@
+{
+  "source": "additional_kwargs",
+  "id_field": "id",
+  "name_field": "name",
+  "arguments_field": "args",
+  "arguments_encoding": "json",
+  "preserve_legacy": true,
+  "empty_content": "null"
+}

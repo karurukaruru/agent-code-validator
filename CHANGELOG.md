@@ -2,6 +2,14 @@
 
 All notable changes to Agent Code Validator are documented here.
 
+## [0.3.1] - 2026-10-25
+
+- Added exact GLM 5.3 Flash routing, bounded model-proposed adapter mappings, independent controls and live fixture-tool recovery.
+- Added a loopback workbench with capability/origin checks and a real narrated 95-second demonstration.
+- Added an explicitly opted-in five-arm GLM development evaluation, original ACV review adapter, paired Tavily retrieval and scoped knowledge revalidation. Failed runs and negative retrieval results remain published.
+- Fixed provider ordinal projection, structured final-answer handling, stale workbench state, oversized video captions and stale package-version reporting.
+- Preserved offline behavior and documented remaining original-mission/competition gaps.
+
 ## [0.2.0] - 2026-08-23
 
 ### Added

@@ -1,3 +1,5 @@
+> 2026-10-25 更新：0.3.1 已有真实 GLM 修复、工具任务、五组评估和 95 秒配音视频；完整状态见 [GLM_DEVELOPMENT.md](GLM_DEVELOPMENT.md)。下文保留先前版本说明，不能据此宣称已满足比赛或完成全部原始需求。
+
 # Agent Code Validator（ACV）
 
 [English](README.md) · [详细使用说明](使用说明.md) · [更新日志](CHANGELOG.md)

@@ -1,0 +1,1402 @@
+{
+  "created_at": "2026-10-25T04:40:11.811349+00:00",
+  "plan_sha256": "c9f33877186829a2d6d87a8f88cb2f02ca47c274b5ed8952305e6330c52e5099",
+  "environment": {
+    "python": "3.13.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "patchcourt": "0.3.0"
+  },
+  "requests": [
+    {
+      "arm": "B-original-ACV-GLM",
+      "status": "PASS",
+      "provenance": "live HTTP attempt",
+      "usage": {
+        "completion_tokens": 1534,
+        "completion_tokens_details": {
+          "reasoning_tokens": 121
+        },
+        "prompt_tokens": 3608,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "total_tokens": 5142
+      },
+      "latency_ms": 24529.508
+    },
+    {
+      "arm": "C-GLM",
+      "status": "PASS",
+      "provenance": "live HTTP attempt",
+      "usage": {
+        "completion_tokens": 738,
+        "completion_tokens_details": {
+          "reasoning_tokens": 222
+        },
+        "prompt_tokens": 3327,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "total_tokens": 4065
+      },
+      "latency_ms": 14826.098
+    },
+    {
+      "arm": "D-GLM-Tavily",
+      "status": "PASS",
+      "provenance": "live HTTP attempt",
+      "usage": {
+        "completion_tokens": 992,
+        "completion_tokens_details": {
+          "reasoning_tokens": 260
+        },
+        "prompt_tokens": 4516,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "total_tokens": 5508
+      },
+      "latency_ms": 15003.662
+    }
+  ],
+  "rows": [
+    {
+      "case": "unchanged-tool-workflow",
+      "opaque_id": "case-00",
+      "arm": "A-deterministic",
+      "expected": "PASS",
+      "executed": true,
+      "outcome": "PASS",
+      "details": {
+        "status": "PASS"
+      },
+      "error": null,
+      "arm_duration_ms": 0.923
+    },
+    {
+      "case": "json-formatting-equivalence",
+      "opaque_id": "case-01",
+      "arm": "A-deterministic",
+      "expected": "PASS",
+      "executed": true,
+      "outcome": "PASS",
+      "details": {
+        "status": "PASS"
+      },
+      "error": null,
+      "arm_duration_ms": 0.923
+    },
+    {
+      "case": "dropped-tool-calls",
+      "opaque_id": "case-02",
+      "arm": "A-deterministic",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "status": "FAIL"
+      },
+      "error": null,
+      "arm_duration_ms": 0.923
+    },
+    {
+      "case": "missing-call-id",
+      "opaque_id": "case-03",
+      "arm": "A-deterministic",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "status": "FAIL"
+      },
+      "error": null,
+      "arm_duration_ms": 0.923
+    },
+    {
+      "case": "duplicate-call-id",
+      "opaque_id": "case-04",
+      "arm": "A-deterministic",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "status": "FAIL"
+      },
+      "error": null,
+      "arm_duration_ms": 0.923
+    },
+    {
+      "case": "nested-argument-corruption",
+      "opaque_id": "case-05",
+      "arm": "A-deterministic",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "status": "FAIL"
+      },
+      "error": null,
+      "arm_duration_ms": 0.923
+    },
+    {
+      "case": "orphan-tool-result",
+      "opaque_id": "case-06",
+      "arm": "A-deterministic",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "status": "FAIL"
+      },
+      "error": null,
+      "arm_duration_ms": 0.923
+    },
+    {
+      "case": "invalid-role-conversion",
+      "opaque_id": "case-07",
+      "arm": "A-deterministic",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "status": "FAIL"
+      },
+      "error": null,
+      "arm_duration_ms": 0.923
+    },
+    {
+      "case": "truncated-arguments",
+      "opaque_id": "case-08",
+      "arm": "A-deterministic",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "status": "FAIL"
+      },
+      "error": null,
+      "arm_duration_ms": 0.923
+    },
+    {
+      "case": "image-control",
+      "opaque_id": "case-09",
+      "arm": "A-deterministic",
+      "expected": "PASS",
+      "executed": true,
+      "outcome": "PASS",
+      "details": {
+        "status": "PASS"
+      },
+      "error": null,
+      "arm_duration_ms": 0.923
+    },
+    {
+      "case": "lost-image-reference",
+      "opaque_id": "case-10",
+      "arm": "A-deterministic",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "status": "FAIL"
+      },
+      "error": null,
+      "arm_duration_ms": 0.923
+    },
+    {
+      "case": "lost-image-detail",
+      "opaque_id": "case-11",
+      "arm": "A-deterministic",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "status": "FAIL"
+      },
+      "error": null,
+      "arm_duration_ms": 0.923
+    },
+    {
+      "case": "unsupported-audio-abstention",
+      "opaque_id": "case-12",
+      "arm": "A-deterministic",
+      "expected": "INCONCLUSIVE",
+      "executed": true,
+      "outcome": "INCONCLUSIVE",
+      "details": {
+        "status": "INCONCLUSIVE"
+      },
+      "error": null,
+      "arm_duration_ms": 0.923
+    },
+    {
+      "case": "invalid-baseline-abstention",
+      "opaque_id": "case-13",
+      "arm": "A-deterministic",
+      "expected": "NEEDS_REVIEW",
+      "executed": true,
+      "outcome": "NEEDS_REVIEW",
+      "details": {
+        "status": "NEEDS_REVIEW"
+      },
+      "error": null,
+      "arm_duration_ms": 0.923
+    },
+    {
+      "case": "unchanged-tool-workflow",
+      "opaque_id": "case-00",
+      "arm": "B-original-ACV-GLM",
+      "expected": "PASS",
+      "executed": true,
+      "outcome": "INCONCLUSIVE",
+      "details": {
+        "status": "INCONCLUSIVE",
+        "issues": []
+      },
+      "error": null,
+      "arm_duration_ms": 24534.965
+    },
+    {
+      "case": "json-formatting-equivalence",
+      "opaque_id": "case-01",
+      "arm": "B-original-ACV-GLM",
+      "expected": "PASS",
+      "executed": true,
+      "outcome": "INCONCLUSIVE",
+      "details": {
+        "status": "INCONCLUSIVE",
+        "issues": []
+      },
+      "error": null,
+      "arm_duration_ms": 24534.965
+    },
+    {
+      "case": "dropped-tool-calls",
+      "opaque_id": "case-02",
+      "arm": "B-original-ACV-GLM",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "INCONCLUSIVE",
+      "details": {
+        "status": "INCONCLUSIVE",
+        "issues": []
+      },
+      "error": null,
+      "arm_duration_ms": 24534.965
+    },
+    {
+      "case": "missing-call-id",
+      "opaque_id": "case-03",
+      "arm": "B-original-ACV-GLM",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "INCONCLUSIVE",
+      "details": {
+        "status": "INCONCLUSIVE",
+        "issues": []
+      },
+      "error": null,
+      "arm_duration_ms": 24534.965
+    },
+    {
+      "case": "duplicate-call-id",
+      "opaque_id": "case-04",
+      "arm": "B-original-ACV-GLM",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "status": "FAIL",
+        "issues": [
+          {
+            "severity": "medium",
+            "category": "bug",
+            "file": "case-04.json",
+            "location": "candidate[0].tool_calls",
+            "problem": "Both tool calls in the candidate share the same id \"call_a\", while the following tool messages reference call_a and call_b.",
+            "reason": "Duplicate tool-call ids within one assistant message are invalid per the chat-completions schema and break id-based correlation with tool result messages. A comparator that indexes tool results by id will nondeterministically match one of the two calls, so the intended mismatch (missing/renamed call_b) may be masked or reported inconsistently.",
+            "suggestion": "Use a distinct id for the second call (or verify the comparator detects duplicate ids as a structural mismatch rather than silently deduplicating)."
+          }
+        ]
+      },
+      "error": null,
+      "arm_duration_ms": 24534.965
+    },
+    {
+      "case": "nested-argument-corruption",
+      "opaque_id": "case-05",
+      "arm": "B-original-ACV-GLM",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "INCONCLUSIVE",
+      "details": {
+        "status": "INCONCLUSIVE",
+        "issues": []
+      },
+      "error": null,
+      "arm_duration_ms": 24534.965
+    },
+    {
+      "case": "orphan-tool-result",
+      "opaque_id": "case-06",
+      "arm": "B-original-ACV-GLM",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "INCONCLUSIVE",
+      "details": {
+        "status": "INCONCLUSIVE",
+        "issues": []
+      },
+      "error": null,
+      "arm_duration_ms": 24534.965
+    },
+    {
+      "case": "invalid-role-conversion",
+      "opaque_id": "case-07",
+      "arm": "B-original-ACV-GLM",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "INCONCLUSIVE",
+      "details": {
+        "status": "INCONCLUSIVE",
+        "issues": []
+      },
+      "error": null,
+      "arm_duration_ms": 24534.965
+    },
+    {
+      "case": "truncated-arguments",
+      "opaque_id": "case-08",
+      "arm": "B-original-ACV-GLM",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "INCONCLUSIVE",
+      "details": {
+        "status": "INCONCLUSIVE",
+        "issues": []
+      },
+      "error": null,
+      "arm_duration_ms": 24534.965
+    },
+    {
+      "case": "image-control",
+      "opaque_id": "case-09",
+      "arm": "B-original-ACV-GLM",
+      "expected": "PASS",
+      "executed": true,
+      "outcome": "INCONCLUSIVE",
+      "details": {
+        "status": "INCONCLUSIVE",
+        "issues": []
+      },
+      "error": null,
+      "arm_duration_ms": 24534.965
+    },
+    {
+      "case": "lost-image-reference",
+      "opaque_id": "case-10",
+      "arm": "B-original-ACV-GLM",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "INCONCLUSIVE",
+      "details": {
+        "status": "INCONCLUSIVE",
+        "issues": []
+      },
+      "error": null,
+      "arm_duration_ms": 24534.965
+    },
+    {
+      "case": "lost-image-detail",
+      "opaque_id": "case-11",
+      "arm": "B-original-ACV-GLM",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "INCONCLUSIVE",
+      "details": {
+        "status": "INCONCLUSIVE",
+        "issues": []
+      },
+      "error": null,
+      "arm_duration_ms": 24534.965
+    },
+    {
+      "case": "unsupported-audio-abstention",
+      "opaque_id": "case-12",
+      "arm": "B-original-ACV-GLM",
+      "expected": "INCONCLUSIVE",
+      "executed": true,
+      "outcome": "INCONCLUSIVE",
+      "details": {
+        "status": "INCONCLUSIVE",
+        "issues": []
+      },
+      "error": null,
+      "arm_duration_ms": 24534.965
+    },
+    {
+      "case": "invalid-baseline-abstention",
+      "opaque_id": "case-13",
+      "arm": "B-original-ACV-GLM",
+      "expected": "NEEDS_REVIEW",
+      "executed": true,
+      "outcome": "INCONCLUSIVE",
+      "details": {
+        "status": "INCONCLUSIVE",
+        "issues": []
+      },
+      "error": null,
+      "arm_duration_ms": 24534.965
+    },
+    {
+      "case": "unchanged-tool-workflow",
+      "opaque_id": "case-00",
+      "arm": "C-GLM",
+      "expected": "PASS",
+      "executed": true,
+      "outcome": "PASS",
+      "details": {
+        "id": "case-00",
+        "status": "PASS",
+        "reason": "Assistant content, tool call ids, names, arguments, and tool result linkage are identical.",
+        "citations": []
+      },
+      "error": null,
+      "arm_duration_ms": 14830.795
+    },
+    {
+      "case": "json-formatting-equivalence",
+      "opaque_id": "case-01",
+      "arm": "C-GLM",
+      "expected": "PASS",
+      "executed": true,
+      "outcome": "PASS",
+      "details": {
+        "id": "case-01",
+        "status": "PASS",
+        "reason": "Empty assistant content and null are equivalent; JSON argument whitespace and key ordering do not matter; other calls and result linkage unchanged.",
+        "citations": []
+      },
+      "error": null,
+      "arm_duration_ms": 14830.795
+    },
+    {
+      "case": "dropped-tool-calls",
+      "opaque_id": "case-02",
+      "arm": "C-GLM",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "id": "case-02",
+        "status": "FAIL",
+        "reason": "Candidate drops the assistant tool_calls entirely, removing both supported tool call semantics while tool results remain orphaned.",
+        "citations": []
+      },
+      "error": null,
+      "arm_duration_ms": 14830.795
+    },
+    {
+      "case": "missing-call-id",
+      "opaque_id": "case-03",
+      "arm": "C-GLM",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "id": "case-03",
+        "status": "FAIL",
+        "reason": "First tool call is missing its id, breaking the call/result linkage for tool_call_id call_a.",
+        "citations": []
+      },
+      "error": null,
+      "arm_duration_ms": 14830.795
+    },
+    {
+      "case": "duplicate-call-id",
+      "opaque_id": "case-04",
+      "arm": "C-GLM",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "id": "case-04",
+        "status": "FAIL",
+        "reason": "Second tool call reuses id call_a instead of call_b, so the price result no longer links to a unique call.",
+        "citations": []
+      },
+      "error": null,
+      "arm_duration_ms": 14830.795
+    },
+    {
+      "case": "nested-argument-corruption",
+      "opaque_id": "case-05",
+      "arm": "C-GLM",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "id": "case-05",
+        "status": "FAIL",
+        "reason": "inventory arguments differ: options.warehouse is 9 in the candidate vs 2 in the baseline.",
+        "citations": []
+      },
+      "error": null,
+      "arm_duration_ms": 14830.795
+    },
+    {
+      "case": "orphan-tool-result",
+      "opaque_id": "case-06",
+      "arm": "C-GLM",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "id": "case-06",
+        "status": "FAIL",
+        "reason": "First tool result references tool_call_id call_z instead of call_a, breaking result linkage.",
+        "citations": []
+      },
+      "error": null,
+      "arm_duration_ms": 14830.795
+    },
+    {
+      "case": "invalid-role-conversion",
+      "opaque_id": "case-07",
+      "arm": "C-GLM",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "id": "case-07",
+        "status": "FAIL",
+        "reason": "Role of the tool-calling message changed from assistant to user.",
+        "citations": []
+      },
+      "error": null,
+      "arm_duration_ms": 14830.795
+    },
+    {
+      "case": "truncated-arguments",
+      "opaque_id": "case-08",
+      "arm": "C-GLM",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "id": "case-08",
+        "status": "FAIL",
+        "reason": "First tool call arguments are malformed JSON ('{\"unfinished\":'), so the parsed arguments differ from the baseline's valid inventory call.",
+        "citations": []
+      },
+      "error": null,
+      "arm_duration_ms": 14830.795
+    },
+    {
+      "case": "image-control",
+      "opaque_id": "case-09",
+      "arm": "C-GLM",
+      "expected": "PASS",
+      "executed": true,
+      "outcome": "PASS",
+      "details": {
+        "id": "case-09",
+        "status": "PASS",
+        "reason": "Text and image parts, image URL, and detail are identical.",
+        "citations": []
+      },
+      "error": null,
+      "arm_duration_ms": 14830.795
+    },
+    {
+      "case": "lost-image-reference",
+      "opaque_id": "case-10",
+      "arm": "C-GLM",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "id": "case-10",
+        "status": "FAIL",
+        "reason": "Candidate drops the image_url content part supported by the baseline.",
+        "citations": []
+      },
+      "error": null,
+      "arm_duration_ms": 14830.795
+    },
+    {
+      "case": "lost-image-detail",
+      "opaque_id": "case-11",
+      "arm": "C-GLM",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "id": "case-11",
+        "status": "FAIL",
+        "reason": "Image detail changed from high to low, altering image reference semantics.",
+        "citations": []
+      },
+      "error": null,
+      "arm_duration_ms": 14830.795
+    },
+    {
+      "case": "unsupported-audio-abstention",
+      "opaque_id": "case-12",
+      "arm": "C-GLM",
+      "expected": "INCONCLUSIVE",
+      "executed": true,
+      "outcome": "INCONCLUSIVE",
+      "details": {
+        "id": "case-12",
+        "status": "INCONCLUSIVE",
+        "reason": "Audio content parts are an unsupported semantic extension; abstaining per unknown-extension policy.",
+        "citations": []
+      },
+      "error": null,
+      "arm_duration_ms": 14830.795
+    },
+    {
+      "case": "invalid-baseline-abstention",
+      "opaque_id": "case-13",
+      "arm": "C-GLM",
+      "expected": "NEEDS_REVIEW",
+      "executed": true,
+      "outcome": "NEEDS_REVIEW",
+      "details": {
+        "id": "case-13",
+        "status": "NEEDS_REVIEW",
+        "reason": "Baseline is invalid: tool result with tool_call_id 'missing' does not link to any tool call (call_a/call_b).",
+        "citations": []
+      },
+      "error": null,
+      "arm_duration_ms": 14830.795
+    },
+    {
+      "case": "unchanged-tool-workflow",
+      "opaque_id": "case-00",
+      "arm": "D-GLM-Tavily",
+      "expected": "PASS",
+      "executed": true,
+      "outcome": "PASS",
+      "details": {
+        "id": "case-00",
+        "status": "PASS",
+        "reason": "Messages are identical: same roles, tool call ids, names, parsed arguments, and tool result linkage.",
+        "citations": []
+      },
+      "error": null,
+      "arm_duration_ms": 18713.733
+    },
+    {
+      "case": "json-formatting-equivalence",
+      "opaque_id": "case-01",
+      "arm": "D-GLM-Tavily",
+      "expected": "PASS",
+      "executed": true,
+      "outcome": "PASS",
+      "details": {
+        "id": "case-01",
+        "status": "PASS",
+        "reason": "Empty assistant content and null are equivalent; arguments JSON differs only in whitespace/key ordering and parses to the same values.",
+        "citations": []
+      },
+      "error": null,
+      "arm_duration_ms": 18713.733
+    },
+    {
+      "case": "dropped-tool-calls",
+      "opaque_id": "case-02",
+      "arm": "D-GLM-Tavily",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "id": "case-02",
+        "status": "FAIL",
+        "reason": "Candidate drops both tool_calls; every tool call in history must have a corresponding ToolMessage and the assistant messages no longer request the tools, a supported semantic regression.",
+        "citations": [
+          "https://docs.langchain.com/oss/javascript/langchain/tools"
+        ]
+      },
+      "error": null,
+      "arm_duration_ms": 18713.733
+    },
+    {
+      "case": "missing-call-id",
+      "opaque_id": "case-03",
+      "arm": "D-GLM-Tavily",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "id": "case-03",
+        "status": "FAIL",
+        "reason": "Candidate's first tool call lacks the required id 'call_a', breaking linkage to the tool result with tool_call_id 'call_a'.",
+        "citations": [
+          "https://docs.langchain.com/oss/javascript/langchain/tools"
+        ]
+      },
+      "error": null,
+      "arm_duration_ms": 18713.733
+    },
+    {
+      "case": "duplicate-call-id",
+      "opaque_id": "case-04",
+      "arm": "D-GLM-Tavily",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "id": "case-04",
+        "status": "FAIL",
+        "reason": "Candidate reuses id 'call_a' for the price call; the tool result with tool_call_id 'call_b' no longer has a matching tool call and 'call_a' is ambiguous.",
+        "citations": [
+          "https://docs.langchain.com/oss/javascript/langchain/tools"
+        ]
+      },
+      "error": null,
+      "arm_duration_ms": 18713.733
+    },
+    {
+      "case": "nested-argument-corruption",
+      "opaque_id": "case-05",
+      "arm": "D-GLM-Tavily",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "id": "case-05",
+        "status": "FAIL",
+        "reason": "Parsed arguments differ: inventory options.warehouse is 9 in candidate vs 2 in baseline.",
+        "citations": []
+      },
+      "error": null,
+      "arm_duration_ms": 18713.733
+    },
+    {
+      "case": "orphan-tool-result",
+      "opaque_id": "case-06",
+      "arm": "D-GLM-Tavily",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "id": "case-06",
+        "status": "FAIL",
+        "reason": "Tool result linkage broken: candidate tool message uses tool_call_id 'call_z', which matches no tool call (baseline was 'call_a').",
+        "citations": [
+          "https://docs.langchain.com/oss/javascript/langchain/tools"
+        ]
+      },
+      "error": null,
+      "arm_duration_ms": 18713.733
+    },
+    {
+      "case": "invalid-role-conversion",
+      "opaque_id": "case-07",
+      "arm": "D-GLM-Tavily",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "id": "case-07",
+        "status": "FAIL",
+        "reason": "Tool calls appear on a 'user' role message in candidate instead of 'assistant'; roles matter and this changes message semantics.",
+        "citations": [
+          "https://reference.langchain.com/python/langchain-core/messages/utils/convert_to_openai_messages"
+        ]
+      },
+      "error": null,
+      "arm_duration_ms": 18713.733
+    },
+    {
+      "case": "truncated-arguments",
+      "opaque_id": "case-08",
+      "arm": "D-GLM-Tavily",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "INCONCLUSIVE",
+      "details": {
+        "id": "case-08",
+        "status": "INCONCLUSIVE",
+        "reason": "Candidate's first tool call arguments ('{\"unfinished\":') are not parseable JSON, so its semantics cannot be established or compared.",
+        "citations": []
+      },
+      "error": null,
+      "arm_duration_ms": 18713.733
+    },
+    {
+      "case": "image-control",
+      "opaque_id": "case-09",
+      "arm": "D-GLM-Tavily",
+      "expected": "PASS",
+      "executed": true,
+      "outcome": "PASS",
+      "details": {
+        "id": "case-09",
+        "status": "PASS",
+        "reason": "User content blocks identical: same text and image_url with same data URL and detail 'high'.",
+        "citations": [
+          "https://reference.langchain.com/python/langchain-core/messages/utils/convert_to_openai_messages"
+        ]
+      },
+      "error": null,
+      "arm_duration_ms": 18713.733
+    },
+    {
+      "case": "lost-image-reference",
+      "opaque_id": "case-10",
+      "arm": "D-GLM-Tavily",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "id": "case-10",
+        "status": "FAIL",
+        "reason": "Candidate drops the image_url content part that the baseline includes.",
+        "citations": [
+          "https://reference.langchain.com/python/langchain-core/messages/utils/convert_to_openai_messages"
+        ]
+      },
+      "error": null,
+      "arm_duration_ms": 18713.733
+    },
+    {
+      "case": "lost-image-detail",
+      "opaque_id": "case-11",
+      "arm": "D-GLM-Tavily",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "id": "case-11",
+        "status": "FAIL",
+        "reason": "Image detail changes from 'high' to 'low', a semantic difference in image reference metadata.",
+        "citations": [
+          "https://reference.langchain.com/python/langchain-core/messages/utils/convert_to_openai_messages"
+        ]
+      },
+      "error": null,
+      "arm_duration_ms": 18713.733
+    },
+    {
+      "case": "unsupported-audio-abstention",
+      "opaque_id": "case-12",
+      "arm": "D-GLM-Tavily",
+      "expected": "INCONCLUSIVE",
+      "executed": true,
+      "outcome": "INCONCLUSIVE",
+      "details": {
+        "id": "case-12",
+        "status": "INCONCLUSIVE",
+        "reason": "'audio' content type is not a semantic extension covered by the supplied documents; unknown semantic extensions require abstention.",
+        "citations": []
+      },
+      "error": null,
+      "arm_duration_ms": 18713.733
+    },
+    {
+      "case": "invalid-baseline-abstention",
+      "opaque_id": "case-13",
+      "arm": "D-GLM-Tavily",
+      "expected": "NEEDS_REVIEW",
+      "executed": true,
+      "outcome": "NEEDS_REVIEW",
+      "details": {
+        "id": "case-13",
+        "status": "NEEDS_REVIEW",
+        "reason": "Baseline itself contains a tool message with tool_call_id 'missing' that does not correspond to any tool call, making the baseline invalid; both sides share this defect.",
+        "citations": [
+          "https://docs.langchain.com/oss/javascript/langchain/tools"
+        ]
+      },
+      "error": null,
+      "arm_duration_ms": 18713.733
+    },
+    {
+      "case": "unchanged-tool-workflow",
+      "opaque_id": "case-00",
+      "arm": "E-scoped-reuse",
+      "expected": "PASS",
+      "executed": true,
+      "outcome": "PASS",
+      "details": {
+        "status": "PASS",
+        "knowledge_hit": true,
+        "revalidated": true,
+        "mode": "exact-repeat lookup plus comparator; misses use comparator",
+        "model_requests": 0
+      },
+      "error": null,
+      "arm_duration_ms": 99.024
+    },
+    {
+      "case": "json-formatting-equivalence",
+      "opaque_id": "case-01",
+      "arm": "E-scoped-reuse",
+      "expected": "PASS",
+      "executed": true,
+      "outcome": "PASS",
+      "details": {
+        "status": "PASS",
+        "knowledge_hit": true,
+        "revalidated": true,
+        "mode": "exact-repeat lookup plus comparator; misses use comparator",
+        "model_requests": 0
+      },
+      "error": null,
+      "arm_duration_ms": 99.024
+    },
+    {
+      "case": "dropped-tool-calls",
+      "opaque_id": "case-02",
+      "arm": "E-scoped-reuse",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "status": "FAIL",
+        "knowledge_hit": true,
+        "revalidated": true,
+        "mode": "exact-repeat lookup plus comparator; misses use comparator",
+        "model_requests": 0
+      },
+      "error": null,
+      "arm_duration_ms": 99.024
+    },
+    {
+      "case": "missing-call-id",
+      "opaque_id": "case-03",
+      "arm": "E-scoped-reuse",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "status": "FAIL",
+        "knowledge_hit": true,
+        "revalidated": true,
+        "mode": "exact-repeat lookup plus comparator; misses use comparator",
+        "model_requests": 0
+      },
+      "error": null,
+      "arm_duration_ms": 99.024
+    },
+    {
+      "case": "duplicate-call-id",
+      "opaque_id": "case-04",
+      "arm": "E-scoped-reuse",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "status": "FAIL",
+        "knowledge_hit": true,
+        "revalidated": true,
+        "mode": "exact-repeat lookup plus comparator; misses use comparator",
+        "model_requests": 0
+      },
+      "error": null,
+      "arm_duration_ms": 99.024
+    },
+    {
+      "case": "nested-argument-corruption",
+      "opaque_id": "case-05",
+      "arm": "E-scoped-reuse",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "status": "FAIL",
+        "knowledge_hit": true,
+        "revalidated": true,
+        "mode": "exact-repeat lookup plus comparator; misses use comparator",
+        "model_requests": 0
+      },
+      "error": null,
+      "arm_duration_ms": 99.024
+    },
+    {
+      "case": "orphan-tool-result",
+      "opaque_id": "case-06",
+      "arm": "E-scoped-reuse",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "status": "FAIL",
+        "knowledge_hit": true,
+        "revalidated": true,
+        "mode": "exact-repeat lookup plus comparator; misses use comparator",
+        "model_requests": 0
+      },
+      "error": null,
+      "arm_duration_ms": 99.024
+    },
+    {
+      "case": "invalid-role-conversion",
+      "opaque_id": "case-07",
+      "arm": "E-scoped-reuse",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "status": "FAIL",
+        "knowledge_hit": true,
+        "revalidated": true,
+        "mode": "exact-repeat lookup plus comparator; misses use comparator",
+        "model_requests": 0
+      },
+      "error": null,
+      "arm_duration_ms": 99.024
+    },
+    {
+      "case": "truncated-arguments",
+      "opaque_id": "case-08",
+      "arm": "E-scoped-reuse",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "status": "FAIL",
+        "knowledge_hit": true,
+        "revalidated": true,
+        "mode": "exact-repeat lookup plus comparator; misses use comparator",
+        "model_requests": 0
+      },
+      "error": null,
+      "arm_duration_ms": 99.024
+    },
+    {
+      "case": "image-control",
+      "opaque_id": "case-09",
+      "arm": "E-scoped-reuse",
+      "expected": "PASS",
+      "executed": true,
+      "outcome": "PASS",
+      "details": {
+        "status": "PASS",
+        "knowledge_hit": true,
+        "revalidated": true,
+        "mode": "exact-repeat lookup plus comparator; misses use comparator",
+        "model_requests": 0
+      },
+      "error": null,
+      "arm_duration_ms": 99.024
+    },
+    {
+      "case": "lost-image-reference",
+      "opaque_id": "case-10",
+      "arm": "E-scoped-reuse",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "status": "FAIL",
+        "knowledge_hit": true,
+        "revalidated": true,
+        "mode": "exact-repeat lookup plus comparator; misses use comparator",
+        "model_requests": 0
+      },
+      "error": null,
+      "arm_duration_ms": 99.024
+    },
+    {
+      "case": "lost-image-detail",
+      "opaque_id": "case-11",
+      "arm": "E-scoped-reuse",
+      "expected": "FAIL",
+      "executed": true,
+      "outcome": "FAIL",
+      "details": {
+        "status": "FAIL",
+        "knowledge_hit": true,
+        "revalidated": true,
+        "mode": "exact-repeat lookup plus comparator; misses use comparator",
+        "model_requests": 0
+      },
+      "error": null,
+      "arm_duration_ms": 99.024
+    },
+    {
+      "case": "unsupported-audio-abstention",
+      "opaque_id": "case-12",
+      "arm": "E-scoped-reuse",
+      "expected": "INCONCLUSIVE",
+      "executed": true,
+      "outcome": "INCONCLUSIVE",
+      "details": {
+        "status": "INCONCLUSIVE",
+        "knowledge_hit": false,
+        "revalidated": true,
+        "mode": "exact-repeat lookup plus comparator; misses use comparator",
+        "model_requests": 0
+      },
+      "error": null,
+      "arm_duration_ms": 99.024
+    },
+    {
+      "case": "invalid-baseline-abstention",
+      "opaque_id": "case-13",
+      "arm": "E-scoped-reuse",
+      "expected": "NEEDS_REVIEW",
+      "executed": true,
+      "outcome": "NEEDS_REVIEW",
+      "details": {
+        "status": "NEEDS_REVIEW",
+        "knowledge_hit": false,
+        "revalidated": true,
+        "mode": "exact-repeat lookup plus comparator; misses use comparator",
+        "model_requests": 0
+      },
+      "error": null,
+      "arm_duration_ms": 99.024
+    }
+  ],
+  "retrieval": {
+    "provider": "tavily",
+    "endpoint": "https://api.tavily.com/search",
+    "timestamp": "2026-10-25T04:40:51.285886+00:00",
+    "provenance": "live HTTP attempt",
+    "status": "PASS",
+    "http_status": 200,
+    "latency_ms": 3702.344,
+    "usage": {
+      "credits": 1
+    },
+    "cost_usd": null,
+    "cost_note": "Unknown; no pricing assumption or zero-cost claim",
+    "parameters": {
+      "query": "LangChain AIMessage tool_calls tool_call_id ToolMessage conversion function arguments",
+      "include_domains": [
+        "docs.python.org",
+        "docs.langchain.com",
+        "reference.langchain.com"
+      ],
+      "max_results": 3,
+      "search_depth": "basic",
+      "include_answer": false,
+      "include_raw_content": false,
+      "include_usage": true
+    },
+    "request_id": null,
+    "raw_response": "{\"query\":\"LangChain AIMessage tool_calls tool_call_id ToolMessage conversion function arguments\",\"follow_up_questions\":null,\"answer\":null,\"images\":[],\"results\":[{\"url\":\"https://docs.langchain.com/oss/javascript/langchain/tools\",\"title\":\"Tools - Docs by LangChain\",\"content\":\"Return a `Command` when the tool needs to update graph state (for example, setting user preferences or app state). When the `Command` targets the current graph, include a `ToolMessage` in the update whose tool call ID matches the current tool call. Every tool call in the message history must have a corresponding `ToolMessage`. Use `runtime.toolCallId` for the `tool_call_id` parameter.\",\"score\":0.7646988,\"raw_content\":null,\"id\":\"23d6ae-00\"},{\"url\":\"https://reference.langchain.com/python/langchain-core/messages/utils/convert_to_openai_messages\",\"title\":\"convert_to_openai_messages | langchain_core | LangChain Reference\",\"content\":\"this\\\"}, { { \\\"type\\\": \\\"image_url\\\",  \\\"type\\\": \\\"image_url\\\", \\\"image_url\\\": {\\\"url\\\": \\\"data:image/png;base64,'/9j/4AAQSk'\\\"},  \\\"image_url\\\": {\\\"url\\\": \\\"data:image/png;base64,'/9j/4AAQSk'\\\"}, }, }, ], ], }, }, AIMessage( AIMessage( \\\"\\\",  \\\"\\\", tool_calls=[ tool_calls =[ { { \\\"name\\\": \\\"analyze\\\",  \\\"name\\\": \\\"analyze\\\", \\\"args\\\": {\\\"baz\\\": \\\"buz\\\"},  \\\"args\\\": {\\\"baz\\\": \\\"buz\\\"}, \\\"id\\\": \\\"1\\\",  \\\"id\\\": \\\"1\\\", \\\"type\\\": \\\"tool_call\\\",  \\\"type\\\": \\\"tool_call\\\", } } ], ], ), ), ToolMessage(\\\"foobar\\\", tool_call_id=\\\"1\\\", name=\\\"bar\\\"), [...] name=\\\"bar\\\"), ToolMessage(\\\"foobar\\\", tool_call_id = \\\"1\\\", name = \\\"bar\\\"), {\\\"role\\\": \\\"assistant\\\", \\\"content\\\": \\\"that's nice\\\"}, {\\\"role\\\": \\\"assistant\\\", \\\"content\\\": \\\"that's nice\\\"},]]oai_messages = convert_to_openai_messages(messages) oai_messages = convert_to_openai_messages(messages)# -> [# -> [# {'role': 'system', 'content': 'foo'},# {'role': 'system', 'content': 'foo'},# {'role': 'user', 'content': [{'type': 'text', 'text': 'what's in this'}, {'type': 'image_url', 'image_url': {'url': [...] {'url': \\\"data:image/png;base64,'/9j/4AAQSk'\\\"}}]},# {'role': 'user', 'content': [{'type': 'text', 'text': 'what's in this'}, {'type': 'image_url', 'image_url': {'url': \\\"data:image/png;base64,'/9j/4AAQSk'\\\"}}]},# {'role': 'assistant', 'tool_calls': [{'type': 'function', 'id': '1','function': {'name': 'analyze', 'arguments': '{\\\"baz\\\": \\\"buz\\\"}'}}], 'content': ''},# {'role': 'assistant', 'tool_calls': [{'type': 'function', 'id': '1','function': {'name': 'analyze', 'arguments': '{\\\"baz\\\": \\\"buz\\\"}'}}],\",\"score\":0.7621591,\"raw_content\":null,\"id\":\"2ac468-01\"},{\"url\":\"https://docs.langchain.com/oss/python/integrations/chat/openai\",\"title\":\"ChatOpenAI integration - Docs by LangChain\",\"content\":\"AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'function': {'arguments': '{\\\"location\\\":\\\"San Francisco, CA\\\"}', 'name': 'GetWeather'}, 'type': 'function'}], 'refusal': None}, response_metadata={'token_usage': {'completion_tokens': 17, 'prompt_tokens': 68, 'total_tokens': 85}, 'model_name': 'gpt-4o-2024-05-13', 'system_fingerprint': 'fp_3aa7262c27', 'finish_reason': 'tool_calls', 'logprobs': None}, id='run-5e3356a9-132d-4623-8e73-dd5a898cf4a6-0', [...] tool_calls=[{'name': 'GetWeather', 'args': {'location': 'San Francisco, CA'}, 'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'type': 'tool_call'}], usage_metadata={'input_tokens': 68, 'output_tokens': 17, 'total_tokens': 85})AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'function': {'arguments': '{\\\"location\\\":\\\"San Francisco, CA\\\"}', 'name': 'GetWeather'}, 'type': 'function'}], 'refusal': None}, response_metadata={'token_usage': {'completion_tokens': 17, [...] from langchain.messages import ToolMessage from  langchain. messages import  ToolMessage tool_call_id = next(tool_call_id =  next( item[\\\"call_id\\\"] for item in response.content if item[\\\"type\\\"] == \\\"computer_call\\\"  item[\\\" call_id \\\"]  for  item in  response. content if  item[\\\" type \\\"] ==  \\\"computer_call\\\")) tool_message = ToolMessage(tool_message =  ToolMessage( content=[ content =[ { { \\\"type\\\": \\\"input_image\\\",  \\\"type\\\":  \\\"input_image\\\", \\\"image_url\\\": f\\\"data:image/png;base64,{screenshot_2_base64}\\\",\",\"score\":0.71995544,\"raw_content\":null,\"id\":\"23122a-02\"}],\"response_time\":2.88,\"usage\":{\"credits\":1},\"request_id\":\"5cf323b6-8884-45c7-8c6f-564f98496d74\"}",
+    "response": {
+      "query": "LangChain AIMessage tool_calls tool_call_id ToolMessage conversion function arguments",
+      "follow_up_questions": null,
+      "answer": null,
+      "images": [],
+      "results": [
+        {
+          "url": "https://docs.langchain.com/oss/javascript/langchain/tools",
+          "title": "Tools - Docs by LangChain",
+          "content": "Return a `Command` when the tool needs to update graph state (for example, setting user preferences or app state). When the `Command` targets the current graph, include a `ToolMessage` in the update whose tool call ID matches the current tool call. Every tool call in the message history must have a corresponding `ToolMessage`. Use `runtime.toolCallId` for the `tool_call_id` parameter.",
+          "score": 0.7646988,
+          "raw_content": null,
+          "id": "23d6ae-00"
+        },
+        {
+          "url": "https://reference.langchain.com/python/langchain-core/messages/utils/convert_to_openai_messages",
+          "title": "convert_to_openai_messages | langchain_core | LangChain Reference",
+          "content": "this\"}, { { \"type\": \"image_url\",  \"type\": \"image_url\", \"image_url\": {\"url\": \"data:image/png;base64,'/9j/4AAQSk'\"},  \"image_url\": {\"url\": \"data:image/png;base64,'/9j/4AAQSk'\"}, }, }, ], ], }, }, AIMessage( AIMessage( \"\",  \"\", tool_calls=[ tool_calls =[ { { \"name\": \"analyze\",  \"name\": \"analyze\", \"args\": {\"baz\": \"buz\"},  \"args\": {\"baz\": \"buz\"}, \"id\": \"1\",  \"id\": \"1\", \"type\": \"tool_call\",  \"type\": \"tool_call\", } } ], ], ), ), ToolMessage(\"foobar\", tool_call_id=\"1\", name=\"bar\"), [...] name=\"bar\"), ToolMessage(\"foobar\", tool_call_id = \"1\", name = \"bar\"), {\"role\": \"assistant\", \"content\": \"that's nice\"}, {\"role\": \"assistant\", \"content\": \"that's nice\"},]]oai_messages = convert_to_openai_messages(messages) oai_messages = convert_to_openai_messages(messages)# -> [# -> [# {'role': 'system', 'content': 'foo'},# {'role': 'system', 'content': 'foo'},# {'role': 'user', 'content': [{'type': 'text', 'text': 'what's in this'}, {'type': 'image_url', 'image_url': {'url': [...] {'url': \"data:image/png;base64,'/9j/4AAQSk'\"}}]},# {'role': 'user', 'content': [{'type': 'text', 'text': 'what's in this'}, {'type': 'image_url', 'image_url': {'url': \"data:image/png;base64,'/9j/4AAQSk'\"}}]},# {'role': 'assistant', 'tool_calls': [{'type': 'function', 'id': '1','function': {'name': 'analyze', 'arguments': '{\"baz\": \"buz\"}'}}], 'content': ''},# {'role': 'assistant', 'tool_calls': [{'type': 'function', 'id': '1','function': {'name': 'analyze', 'arguments': '{\"baz\": \"buz\"}'}}],",
+          "score": 0.7621591,
+          "raw_content": null,
+          "id": "2ac468-01"
+        },
+        {
+          "url": "https://docs.langchain.com/oss/python/integrations/chat/openai",
+          "title": "ChatOpenAI integration - Docs by LangChain",
+          "content": "AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'function': {'arguments': '{\"location\":\"San Francisco, CA\"}', 'name': 'GetWeather'}, 'type': 'function'}], 'refusal': None}, response_metadata={'token_usage': {'completion_tokens': 17, 'prompt_tokens': 68, 'total_tokens': 85}, 'model_name': 'gpt-4o-2024-05-13', 'system_fingerprint': 'fp_3aa7262c27', 'finish_reason': 'tool_calls', 'logprobs': None}, id='run-5e3356a9-132d-4623-8e73-dd5a898cf4a6-0', [...] tool_calls=[{'name': 'GetWeather', 'args': {'location': 'San Francisco, CA'}, 'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'type': 'tool_call'}], usage_metadata={'input_tokens': 68, 'output_tokens': 17, 'total_tokens': 85})AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'function': {'arguments': '{\"location\":\"San Francisco, CA\"}', 'name': 'GetWeather'}, 'type': 'function'}], 'refusal': None}, response_metadata={'token_usage': {'completion_tokens': 17, [...] from langchain.messages import ToolMessage from  langchain. messages import  ToolMessage tool_call_id = next(tool_call_id =  next( item[\"call_id\"] for item in response.content if item[\"type\"] == \"computer_call\"  item[\" call_id \"]  for  item in  response. content if  item[\" type \"] ==  \"computer_call\")) tool_message = ToolMessage(tool_message =  ToolMessage( content=[ content =[ { { \"type\": \"input_image\",  \"type\":  \"input_image\", \"image_url\": f\"data:image/png;base64,{screenshot_2_base64}\",",
+          "score": 0.71995544,
+          "raw_content": null,
+          "id": "23122a-02"
+        }
+      ],
+      "response_time": 2.88,
+      "usage": {
+        "credits": 1
+      },
+      "request_id": "5cf323b6-8884-45c7-8c6f-564f98496d74"
+    },
+    "documents": [
+      {
+        "url": "https://docs.langchain.com/oss/javascript/langchain/tools",
+        "title": "Tools - Docs by LangChain",
+        "content": "Return a `Command` when the tool needs to update graph state (for example, setting user preferences or app state). When the `Command` targets the current graph, include a `ToolMessage` in the update whose tool call ID matches the current tool call. Every tool call in the message history must have a corresponding `ToolMessage`. Use `runtime.toolCallId` for the `tool_call_id` parameter."
+      },
+      {
+        "url": "https://reference.langchain.com/python/langchain-core/messages/utils/convert_to_openai_messages",
+        "title": "convert_to_openai_messages | langchain_core | LangChain Reference",
+        "content": "this\"}, { { \"type\": \"image_url\",  \"type\": \"image_url\", \"image_url\": {\"url\": \"data:image/png;base64,'/9j/4AAQSk'\"},  \"image_url\": {\"url\": \"data:image/png;base64,'/9j/4AAQSk'\"}, }, }, ], ], }, }, AIMessage( AIMessage( \"\",  \"\", tool_calls=[ tool_calls =[ { { \"name\": \"analyze\",  \"name\": \"analyze\", \"args\": {\"baz\": \"buz\"},  \"args\": {\"baz\": \"buz\"}, \"id\": \"1\",  \"id\": \"1\", \"type\": \"tool_call\",  \"type\": \"tool_call\", } } ], ], ), ), ToolMessage(\"foobar\", tool_call_id=\"1\", name=\"bar\"), [...] name=\"bar\"), ToolMessage(\"foobar\", tool_call_id = \"1\", name = \"bar\"), {\"role\": \"assistant\", \"content\": \"that's nice\"}, {\"role\": \"assistant\", \"content\": \"that's nice\"},]]oai_messages = convert_to_openai_messages(messages) oai_messages = convert_to_openai_messages(messages)# -> [# -> [# {'role': 'system', 'content': 'foo'},# {'role': 'system', 'content': 'foo'},# {'role': 'user', 'content': [{'type': 'text', 'text': 'what's in this'}, {'type': 'image_url', 'image_url': {'url': [...] {'url': \"data:image/png;base64,'/9j/4AAQSk'\"}}]},# {'role': 'user', 'content': [{'type': 'text', 'text': 'what's in this'}, {'type': 'image_url', 'image_url': {'url': \"data:image/png;base64,'/9j/4AAQSk'\"}}]},# {'role': 'assistant', 'tool_calls': [{'type': 'function', 'id': '1','function': {'name': 'analyze', 'arguments': '{\"baz\": \"buz\"}'}}], 'content': ''},# {'role': 'assistant', 'tool_calls': [{'type': 'function', 'id': '1','function': {'name': 'analyze', 'arguments': '{\"baz\": \"buz\"}'}}],"
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/integrations/chat/openai",
+        "title": "ChatOpenAI integration - Docs by LangChain",
+        "content": "AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'function': {'arguments': '{\"location\":\"San Francisco, CA\"}', 'name': 'GetWeather'}, 'type': 'function'}], 'refusal': None}, response_metadata={'token_usage': {'completion_tokens': 17, 'prompt_tokens': 68, 'total_tokens': 85}, 'model_name': 'gpt-4o-2024-05-13', 'system_fingerprint': 'fp_3aa7262c27', 'finish_reason': 'tool_calls', 'logprobs': None}, id='run-5e3356a9-132d-4623-8e73-dd5a898cf4a6-0', [...] tool_calls=[{'name': 'GetWeather', 'args': {'location': 'San Francisco, CA'}, 'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'type': 'tool_call'}], usage_metadata={'input_tokens': 68, 'output_tokens': 17, 'total_tokens': 85})AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'function': {'arguments': '{\"location\":\"San Francisco, CA\"}', 'name': 'GetWeather'}, 'type': 'function'}], 'refusal': None}, response_metadata={'token_usage': {'completion_tokens': 17, [...] from langchain.messages import ToolMessage from  langchain. messages import  ToolMessage tool_call_id = next(tool_call_id =  next( item[\"call_id\"] for item in response.content if item[\"type\"] == \"computer_call\"  item[\" call_id \"]  for  item in  response. content if  item[\" type \"] ==  \"computer_call\")) tool_message = ToolMessage(tool_message =  ToolMessage( content=[ content =[ { { \"type\": \"input_image\",  \"type\":  \"input_image\", \"image_url\": f\"data:image/png;base64,{screenshot_2_base64}\","
+      }
+    ]
+  },
+  "arm_errors": {},
+  "status": "COMPLETE",
+  "metrics": {
+    "A-deterministic": {
+      "scheduled": 14,
+      "executed": 14,
+      "exact_matches": 14,
+      "true_positives": 9,
+      "false_positives": 0,
+      "false_negatives_including_abstentions": 0,
+      "true_negatives": 3,
+      "abstentions": 2
+    },
+    "B-original-ACV-GLM": {
+      "scheduled": 14,
+      "executed": 14,
+      "exact_matches": 2,
+      "true_positives": 1,
+      "false_positives": 0,
+      "false_negatives_including_abstentions": 8,
+      "true_negatives": 0,
+      "abstentions": 13
+    },
+    "C-GLM": {
+      "scheduled": 14,
+      "executed": 14,
+      "exact_matches": 14,
+      "true_positives": 9,
+      "false_positives": 0,
+      "false_negatives_including_abstentions": 0,
+      "true_negatives": 3,
+      "abstentions": 2
+    },
+    "D-GLM-Tavily": {
+      "scheduled": 14,
+      "executed": 14,
+      "exact_matches": 13,
+      "true_positives": 8,
+      "false_positives": 0,
+      "false_negatives_including_abstentions": 1,
+      "true_negatives": 3,
+      "abstentions": 3
+    },
+    "E-scoped-reuse": {
+      "scheduled": 14,
+      "executed": 14,
+      "exact_matches": 14,
+      "true_positives": 9,
+      "false_positives": 0,
+      "false_negatives_including_abstentions": 0,
+      "true_negatives": 3,
+      "abstentions": 2
+    }
+  },
+  "paired_retrieval": [
+    {
+      "id": "case-00",
+      "without_docs": "PASS",
+      "with_docs": "PASS",
+      "expected": "PASS",
+      "correctness_delta": 0
+    },
+    {
+      "id": "case-01",
+      "without_docs": "PASS",
+      "with_docs": "PASS",
+      "expected": "PASS",
+      "correctness_delta": 0
+    },
+    {
+      "id": "case-02",
+      "without_docs": "FAIL",
+      "with_docs": "FAIL",
+      "expected": "FAIL",
+      "correctness_delta": 0
+    },
+    {
+      "id": "case-03",
+      "without_docs": "FAIL",
+      "with_docs": "FAIL",
+      "expected": "FAIL",
+      "correctness_delta": 0
+    },
+    {
+      "id": "case-04",
+      "without_docs": "FAIL",
+      "with_docs": "FAIL",
+      "expected": "FAIL",
+      "correctness_delta": 0
+    },
+    {
+      "id": "case-05",
+      "without_docs": "FAIL",
+      "with_docs": "FAIL",
+      "expected": "FAIL",
+      "correctness_delta": 0
+    },
+    {
+      "id": "case-06",
+      "without_docs": "FAIL",
+      "with_docs": "FAIL",
+      "expected": "FAIL",
+      "correctness_delta": 0
+    },
+    {
+      "id": "case-07",
+      "without_docs": "FAIL",
+      "with_docs": "FAIL",
+      "expected": "FAIL",
+      "correctness_delta": 0
+    },
+    {
+      "id": "case-08",
+      "without_docs": "FAIL",
+      "with_docs": "INCONCLUSIVE",
+      "expected": "FAIL",
+      "correctness_delta": -1
+    },
+    {
+      "id": "case-09",
+      "without_docs": "PASS",
+      "with_docs": "PASS",
+      "expected": "PASS",
+      "correctness_delta": 0
+    },
+    {
+      "id": "case-10",
+      "without_docs": "FAIL",
+      "with_docs": "FAIL",
+      "expected": "FAIL",
+      "correctness_delta": 0
+    },
+    {
+      "id": "case-11",
+      "without_docs": "FAIL",
+      "with_docs": "FAIL",
+      "expected": "FAIL",
+      "correctness_delta": 0
+    },
+    {
+      "id": "case-12",
+      "without_docs": "INCONCLUSIVE",
+      "with_docs": "INCONCLUSIVE",
+      "expected": "INCONCLUSIVE",
+      "correctness_delta": 0
+    },
+    {
+      "id": "case-13",
+      "without_docs": "NEEDS_REVIEW",
+      "with_docs": "NEEDS_REVIEW",
+      "expected": "NEEDS_REVIEW",
+      "correctness_delta": 0
+    }
+  ],
+  "total_reported_tokens": 14715,
+  "cost_usd": null,
+  "limitations": [
+    "GLM development comparison, not a Nemotron/Nebius evaluation.",
+    "One trial, developer-authored visible corpus; no causal claim or general accuracy estimate.",
+    "B uses original ACV review prompt/parser on JSON snapshots. Exact-file bug findings map to FAIL; all other outcomes abstain. This differs from C/D's classification task.",
+    "E reuses exact validated observations and re-executes the comparator. Zero additional model calls is measured; token savings against an unrun repeated-model arm are not.",
+    "C and D receive identical cases; only D receives the single shared official documentation retrieval. Model randomness remains a confounder."
+  ]
+}

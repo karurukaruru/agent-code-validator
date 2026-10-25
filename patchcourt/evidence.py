@@ -74,7 +74,8 @@ def sanitize(value):
 
 
 def environment():
-    return {"python": sys.version.split()[0], "platform": platform.platform(), "patchcourt": "0.3.0"}
+    from . import __version__
+    return {"python": sys.version.split()[0], "platform": platform.platform(), "patchcourt": __version__}
 
 
 def write_json(path, value):

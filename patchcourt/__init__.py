@@ -1,2 +1,2 @@
 """PatchCourt: executable compatibility evidence, with explicit uncertainty."""
-__version__ = "0.3.0"
+__version__ = "0.3.1"

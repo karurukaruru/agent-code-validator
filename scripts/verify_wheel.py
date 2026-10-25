@@ -7,7 +7,7 @@ import tempfile
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-wheel = ROOT / "dist" / "agent_code_validator-0.3.0-py3-none-any.whl"
+wheel = ROOT / "dist" / (sys.argv[1] if len(sys.argv)>1 else "agent_code_validator-0.3.1-py3-none-any.whl")
 with tempfile.TemporaryDirectory(dir=ROOT / ".local-tmp") as tmp:
     target = Path(tmp)
     with zipfile.ZipFile(wheel) as archive:
@@ -22,6 +22,7 @@ with tempfile.TemporaryDirectory(dir=ROOT / ".local-tmp") as tmp:
     report = json.loads((target / "report" / "report.json").read_text(encoding="utf-8"))
     assert report["summary"]["fail"] == 11 and report["summary"]["pass"] == 3
     assert (target / "report" / "index.html").is_file()
+    assert (target / "installed" / "patchcourt" / "web" / "live.html").is_file()
     entrypoints = next(n for n in names if n.endswith("entry_points.txt"))
     assert "patchcourt = patchcourt.cli:main" in (target / "installed" / entrypoints).read_text()
     print(json.dumps({"status":"PASS", "wheel":wheel.name, "isolated_mode":True, "summary":report["summary"], "entrypoint":"patchcourt", "fixtures_and_dashboard":True}))

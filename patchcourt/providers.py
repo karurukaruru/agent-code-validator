@@ -15,6 +15,8 @@ import urllib.request
 from .evidence import now, sanitize, strict_json
 
 NEBIUS_BASE = "https://api.tokenfactory.nebius.com/v1"
+GLM_BASE = "https://open.bigmodel.cn/api/paas/v4"
+GLM_MODEL = "glm-5.3-flash"
 TAVILY_URL = "https://api.tavily.com/search"
 MAX_BYTES = 1_000_000
 TIMEOUT = 30
@@ -28,7 +30,7 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 
 def _transport(url, key, payload):
     """Single bounded request. Redirects never forward authorization."""
-    allowed = {NEBIUS_BASE + "/models", NEBIUS_BASE + "/chat/completions", TAVILY_URL}
+    allowed = {NEBIUS_BASE + "/models", NEBIUS_BASE + "/chat/completions", GLM_BASE + "/chat/completions", TAVILY_URL}
     if url not in allowed:
         raise ValueError("Untrusted provider endpoint")
     data = None if payload is None else json.dumps(payload, allow_nan=False).encode()
@@ -73,22 +75,27 @@ def parse_stream(raw):
 
 
 def request(provider, payload=None, endpoint="chat/completions"):
-    if provider not in {"nebius", "tavily"}:
+    if provider not in {"nebius", "tavily", "glm"}:
         raise ValueError("Unsupported provider")
     if provider == "nebius" and endpoint not in {"models", "chat/completions"}:
         raise ValueError("Unsupported Nebius endpoint")
-    env_name = "NEBIUS_API_KEY" if provider == "nebius" else "TAVILY_API_KEY"
+    if provider == "glm" and endpoint != "chat/completions":
+        raise ValueError("Unsupported GLM endpoint")
+    env_name = {"nebius": "NEBIUS_API_KEY", "glm": "GLM_API_KEY", "tavily": "TAVILY_API_KEY"}[provider]
     key = os.environ.get(env_name, "").strip()
-    url = NEBIUS_BASE + "/" + endpoint if provider == "nebius" else TAVILY_URL
+    url = {"nebius": NEBIUS_BASE + "/" + endpoint, "glm": GLM_BASE + "/chat/completions", "tavily": TAVILY_URL}[provider]
     record = {"provider": provider, "endpoint": url, "timestamp": now(),
               "provenance": "not executed", "status": "BLOCKED", "http_status": None,
               "latency_ms": None, "usage": None, "cost_usd": None,
               "cost_note": "Unknown; no pricing assumption or zero-cost claim", "parameters": sanitize(payload)}
     if not key:
         return {**record, "reason": "Missing " + env_name}
-    if provider == "nebius" and endpoint == "chat/completions":
-        if not isinstance(payload, dict) or type(payload.get("max_tokens")) is not int or not 1 <= payload["max_tokens"] <= 2048:
-            raise ValueError("Each inference request requires max_tokens between 1 and 2048")
+    if provider in {"nebius", "glm"} and endpoint == "chat/completions":
+        maximum = 8192 if provider == "glm" else 2048
+        if not isinstance(payload, dict) or type(payload.get("max_tokens")) is not int or not 1 <= payload["max_tokens"] <= maximum:
+            raise ValueError(f"Each inference request requires max_tokens between 1 and {maximum}")
+        if provider == "glm" and payload.get("model") != GLM_MODEL:
+            raise ValueError("Only the explicitly authorized glm-5.3-flash model is enabled; no fallback")
     start = time.monotonic()
     record["provenance"] = "live HTTP attempt"
     try:

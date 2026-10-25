@@ -1,0 +1,83 @@
+{
+  "provider": "tavily",
+  "endpoint": "https://api.tavily.com/search",
+  "timestamp": "2026-10-25T04:40:51.285886+00:00",
+  "provenance": "live HTTP attempt",
+  "status": "PASS",
+  "http_status": 200,
+  "latency_ms": 3702.344,
+  "usage": {
+    "credits": 1
+  },
+  "cost_usd": null,
+  "cost_note": "Unknown; no pricing assumption or zero-cost claim",
+  "parameters": {
+    "query": "LangChain AIMessage tool_calls tool_call_id ToolMessage conversion function arguments",
+    "include_domains": [
+      "docs.python.org",
+      "docs.langchain.com",
+      "reference.langchain.com"
+    ],
+    "max_results": 3,
+    "search_depth": "basic",
+    "include_answer": false,
+    "include_raw_content": false,
+    "include_usage": true
+  },
+  "request_id": null,
+  "raw_response": "{\"query\":\"LangChain AIMessage tool_calls tool_call_id ToolMessage conversion function arguments\",\"follow_up_questions\":null,\"answer\":null,\"images\":[],\"results\":[{\"url\":\"https://docs.langchain.com/oss/javascript/langchain/tools\",\"title\":\"Tools - Docs by LangChain\",\"content\":\"Return a `Command` when the tool needs to update graph state (for example, setting user preferences or app state). When the `Command` targets the current graph, include a `ToolMessage` in the update whose tool call ID matches the current tool call. Every tool call in the message history must have a corresponding `ToolMessage`. Use `runtime.toolCallId` for the `tool_call_id` parameter.\",\"score\":0.7646988,\"raw_content\":null,\"id\":\"23d6ae-00\"},{\"url\":\"https://reference.langchain.com/python/langchain-core/messages/utils/convert_to_openai_messages\",\"title\":\"convert_to_openai_messages | langchain_core | LangChain Reference\",\"content\":\"this\\\"}, { { \\\"type\\\": \\\"image_url\\\",  \\\"type\\\": \\\"image_url\\\", \\\"image_url\\\": {\\\"url\\\": \\\"data:image/png;base64,'/9j/4AAQSk'\\\"},  \\\"image_url\\\": {\\\"url\\\": \\\"data:image/png;base64,'/9j/4AAQSk'\\\"}, }, }, ], ], }, }, AIMessage( AIMessage( \\\"\\\",  \\\"\\\", tool_calls=[ tool_calls =[ { { \\\"name\\\": \\\"analyze\\\",  \\\"name\\\": \\\"analyze\\\", \\\"args\\\": {\\\"baz\\\": \\\"buz\\\"},  \\\"args\\\": {\\\"baz\\\": \\\"buz\\\"}, \\\"id\\\": \\\"1\\\",  \\\"id\\\": \\\"1\\\", \\\"type\\\": \\\"tool_call\\\",  \\\"type\\\": \\\"tool_call\\\", } } ], ], ), ), ToolMessage(\\\"foobar\\\", tool_call_id=\\\"1\\\", name=\\\"bar\\\"), [...] name=\\\"bar\\\"), ToolMessage(\\\"foobar\\\", tool_call_id = \\\"1\\\", name = \\\"bar\\\"), {\\\"role\\\": \\\"assistant\\\", \\\"content\\\": \\\"that's nice\\\"}, {\\\"role\\\": \\\"assistant\\\", \\\"content\\\": \\\"that's nice\\\"},]]oai_messages = convert_to_openai_messages(messages) oai_messages = convert_to_openai_messages(messages)# -> [# -> [# {'role': 'system', 'content': 'foo'},# {'role': 'system', 'content': 'foo'},# {'role': 'user', 'content': [{'type': 'text', 'text': 'what's in this'}, {'type': 'image_url', 'image_url': {'url': [...] {'url': \\\"data:image/png;base64,'/9j/4AAQSk'\\\"}}]},# {'role': 'user', 'content': [{'type': 'text', 'text': 'what's in this'}, {'type': 'image_url', 'image_url': {'url': \\\"data:image/png;base64,'/9j/4AAQSk'\\\"}}]},# {'role': 'assistant', 'tool_calls': [{'type': 'function', 'id': '1','function': {'name': 'analyze', 'arguments': '{\\\"baz\\\": \\\"buz\\\"}'}}], 'content': ''},# {'role': 'assistant', 'tool_calls': [{'type': 'function', 'id': '1','function': {'name': 'analyze', 'arguments': '{\\\"baz\\\": \\\"buz\\\"}'}}],\",\"score\":0.7621591,\"raw_content\":null,\"id\":\"2ac468-01\"},{\"url\":\"https://docs.langchain.com/oss/python/integrations/chat/openai\",\"title\":\"ChatOpenAI integration - Docs by LangChain\",\"content\":\"AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'function': {'arguments': '{\\\"location\\\":\\\"San Francisco, CA\\\"}', 'name': 'GetWeather'}, 'type': 'function'}], 'refusal': None}, response_metadata={'token_usage': {'completion_tokens': 17, 'prompt_tokens': 68, 'total_tokens': 85}, 'model_name': 'gpt-4o-2024-05-13', 'system_fingerprint': 'fp_3aa7262c27', 'finish_reason': 'tool_calls', 'logprobs': None}, id='run-5e3356a9-132d-4623-8e73-dd5a898cf4a6-0', [...] tool_calls=[{'name': 'GetWeather', 'args': {'location': 'San Francisco, CA'}, 'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'type': 'tool_call'}], usage_metadata={'input_tokens': 68, 'output_tokens': 17, 'total_tokens': 85})AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'function': {'arguments': '{\\\"location\\\":\\\"San Francisco, CA\\\"}', 'name': 'GetWeather'}, 'type': 'function'}], 'refusal': None}, response_metadata={'token_usage': {'completion_tokens': 17, [...] from langchain.messages import ToolMessage from  langchain. messages import  ToolMessage tool_call_id = next(tool_call_id =  next( item[\\\"call_id\\\"] for item in response.content if item[\\\"type\\\"] == \\\"computer_call\\\"  item[\\\" call_id \\\"]  for  item in  response. content if  item[\\\" type \\\"] ==  \\\"computer_call\\\")) tool_message = ToolMessage(tool_message =  ToolMessage( content=[ content =[ { { \\\"type\\\": \\\"input_image\\\",  \\\"type\\\":  \\\"input_image\\\", \\\"image_url\\\": f\\\"data:image/png;base64,{screenshot_2_base64}\\\",\",\"score\":0.71995544,\"raw_content\":null,\"id\":\"23122a-02\"}],\"response_time\":2.88,\"usage\":{\"credits\":1},\"request_id\":\"5cf323b6-8884-45c7-8c6f-564f98496d74\"}",
+  "response": {
+    "query": "LangChain AIMessage tool_calls tool_call_id ToolMessage conversion function arguments",
+    "follow_up_questions": null,
+    "answer": null,
+    "images": [],
+    "results": [
+      {
+        "url": "https://docs.langchain.com/oss/javascript/langchain/tools",
+        "title": "Tools - Docs by LangChain",
+        "content": "Return a `Command` when the tool needs to update graph state (for example, setting user preferences or app state). When the `Command` targets the current graph, include a `ToolMessage` in the update whose tool call ID matches the current tool call. Every tool call in the message history must have a corresponding `ToolMessage`. Use `runtime.toolCallId` for the `tool_call_id` parameter.",
+        "score": 0.7646988,
+        "raw_content": null,
+        "id": "23d6ae-00"
+      },
+      {
+        "url": "https://reference.langchain.com/python/langchain-core/messages/utils/convert_to_openai_messages",
+        "title": "convert_to_openai_messages | langchain_core | LangChain Reference",
+        "content": "this\"}, { { \"type\": \"image_url\",  \"type\": \"image_url\", \"image_url\": {\"url\": \"data:image/png;base64,'/9j/4AAQSk'\"},  \"image_url\": {\"url\": \"data:image/png;base64,'/9j/4AAQSk'\"}, }, }, ], ], }, }, AIMessage( AIMessage( \"\",  \"\", tool_calls=[ tool_calls =[ { { \"name\": \"analyze\",  \"name\": \"analyze\", \"args\": {\"baz\": \"buz\"},  \"args\": {\"baz\": \"buz\"}, \"id\": \"1\",  \"id\": \"1\", \"type\": \"tool_call\",  \"type\": \"tool_call\", } } ], ], ), ), ToolMessage(\"foobar\", tool_call_id=\"1\", name=\"bar\"), [...] name=\"bar\"), ToolMessage(\"foobar\", tool_call_id = \"1\", name = \"bar\"), {\"role\": \"assistant\", \"content\": \"that's nice\"}, {\"role\": \"assistant\", \"content\": \"that's nice\"},]]oai_messages = convert_to_openai_messages(messages) oai_messages = convert_to_openai_messages(messages)# -> [# -> [# {'role': 'system', 'content': 'foo'},# {'role': 'system', 'content': 'foo'},# {'role': 'user', 'content': [{'type': 'text', 'text': 'what's in this'}, {'type': 'image_url', 'image_url': {'url': [...] {'url': \"data:image/png;base64,'/9j/4AAQSk'\"}}]},# {'role': 'user', 'content': [{'type': 'text', 'text': 'what's in this'}, {'type': 'image_url', 'image_url': {'url': \"data:image/png;base64,'/9j/4AAQSk'\"}}]},# {'role': 'assistant', 'tool_calls': [{'type': 'function', 'id': '1','function': {'name': 'analyze', 'arguments': '{\"baz\": \"buz\"}'}}], 'content': ''},# {'role': 'assistant', 'tool_calls': [{'type': 'function', 'id': '1','function': {'name': 'analyze', 'arguments': '{\"baz\": \"buz\"}'}}],",
+        "score": 0.7621591,
+        "raw_content": null,
+        "id": "2ac468-01"
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/integrations/chat/openai",
+        "title": "ChatOpenAI integration - Docs by LangChain",
+        "content": "AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'function': {'arguments': '{\"location\":\"San Francisco, CA\"}', 'name': 'GetWeather'}, 'type': 'function'}], 'refusal': None}, response_metadata={'token_usage': {'completion_tokens': 17, 'prompt_tokens': 68, 'total_tokens': 85}, 'model_name': 'gpt-4o-2024-05-13', 'system_fingerprint': 'fp_3aa7262c27', 'finish_reason': 'tool_calls', 'logprobs': None}, id='run-5e3356a9-132d-4623-8e73-dd5a898cf4a6-0', [...] tool_calls=[{'name': 'GetWeather', 'args': {'location': 'San Francisco, CA'}, 'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'type': 'tool_call'}], usage_metadata={'input_tokens': 68, 'output_tokens': 17, 'total_tokens': 85})AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'function': {'arguments': '{\"location\":\"San Francisco, CA\"}', 'name': 'GetWeather'}, 'type': 'function'}], 'refusal': None}, response_metadata={'token_usage': {'completion_tokens': 17, [...] from langchain.messages import ToolMessage from  langchain. messages import  ToolMessage tool_call_id = next(tool_call_id =  next( item[\"call_id\"] for item in response.content if item[\"type\"] == \"computer_call\"  item[\" call_id \"]  for  item in  response. content if  item[\" type \"] ==  \"computer_call\")) tool_message = ToolMessage(tool_message =  ToolMessage( content=[ content =[ { { \"type\": \"input_image\",  \"type\":  \"input_image\", \"image_url\": f\"data:image/png;base64,{screenshot_2_base64}\",",
+        "score": 0.71995544,
+        "raw_content": null,
+        "id": "23122a-02"
+      }
+    ],
+    "response_time": 2.88,
+    "usage": {
+      "credits": 1
+    },
+    "request_id": "5cf323b6-8884-45c7-8c6f-564f98496d74"
+  },
+  "documents": [
+    {
+      "url": "https://docs.langchain.com/oss/javascript/langchain/tools",
+      "title": "Tools - Docs by LangChain",
+      "content": "Return a `Command` when the tool needs to update graph state (for example, setting user preferences or app state). When the `Command` targets the current graph, include a `ToolMessage` in the update whose tool call ID matches the current tool call. Every tool call in the message history must have a corresponding `ToolMessage`. Use `runtime.toolCallId` for the `tool_call_id` parameter."
+    },
+    {
+      "url": "https://reference.langchain.com/python/langchain-core/messages/utils/convert_to_openai_messages",
+      "title": "convert_to_openai_messages | langchain_core | LangChain Reference",
+      "content": "this\"}, { { \"type\": \"image_url\",  \"type\": \"image_url\", \"image_url\": {\"url\": \"data:image/png;base64,'/9j/4AAQSk'\"},  \"image_url\": {\"url\": \"data:image/png;base64,'/9j/4AAQSk'\"}, }, }, ], ], }, }, AIMessage( AIMessage( \"\",  \"\", tool_calls=[ tool_calls =[ { { \"name\": \"analyze\",  \"name\": \"analyze\", \"args\": {\"baz\": \"buz\"},  \"args\": {\"baz\": \"buz\"}, \"id\": \"1\",  \"id\": \"1\", \"type\": \"tool_call\",  \"type\": \"tool_call\", } } ], ], ), ), ToolMessage(\"foobar\", tool_call_id=\"1\", name=\"bar\"), [...] name=\"bar\"), ToolMessage(\"foobar\", tool_call_id = \"1\", name = \"bar\"), {\"role\": \"assistant\", \"content\": \"that's nice\"}, {\"role\": \"assistant\", \"content\": \"that's nice\"},]]oai_messages = convert_to_openai_messages(messages) oai_messages = convert_to_openai_messages(messages)# -> [# -> [# {'role': 'system', 'content': 'foo'},# {'role': 'system', 'content': 'foo'},# {'role': 'user', 'content': [{'type': 'text', 'text': 'what's in this'}, {'type': 'image_url', 'image_url': {'url': [...] {'url': \"data:image/png;base64,'/9j/4AAQSk'\"}}]},# {'role': 'user', 'content': [{'type': 'text', 'text': 'what's in this'}, {'type': 'image_url', 'image_url': {'url': \"data:image/png;base64,'/9j/4AAQSk'\"}}]},# {'role': 'assistant', 'tool_calls': [{'type': 'function', 'id': '1','function': {'name': 'analyze', 'arguments': '{\"baz\": \"buz\"}'}}], 'content': ''},# {'role': 'assistant', 'tool_calls': [{'type': 'function', 'id': '1','function': {'name': 'analyze', 'arguments': '{\"baz\": \"buz\"}'}}],"
+    },
+    {
+      "url": "https://docs.langchain.com/oss/python/integrations/chat/openai",
+      "title": "ChatOpenAI integration - Docs by LangChain",
+      "content": "AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'function': {'arguments': '{\"location\":\"San Francisco, CA\"}', 'name': 'GetWeather'}, 'type': 'function'}], 'refusal': None}, response_metadata={'token_usage': {'completion_tokens': 17, 'prompt_tokens': 68, 'total_tokens': 85}, 'model_name': 'gpt-4o-2024-05-13', 'system_fingerprint': 'fp_3aa7262c27', 'finish_reason': 'tool_calls', 'logprobs': None}, id='run-5e3356a9-132d-4623-8e73-dd5a898cf4a6-0', [...] tool_calls=[{'name': 'GetWeather', 'args': {'location': 'San Francisco, CA'}, 'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'type': 'tool_call'}], usage_metadata={'input_tokens': 68, 'output_tokens': 17, 'total_tokens': 85})AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'function': {'arguments': '{\"location\":\"San Francisco, CA\"}', 'name': 'GetWeather'}, 'type': 'function'}], 'refusal': None}, response_metadata={'token_usage': {'completion_tokens': 17, [...] from langchain.messages import ToolMessage from  langchain. messages import  ToolMessage tool_call_id = next(tool_call_id =  next( item[\"call_id\"] for item in response.content if item[\"type\"] == \"computer_call\"  item[\" call_id \"]  for  item in  response. content if  item[\" type \"] ==  \"computer_call\")) tool_message = ToolMessage(tool_message =  ToolMessage( content=[ content =[ { { \"type\": \"input_image\",  \"type\":  \"input_image\", \"image_url\": f\"data:image/png;base64,{screenshot_2_base64}\","
+    }
+  ]
+}

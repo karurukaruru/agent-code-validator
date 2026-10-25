@@ -1,3 +1,5 @@
+> October 25 update: 0.3.1 now includes real GLM repair/task execution, a five-arm exploratory evaluation and a narrated live video. See [current evidence](GLM_DEVELOPMENT.md). Earlier offline status below is historical. GLM results do not establish Nebius findings or competition eligibility.
+
 # PatchCourt 交付报告 — 2026-10-25
 
 目前可运行、可下载、已通过跨平台测试的版本是**离线开发版**。尚未完成真实 API 实验与最终参赛提交；不把模拟结果算作平台验证。

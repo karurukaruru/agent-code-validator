@@ -1,0 +1,1718 @@
+{
+  "created_at": "2026-10-25T04:40:11.807219+00:00",
+  "corpus": [
+    {
+      "id": "unchanged-tool-workflow",
+      "title": "Unchanged Tool Workflow",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "expected_status": "PASS",
+      "provenance": "negative control"
+    },
+    {
+      "id": "json-formatting-equivalence",
+      "title": "Json Formatting Equivalence",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": null,
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{ \"options\": {\"warehouse\": 2}, \"sku\": \"A\" }"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "expected_status": "PASS",
+      "provenance": "negative control"
+    },
+    {
+      "id": "dropped-tool-calls",
+      "title": "Dropped Tool Calls",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": ""
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "expected_status": "FAIL",
+      "provenance": "controlled mutation"
+    },
+    {
+      "id": "missing-call-id",
+      "title": "Missing Call Id",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "expected_status": "FAIL",
+      "provenance": "controlled mutation"
+    },
+    {
+      "id": "duplicate-call-id",
+      "title": "Duplicate Call Id",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "expected_status": "FAIL",
+      "provenance": "controlled mutation"
+    },
+    {
+      "id": "nested-argument-corruption",
+      "title": "Nested Argument Corruption",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":9}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "expected_status": "FAIL",
+      "provenance": "controlled mutation"
+    },
+    {
+      "id": "orphan-tool-result",
+      "title": "Orphan Tool Result",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_z",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "expected_status": "FAIL",
+      "provenance": "controlled mutation"
+    },
+    {
+      "id": "invalid-role-conversion",
+      "title": "Invalid Role Conversion",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "user",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "expected_status": "FAIL",
+      "provenance": "controlled mutation"
+    },
+    {
+      "id": "truncated-arguments",
+      "title": "Truncated Arguments",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"unfinished\":"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "expected_status": "FAIL",
+      "provenance": "controlled mutation"
+    },
+    {
+      "id": "image-control",
+      "title": "Image Control",
+      "baseline": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Count items"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,aW1hZ2U=",
+                "detail": "high"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Count items"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,aW1hZ2U=",
+                "detail": "high"
+              }
+            }
+          ]
+        }
+      ],
+      "expected_status": "PASS",
+      "provenance": "negative control"
+    },
+    {
+      "id": "lost-image-reference",
+      "title": "Lost Image Reference",
+      "baseline": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Count items"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,aW1hZ2U=",
+                "detail": "high"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Count items"
+            }
+          ]
+        }
+      ],
+      "expected_status": "FAIL",
+      "provenance": "controlled mutation"
+    },
+    {
+      "id": "lost-image-detail",
+      "title": "Lost Image Detail",
+      "baseline": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Count items"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,aW1hZ2U=",
+                "detail": "high"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Count items"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,aW1hZ2U=",
+                "detail": "low"
+              }
+            }
+          ]
+        }
+      ],
+      "expected_status": "FAIL",
+      "provenance": "controlled mutation"
+    },
+    {
+      "id": "unsupported-audio-abstention",
+      "title": "Unsupported Audio Abstention",
+      "baseline": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "audio",
+              "data": "opaque"
+            }
+          ]
+        }
+      ],
+      "candidate": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "audio",
+              "data": "opaque"
+            }
+          ]
+        }
+      ],
+      "expected_status": "INCONCLUSIVE",
+      "provenance": "negative control"
+    },
+    {
+      "id": "invalid-baseline-abstention",
+      "title": "Invalid Baseline Abstention",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "missing",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "missing",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "expected_status": "NEEDS_REVIEW",
+      "provenance": "negative control"
+    }
+  ],
+  "model_inputs": [
+    {
+      "id": "case-00",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ]
+    },
+    {
+      "id": "case-01",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": null,
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{ \"options\": {\"warehouse\": 2}, \"sku\": \"A\" }"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ]
+    },
+    {
+      "id": "case-02",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": ""
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ]
+    },
+    {
+      "id": "case-03",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ]
+    },
+    {
+      "id": "case-04",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ]
+    },
+    {
+      "id": "case-05",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":9}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ]
+    },
+    {
+      "id": "case-06",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_z",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ]
+    },
+    {
+      "id": "case-07",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "user",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ]
+    },
+    {
+      "id": "case-08",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"unfinished\":"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ]
+    },
+    {
+      "id": "case-09",
+      "baseline": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Count items"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,aW1hZ2U=",
+                "detail": "high"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Count items"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,aW1hZ2U=",
+                "detail": "high"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "case-10",
+      "baseline": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Count items"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,aW1hZ2U=",
+                "detail": "high"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Count items"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "case-11",
+      "baseline": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Count items"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,aW1hZ2U=",
+                "detail": "high"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Count items"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": "data:image/png;base64,aW1hZ2U=",
+                "detail": "low"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "case-12",
+      "baseline": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "audio",
+              "data": "opaque"
+            }
+          ]
+        }
+      ],
+      "candidate": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "audio",
+              "data": "opaque"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "case-13",
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "missing",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "missing",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ]
+    }
+  ],
+  "model": "glm-5.3-flash",
+  "provider": "glm",
+  "trials": 1,
+  "limits": {
+    "model_requests": 3,
+    "max_output_tokens_each": 8192,
+    "search_requests": 1,
+    "retries": 0
+  },
+  "arms": [
+    "A-deterministic",
+    "B-original-ACV-GLM",
+    "C-GLM",
+    "D-GLM-Tavily",
+    "E-scoped-reuse"
+  ],
+  "scope": "Exploratory developer-authored corpus; exact repeat reuse, not unseen-case generalization"
+}

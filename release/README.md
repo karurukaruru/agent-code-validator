@@ -1,10 +1,10 @@
-# Downloadable offline test build
+# Downloadable developer build
 
-- `patchcourt-demo-0.3.0.zip`: unpack, open `index.html`, then select `report.json` with **Open evidence**. No account, server or paid API required.
-- `agent_code_validator-0.3.0-py3-none-any.whl`: install using `python -m pip install <wheel-path>`, then `patchcourt demo --output outputs/patchcourt`.
-- `SHA256SUMS.json`: hashes and byte counts for the wheel, static archive, video and subtitles.
-- `patchcourt-offline-demo.mp4` and `.en.srt`: actual 112-second browser recording with burned-in English subtitles; explicitly offline, no model claims. Full decode and provenance in `../evidence/video`.
+- `agent_code_validator-0.3.1-py3-none-any.whl`: Python 3.10+ package. Install with `python -m pip install <wheel-path>`. Configure local GLM_API_KEY and run `patchcourt live-demo --port 8780`, or run `patchcourt demo --output outputs/patchcourt` without keys.
+- `patchcourt-glm-live-demo.mp4`: actual 95-second live GLM browser workflow, English synthesized narration and burned-in English captions.
+- `patchcourt-live.en.srt` / `patchcourt-live.zh.srt`: complete English/Chinese subtitle files.
+- `SHA256SUMS.json`: hashes and byte counts for every downloadable release asset.
 
-The wheel's resources and CLI were tested from a clean extraction in Python isolated mode. This is a tested offline developer build; live Nebius/Nemotron/Tavily contributions remain blocked. Historical defect FAIL verdicts are expected; repair verification is reported separately.
+The new wheel's CLI and packaged resources are checked from an isolated extraction. The live workflow is bounded, executes local fixture tools and never arbitrary model Python. API credentials are not included. GLM use does not establish Nebius/NVIDIA competition eligibility. Full scope: ../GLM_DEVELOPMENT.md.
 
-Source, tests, provenance, third-party licenses and full SDK evidence are in the parent repository. No public arbitrary-code execution endpoint exists. [Public download](https://raw.githubusercontent.com/karurukaruru/agent-code-validator/462fde1dbce1eb46b5f00df5e68cf7aa6bf2d368/release/patchcourt-demo-0.3.0.zip) was anonymously fetched and its SHA-256 verified on October 25, 2026. Keep the dedicated branch and immutable commit available throughout judging.
+Archived 0.3.0 assets remain available: patchcourt-demo-0.3.0.zip (unpack, open index.html, select report.json), the older wheel, and the 112-second silent offline video/subtitle. They are explicitly historical and do not include the new live workflow. Their anonymous public download was verified in evidence/tests/public-download.json.

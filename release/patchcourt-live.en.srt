@@ -1,0 +1,59 @@
+1
+00:00:00,000 --> 00:00:07,548
+The tools ran. The agent still broke. Watch PatchCourt find the missing calls and verify a real model repair.
+
+2
+00:00:08,000 --> 00:00:16,029
+This click starts a real run using GLM five point three Flash. The model reads the original adapter and proposes a
+
+3
+00:00:16,029 --> 00:00:21,764
+restricted field mapping. Independent checks accept or reject it. Failed candidates are retained, and revision
+
+4
+00:00:21,764 --> 00:00:25,970
+attempts have a fixed limit. No model generated Python is executed.
+
+5
+00:00:27,000 --> 00:00:33,818
+Here is the mapping returned by the model, beside eight independent checks. They cover multiple calls, nested
+
+6
+00:00:33,818 --> 00:00:40,236
+arguments, normal messages, and legacy behavior. A deliberately corrupted repair must also fail. The model cannot
+
+7
+00:00:40,236 --> 00:00:41,840
+approve its own work.
+
+8
+00:00:43,000 --> 00:00:51,016
+Now look at the task outcome. In the real model conversation, local tools return three items at seven per item. The
+
+9
+00:00:51,016 --> 00:00:57,123
+original adapter loses the calls. The verified mapping preserves them, and the model returns the independently
+
+10
+00:00:57,123 --> 00:00:58,650
+checked value: twenty one.
+
+11
+00:01:00,000 --> 00:01:07,567
+The evidence records the exact model, request count, token usage, and tool results. These are real API calls with
+
+12
+00:01:07,567 --> 00:01:15,134
+controlled local fixture data. This is a bounded adapter repair, not a general code sandbox. GLM evidence does not
+
+13
+00:01:15,134 --> 00:01:18,320
+satisfy the competition's separate Nebius and NVIDIA requirement.
+
+14
+00:01:20,000 --> 00:01:26,955
+PatchCourt connects a concrete failure to a model proposal, an independent verdict, and a recovered task. Inspect
+
+15
+00:01:26,955 --> 00:01:33,500
+the source and every recorded attempt. A convincing repair needs evidence, not just a confident explanation.

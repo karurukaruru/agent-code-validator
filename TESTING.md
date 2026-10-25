@@ -1,4 +1,15 @@
-# Testing and verification
+# Testing and verification — 0.3.1
+
+Current local release suite: **161 passed, 4 skipped** on Python 3.13.14 / pytest 8.4.2, recorded in evidence/tests/pytest-glm-release.txt. Skips are existing Windows symlink/directory-link permission checks. The two original ACV loopback integration tests pass when loopback access is permitted. Synthetic tests are not provider evidence.
+
+New coverage checks exact GLM routing/no FlashX fallback, credential redaction, mapping mutations, malformed plans, preserved failed proposals, live task identity/answer validation, unexpected provider metadata, duplicate calls, report integrity, evaluation label withholding, pre-request protocol freezing, failed-arm preservation, citation validation and mandatory knowledge revalidation.
+
+Actual HTTP experiments are separately in evidence/glm-live and evidence/glm-evaluation. Browser checks: 13 live workbench checks in evidence/live-browser plus 14 earlier offline viewer checks in evidence/browser. Video: complete decode and six-frame visual inspection in evidence/live-video. Package: scripts/verify_wheel.py and evidence/tests/wheel-verification-glm.json. Configured-value and token-marker scan: scripts/release_check.py and evidence/tests/secret-scan-glm.json.
+
+Run `python -m pytest -ra` after installing requirements and pytest 8.4.2. The historical 0.3.0 CI described below is not a claim about new code; latest commit CI must be observed separately.
+
+## Historical 0.3.0 verification
+
 
 On October 25, 2026, the final complete suite ran with Python 3.13.14 and pytest 8.4.2: **143 passed, 4 skipped**. Raw output: `evidence/tests/pytest-final.txt`. Earlier 107-test and 136-test runs remain in `pytest-full.txt` and `pytest-release.txt`. Initial sandbox execution failed two original ACV loopback HTTP integration tests; rerunning with loopback access passed. These are explicit fake-provider tests, not real API evidence.
 

@@ -1,0 +1,1 @@
+{"status": "PASS", "wheel": "agent_code_validator-0.3.1-py3-none-any.whl", "isolated_mode": true, "summary": {"pass": 3, "fail": 11, "inconclusive": 1, "needs_review": 1}, "entrypoint": "patchcourt", "fixtures_and_dashboard": true}

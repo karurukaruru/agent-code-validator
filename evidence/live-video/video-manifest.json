@@ -1,0 +1,14 @@
+{
+  "status": "ENCODED_AND_DECODED",
+  "visual_review": "PASS",
+  "live_inference": true,
+  "model": "glm-5.3-flash",
+  "duration_seconds": 95,
+  "idle_opening_seconds_removed": 8,
+  "source_capture_manifest_sha256": "186b4ab7b65e78424faec59458ffb1efa671cca03e74c9cf639ed08c4d914d24",
+  "audio": "Local Microsoft Zira synthesized English narration",
+  "sha256": "5e88ef8425fe2ef6afe597602eb77952d24e7d62268c8e5dff1329c6c6084a2a",
+  "bytes": 2517864,
+  "report_created_at": "2026-10-25T04:31:56.162715+00:00",
+  "review_notes": "Six representative frames inspected; oversized captions corrected; final captions remain inside the separate bottom band. Live result, independent checks and scope readable."
+}

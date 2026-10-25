@@ -1,0 +1,129 @@
+{
+  "provider": "glm",
+  "endpoint": "https://open.bigmodel.cn/api/paas/v4/chat/completions",
+  "timestamp": "2026-10-25T03:45:48.271171+00:00",
+  "provenance": "live HTTP attempt",
+  "status": "PASS",
+  "http_status": 200,
+  "latency_ms": 4587.267,
+  "usage": {
+    "completion_tokens": 20,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 278,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 298
+  },
+  "cost_usd": null,
+  "cost_note": "Unknown; no pricing assumption or zero-cost claim",
+  "parameters": {
+    "model": "glm-5.3-flash",
+    "max_tokens": 2048,
+    "reasoning_effort": "low",
+    "temperature": 1,
+    "messages": [
+      {
+        "role": "system",
+        "content": "Use the provided tools to compute inventory value. Do not invent stock or price. Call both inventory and price for SKU A, in the same response if possible. After both tool results, return only JSON with sku and inventory_value."
+      },
+      {
+        "role": "user",
+        "content": "What is the inventory value of SKU A? Use inventory and price before calculating."
+      }
+    ],
+    "tools": [
+      {
+        "type": "function",
+        "function": {
+          "name": "inventory",
+          "description": "Look up the quantity in stock for one SKU.",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "sku": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "sku"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      {
+        "type": "function",
+        "function": {
+          "name": "price",
+          "description": "Look up the unit price for one SKU.",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "sku": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "sku"
+            ],
+            "additionalProperties": false
+          }
+        }
+      }
+    ],
+    "tool_choice": "auto"
+  },
+  "request_id": null,
+  "raw_response": "{\"choices\":[{\"finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"content\":\"\",\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{\\\"sku\\\":\\\"A\\\"}\",\"name\":\"inventory\"},\"id\":\"call_-7142424063699320680\",\"index\":0,\"type\":\"function\"},{\"function\":{\"arguments\":\"{\\\"sku\\\":\\\"A\\\"}\",\"name\":\"price\"},\"id\":\"call_-7142424063699320679\",\"index\":1,\"type\":\"function\"}]}}],\"created\":1792899952,\"id\":\"2026102511454717701d56e3084775\",\"model\":\"glm-5.3-flash\",\"object\":\"chat.completion\",\"request_id\":\"2026102511454717701d56e3084775\",\"usage\":{\"completion_tokens\":20,\"completion_tokens_details\":{\"reasoning_tokens\":0},\"prompt_tokens\":278,\"prompt_tokens_details\":{\"cached_tokens\":0},\"total_tokens\":298}}",
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "tool_calls",
+        "index": 0,
+        "message": {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "function": {
+                "arguments": "{\"sku\":\"A\"}",
+                "name": "inventory"
+              },
+              "id": "call_-7142424063699320680",
+              "index": 0,
+              "type": "function"
+            },
+            {
+              "function": {
+                "arguments": "{\"sku\":\"A\"}",
+                "name": "price"
+              },
+              "id": "call_-7142424063699320679",
+              "index": 1,
+              "type": "function"
+            }
+          ]
+        }
+      }
+    ],
+    "created": 1792899952,
+    "id": "2026102511454717701d56e3084775",
+    "model": "glm-5.3-flash",
+    "object": "chat.completion",
+    "request_id": "2026102511454717701d56e3084775",
+    "usage": {
+      "completion_tokens": 20,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "prompt_tokens": 278,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "total_tokens": 298
+    }
+  }
+}

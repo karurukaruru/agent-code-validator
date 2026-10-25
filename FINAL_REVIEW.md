@@ -1,51 +1,26 @@
-# Final review — development build, not submission-ready
+# Final review — live development release 0.3.1
 
-Evidence distinguishes implementation, local execution, mocked transport and live use. No API credentials were available. See TESTING.md, source artifacts and independent review; no conclusion relies only on a filename existing.
+The GLM development path runs end to end, with preserved raw responses, failed attempts, independent repair controls, actual local tool execution, a reviewed narrated video and an executable comparison. This is a scoped prototype, not completion of the full original mission or a competition-compliant submission.
 
-| Gate | Status | Evidence/limit |
+| Gate | Current result | Evidence or limitation |
 |---|---|---|
-| 1 Real NVIDIA inference on Nebius | BLOCKED | No authorized credentials |
-| 2 End-to-end product | PASS | Offline demo/check/report/replay/knowledge path; live path excluded |
-| 3 Authentic defect | PASS | Actual installed NVIDIA SDK 1.4.3 loses two calls |
-| 4 Nemotron-generated test executes | BLOCKED | Declarative runner transport-tested only |
-| 5 Independently verified repair | PASS | Actual SDK patched copy, complete expectations and five controls |
-| 6 Normal controls | PASS | Tests and reports |
-| 7 ASM save/reuse | PASS | Exact identity lookup and mandatory rerun |
-| 8 CLI documented commands | PASS | Demo/check/inspect/benchmark tests |
-| 9 Demo displays real results | PASS | Real report loaded in headless Chrome; desktop/mobile, switching, upload/export and repair/replay verified |
-| 10 Real reliability experiments | BLOCKED | All scheduled API trials blocked |
-| 11 Actionable platform findings | BLOCKED | No invented feedback |
-| 12 English Devpost materials | INCONCLUSIVE | Draft complete; private fields/eligibility unresolved |
-| 13 Demo video | INCONCLUSIVE | Actual 112-second offline recording with full English subtitles and decode validation; required public YouTube URL and live integration footage absent |
-| 14 Public judge release | PASS (offline scope) | Dedicated public branch published; anonymous ZIP download and checksum verified. No live hosted execution or YouTube publication claimed |
-| 15 Credential exposure | PASS | Redaction tests and release scan find no configured secrets or credential/private-key patterns; scope-limited scan, not a universal privacy guarantee |
-| 16 Rules checked | PASS | Official sourced audit; personal eligibility unverified |
+| Actual model inference | PASS for GLM only | Exact glm-5.3-flash; no NVIDIA/Nemotron inference |
+| Detect / propose / verify / task recovery | PASS in bounded scope | Two successful live runs; eight independent controls and rejected ID mutation |
+| Historical SDK defect | PASS | Installed NVIDIA SDK 1.4.3 original FAIL, repaired copy PASS; source-only CrewAI reproduction |
+| Generated test execution | NEEDS_REVIEW | Five model tests executed; two incorrect model expectations preserved |
+| Five-arm development evaluation | EXECUTED | 70 rows; ACV review adapter explicitly differs from direct classification |
+| Tavily benefit | NOT ESTABLISHED | C 14/14, D 13/14 on one developer-authored trial |
+| Knowledge reuse | PASS in exact scope | 12 validated exact-match hits; all 14 comparisons rerun; no token-savings estimate |
+| Workbench | PASS | 13 real Chrome checks, desktop/mobile and request authorization |
+| Local test suite | PASS | 161 passed, four Windows symlink permission skips |
+| Package | PASS after isolated verification | See evidence/tests/wheel-verification-glm.json |
+| Video | LOCAL ARTIFACT COMPLETE | 95 seconds, English audio/captions, Chinese SRT, inspected frames and full decode |
+| Nebius reliability feedback | BLOCKED | User stopped NVIDIA calls; discovery alone is not inference or platform findings |
+| Full original mission | INCOMPLETE | Explicit gap audit includes automatic environments, broad instrumentation and sandboxed source repair |
+| Public YouTube / final Devpost | OUTSTANDING | No uploaded video or final submission claimed |
 
-## Ten review passes
+Review fixes include model tool-call ordinal handling, guaranteed structured task output, preservation of failed model expectations, stronger mapping controls, stale display state, oversized subtitles, fixed placeholder evaluation arms and stale package-version metadata. All new network use is fixed-provider, explicitly bounded, with no automatic retry and no browser-visible API credentials.
 
-1. Product: useful for recorded adapter traces; generic source inspection alone abstains. Historical issues are credited.
-2. Architecture: one report pipeline; ASM reused as a knowledge convention, ACV as actual bounded inspection. No duplicated general agent framework.
-3. Correctness: independent review found role/call conflicts, nonfinite arguments, ignored stream semantics, knowledge redaction integrity, nonboolean execution flags and incomplete repair checking. Fixed and tests rerun.
-4. Security: no public RCE, fixed endpoints, no redirects/retries, source hash allowlist, clean full-SDK child. No OS sandbox claim.
-5. Model integration: implemented and mock-tested; real inference BLOCKED.
-6. Research: all scheduled outcomes retained; small constructed dataset, no superiority or causal Tavily claim.
-7. Competition: live NVIDIA/Nebius requirement, form and public access unresolved. Bonus stacking restricted.
-8. Feedback: report honestly says no observed platform findings; not award-quality yet.
-9. Judge experience: independent reviewer assessed the dashboard and requested clear provenance and a reproducible entry path; see docs/JUDGE_REVIEW.md.
-10. Release: full local tests pass; package/entrypoint/security checks recorded below. Public offline build verified and Linux Python 3.10/3.13 CI passed. Live hosting and public YouTube remain separate gates.
+Runtime evidence, synthetic tests and historical artifacts are kept distinct. The previous 0.3.0 public CI passed all 147 tests on Ubuntu Python 3.10 and 3.13; see evidence/tests/github-actions.json. It is not evidence for the newly changed code. Latest release CI is recorded separately when observed. File hashes establish integrity, not independent provider authentication.
 
-Remaining user-dependent work: legitimate Nebius/Tavily access, entrant/Devpost authentication, public video and final submission approval. Ordinary development choices do not require further approval. Do not submit this build as competition-compliant until blocked gates are resolved.
-
-## Executed release checks
-
-- Python 3.13.14: 143 tests passed, 4 Windows link-creation permission skips (`evidence/tests/pytest-final.txt`).
-- GitHub Ubuntu CI: **147 passed** on Python 3.10 and **147 passed** on Python 3.13; demo, exported regression and benchmark steps passed. [Run 40155739894](https://github.com/karurukaruru/agent-code-validator/actions/runs/40155739894).
-- Independent reviews: 26 adversarial tests and 29 release security/correctness tests, included in the full suite.
-- Chrome: 14 checks with actual generated report, desktop/mobile screenshots, upload/export and no runtime errors.
-- Installed NVIDIA SDK: original FAIL, repaired copy PASS, five controls; no API calls.
-- Wheel: build succeeded; isolated CLI/resource execution passed. Static test-build ZIP includes only explicit approved files.
-- `patchcourt verify`: exported report checksum matches; provenance is not cryptographically authenticated.
-- Credential-pattern/configured-secret scan: no findings; exact scope and file count in `evidence/tests/secret-scan.json`.
-- Video: actual Chrome interactions sampled at 2 fps, encoded to a 112-second 1600x900 MP4; complete English subtitles, no audio, no live inference. Hashes and decode evidence in `evidence/video`.
-
-Published implementation commit: `462fde1dbce1eb46b5f00df5e68cf7aa6bf2d368`, branch `patchcourt/award-build-20261024`. Its tree is byte-identical to the locally reviewed commit (tree `ebc2d4fb3174597a3371af5e597394a201738330`). Git transport failed twice, so authenticated GitHub object tools published the same content; a subsequent Git fetch confirmed it. Publication evidence is in `evidence/tests/public-download.json` and `github-actions.json`. These checks do not establish competition eligibility.
+Remaining engineering belongs to the project work, not to the user merely supplying another key. User-dependent steps are competition-runtime authorization if resumed, entrant/account access, public video publication and final submission approval. No fixed completion percentage or numerical winning probability is supported.

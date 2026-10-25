@@ -8,7 +8,8 @@ from .evidence import read_json, write_json
 
 def main(argv=None):
     parser = argparse.ArgumentParser(prog="patchcourt", description="Catch silent AI agent compatibility regressions with executable evidence.")
-    parser.add_argument("--version", action="version", version="PatchCourt 0.3.0")
+    from . import __version__
+    parser.add_argument("--version", action="version", version="PatchCourt " + __version__)
     commands = parser.add_subparsers(dest="command", required=True)
     demo = commands.add_parser("demo", help="Execute pinned source cases, repairs, controls and export the dashboard")
     demo.add_argument("--output", default="outputs/patchcourt")
@@ -22,6 +23,7 @@ def main(argv=None):
     inspect.add_argument("--output", default="outputs/inspection.json")
     bench = commands.add_parser("benchmark", help="Record every scheduled ablation outcome")
     bench.add_argument("--output", default="outputs/benchmark")
+    bench.add_argument("--provider", choices=("offline", "glm"), default="offline", help="glm opts into three bounded inference requests and one Tavily search")
     verify = commands.add_parser("verify", help="Check exported report integrity; does not certify truth")
     verify.add_argument("directory")
     feedback = commands.add_parser("feedback", help="Build a reviewable feedback draft from lab evidence; never infer platform defects")
@@ -33,8 +35,13 @@ def main(argv=None):
     reasoning = commands.add_parser("reason", help="Ask real Nemotron for declarative tests and a repair proposal")
     reasoning.add_argument("source"); reasoning.add_argument("evidence")
     reasoning.add_argument("--model"); reasoning.add_argument("--tavily", action="store_true"); reasoning.add_argument("--output", default="outputs/reasoning.json")
+    reasoning.add_argument("--provider", choices=("nebius", "glm"), default="nebius")
     serve = commands.add_parser("serve", help="Serve only exported static evidence on loopback; no code-execution endpoint")
     serve.add_argument("directory", nargs="?", default="outputs/patchcourt"); serve.add_argument("--port", type=int, default=8765)
+    live = commands.add_parser("live", help="Run the GLM 5.3 Flash repair and fixture-tool workflow")
+    live.add_argument("--output", required=True)
+    live_demo = commands.add_parser("live-demo", help="Loopback-only interactive GLM workbench; at most three fixed runs per server")
+    live_demo.add_argument("--output", default="outputs/live-demo"); live_demo.add_argument("--port",type=int,default=8780)
     args = parser.parse_args(argv)
     try:
         if args.command == "demo":
@@ -56,10 +63,14 @@ def main(argv=None):
             print("NEEDS_REVIEW: source boundaries recorded; execute and compare traces for a verdict")
             return 2
         if args.command == "benchmark":
-            from .runner import benchmark
-            result = benchmark(args.output)
+            if args.provider == "glm":
+                from .evaluation import evaluate
+                result = evaluate(args.output)
+            else:
+                from .runner import benchmark
+                result = benchmark(args.output)
             print(json.dumps(result["metrics"]))
-            return 0
+            return 2 if result.get("status") == "PARTIAL" else 0
         if args.command == "verify":
             from .evidence import digest
             root = Path(args.directory)
@@ -82,12 +93,21 @@ def main(argv=None):
             source = Path(args.source)
             if source.stat().st_size > 60_000:
                 raise ValueError("Reasoning source is limited to 60 KB; pass only the relevant boundary")
-            result = run_reasoning(source.read_text(encoding="utf-8"), read_json(args.evidence), use_tavily=args.tavily, model=args.model)
+            result = run_reasoning(source.read_text(encoding="utf-8"), read_json(args.evidence), use_tavily=args.tavily, model=args.model, provider=args.provider)
             write_json(args.output, result)
             print(json.dumps({"status": result["status"], "output": args.output}))
             return {"PASS": 0, "FAIL": 1}.get(result["status"], 2)
         if args.command == "serve":
             return serve_static(args.directory, args.port)
+        if args.command == "live":
+            from .live_workflow import run_live_workflow
+            result=run_live_workflow(args.output)
+            print(json.dumps({"status":result['status'],"output":args.output,"tokens":result['total_reported_tokens']}))
+            return 0 if result['status']=='PASS' else 1
+        if args.command == "live-demo":
+            from .live_demo import serve_live_demo
+            serve_live_demo(args.output,args.port)
+            return 0
     except (ValueError, OSError, KeyError, TypeError) as exc:
         from .evidence import sanitize
         print("PatchCourt: " + sanitize(str(exc)), file=sys.stderr)

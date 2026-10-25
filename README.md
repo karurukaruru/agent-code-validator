@@ -4,9 +4,22 @@
 
 An agent can execute its tools, then fail on the next request because an SDK adapter silently removed their identifiers. PatchCourt compares message semantics, reproduces failures, verifies scoped repairs, and exports evidence that developers can inspect.
 
-**Working offline developer build; not submission-ready.** NVIDIA SDK 1.4.3 was actually installed and its serialization defect reproduced and repaired locally. No real Nebius/Nemotron or Tavily calls have occurred. Their integrations are implemented and tested with explicit mocks. See [acceptance gates](FINAL_REVIEW.md).
+**Live development build; not submission-ready.** Version 0.3.1 has real GLM 5.3 Flash inference, a model-proposed bounded repair, eight independent checks and a real fixture-tool conversation recovering value 21. Failed attempts are preserved. A five-arm exploratory evaluation and 95-second narrated live demonstration have executed. NVIDIA/Nemotron inference was never run; further NVIDIA calls were stopped at the user's request. See [current evidence and limits](GLM_DEVELOPMENT.md) and the [original-prompt gap audit](REQUIREMENTS_GAP_AUDIT.md).
 
-[Download the offline test build](release/README.md) · [Inspect the real browser screenshot](evidence/browser/desktop-repair.png)
+[Download the build and live video](release/README.md) · [Inspect the live workbench](evidence/live-browser/desktop.png)
+
+## Live GLM development workflow
+
+Set `GLM_API_KEY` locally, then run:
+
+```bash
+python -m patchcourt live --output outputs/a-new-run
+python -m patchcourt live-demo --port 8780
+```
+
+The model ID is locked to **`glm-5.3-flash`**, not FlashX, with no fallback. The live workflow executes declarative field mappings and fixed local inventory/price tools; it does not execute arbitrary model Python or establish Nebius/NVIDIA competition eligibility. Thirteen actual Chrome checks passed, including desktop/mobile layouts and request authorization. The 95-second video has English narration, burned-in English captions and a Chinese subtitle file. All attempts are in `evidence/glm-live`.
+
+With `TAVILY_API_KEY` also configured, `python -m patchcourt benchmark --provider glm --output outputs/a-new-evaluation` runs the bounded five-arm development comparison (three model calls, one search). It freezes the corpus before inference, withholds labels, preserves errors and measures paired outcomes. This exploratory run found **no Tavily improvement**. See [evaluation scope and results](BENCHMARK.md).
 
 ## Run the demonstration
 

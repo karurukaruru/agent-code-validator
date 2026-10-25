@@ -1,3 +1,5 @@
+> October 25 update: 0.3.1 now includes real GLM repair/task execution, a five-arm exploratory evaluation and a narrated live video. See [current evidence](GLM_DEVELOPMENT.md). Earlier offline status below is historical. GLM results do not establish Nebius findings or competition eligibility.
+
 # Nebius feedback — current evidence status
 
 **Not ready for the feedback award field.** The user has no Nebius or Tavily credentials. No authenticated experiments, model calls or onboarding attempts occurred. This is a local access prerequisite, not a platform defect or evidence of regional exclusion.
