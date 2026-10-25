@@ -4,8 +4,8 @@ This audit supersedes the earlier conversational estimate of 85% complete. That 
 
 | Requirement | Actual current scope | Remaining work | Needs user input now? |
 |---|---|---|---|
-| Upgrade Sentinel | Read-only dependency/boundary candidate search; supplied trace comparison | Install/run controlled baseline and candidate versions and connect scoped knowledge automatically | No, implementation remains |
-| Boundary recording | Explicit opt-in record/transform API | Real framework instrumentation covering outbound requests, returned data and streaming in an actual workflow | No, implementation remains; live verification later needs API |
+| Upgrade Sentinel | Read-only search, supplied traces, plus boundary-run executing fixed upstream/reviewed serializer variants in separate processes; installed SDK supported | Automatically establish actual baseline/candidate dependency versions and connect discovery/knowledge; fixed variants are not two releases | No, implementation remains |
+| Boundary recording | Explicit recorder plus automatic capture of reviewed source and installed-SDK serializer boundaries; eight execution scenarios recorded | Broader framework instrumentation covering outbound requests, returned data and streaming in an actual workflow | No, implementation remains; live verification later needs API |
 | Nemotron reasoning | Fixed-endpoint client and declarative proposals, mock-tested | Actual inference, assess generated cases and useful repair contribution | Nebius Token Factory access |
 | Automated repair | Two reviewed patches plus actual GLM-generated declarative mapping, eight independent controls and preserved failed attempts | General candidate source patches and isolated execution; current bounded plan path is implemented and live-tested | Arbitrary execution needs a functioning isolation backend |
 | Task replay | Actual GLM fixture-tool loop: original adapter fails locally, verified mapping preserves calls, task returns 21 | Broader applications and separately installed before/after environments; requested Nebius runtime | Implementation plus authorized Nebius runtime |

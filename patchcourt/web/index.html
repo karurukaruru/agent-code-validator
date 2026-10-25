@@ -145,6 +145,14 @@
     }
     function renderProtocol(item) {
       const pane = $('pane-protocol'); pane.replaceChildren();
+      if (isObject(item.contracts)) {
+        const checks = node('div', 'gate-list'); checks.id = 'boundary-contracts';
+        for (const [key, label] of [['baseline', 'Input preserved by baseline'], ['candidate', 'Input preserved by candidate'], ['difference', 'Baseline → candidate comparison']]) {
+          const row = node('div', 'gate'); row.append(node('span', '', label), badge(isObject(item.contracts[key]) ? item.contracts[key].status : undefined)); checks.append(row);
+        }
+        pane.append(checks, node('p', 'subtle', item.direction === 'candidate_restores_contract' ? 'The candidate restores the input contract. Overall NEEDS_REVIEW remains because the baseline is already broken.' : 'Both implementations are checked against the original input. Matching broken outputs cannot establish a PASS.'));
+        if (own(report, 'input')) { const input = node('details'); input.style.marginBottom = '18px'; input.append(node('summary', '', 'Original input and contract findings'), labeledJSON('Original input', report.input), labeledJSON('Contract results', item.contracts)); pane.append(input); }
+      }
       const head = node('div', 'diff-head'); head.append(node('p', '', 'Inspect the boundary, not just the final answer.'), node('span', 'badge info', 'BASELINE → CANDIDATE')); pane.append(head, pair('Baseline', item.baseline, 'Candidate', item.candidate));
       if (own(item, 'baseline') && own(item, 'candidate')) {
         const changes = differences(item.baseline, item.candidate);
@@ -184,6 +192,7 @@
       $('case-duration').textContent = 'Execution time: ' + (typeof item.duration_ms === 'number' && Number.isFinite(item.duration_ms) ? item.duration_ms.toLocaleString(undefined, {maximumFractionDigits:2}) + ' ms' : 'not recorded');
       renderProtocol(item); renderFindings(item); renderRepair(item);
       const pane = $('pane-provenance'); pane.replaceChildren(labeledJSON('Case provenance', item.provenance)); const details = node('details'); details.style.marginTop = '18px'; details.append(node('summary', '', 'Complete case JSON'), node('pre', '', stringify(item))); pane.append(details, node('p', 'subtle', 'Provenance is supplied by the report. This viewer displays it without independently authenticating its source or reproducing its execution.'));
+      if (report.mode === 'boundary-run' && isObject(report.executions)) { const execution = node('details'); execution.append(node('summary', '', 'Worker execution, captured boundaries and dependency versions'), node('pre', '', stringify(report.executions))); pane.append(execution); }
     }
     function renderResearch() {
       const lab = report.lab; setBadge('lab-status', isObject(lab) ? lab.status : undefined); $('lab-data').textContent = stringify(lab);

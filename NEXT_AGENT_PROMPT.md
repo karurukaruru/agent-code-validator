@@ -2,7 +2,7 @@
 
 请用中文接手当前 PatchCourt 工程，直接执行，不要重新做泛泛规划或重复询问已明确的选择。
 
-先阅读 `HANDOFF_ZH.md`、`FINISH_PLAN_ZH.md`、`REQUIREMENTS_GAP_AUDIT.md`、`GLM_DEVELOPMENT.md`、`FINAL_REVIEW.md` 和 `BENCHMARK.md`；随后查看 Git 状态、当前版本和 `evidence/tests/pytest-handoff-032.txt`。交接版 0.3.2 有两处小修和新增的已验证方案复用；本地 168 项通过、4 项跳过，真实复用实测也已完成，但尚未推送。不要误把公开 0.3.1 的 CI 当作新版本 CI。
+先阅读 `HANDOFF_ZH.md`、`FINISH_PLAN_ZH.md`、`REQUIREMENTS_GAP_AUDIT.md`、`BOUNDARY_RUN.md`、`GLM_DEVELOPMENT.md`、`FINAL_REVIEW.md` 和 `BENCHMARK.md`；随后查看 Git 状态、当前版本和 `evidence/tests/pytest-boundary-032.txt`。0.3.2 已有推理/报告修正、已验证方案复用及自动执行固定 NVIDIA 边界的 runner；本地 181 项通过、4 项跳过，真实 GLM 复用实测及 8 组新边界执行都已完成，但尚未推送。不要误把公开 0.3.1 的 CI 当作新版本 CI。
 
 最终目标是达到可正式参加 Nebius × NVIDIA 竞赛的交付水平，尽量提高至少一个真实奖项的机会。当前约 70% 只是粗略工程判断；没有保证奖或可量化获奖概率。仍有实际工程、平台研究和提交缺口，不是只差密钥。
 

@@ -25,4 +25,11 @@ with tempfile.TemporaryDirectory(dir=ROOT / ".local-tmp") as tmp:
     assert (target / "installed" / "patchcourt" / "web" / "live.html").is_file()
     entrypoints = next(n for n in names if n.endswith("entry_points.txt"))
     assert "patchcourt = patchcourt.cli:main" in (target / "installed" / entrypoints).read_text()
-    print(json.dumps({"status":"PASS", "wheel":wheel.name, "isolated_mode":True, "summary":report["summary"], "entrypoint":"patchcourt", "fixtures_and_dashboard":True}))
+    boundary_script = "import sys; sys.path.insert(0, sys.argv[1]); from patchcourt.cli import main; raise SystemExit(main(['boundary-run','--output',sys.argv[2]]))"
+    boundary = subprocess.run([sys.executable, "-I", "-c", boundary_script, str(target / "installed"), str(target / "boundary")], cwd=target, capture_output=True, text=True, timeout=60)
+    assert boundary.returncode == 1, boundary.stderr
+    boundary_report = json.loads((target / "boundary" / "report.json").read_text(encoding="utf-8"))
+    assert boundary_report["status"] == "FAIL"
+    assert all(r["status"] == "EXECUTED" for r in boundary_report["executions"].values())
+    assert boundary_report["cases"][0]["contracts"]["baseline"]["status"] == "PASS"
+    print(json.dumps({"status":"PASS", "wheel":wheel.name, "isolated_mode":True, "summary":report["summary"], "entrypoint":"patchcourt", "fixtures_and_dashboard":True, "boundary_workers_executed_from_wheel":True}))

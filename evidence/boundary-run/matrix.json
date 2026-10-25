@@ -1,0 +1,96 @@
+{
+  "status": "PASS",
+  "created_at": "2026-10-25T07:20:43.326956+00:00",
+  "rows": [
+    {
+      "name": "source-regression",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "independent_checks": {
+        "baseline": true,
+        "candidate": true
+      },
+      "verified": true,
+      "run_id": "a9bd4076-0dbf-4523-bb07-23a05dbd3964"
+    },
+    {
+      "name": "source-healthy",
+      "expected": "PASS",
+      "actual": "PASS",
+      "independent_checks": {
+        "baseline": true,
+        "candidate": true
+      },
+      "verified": true,
+      "run_id": "a6161482-c35d-450c-a4b5-1d09d58fc058"
+    },
+    {
+      "name": "source-recovery",
+      "expected": "NEEDS_REVIEW",
+      "actual": "NEEDS_REVIEW",
+      "independent_checks": {
+        "baseline": true,
+        "candidate": true
+      },
+      "verified": true,
+      "run_id": "ab9429dd-32cd-4bbd-bd1f-86301740197c"
+    },
+    {
+      "name": "source-both-broken",
+      "expected": "NEEDS_REVIEW",
+      "actual": "NEEDS_REVIEW",
+      "independent_checks": {
+        "baseline": true,
+        "candidate": true
+      },
+      "verified": true,
+      "run_id": "5584a877-48a5-4970-96a1-658674b1f93c"
+    },
+    {
+      "name": "source-text",
+      "expected": "PASS",
+      "actual": "PASS",
+      "independent_checks": {
+        "baseline": true,
+        "candidate": true
+      },
+      "verified": true,
+      "run_id": "6580e340-74d2-4d32-b68d-f0571d1bbd5c"
+    },
+    {
+      "name": "sdk-regression",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "independent_checks": {
+        "baseline": true,
+        "candidate": true
+      },
+      "verified": true,
+      "run_id": "f92b77b4-51d0-4732-8076-9cf2c0795fc1"
+    },
+    {
+      "name": "sdk-healthy",
+      "expected": "PASS",
+      "actual": "PASS",
+      "independent_checks": {
+        "baseline": true,
+        "candidate": true
+      },
+      "verified": true,
+      "run_id": "cd9b5c84-d297-489f-a6ee-29e3e64780ea"
+    },
+    {
+      "name": "sdk-recovery",
+      "expected": "NEEDS_REVIEW",
+      "actual": "NEEDS_REVIEW",
+      "independent_checks": {
+        "baseline": true,
+        "candidate": true
+      },
+      "verified": true,
+      "run_id": "4912d2f0-3667-420c-8862-e385a0d841bb"
+    }
+  ],
+  "provider_requests": 0,
+  "scope": "Two reviewed serializer variants; expected fixture assertions are independent of semantic comparator. Not a version-upgrade or model benchmark."
+}

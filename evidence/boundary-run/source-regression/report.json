@@ -1,0 +1,535 @@
+{
+  "schema_version": "1.0",
+  "run_id": "a9bd4076-0dbf-4523-bb07-23a05dbd3964",
+  "created_at": "2026-10-25T07:20:38.034439+00:00",
+  "mode": "boundary-run",
+  "environment": {
+    "python": "3.13.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "patchcourt": "0.3.2"
+  },
+  "summary": {
+    "pass": 0,
+    "fail": 1,
+    "inconclusive": 0,
+    "needs_review": 0
+  },
+  "cases": [
+    {
+      "id": "nvidia-boundary-pair",
+      "title": "Executed NVIDIA serializer boundary pair",
+      "status": "FAIL",
+      "execution": true,
+      "findings": [
+        {
+          "code": "ORPHAN_RESULT",
+          "path": "/1/tool_call_id",
+          "message": "Tool result lacks an earlier unmatched call"
+        },
+        {
+          "code": "ORPHAN_RESULT",
+          "path": "/2/tool_call_id",
+          "message": "Tool result lacks an earlier unmatched call"
+        },
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/tool_calls/0",
+          "expected": {
+            "id": "call_a",
+            "name": "inventory",
+            "args": {
+              "sku": "A",
+              "options": {
+                "warehouse": 2
+              }
+            }
+          },
+          "actual": null,
+          "message": "Observable message semantics changed"
+        },
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/tool_calls/1",
+          "expected": {
+            "id": "call_b",
+            "name": "price",
+            "args": {
+              "sku": "A"
+            }
+          },
+          "actual": null,
+          "message": "Observable message semantics changed"
+        }
+      ],
+      "provenance": {
+        "baseline_variant": "reviewed-patch",
+        "candidate_variant": "upstream",
+        "kind": "reviewed local serializer execution; no model inference"
+      },
+      "duration_ms": 325.133,
+      "baseline": [
+        {
+          "role": "assistant",
+          "content": null,
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\": \"A\", \"options\": {\"warehouse\": 2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\": \"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "content": "{\"quantity\":3}",
+          "tool_call_id": "call_a"
+        },
+        {
+          "role": "tool",
+          "content": "{\"price\":7}",
+          "tool_call_id": "call_b"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "assistant",
+          "content": ""
+        },
+        {
+          "role": "tool",
+          "content": "{\"quantity\":3}",
+          "tool_call_id": "call_a"
+        },
+        {
+          "role": "tool",
+          "content": "{\"price\":7}",
+          "tool_call_id": "call_b"
+        }
+      ],
+      "contracts": {
+        "baseline": {
+          "status": "PASS",
+          "findings": []
+        },
+        "candidate": {
+          "status": "FAIL",
+          "findings": [
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/1/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/2/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/0",
+              "expected": {
+                "id": "call_a",
+                "name": "inventory",
+                "args": {
+                  "sku": "A",
+                  "options": {
+                    "warehouse": 2
+                  }
+                }
+              },
+              "actual": null,
+              "message": "Observable message semantics changed"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/1",
+              "expected": {
+                "id": "call_b",
+                "name": "price",
+                "args": {
+                  "sku": "A"
+                }
+              },
+              "actual": null,
+              "message": "Observable message semantics changed"
+            }
+          ]
+        },
+        "difference": {
+          "status": "FAIL",
+          "findings": [
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/1/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/2/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/0",
+              "expected": {
+                "id": "call_a",
+                "name": "inventory",
+                "args": {
+                  "sku": "A",
+                  "options": {
+                    "warehouse": 2
+                  }
+                }
+              },
+              "actual": null,
+              "message": "Observable message semantics changed"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/1",
+              "expected": {
+                "id": "call_b",
+                "name": "price",
+                "args": {
+                  "sku": "A"
+                }
+              },
+              "actual": null,
+              "message": "Observable message semantics changed"
+            }
+          ]
+        }
+      },
+      "task_replay": {
+        "before": {
+          "status": "PASS",
+          "inventory_value": 21,
+          "kind": "deterministic task simulation"
+        },
+        "after": {
+          "status": "FAIL",
+          "reason": "Cannot associate tool results with requests",
+          "kind": "deterministic task simulation"
+        }
+      },
+      "direction": "regression"
+    }
+  ],
+  "knowledge": {},
+  "lab": {
+    "status": "BLOCKED",
+    "live_requests": 0,
+    "reason": "Offline execution; credentials and live platform behavior are not evaluated here"
+  },
+  "limitations": [
+    "Two reviewed implementations of one serializer; not an automatic dependency upgrade or arbitrary repository runner.",
+    "Supports text and OpenAI function-call inputs only; unsupported metadata and content abstain.",
+    "Separate -I -S processes, clean environment, timeout, output budget and Python audit hook; not an OS security sandbox. Installed dependencies must be trusted.",
+    "Input is checked against each output. An unhealthy baseline cannot establish a regression verdict, even when both outputs match.",
+    "No model, search, or provider requests. Hash checks provide integrity, not independent authentication."
+  ],
+  "status": "FAIL",
+  "input": [
+    {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "id": "call_a",
+          "type": "function",
+          "function": {
+            "name": "inventory",
+            "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+          }
+        },
+        {
+          "id": "call_b",
+          "type": "function",
+          "function": {
+            "name": "price",
+            "arguments": "{\"sku\":\"A\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_a",
+      "content": "{\"quantity\":3}"
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_b",
+      "content": "{\"price\":7}"
+    }
+  ],
+  "executions": {
+    "baseline": {
+      "status": "EXECUTED",
+      "variant": "reviewed-patch",
+      "pid": 21848,
+      "provenance": {
+        "backend": "pinned-source",
+        "real_sdk_classes": false,
+        "source_sha256": "ea569d556ed537e15bf5eea3db555adc9b4fb003a92543c70f1c719a9c47c873",
+        "executed_source_sha256": "ea91831f6f0362813df803b2ba8ec4860022962beda5e812392ddd76d767a613",
+        "version": "upstream source blob (not a verified 1.4.3 wheel)",
+        "dependencies": {}
+      },
+      "events": [
+        {
+          "stage": "framework_input",
+          "timestamp": "2026-10-25T07:20:38.341707+00:00",
+          "payload": [
+            {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "id": "call_a",
+                  "name": "inventory",
+                  "args": {
+                    "sku": "A",
+                    "options": {
+                      "warehouse": 2
+                    }
+                  },
+                  "type": "tool_call"
+                },
+                {
+                  "id": "call_b",
+                  "name": "price",
+                  "args": {
+                    "sku": "A"
+                  },
+                  "type": "tool_call"
+                }
+              ]
+            },
+            {
+              "role": "tool",
+              "content": "{\"quantity\":3}",
+              "tool_call_id": "call_a"
+            },
+            {
+              "role": "tool",
+              "content": "{\"price\":7}",
+              "tool_call_id": "call_b"
+            }
+          ]
+        },
+        {
+          "stage": "adapter_output",
+          "timestamp": "2026-10-25T07:20:38.342112+00:00",
+          "payload": [
+            {
+              "role": "assistant",
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "call_a",
+                  "type": "function",
+                  "function": {
+                    "name": "inventory",
+                    "arguments": "{\"sku\": \"A\", \"options\": {\"warehouse\": 2}}"
+                  }
+                },
+                {
+                  "id": "call_b",
+                  "type": "function",
+                  "function": {
+                    "name": "price",
+                    "arguments": "{\"sku\": \"A\"}"
+                  }
+                }
+              ]
+            },
+            {
+              "role": "tool",
+              "content": "{\"quantity\":3}",
+              "tool_call_id": "call_a"
+            },
+            {
+              "role": "tool",
+              "content": "{\"price\":7}",
+              "tool_call_id": "call_b"
+            }
+          ]
+        }
+      ],
+      "output": [
+        {
+          "role": "assistant",
+          "content": null,
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\": \"A\", \"options\": {\"warehouse\": 2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\": \"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "content": "{\"quantity\":3}",
+          "tool_call_id": "call_a"
+        },
+        {
+          "role": "tool",
+          "content": "{\"price\":7}",
+          "tool_call_id": "call_b"
+        }
+      ],
+      "input_conversion": {
+        "status": "PASS",
+        "findings": []
+      },
+      "provider_requests": 0,
+      "duration_ms": 166.484,
+      "exit_code": 0,
+      "environment_allowlist": [
+        "HOME",
+        "LANGCHAIN_TRACING_V2",
+        "LANGSMITH_TRACING",
+        "SystemRoot",
+        "TEMP",
+        "TMP",
+        "USERPROFILE",
+        "WINDIR"
+      ],
+      "stderr": ""
+    },
+    "candidate": {
+      "status": "EXECUTED",
+      "variant": "upstream",
+      "pid": 22152,
+      "provenance": {
+        "backend": "pinned-source",
+        "real_sdk_classes": false,
+        "source_sha256": "ea569d556ed537e15bf5eea3db555adc9b4fb003a92543c70f1c719a9c47c873",
+        "executed_source_sha256": "ea569d556ed537e15bf5eea3db555adc9b4fb003a92543c70f1c719a9c47c873",
+        "version": "upstream source blob (not a verified 1.4.3 wheel)",
+        "dependencies": {}
+      },
+      "events": [
+        {
+          "stage": "framework_input",
+          "timestamp": "2026-10-25T07:20:38.501816+00:00",
+          "payload": [
+            {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "id": "call_a",
+                  "name": "inventory",
+                  "args": {
+                    "sku": "A",
+                    "options": {
+                      "warehouse": 2
+                    }
+                  },
+                  "type": "tool_call"
+                },
+                {
+                  "id": "call_b",
+                  "name": "price",
+                  "args": {
+                    "sku": "A"
+                  },
+                  "type": "tool_call"
+                }
+              ]
+            },
+            {
+              "role": "tool",
+              "content": "{\"quantity\":3}",
+              "tool_call_id": "call_a"
+            },
+            {
+              "role": "tool",
+              "content": "{\"price\":7}",
+              "tool_call_id": "call_b"
+            }
+          ]
+        },
+        {
+          "stage": "adapter_output",
+          "timestamp": "2026-10-25T07:20:38.502238+00:00",
+          "payload": [
+            {
+              "role": "assistant",
+              "content": ""
+            },
+            {
+              "role": "tool",
+              "content": "{\"quantity\":3}",
+              "tool_call_id": "call_a"
+            },
+            {
+              "role": "tool",
+              "content": "{\"price\":7}",
+              "tool_call_id": "call_b"
+            }
+          ]
+        }
+      ],
+      "output": [
+        {
+          "role": "assistant",
+          "content": ""
+        },
+        {
+          "role": "tool",
+          "content": "{\"quantity\":3}",
+          "tool_call_id": "call_a"
+        },
+        {
+          "role": "tool",
+          "content": "{\"price\":7}",
+          "tool_call_id": "call_b"
+        }
+      ],
+      "input_conversion": {
+        "status": "PASS",
+        "findings": []
+      },
+      "provider_requests": 0,
+      "duration_ms": 158.649,
+      "exit_code": 0,
+      "environment_allowlist": [
+        "HOME",
+        "LANGCHAIN_TRACING_V2",
+        "LANGSMITH_TRACING",
+        "SystemRoot",
+        "TEMP",
+        "TMP",
+        "USERPROFILE",
+        "WINDIR"
+      ],
+      "stderr": ""
+    }
+  }
+}

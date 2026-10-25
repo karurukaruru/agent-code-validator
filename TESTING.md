@@ -1,6 +1,6 @@
 # Testing and verification — 0.3.1
 
-**Latest local handoff (0.3.2): 168 passed, 4 skipped**, recorded in `evidence/tests/pytest-handoff-032.txt`. Added reasoning-response and repair-reuse checks are synthetic transport tests; the separate actual repeated GLM experiment is `evidence/glm-reuse`. New package verification is `evidence/tests/wheel-verification-handoff-032.json`. There is no 0.3.2 remote CI claim; the records below concern 0.3.1.
+**Latest local build (0.3.2): 181 passed, 4 skipped**, recorded in `evidence/tests/pytest-boundary-032.txt`. Thirteen new boundary tests cover real child processes, unhealthy baselines, custom input, missing/changed SDKs, credential isolation, deadlines, output limits and preserved evidence. Eight actual source/installed-SDK matrix cases and ten Chrome viewer checks are in `evidence/boundary-run`. The rebuilt wheel executes its packaged boundary workers (`evidence/tests/wheel-verification-boundary-032.json`). Separate real GLM reuse evidence remains in `evidence/glm-reuse`. There is no 0.3.2 remote CI claim; the records below concern 0.3.1.
 
 Current local release suite: **161 passed, 4 skipped** on Python 3.13.14 / pytest 8.4.2, recorded in evidence/tests/pytest-glm-release.txt. Skips are existing Windows symlink/directory-link permission checks. The two original ACV loopback integration tests pass when loopback access is permitted. Synthetic tests are not provider evidence.
 

@@ -17,6 +17,12 @@ def main(argv=None):
     check = commands.add_parser("check", help="Compare two captured message-array JSON files")
     check.add_argument("baseline"); check.add_argument("candidate")
     check.add_argument("--output", default="outputs/check")
+    boundary = commands.add_parser("boundary-run", help="Execute two reviewed NVIDIA serializer variants; no provider calls")
+    boundary.add_argument("--baseline", choices=("upstream", "reviewed-patch"), default="reviewed-patch")
+    boundary.add_argument("--candidate", choices=("upstream", "reviewed-patch"), default="upstream")
+    boundary.add_argument("--input", help="Text/tool-call message-array JSON; defaults to two-tool regression fixture")
+    boundary.add_argument("--sdk-root", help="Trusted installed NVIDIA 1.4.3 dependency target; otherwise use pinned source with inert classes")
+    boundary.add_argument("--output", required=True, help="New evidence directory; existing directories are never overwritten")
     inspect = commands.add_parser("inspect", help="Find candidate adapter boundaries without executing repository code")
     inspect.add_argument("repository"); inspect.add_argument("--dependency", required=True)
     inspect.add_argument("--from-version", required=True); inspect.add_argument("--to-version", required=True)
@@ -57,6 +63,14 @@ def main(argv=None):
             export_report(make_report([case]), args.output)
             print(case["status"])
             return {"PASS": 0, "FAIL": 1}.get(case["status"], 2)
+        if args.command == "boundary-run":
+            from .boundary_run import run_boundary, INPUT_LIMIT
+            if args.input and Path(args.input).stat().st_size > INPUT_LIMIT:
+                raise ValueError("Boundary input exceeds 128 KB")
+            report = run_boundary(args.output, baseline=args.baseline, candidate=args.candidate,
+                                  messages=read_json(args.input) if args.input else None, sdk_root=args.sdk_root)
+            print(json.dumps({"status": report["status"], "output": str(Path(args.output).resolve()), "provider_requests": 0}))
+            return {"PASS": 0, "FAIL": 1}.get(report["status"], 2)
         if args.command == "inspect":
             from .sentinel import inspect_repository
             result = inspect_repository(args.repository, args.dependency, args.from_version, args.to_version)

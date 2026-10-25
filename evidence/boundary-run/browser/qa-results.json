@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "checks": [
+    "Regression verdict displayed",
+    "All three contract checks displayed",
+    "Desktop has no horizontal overflow",
+    "Recovery preserves unhealthy-baseline warning",
+    "Recovered value and deterministic scope displayed",
+    "Captured boundaries and source hashes accessible",
+    "Identical broken outputs do not show PASS",
+    "Mobile has no horizontal overflow",
+    "Healthy pair displays PASS",
+    "No browser runtime exceptions"
+  ],
+  "errors": [],
+  "provider_requests": 0
+}
