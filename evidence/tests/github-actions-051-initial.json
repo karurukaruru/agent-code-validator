@@ -1,0 +1,20 @@
+{
+  "status": "FAIL",
+  "run_id": 40269652155,
+  "url": "https://github.com/karurukaruru/agent-code-validator/actions/runs/40269652155",
+  "commit": "2140489e28e24c503c68db05786013430c4cfaa1",
+  "jobs": {
+    "installed-sdk (ubuntu-latest)": "success",
+    "installed-sdk (windows-latest)": "success",
+    "offline-evidence (3.13)": "failure",
+    "offline-evidence (3.10)": "cancelled by fail-fast"
+  },
+  "pytest": {
+    "passed": 376,
+    "failed": 1,
+    "failed_test": "test_captured_user_defect_exports_a_red_standalone_gate_then_future_trace_is_green"
+  },
+  "cause": "Exported license fixture preserves CRLF bytes; root LICENSE text checkout uses LF on Linux. Their content is identical. A platform-specific raw-byte assertion compared the fixture copy against a different newline convention.",
+  "correction": "Compare exported bytes with the actual bundled fixture and separately compare normalized license text with root LICENSE. Runtime source and release asset bytes remain unchanged.",
+  "scope": "Initial remote failure retained; not a passing 0.5.1 CI claim"
+}

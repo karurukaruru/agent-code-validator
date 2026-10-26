@@ -71,7 +71,12 @@ def test_captured_user_defect_exports_a_red_standalone_gate_then_future_trace_is
     passed = run_gate(output, trace=future)
     assert passed.returncode == 0, passed.stderr
     assert "Ran 1 test" in passed.stderr
-    assert (output / "_patchcourt_contract/LICENSE").read_bytes() == (Path(__file__).resolve().parents[1] / "LICENSE").read_bytes()
+    project = Path(__file__).resolve().parents[1]
+    license_copy = (output / "_patchcourt_contract/LICENSE").read_bytes()
+    assert license_copy == (project / "patchcourt/fixtures/PATCHCOURT-LICENSE").read_bytes()
+    # Fixtures retain exact bytes; the root text checkout uses the OS newline
+    # convention. Attribution must match in content on both Windows and Unix.
+    assert license_copy.decode("utf-8").replace("\r\n", "\n") == (project / "LICENSE").read_text(encoding="utf-8")
 
 
 def test_future_real_recording_can_change_version_and_request_id_but_not_input_or_adapter(tmp_path):
