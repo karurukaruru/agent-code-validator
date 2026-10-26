@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/karurukaruru/agent-code-validator/tree/925541ea57bea210efca964ba35c84d862aeb6e9",
+  "http_status": 200,
+  "access": "anonymous",
+  "checked_at": "2026-10-26T04:44:55.859205+00:00",
+  "commit": "925541ea57bea210efca964ba35c84d862aeb6e9",
+  "evidence_file": "evidence/submission/public-source-051.html",
+  "evidence_sha256": "1cf4741bda6e3c82918c6217bd8b152696b7c4921dc856b4cd4773679e2bbad8",
+  "content_verified": true,
+  "version_file_sha256": "f529ea8490bbfa56dfe43d4e343d8820a6fe030b8842bb74b95bd7c65de9ccf9",
+  "license_sha256": "ee82b432d9c31d5f034a45f1ed68bfe1dbd55f21eca869a4e621c860c4793325"
+}

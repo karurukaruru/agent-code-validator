@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "checked_at": "2026-10-26T04:44:55.859205+00:00",
+  "access": "anonymous",
+  "source_commit": "925541ea57bea210efca964ba35c84d862aeb6e9",
+  "assets": {
+    "patchcourt-judge-demo-0.5.1-development.zip": {
+      "url": "https://raw.githubusercontent.com/karurukaruru/agent-code-validator/925541ea57bea210efca964ba35c84d862aeb6e9/release/patchcourt-judge-demo-0.5.1-development.zip",
+      "http_status": 200,
+      "bytes": 236185,
+      "sha256": "e47684ef990cb45e1a18cf6ae6a45f070d41f82898c3287efa8db1e1fe8549d4",
+      "matches_local_reviewed_bytes": true
+    },
+    "agent_code_validator-0.5.1-py3-none-any.whl": {
+      "url": "https://raw.githubusercontent.com/karurukaruru/agent-code-validator/925541ea57bea210efca964ba35c84d862aeb6e9/release/agent_code_validator-0.5.1-py3-none-any.whl",
+      "http_status": 200,
+      "bytes": 157923,
+      "sha256": "516955bc6dc79a3cac0c5f17c32d082071861f72e74e5f41cec4698aa3424f9c",
+      "matches_local_reviewed_bytes": true
+    },
+    "patchcourt-captured-gate-0.5.1.zip": {
+      "url": "https://raw.githubusercontent.com/karurukaruru/agent-code-validator/925541ea57bea210efca964ba35c84d862aeb6e9/release/patchcourt-captured-gate-0.5.1.zip",
+      "http_status": 200,
+      "bytes": 12331,
+      "sha256": "4f79d93a1d79f3545b387f756d0d3ab28aa3ffba7563d6261ca7d0e1521b6dd7",
+      "matches_local_reviewed_bytes": true
+    }
+  }
+}

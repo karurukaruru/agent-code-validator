@@ -18,7 +18,13 @@ All 35 current packaged resource/source files match the wheel byte-for-byte.
 The release installed-SDK gate matrix is
 `evidence/recording-gate-051/release-installed-sdk/matrix.json`: all three cases
 reached their expected contract assertion under `-I -S`, with no provider call.
-Remote 0.5.1 CI is checked after publication; historical 0.5.0 CI stays separate.
+Remote 0.5.1 [run 40270078401](https://github.com/karurukaruru/agent-code-validator/actions/runs/40270078401)
+passed **377 tests each** on Python 3.10 and 3.13, and the four SDK-upgrade plus
+three captured-gate scenarios on Ubuntu and Windows. All four jobs checked out
+`925541ea57bea210efca964ba35c84d862aeb6e9`; result excerpts are in
+`evidence/tests/github-actions-051.json`. The initial Linux license-newline
+assertion failure is retained separately; no runtime byte changed in that fix.
+Historical 0.5.0 CI stays separate.
 
 ## Historical 0.5.0 verification
 

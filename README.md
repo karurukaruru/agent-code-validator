@@ -25,7 +25,7 @@ An agent can execute its tools, then fail on the next request because an SDK ada
 
 **Development status — competition submission is still pending.** The new workflow supports exact DeepSeek Flash and NVIDIA Nemotron on Nebius, strict response/model validation, documentation retrieval, scoped repair reuse, and a persistent request budget. Real [DeepSeek development runs](evidence/development-050/README.md) passed eight checks, rejected a corrupted repair and recovered inventory value **21**. These runs do not establish Nebius/NVIDIA runtime use. The entrant has confirmed continuing this competition and will supply Nebius access; the earlier handoff's stop instruction is historical.
 
-[Verified 0.5.0 CI](https://github.com/karurukaruru/agent-code-validator/actions/runs/40260807511): 337 tests on Python 3.10/3.13; installed-SDK controls on Ubuntu/Windows. [Free current development judge package](release/patchcourt-judge-demo-0.5.1-development.zip) and [137-second English recorded replay](release/patchcourt-development-replay-0.5.0.mp4) have passed anonymous download checks.
+[Verified 0.5.1 CI](https://github.com/karurukaruru/agent-code-validator/actions/runs/40270078401): **377 tests** on Python 3.10/3.13; four SDK upgrade scenarios and three captured-gate scenarios on both Ubuntu and Windows. [Free current development judge package](release/patchcourt-judge-demo-0.5.1-development.zip) and [137-second English recorded replay](release/patchcourt-development-replay-0.5.0.mp4) have passed anonymous download checks.
 
 [Judge instructions](JUDGE_TESTING.md) · [Submission checklist](SUBMISSION_CHECKLIST.md) · [SDK upgrade evidence](UPGRADE_RUN.md) · [Current development review](RELEASE_REVIEW_051_ZH.md)
 

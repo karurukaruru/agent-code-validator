@@ -1,0 +1,18 @@
+{
+  "url": "https://raw.githubusercontent.com/karurukaruru/agent-code-validator/925541ea57bea210efca964ba35c84d862aeb6e9/release/patchcourt-judge-demo-0.5.1-development.zip",
+  "http_status": 200,
+  "bytes": 236185,
+  "sha256": "e47684ef990cb45e1a18cf6ae6a45f070d41f82898c3287efa8db1e1fe8549d4",
+  "matches_local_reviewed_bytes": true,
+  "access": "anonymous",
+  "checked_at": "2026-10-26T04:44:55.859205+00:00",
+  "evidence_file": "release/patchcourt-judge-demo-0.5.1-development.zip",
+  "evidence_sha256": "e47684ef990cb45e1a18cf6ae6a45f070d41f82898c3287efa8db1e1fe8549d4",
+  "content_verified": true,
+  "functional_smoke_test": "PASS",
+  "free_judge_access": true,
+  "credential_required": false,
+  "source_commit": "925541ea57bea210efca964ba35c84d862aeb6e9",
+  "scope": "Same bytes as reviewed 24-check portal; freshly launched with CI ZIP and recorded repair. Development evidence; required Nebius inference is still pending.",
+  "prior_exact_bytes_launch_verified": true
+}

@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "checked_at": "2026-10-26T04:44:55.859205+00:00",
+  "source_commit": "925541ea57bea210efca964ba35c84d862aeb6e9",
+  "artifact": {
+    "url": "https://raw.githubusercontent.com/karurukaruru/agent-code-validator/925541ea57bea210efca964ba35c84d862aeb6e9/release/patchcourt-captured-gate-0.5.1.zip",
+    "http_status": 200,
+    "bytes": 12331,
+    "sha256": "4f79d93a1d79f3545b387f756d0d3ab28aa3ffba7563d6261ca7d0e1521b6dd7",
+    "matches_local_reviewed_bytes": true
+  },
+  "standard_library_only_flags": [
+    "-I",
+    "-S"
+  ],
+  "observed_broken_expected_failure": true,
+  "reviewed_patch_candidate_passed": true,
+  "candidate_recording": "evidence/recording-gate-051/release-installed-sdk/candidate-recording.json",
+  "candidate_sha256": "de106a7b8c2d011cc94aaa43388d62516622d964f2bd199108005aae9eba9958",
+  "provider_requests": 0,
+  "scope": "Fresh anonymous ZIP download and standalone execution against existing recorded candidates; no new SDK or model is executed by the gate",
+  "original_execution_checked_at": "2026-10-26T04:35:17.964722+00:00"
+}

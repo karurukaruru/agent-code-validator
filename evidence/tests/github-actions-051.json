@@ -1,0 +1,545 @@
+{
+  "schema": "patchcourt-github-actions-evidence-v1",
+  "recorded_at_utc": "2026-10-26 04:43:36 UTC",
+  "project_version": "0.5.1",
+  "repository": "karurukaruru/agent-code-validator",
+  "source": "Read-only GitHub connector job metadata and decoded logs",
+  "run": {
+    "id": 40270078401,
+    "head_sha": "925541ea57bea210efca964ba35c84d862aeb6e9",
+    "head_branch": "patchcourt/award-build-20261025",
+    "html_url": "https://github.com/karurukaruru/agent-code-validator/actions/runs/40270078401",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "exact_commit_verified": true,
+  "jobs": [
+    {
+      "id": 121400783023,
+      "name": "installed-sdk (windows-latest)",
+      "status": "completed",
+      "conclusion": "success",
+      "checkout_sha_verified": true,
+      "pytest_summaries": [],
+      "recorded_result_blocks": [
+        {
+          "status": "PASS",
+          "rows": [
+            {
+              "scenario": "upgrade",
+              "expected": "NEEDS_REVIEW",
+              "actual": "NEEDS_REVIEW",
+              "integrity": true,
+              "real_sdk_workers": true,
+              "recovery": true,
+              "passed": true
+            },
+            {
+              "scenario": "text-control",
+              "expected": "PASS",
+              "actual": "PASS",
+              "integrity": true,
+              "real_sdk_workers": true,
+              "recovery": true,
+              "passed": true
+            },
+            {
+              "scenario": "regression",
+              "expected": "FAIL",
+              "actual": "FAIL",
+              "integrity": true,
+              "real_sdk_workers": true,
+              "recovery": true,
+              "passed": true
+            },
+            {
+              "scenario": "recovery",
+              "expected": "NEEDS_REVIEW",
+              "actual": "NEEDS_REVIEW",
+              "integrity": true,
+              "real_sdk_workers": true,
+              "recovery": true,
+              "passed": true
+            }
+          ],
+          "provider_requests": 0,
+          "scope": "Four controlled installed-SDK serializer scenarios; no model inference or full agent application execution"
+        },
+        {
+          "status": "PASS",
+          "created_at": "2026-10-26T04:39:25.008774+00:00",
+          "kind": "Executed boundary capture to standalone regression gate",
+          "sdk_execution_report": "sdk-execution/report.json",
+          "sdk_execution_report_sha256": "27d0c23a6c1d2a636b0c817dadd026e351df2fac4ea292d26e45564bf7d3f6db",
+          "real_sdk_classes": true,
+          "recordings": {
+            "baseline": {
+              "path": "baseline-recording.json",
+              "sha256": "114b82becfa44fd99dca8ed54a63eeda8214080b99308cc7114195c7e299ab3a",
+              "input_matches_executed_worker": true,
+              "output_matches_executed_worker": true
+            },
+            "candidate": {
+              "path": "candidate-recording.json",
+              "sha256": "b34c6081b515a87860318e0746a4edc4ef7bd7a5e353a672342e4b20153d111f",
+              "input_matches_executed_worker": true,
+              "output_matches_executed_worker": true
+            }
+          },
+          "scenarios": [
+            {
+              "scenario": "observed-broken",
+              "expected_exit_code": 1,
+              "actual_exit_code": 1,
+              "reached_expected_contract_assertion": true,
+              "passed": true
+            },
+            {
+              "scenario": "reviewed-patch",
+              "expected_exit_code": 0,
+              "actual_exit_code": 0,
+              "reached_expected_contract_assertion": true,
+              "passed": true
+            },
+            {
+              "scenario": "corrupted-patch",
+              "expected_exit_code": 1,
+              "actual_exit_code": 1,
+              "reached_expected_contract_assertion": true,
+              "passed": true
+            }
+          ],
+          "provider_requests": 0,
+          "standalone_test_flags": [
+            "-I",
+            "-S"
+          ],
+          "scope": "Actual reviewed serializer execution and its captured messages; future candidate records are data supplied to the gate, not SDK execution initiated by the gate. The repaired variant is a reviewed patch, not an upstream fixed release."
+        }
+      ],
+      "step_conclusions": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m pip install -e .",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python scripts/verify_sdk_upgrade.py --environment-dir outputs/sdk-environments --output evidence/ci-sdk-upgrade --prepare",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python scripts/verify_recording_gate.py --sdk-root outputs/sdk-environments/nvidia-1.4.3 --output evidence/ci-recording-gate",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 121400783170,
+      "name": "installed-sdk (ubuntu-latest)",
+      "status": "completed",
+      "conclusion": "success",
+      "checkout_sha_verified": true,
+      "pytest_summaries": [],
+      "recorded_result_blocks": [
+        {
+          "status": "PASS",
+          "rows": [
+            {
+              "scenario": "upgrade",
+              "expected": "NEEDS_REVIEW",
+              "actual": "NEEDS_REVIEW",
+              "integrity": true,
+              "real_sdk_workers": true,
+              "recovery": true,
+              "passed": true
+            },
+            {
+              "scenario": "text-control",
+              "expected": "PASS",
+              "actual": "PASS",
+              "integrity": true,
+              "real_sdk_workers": true,
+              "recovery": true,
+              "passed": true
+            },
+            {
+              "scenario": "regression",
+              "expected": "FAIL",
+              "actual": "FAIL",
+              "integrity": true,
+              "real_sdk_workers": true,
+              "recovery": true,
+              "passed": true
+            },
+            {
+              "scenario": "recovery",
+              "expected": "NEEDS_REVIEW",
+              "actual": "NEEDS_REVIEW",
+              "integrity": true,
+              "real_sdk_workers": true,
+              "recovery": true,
+              "passed": true
+            }
+          ],
+          "provider_requests": 0,
+          "scope": "Four controlled installed-SDK serializer scenarios; no model inference or full agent application execution"
+        },
+        {
+          "status": "PASS",
+          "created_at": "2026-10-26T04:38:41.675551+00:00",
+          "kind": "Executed boundary capture to standalone regression gate",
+          "sdk_execution_report": "sdk-execution/report.json",
+          "sdk_execution_report_sha256": "cc15c61e5a63fe20f7c7e293d9a9e056c4f63e391ec9cb08cec2edb5e3c9a3d6",
+          "real_sdk_classes": true,
+          "recordings": {
+            "baseline": {
+              "path": "baseline-recording.json",
+              "sha256": "83562b224aaae1a0e6f5e9da31a5f78319fe95524df088fe0486e85621375eb4",
+              "input_matches_executed_worker": true,
+              "output_matches_executed_worker": true
+            },
+            "candidate": {
+              "path": "candidate-recording.json",
+              "sha256": "20815267bea72b46659bd71a8b36fa9656954c8e7d3033d3860575a722668d68",
+              "input_matches_executed_worker": true,
+              "output_matches_executed_worker": true
+            }
+          },
+          "scenarios": [
+            {
+              "scenario": "observed-broken",
+              "expected_exit_code": 1,
+              "actual_exit_code": 1,
+              "reached_expected_contract_assertion": true,
+              "passed": true
+            },
+            {
+              "scenario": "reviewed-patch",
+              "expected_exit_code": 0,
+              "actual_exit_code": 0,
+              "reached_expected_contract_assertion": true,
+              "passed": true
+            },
+            {
+              "scenario": "corrupted-patch",
+              "expected_exit_code": 1,
+              "actual_exit_code": 1,
+              "reached_expected_contract_assertion": true,
+              "passed": true
+            }
+          ],
+          "provider_requests": 0,
+          "standalone_test_flags": [
+            "-I",
+            "-S"
+          ],
+          "scope": "Actual reviewed serializer execution and its captured messages; future candidate records are data supplied to the gate, not SDK execution initiated by the gate. The repaired variant is a reviewed patch, not an upstream fixed release."
+        }
+      ],
+      "step_conclusions": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m pip install -e .",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python scripts/verify_sdk_upgrade.py --environment-dir outputs/sdk-environments --output evidence/ci-sdk-upgrade --prepare",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python scripts/verify_recording_gate.py --sdk-root outputs/sdk-environments/nvidia-1.4.3 --output evidence/ci-recording-gate",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 121400783213,
+      "name": "offline-evidence (3.13)",
+      "status": "completed",
+      "conclusion": "success",
+      "checkout_sha_verified": true,
+      "pytest_summaries": [
+        "377 passed, 1 warning in 9.35s"
+      ],
+      "recorded_result_blocks": [
+        {
+          "status": "PASS",
+          "created_at": "2026-10-26T04:38:32.909653+00:00",
+          "kind": "Executed boundary capture to standalone regression gate",
+          "sdk_execution_report": "sdk-execution/report.json",
+          "sdk_execution_report_sha256": "2f82674228914bd5a5088c444a0019e3730ac370aeaa8a124a47f19a869bd54b",
+          "real_sdk_classes": false,
+          "recordings": {
+            "baseline": {
+              "path": "baseline-recording.json",
+              "sha256": "9d2f28263953c48d7fdb77f4f0e976cf5f225e7335a273fb9b588bd080a52737",
+              "input_matches_executed_worker": true,
+              "output_matches_executed_worker": true
+            },
+            "candidate": {
+              "path": "candidate-recording.json",
+              "sha256": "816beb91d1bf432f6b1af118bc6b154c779a3ce715465afca987189440e52d61",
+              "input_matches_executed_worker": true,
+              "output_matches_executed_worker": true
+            }
+          },
+          "scenarios": [
+            {
+              "scenario": "observed-broken",
+              "expected_exit_code": 1,
+              "actual_exit_code": 1,
+              "reached_expected_contract_assertion": true,
+              "passed": true
+            },
+            {
+              "scenario": "reviewed-patch",
+              "expected_exit_code": 0,
+              "actual_exit_code": 0,
+              "reached_expected_contract_assertion": true,
+              "passed": true
+            },
+            {
+              "scenario": "corrupted-patch",
+              "expected_exit_code": 1,
+              "actual_exit_code": 1,
+              "reached_expected_contract_assertion": true,
+              "passed": true
+            }
+          ],
+          "provider_requests": 0,
+          "standalone_test_flags": [
+            "-I",
+            "-S"
+          ],
+          "scope": "Actual reviewed serializer execution and its captured messages; future candidate records are data supplied to the gate, not SDK execution initiated by the gate. The repaired variant is a reviewed patch, not an upstream fixed release."
+        }
+      ],
+      "step_conclusions": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m pip install -e . pytest==8.4.2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m pytest",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m patchcourt demo --output evidence/ci",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m unittest discover -s evidence/ci -p test_regression.py",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python scripts/verify_recording_gate.py --output evidence/ci-recording-gate",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m patchcourt benchmark --output evidence/ci-benchmark",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 121400783251,
+      "name": "offline-evidence (3.10)",
+      "status": "completed",
+      "conclusion": "success",
+      "checkout_sha_verified": true,
+      "pytest_summaries": [
+        "377 passed, 1 warning in 13.75s"
+      ],
+      "recorded_result_blocks": [
+        {
+          "status": "PASS",
+          "created_at": "2026-10-26T04:38:39.296301+00:00",
+          "kind": "Executed boundary capture to standalone regression gate",
+          "sdk_execution_report": "sdk-execution/report.json",
+          "sdk_execution_report_sha256": "670f7d1d4523ffeb11ab1711643ea72ea25b96fc030957cf229f262c4d987805",
+          "real_sdk_classes": false,
+          "recordings": {
+            "baseline": {
+              "path": "baseline-recording.json",
+              "sha256": "361fcd51083b144b8ca5ab74d71820f10a39f54c9acb2dbc65dd97eaa327dd43",
+              "input_matches_executed_worker": true,
+              "output_matches_executed_worker": true
+            },
+            "candidate": {
+              "path": "candidate-recording.json",
+              "sha256": "c50431655030a64124c9320fa753c4c7180156e6a4809cd5a873d5f340d227de",
+              "input_matches_executed_worker": true,
+              "output_matches_executed_worker": true
+            }
+          },
+          "scenarios": [
+            {
+              "scenario": "observed-broken",
+              "expected_exit_code": 1,
+              "actual_exit_code": 1,
+              "reached_expected_contract_assertion": true,
+              "passed": true
+            },
+            {
+              "scenario": "reviewed-patch",
+              "expected_exit_code": 0,
+              "actual_exit_code": 0,
+              "reached_expected_contract_assertion": true,
+              "passed": true
+            },
+            {
+              "scenario": "corrupted-patch",
+              "expected_exit_code": 1,
+              "actual_exit_code": 1,
+              "reached_expected_contract_assertion": true,
+              "passed": true
+            }
+          ],
+          "provider_requests": 0,
+          "standalone_test_flags": [
+            "-I",
+            "-S"
+          ],
+          "scope": "Actual reviewed serializer execution and its captured messages; future candidate records are data supplied to the gate, not SDK execution initiated by the gate. The repaired variant is a reviewed patch, not an upstream fixed release."
+        }
+      ],
+      "step_conclusions": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m pip install -e . pytest==8.4.2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m pytest",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m patchcourt demo --output evidence/ci",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m unittest discover -s evidence/ci -p test_regression.py",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python scripts/verify_recording_gate.py --output evidence/ci-recording-gate",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m patchcourt benchmark --output evidence/ci-benchmark",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "scope": "377 tests on each of two Python interpreters, not 754 independent tests; SDK scenarios and captured-data contract checks do not establish cloud inference."
+}
