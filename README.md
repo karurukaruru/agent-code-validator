@@ -1,27 +1,31 @@
 # PatchCourt — AI Agent Compatibility Guardian
 
-**0.4.0 local development:** [Controlled SDK upgrades](UPGRADE_RUN.md) now connect repository discovery to two real installed releases, with shared dependency pins, environment revalidation and captured boundaries. Equal broken releases cannot pass. Stream validation has also been hardened. See the [current development review](DEVELOPMENT_REVIEW_ZH.md) for executed evidence and outstanding competition gates. Earlier 0.3.1–0.3.2 evidence below remains historical; this local revision has not been published.
-
 **Catch silent AI agent regressions before they reach production.**
 
-An agent can execute its tools, then fail on the next request because an SDK adapter silently removed their identifiers. PatchCourt compares message semantics, reproduces failures, verifies scoped repairs, and exports evidence that developers can inspect.
+An agent can execute its tools, then fail on the next request because an SDK adapter silently removed their identifiers. PatchCourt detects the lost semantics, challenges a model-proposed repair, and verifies task recovery with independent controls.
 
-**Live development build; not submission-ready.** Version 0.3.1 has real GLM 5.3 Flash inference, a model-proposed bounded repair, eight independent checks and a real fixture-tool conversation recovering value 21. Failed attempts are preserved. A five-arm exploratory evaluation and 95-second narrated live demonstration have executed. NVIDIA/Nemotron inference was never run; further NVIDIA calls were stopped at the user's request. See [current evidence and limits](GLM_DEVELOPMENT.md) and the [original-prompt gap audit](REQUIREMENTS_GAP_AUDIT.md).
+**0.5.0 development — competition submission is still pending.** The new workflow supports exact DeepSeek Flash and NVIDIA Nemotron on Nebius, strict response/model validation, documentation retrieval, scoped repair reuse, and a persistent request budget. Real [DeepSeek development runs](evidence/development-050/README.md) passed eight checks, rejected a corrupted repair and recovered inventory value **21**. These runs do not establish Nebius/NVIDIA runtime use. The entrant has confirmed continuing this competition and will supply Nebius access; the earlier handoff's stop instruction is historical.
 
-[Download the build and live video](release/README.md) · [Inspect the live workbench](evidence/live-browser/desktop.png)
+[Judge instructions](JUDGE_TESTING.md) · [Submission checklist](SUBMISSION_CHECKLIST.md) · [SDK upgrade evidence](UPGRADE_RUN.md) · [Development review](DEVELOPMENT_REVIEW_ZH.md)
 
-## Live GLM development workflow
+## Run a model-proposed repair
 
-Set `GLM_API_KEY` locally, then run:
+Keep credentials in an ignored local env file, using `DEEPSEEK_API_KEY`, `TAVILY_API_KEY`, and, when available, `NEBIUS_API_KEY` / `NEBIUS_MODEL`. The parser loads only named variables; it never evaluates shell code. Do not publish this file.
 
 ```bash
-python -m patchcourt live --output outputs/a-new-run
-python -m patchcourt live-demo --port 8780
+python -m patchcourt --env-file .env.local live --provider deepseek --tavily --knowledge-dir outputs/repair-knowledge --output outputs/new-live-run
+python -m patchcourt --env-file .env.local live-demo --provider deepseek --tavily --knowledge-dir outputs/repair-knowledge --port 8780
 ```
 
-The model ID is locked to **`glm-5.3-flash`**, not FlashX, with no fallback. The live workflow executes declarative field mappings and fixed local inventory/price tools; it does not execute arbitrary model Python or establish Nebius/NVIDIA competition eligibility. Thirteen actual Chrome checks passed, including desktop/mobile layouts and request authorization. The 95-second video has English narration, burned-in English captions and a Chinese subtitle file. All attempts are in `evidence/glm-live`.
+DeepSeek is locked to the explicitly authorized `deepseek-flash`, with no provider fallback. For the competition, use `--provider nebius --model nvidia/<accessible-nemotron-model-id>` after checking the account's actual catalog. API errors and rejected proposals remain evidence. The verifier executes declarative field mappings and fixed local inventory/price tools; it does not execute arbitrary model Python.
 
-With `TAVILY_API_KEY` also configured, `python -m patchcourt benchmark --provider glm --output outputs/a-new-evaluation` runs the bounded five-arm development comparison (three model calls, one search). It freezes the corpus before inference, withholds labels, preserves errors and measures paired outcomes. This exploratory run found **no Tavily improvement**. See [evaluation scope and results](BENCHMARK.md).
+For release experiments, the wrapper reserves a shared budget **before** each HTTP attempt, including failures, and refuses to overwrite prior results:
+
+```bash
+python scripts/run_release_experiments.py live --provider deepseek --env-file .env.local --budget outputs/release-budget.json --tavily --knowledge-dir outputs/repair-knowledge --output outputs/release-live
+```
+
+Its default shared ledger permits 30 model attempts and 10 basic searches. Plain CLI commands do not use that ledger automatically. The [new evaluation](patchcourt/release_evaluation.py) freezes 12 developer-authored cases before inference and preserves all five paired arms; it is a small exploratory experiment, not an independent blind benchmark. Historical GLM runs and video remain in [GLM_DEVELOPMENT.md](GLM_DEVELOPMENT.md).
 
 ## Run the demonstration
 
@@ -88,7 +92,7 @@ The lab discovers models through `https://api.tokenfactory.nebius.com/v1`, sched
 
 The feedback command turns recorded HTTP trials into counts, uncertainty, concrete reproductions, developer impact, recommendations and acceptance tests. Mocked/blocked runs cannot produce platform findings. Expected invalid-model errors remain positive contract evidence, not false bug reports. Drafts require technical review and the actual Devpost field remains unverified.
 
-Nemotron is wired for source inspection, protocol hypotheses, declarative tests, explanations and repair proposals. Its cases are evaluated by deterministic contracts; model-generated Python and repairs never execute. Tavily retrieves allowlisted official documentation for a paired comparison. **Neither model contribution nor Tavily benefit is live verified. No platform defect is claimed.**
+Nemotron is wired for source inspection, protocol hypotheses, declarative tests, explanations and repair proposals. Its cases are evaluated by deterministic contracts; model-generated Python and repairs never execute. Tavily retrieves allowlisted official documentation for a paired comparison. **DeepSeek contribution is recorded in the development evidence. Actual Nebius/NVIDIA execution and any Tavily benefit remain unverified. No platform defect is claimed.**
 
 ## Test and package
 

@@ -1,6 +1,6 @@
-> 2026-10-25 更新：本地开发版 **0.4.0** 增加真实 SDK 双版本自动执行、环境完整性检查和流式协议加固。最新结果与未完成事项见 [本轮开发 review](DEVELOPMENT_REVIEW_ZH.md)。旧版本的 GLM 证据仍在 [GLM_DEVELOPMENT.md](GLM_DEVELOPMENT.md)，不能替代比赛指定平台的实测。
+> 2026-10-25 更新：本地开发版 **0.5.0** 接入 DeepSeek Flash / Nebius Nemotron、真实工具会话、严格模型身份检查、持久调用预算和可独立复验的修复回放。真实 DeepSeek 开发记录见 [evidence/development-050](evidence/development-050/README.md)。比赛指定的 Nebius 访问仍待补齐，因此尚未宣布可正式提交。最新结果与未完成事项见 [本轮开发 review](DEVELOPMENT_REVIEW_ZH.md)。旧版本的 GLM 证据仍在 [GLM_DEVELOPMENT.md](GLM_DEVELOPMENT.md)，不能替代比赛指定平台的实测。
 
-## PatchCourt 0.4.0 快速体验
+## PatchCourt 0.5.0 快速体验
 
 Windows 双击 `Start-PatchCourt.cmd`，会生成新的离线证据并打开本机演示。
 也可以直接运行：
@@ -22,6 +22,14 @@ python -m patchcourt upgrade-run ./my-agent --from-version 1.4.3 --to-version 1.
 `--prepare` 允许下载官方 wheel 并创建独立依赖目录；不传时只复验现有环境，不会联网安装。仓库扫描只读，不执行应用代码。当前只覆盖已审查的 NVIDIA SDK 1.4.3 与 1.5.0 的文本/工具消息序列化。
 
 默认样例中两个版本都会丢工具调用，因此返回 **NEEDS_REVIEW / exit 2**：这表示原版已有问题，需要检查，不能因为输出相同就宣布兼容。健康文本对照返回 PASS；固定修复另有独立验证。完整命令、范围和四场景验证见 [UPGRADE_RUN.md](UPGRADE_RUN.md)。
+
+运行已授权的 DeepSeek Flash：
+
+```powershell
+python -m patchcourt --env-file .env.local live-demo --provider deepseek --tavily --knowledge-dir outputs/repair-knowledge --port 8780
+```
+
+密钥仅保存在被忽略的本地文件。正式实验使用 `scripts/run_release_experiments.py` 的共享预算；失败调用也计入。评委回放无需密钥，明确标注为真实录制结果；不会触发新模型请求。参赛材料与剩余事项见 [SUBMISSION_CHECKLIST.md](SUBMISSION_CHECKLIST.md)。你已确认继续本场比赛，压缩包中旧交接文档的停止指令作为历史保留。
 
 下方保留原 ACV 功能说明。
 

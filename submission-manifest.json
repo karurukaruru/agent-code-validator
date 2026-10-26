@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "project": "PatchCourt — AI Agent Compatibility Guardian",
+  "track": "Coding and Agentic Engineering",
+  "source_commit": null,
+  "runtime_workflow": null,
+  "feedback_review": null,
+  "public_links": {
+    "source": {
+      "url": "https://github.com/karurukaruru/agent-code-validator/tree/patchcourt/award-build-20261024",
+      "verification": null
+    },
+    "demo": null,
+    "youtube": null
+  },
+  "video": null,
+  "development_video": {
+    "file": "release/patchcourt-glm-live-demo.mp4",
+    "manifest": "evidence/live-video/video-manifest.json",
+    "english_reviewed": true,
+    "competition_runtime_shown": false,
+    "spoken_platform_attribution": false
+  },
+  "form_review": null,
+  "note": "Null records are outstanding requirements. The existing video is genuine GLM development evidence and does not demonstrate required Nebius/NVIDIA runtime. No entry has been submitted."
+}

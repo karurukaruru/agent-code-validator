@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "reviewed_at": "2026-10-26T02:36:40.087731+00:00",
+  "method": "Direct visual inspection of one extracted frame for each of seven scenes, full ffmpeg decode, narration text review and volume analysis. No claim of human listening.",
+  "frames": {
+    "close.png": "b539b47fbbf76a4662df1b1a42462c9db1adf7a6d0ddb306a17c5f91d0854447",
+    "evidence.png": "cba1aac879d301de2daae0693e5f0203c7538746d409a474786b9992efb1d8f1",
+    "intro.png": "44fa07697751577d3b95f76386d39a581810ca0450028e5b108908d0cdd35507",
+    "limits.png": "12c07d641163e6d9544cb578d53420553766f6a430800575a88fbb0f0b36ddb1",
+    "repair.png": "e99c938e3312deba059db52a62fb90d19dc0c62b36c46680472b48ec4f40dad7",
+    "replay.png": "3dae1002ddb7ef7fea68317b11d9539e5b93b2c5ba40f717181028773d2fcacb",
+    "task.png": "7e162f9911d67aedff3e2c110f9644d7b4f39af2d76c8eb04a5a3987bbbfd869"
+  },
+  "checks": [
+    "Persistent Development / DeepSeek / Recorded Replay disclosure",
+    "English captions readable without covering the browser content",
+    "Fault, mapping, eight controls, corruption rejection and task value 21 visible",
+    "Requested and returned DeepSeek model identities readable",
+    "Development-provider platform limitation visible and narrated",
+    "No browser runtime error or nonlocal/mutating request during capture",
+    "137-second decoded 1600x900 video with an AAC English speech track"
+  ],
+  "audio_measurements": {
+    "mean_db": -20.6,
+    "peak_db": -1.8
+  },
+  "competition_runtime_shown": false,
+  "spoken_competition_platform_attribution": false,
+  "note": "This is a development sample. Nebius/NVIDIA competition evidence is still required."
+}

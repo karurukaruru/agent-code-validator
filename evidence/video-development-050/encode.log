@@ -1,0 +1,103 @@
+[Parsed_ass_9 @ 000001f29431cb80] libass API version: 0x1703000
+[Parsed_ass_9 @ 000001f29431cb80] libass source: commit: 0.17.3-32-g5298859c298d3c570d8d7e3b883a0d63490659b8
+[Parsed_ass_9 @ 000001f29431cb80] Shaper: FriBidi 1.0.16 (SIMPLE) HarfBuzz-ng 10.0.1 (COMPLEX)
+[Parsed_ass_9 @ 000001f29431cb80] Using font provider directwrite (with GDI)
+[Parsed_ass_9 @ 000001f29431cb80] Added subtitle file: 'captions.ass' (2 styles, 18 events)
+Input #0, image2, from 'frames/frame-%06d.jpg':
+  Duration: 00:02:17.00, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: mjpeg (Baseline), yuvj420p(pc, bt470bg/unknown/unknown), 1600x800 [SAR 1:1 DAR 2:1], 6 fps, 6 tbr, 6 tbn
+[aist#1:0/pcm_s16le @ 000001f2943158c0] Guessed Channel Layout: mono
+Input #1, wav, from 'intro.wav':
+  Duration: 00:00:14.07, bitrate: 352 kb/s
+  Stream #1:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 22050 Hz, mono, s16, 352 kb/s
+[aist#2:0/pcm_s16le @ 000001f294315a80] Guessed Channel Layout: mono
+Input #2, wav, from 'replay.wav':
+  Duration: 00:00:19.78, bitrate: 352 kb/s
+  Stream #2:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 22050 Hz, mono, s16, 352 kb/s
+[aist#3:0/pcm_s16le @ 000001f294372580] Guessed Channel Layout: mono
+Input #3, wav, from 'repair.wav':
+  Duration: 00:00:18.98, bitrate: 352 kb/s
+  Stream #3:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 22050 Hz, mono, s16, 352 kb/s
+[aist#4:0/pcm_s16le @ 000001f294371cc0] Guessed Channel Layout: mono
+Input #4, wav, from 'task.wav':
+  Duration: 00:00:17.93, bitrate: 352 kb/s
+  Stream #4:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 22050 Hz, mono, s16, 352 kb/s
+[aist#5:0/pcm_s16le @ 000001f29436e480] Guessed Channel Layout: mono
+Input #5, wav, from 'evidence.wav':
+  Duration: 00:00:22.78, bitrate: 352 kb/s
+  Stream #5:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 22050 Hz, mono, s16, 352 kb/s
+[aist#6:0/pcm_s16le @ 000001f2943599c0] Guessed Channel Layout: mono
+Input #6, wav, from 'limits.wav':
+  Duration: 00:00:21.59, bitrate: 352 kb/s
+  Stream #6:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 22050 Hz, mono, s16, 352 kb/s
+[aist#7:0/pcm_s16le @ 000001f294358600] Guessed Channel Layout: mono
+Input #7, wav, from 'close.wav':
+  Duration: 00:00:14.08, bitrate: 352 kb/s
+  Stream #7:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 22050 Hz, mono, s16, 352 kb/s
+Stream mapping:
+  Stream #0:0 (mjpeg) -> pad:default
+  Stream #1:0 (pcm_s16le) -> adelay:default
+  Stream #2:0 (pcm_s16le) -> adelay:default
+  Stream #3:0 (pcm_s16le) -> adelay:default
+  Stream #4:0 (pcm_s16le) -> adelay:default
+  Stream #5:0 (pcm_s16le) -> adelay:default
+  Stream #6:0 (pcm_s16le) -> adelay:default
+  Stream #7:0 (pcm_s16le) -> adelay:default
+  fps:default -> Stream #0:0 (libx264)
+  amix:default -> Stream #0:1 (aac)
+Press [q] to stop, [?] for help
+[Parsed_ass_9 @ 000001f294cf1980] libass API version: 0x1703000
+[Parsed_ass_9 @ 000001f294cf1980] libass source: commit: 0.17.3-32-g5298859c298d3c570d8d7e3b883a0d63490659b8
+[Parsed_ass_9 @ 000001f294cf1980] Shaper: FriBidi 1.0.16 (SIMPLE) HarfBuzz-ng 10.0.1 (COMPLEX)
+[Parsed_ass_9 @ 000001f294cf1980] Using font provider directwrite (with GDI)
+[Parsed_ass_9 @ 000001f294cf1980] Added subtitle file: 'captions.ass' (2 styles, 18 events)
+[swscaler @ 000001f29541c900] deprecated pixel format used, make sure you did set range correctly
+[Parsed_ass_9 @ 000001f294cf1980] fontselect: (Arial, 400, 0) -> ArialMT, 0, ArialMT
+[libx264 @ 000001f294ca2000] using SAR=1/1
+[libx264 @ 000001f294ca2000] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+[libx264 @ 000001f294ca2000] profile High, level 4.0, 4:2:0, 8-bit
+[libx264 @ 000001f294ca2000] 264 - core 164 r3192 c24e06c - H.264/MPEG-4 AVC codec - Copyleft 2003-2024 - http://www.videolan.org/x264.html - options: cabac=1 ref=2 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=6 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=21 lookahead_threads=3 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=1 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=30 rc=crf mbtree=1 crf=19.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+Output #0, mp4, to 'patchcourt-development-replay.mp4':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(pc, bt470bg/unknown/unknown, progressive), 1600x900 [SAR 1:1 DAR 16:9], q=2-31, 30 fps, 15360 tbn
+      Metadata:
+        encoder         : Lavc61.19.100 libx264
+      Side data:
+        ICC Profile
+        cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+  Stream #0:1: Audio: aac (LC) (mp4a / 0x6134706D), 22050 Hz, mono, fltp, 128 kb/s
+      Metadata:
+        encoder         : Lavc61.19.100 aac
+frame=  250 fps=0.0 q=25.0 size=       0KiB time=00:00:08.26 bitrate=   0.0kbits/s speed=  16x    
+frame=  673 fps=649 q=25.0 size=     512KiB time=00:00:22.36 bitrate= 187.5kbits/s speed=21.6x    
+frame= 1093 fps=701 q=25.0 size=    1024KiB time=00:00:36.36 bitrate= 230.7kbits/s speed=23.3x    
+frame= 1515 fps=734 q=25.0 size=    1280KiB time=00:00:50.43 bitrate= 207.9kbits/s speed=24.4x    
+frame= 1935 fps=748 q=25.0 size=    1536KiB time=00:01:04.43 bitrate= 195.3kbits/s speed=24.9x    
+frame= 2354 fps=758 q=25.0 size=    2048KiB time=00:01:18.40 bitrate= 214.0kbits/s speed=25.2x    
+frame= 2778 fps=769 q=25.0 size=    2304KiB time=00:01:32.53 bitrate= 204.0kbits/s speed=25.6x    
+frame= 3217 fps=778 q=25.0 size=    2560KiB time=00:01:47.16 bitrate= 195.7kbits/s speed=25.9x    
+frame= 3660 fps=789 q=25.0 size=    3072KiB time=00:02:01.93 bitrate= 206.4kbits/s speed=26.3x    
+frame= 4034 fps=782 q=25.0 size=    3328KiB time=00:02:14.40 bitrate= 202.9kbits/s speed=  26x    
+[mp4 @ 000001f294b62000] Starting second pass: moving the moov atom to the beginning of the file
+[out#0/mp4 @ 000001f2943587c0] video:2281KiB audio:1247KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 3.156336%
+frame= 4110 fps=787 q=-1.0 Lsize=    3639KiB time=00:02:16.08 bitrate= 219.1kbits/s speed=26.1x    
+[libx264 @ 000001f294ca2000] frame I:19    Avg QP: 8.43  size:100896
+[libx264 @ 000001f294ca2000] frame P:1035  Avg QP:16.31  size:   243
+[libx264 @ 000001f294ca2000] frame B:3056  Avg QP: 9.72  size:    54
+[libx264 @ 000001f294ca2000] consecutive B-frames:  0.8%  0.0%  0.3% 98.9%
+[libx264 @ 000001f294ca2000] mb I  I16..4: 72.3% 11.7% 15.9%
+[libx264 @ 000001f294ca2000] mb P  I16..4:  0.0%  0.1%  0.0%  P16..4:  0.2%  0.0%  0.0%  0.0%  0.0%    skip:99.6%
+[libx264 @ 000001f294ca2000] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  0.0%  0.0%  0.0%  direct: 0.0%  skip:100.0%  L0:51.1% L1:48.9% BI: 0.0%
+[libx264 @ 000001f294ca2000] 8x8 transform intra:14.8% inter:7.7%
+[libx264 @ 000001f294ca2000] coded y,uvDC,uvAC intra: 11.0% 17.2% 15.4% inter: 0.0% 0.1% 0.0%
+[libx264 @ 000001f294ca2000] i16 v,h,dc,p: 75% 24%  1%  0%
+[libx264 @ 000001f294ca2000] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 45% 12% 42%  0%  0%  0%  0%  0%  0%
+[libx264 @ 000001f294ca2000] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 29% 27% 18%  3%  4%  4%  6%  3%  6%
+[libx264 @ 000001f294ca2000] i8c dc,h,v,p: 69% 23%  8%  1%
+[libx264 @ 000001f294ca2000] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 000001f294ca2000] ref P L0: 95.2%  4.8%
+[libx264 @ 000001f294ca2000] ref B L0: 67.9% 32.1%
+[libx264 @ 000001f294ca2000] ref B L1: 92.6%  7.4%
+[libx264 @ 000001f294ca2000] kb/s:136.34
+[aac @ 000001f294ca4300] Qavg: 65478.305

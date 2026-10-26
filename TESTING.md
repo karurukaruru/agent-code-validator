@@ -1,3 +1,29 @@
+# Testing and verification — 0.5.0
+
+Local full suite: **333 passed, 4 skipped** on CPython 3.12.13 / pytest 8.4.2,
+recorded in `evidence/tests/pytest-050.txt`. The four skips require Windows
+symlink privileges. The initial run had two legacy local HTTP integration tests
+fail with proxy HTTP 502; bypassing the system proxy for localhost with
+`NO_PROXY=127.0.0.1,localhost,::1` made both pass, and the full recorded run uses
+that environment setting. This does not bypass or mock a real model service.
+
+The current installed SDK matrix is **4/4 expected outcomes** at
+`evidence/upgrade-run-050/real-sdk/matrix.json`, with zero provider requests.
+Wheel isolation passed in `evidence/tests/wheel-verification-050.json`.
+The judge export passed **22 Chrome checks** at desktop and mobile widths in
+`evidence/judge-browser-050`; replay performs no inference requests. English
+137-second development-video decode/visual evidence is in
+`evidence/video-development-050`.
+
+New synthetic tests cover exact model identity, assistant/finish/refusal checks,
+reasoning metadata isolation, persisted failures, shared cross-process budgets,
+scoped plan reuse, fixed evaluation arms, and false-positive submission gates.
+Real DeepSeek HTTP records are separately frozen under `evidence/development-050`.
+NVIDIA/Nebius model inference remains pending access. New remote CI has not yet
+been recorded at this local checkpoint.
+
+## Historical verification
+
 # Testing and verification — 0.4.0
 
 Current local suite: **222 passed, 4 skipped**, CPython 3.12.13 / pytest 8.4.2.

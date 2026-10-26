@@ -1,0 +1,87 @@
+{
+  "status": "PASS",
+  "checks": [
+    "Installed browser available",
+    "Landing desktop has no horizontal overflow",
+    "Landing discloses recorded evidence",
+    "Exported link works: repair.html",
+    "Exported link works: sdk-upgrade.html",
+    "Exported link works: evidence/live/report.json",
+    "Replay identifies recording and provider",
+    "No recovered value before playback",
+    "Recovered task value comes from saved execution",
+    "Independent controls displayed",
+    "Corrupted repair rejection displayed",
+    "Replay desktop has no overflow",
+    "Repair pane contains eight actual controls",
+    "Requested and returned model identity visible",
+    "Second replay clears all prior success indicators",
+    "Replay mobile has no horizontal overflow",
+    "Landing mobile has no horizontal overflow",
+    "SDK inspector desktop has no horizontal overflow",
+    "No browser JavaScript exceptions",
+    "Playback made no mutating request",
+    "Static playback made no inference-service requests"
+  ],
+  "errors": [],
+  "package_manifest": {
+    "version": "0.4.0",
+    "live_run_id": "46794d2a4a7b4e2e8ba23b98a284cee0",
+    "provider": "deepseek",
+    "model": "deepseek-flash",
+    "files": {
+      "index.html": "9d6e819d86c1ea8f0bbf0593f0c1c8155c57ad2ed58bec8324d2dfd2f357c9fc",
+      "LICENSE": "d81391386dd9f0e453c7b42a129a6a2646e699c797ce3e3d38d7a6dc8271fe8e",
+      "manifest.json": "1e48e92850d1658c51aec4b363725eaa80c978434fdb2c525e951a7e44b14b94",
+      "repair.html": "08b521da6bb6e7cc86edb2661c5918dd2578a3280e2436f6ad2459bd3b77182d",
+      "report.json": "c452e4be92d870ebc0ce69559f2db915dddfa18de5e322d908b145b3a0b8a1a6",
+      "sdk-upgrade.html": "6a9a0e470ef1e4a3e8769f21bafe30515aef261590ecb6104823f0bce568add3",
+      "START-HERE.txt": "157cd591190f302d0df50ddf93b0ad8346578c49f6cff608b091a0df2bc66ef7",
+      "evidence/live/manifest.json": "dc5a84978d93ec401c945893dd918224298a5e44becc3e6034edb83dc2b9c3dd",
+      "evidence/live/repair-proposal-1.json": "3bf1cd509a734875084acc49ee97a1894ac72db4d4b047c6a82773875d8f77e2",
+      "evidence/live/report.json": "d8da53a4596e81b696778ed7ee35666198976a3d3b581920561571f83e0b23b4",
+      "evidence/live/task-turn-1.json": "1e4cced7a847c218d3bd278d63e9a2faae243e3ffe4bf2741a26810c309dfd17",
+      "evidence/live/task-turn-2.json": "744f70240670c8efe780c853bc78d3fa9ce41b18c6651774b74365c194d1029c"
+    },
+    "replay_only": true,
+    "new_provider_requests": 0
+  },
+  "requests": [
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/repair.html"
+    },
+    {
+      "method": "GET",
+      "url": "/sdk-upgrade.html"
+    },
+    {
+      "method": "GET",
+      "url": "/evidence/live/report.json"
+    },
+    {
+      "method": "GET",
+      "url": "/repair.html"
+    },
+    {
+      "method": "GET",
+      "url": "/favicon.ico"
+    },
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/sdk-upgrade.html"
+    },
+    {
+      "method": "GET",
+      "url": "/report.json"
+    }
+  ]
+}

@@ -1,0 +1,945 @@
+{
+  "run_id": "46794d2a4a7b4e2e8ba23b98a284cee0",
+  "kind": "live provider adapter repair and fixture task",
+  "status": "PASS",
+  "model": "deepseek-flash",
+  "provider": "deepseek",
+  "created_at": "2026-10-25T13:30:00.628061+00:00",
+  "events": [
+    {
+      "time": "2026-10-25T13:30:00.636458+00:00",
+      "stage": "detect",
+      "status": "FAIL",
+      "message": "Two tool calls disappear in the historical adapter; tool results become orphaned.",
+      "findings": [
+        {
+          "code": "ORPHAN_RESULT",
+          "path": "/1/tool_call_id",
+          "message": "Tool result lacks an earlier unmatched call"
+        },
+        {
+          "code": "ORPHAN_RESULT",
+          "path": "/2/tool_call_id",
+          "message": "Tool result lacks an earlier unmatched call"
+        },
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/tool_calls/0",
+          "expected": {
+            "id": "call_a",
+            "name": "inventory",
+            "args": {
+              "sku": "A",
+              "options": {
+                "warehouse": 2
+              }
+            }
+          },
+          "actual": null,
+          "message": "Observable message semantics changed"
+        },
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/tool_calls/1",
+          "expected": {
+            "id": "call_b",
+            "name": "price",
+            "args": {
+              "sku": "A"
+            }
+          },
+          "actual": null,
+          "message": "Observable message semantics changed"
+        }
+      ]
+    },
+    {
+      "time": "2026-10-25T13:30:00.638448+00:00",
+      "stage": "knowledge",
+      "status": "MISS",
+      "message": "No repair matches this exact source, environment and verifier."
+    },
+    {
+      "time": "2026-10-25T13:30:03.920832+00:00",
+      "stage": "retrieve",
+      "status": "PASS",
+      "message": "Official documentation was retrieved for the bounded repair proposal.",
+      "urls": [
+        "https://docs.langchain.com/oss/javascript/langchain/tools",
+        "https://reference.langchain.com/python/langchain-core/messages/utils/convert_to_openai_messages",
+        "https://docs.langchain.com/oss/python/integrations/chat/openai"
+      ]
+    },
+    {
+      "time": "2026-10-25T13:30:03.920832+00:00",
+      "stage": "propose",
+      "status": "RUNNING",
+      "message": "deepseek-flash is inspecting the original adapter and proposing a bounded mapping repair."
+    },
+    {
+      "time": "2026-10-25T13:30:05.129993+00:00",
+      "stage": "propose",
+      "status": "PASS",
+      "message": "The model returned a declarative repair. It has not yet earned verification.",
+      "plan": {
+        "source": "tool_calls",
+        "id_field": "id",
+        "name_field": "name",
+        "arguments_field": "args",
+        "arguments_encoding": "json",
+        "preserve_legacy": true,
+        "empty_content": "null"
+      },
+      "attempt": 1
+    },
+    {
+      "time": "2026-10-25T13:30:05.147485+00:00",
+      "stage": "verify",
+      "status": "VERIFIED",
+      "message": "Independent checks: 8/8 passed.",
+      "checks": [
+        {
+          "name": "two_calls",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "plain_text",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "system_text",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "nested_unicode",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "empty_arguments",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "boolean_not_integer",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "empty_tool_result",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "legacy_calls",
+          "status": "PASS"
+        }
+      ],
+      "attempt": 1
+    },
+    {
+      "time": "2026-10-25T13:30:05.155248+00:00",
+      "stage": "mutation",
+      "status": "PASS",
+      "message": "A deliberately corrupted repair was rejected by the same verifier."
+    },
+    {
+      "time": "2026-10-25T13:30:05.155248+00:00",
+      "stage": "task",
+      "status": "RUNNING",
+      "message": "Starting a real deepseek tool conversation with local inventory and price fixtures."
+    },
+    {
+      "time": "2026-10-25T13:30:06.479890+00:00",
+      "stage": "tools",
+      "status": "PASS",
+      "message": "Actual model tool calls survived the repaired adapter; original adapter failed locally.",
+      "tools": [
+        "inventory",
+        "price"
+      ],
+      "before": "FAIL",
+      "after": "PASS"
+    },
+    {
+      "time": "2026-10-25T13:30:07.847917+00:00",
+      "stage": "task",
+      "status": "PASS",
+      "message": "The real model conversation recovered the expected inventory value: 21.",
+      "answer": {
+        "sku": "A",
+        "inventory_value": 21
+      }
+    },
+    {
+      "time": "2026-10-25T13:30:07.854362+00:00",
+      "stage": "knowledge",
+      "status": "PASS",
+      "message": "Saved the verified mapping for a future exact-match run."
+    },
+    {
+      "time": "2026-10-25T13:30:07.860625+00:00",
+      "stage": "complete",
+      "status": "PASS",
+      "message": "Workflow finished; every request and failed candidate remains recorded."
+    }
+  ],
+  "requests": [
+    {
+      "name": "repair-proposal-1",
+      "status": "PASS",
+      "reserved": 17954,
+      "requested_model": "deepseek-flash",
+      "returned_model": "deepseek-flash",
+      "http_status": 200,
+      "latency_ms": 1187.0,
+      "usage": {
+        "prompt_tokens": 3398,
+        "completion_tokens": 41,
+        "total_tokens": 3439,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 3398
+      },
+      "evidence_file": "repair-proposal-1.json",
+      "evidence_sha256": "ae247add65084db58a1d70efeb4f3da4b3b34c1cff7b06a4b30e964fbb038e5e",
+      "policy": "exact requested model or explicitly verified official DeepSeek version alias"
+    },
+    {
+      "name": "task-turn-1",
+      "status": "PASS",
+      "reserved": 3566,
+      "requested_model": "deepseek-flash",
+      "returned_model": "deepseek-flash",
+      "http_status": 200,
+      "latency_ms": 1281.0,
+      "usage": {
+        "prompt_tokens": 391,
+        "completion_tokens": 64,
+        "total_tokens": 455,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 391
+      },
+      "evidence_file": "task-turn-1.json",
+      "evidence_sha256": "86daddbb53656358b63c350410ba917e149fafc699e8e8ef3bbf5ee082cf5a7f",
+      "policy": "exact requested model or explicitly verified official DeepSeek version alias"
+    },
+    {
+      "name": "task-turn-2",
+      "status": "PASS",
+      "reserved": 3610,
+      "requested_model": "deepseek-flash",
+      "returned_model": "deepseek-flash",
+      "http_status": 200,
+      "latency_ms": 1328.0,
+      "usage": {
+        "prompt_tokens": 186,
+        "completion_tokens": 14,
+        "total_tokens": 200,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 186
+      },
+      "evidence_file": "task-turn-2.json",
+      "evidence_sha256": "bad5595511746fe4dcadb56d4f0e12693065e4b0c522eba10ad7f8f67fafdc94",
+      "policy": "exact requested model or explicitly verified official DeepSeek version alias"
+    }
+  ],
+  "reserved_token_upper_estimate": 25130,
+  "limits": {
+    "max_requests": 8,
+    "input_bytes_plus_output_budget": 200000,
+    "automatic_retries": 0,
+    "model_discovery_requests": 0,
+    "search_requests": 1,
+    "max_output_tokens_per_request": 4096
+  },
+  "competition_eligibility": "Does not establish required Nebius/NVIDIA runtime use",
+  "scope": "Actual deepseek HTTP inference and local fixture tools; adapter executes audited source with inert SDK message types; model repair is data, never arbitrary Python",
+  "repair_source": "model_proposal",
+  "knowledge": {
+    "enabled": true,
+    "hit": false,
+    "revalidated": false,
+    "saved": true,
+    "record_id": "46413a23eca8ada9b316795faa9438f0755f46a53ff3be8e5f6cf6721e4085a7",
+    "scope": "Exact matching prior plan only; all independent checks, mutation and task rerun. No measured token-savings claim."
+  },
+  "before": {
+    "baseline": [
+      {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "id": "call_a",
+            "type": "function",
+            "function": {
+              "name": "inventory",
+              "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+            }
+          },
+          {
+            "id": "call_b",
+            "type": "function",
+            "function": {
+              "name": "price",
+              "arguments": "{\"sku\":\"A\"}"
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_a",
+        "content": "{\"quantity\":3}"
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_b",
+        "content": "{\"price\":7}"
+      }
+    ],
+    "candidate": [
+      {
+        "role": "assistant",
+        "content": ""
+      },
+      {
+        "role": "tool",
+        "content": "{\"quantity\":3}",
+        "tool_call_id": "call_a"
+      },
+      {
+        "role": "tool",
+        "content": "{\"price\":7}",
+        "tool_call_id": "call_b"
+      }
+    ],
+    "verdict": {
+      "status": "FAIL",
+      "findings": [
+        {
+          "code": "ORPHAN_RESULT",
+          "path": "/1/tool_call_id",
+          "message": "Tool result lacks an earlier unmatched call"
+        },
+        {
+          "code": "ORPHAN_RESULT",
+          "path": "/2/tool_call_id",
+          "message": "Tool result lacks an earlier unmatched call"
+        },
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/tool_calls/0",
+          "expected": {
+            "id": "call_a",
+            "name": "inventory",
+            "args": {
+              "sku": "A",
+              "options": {
+                "warehouse": 2
+              }
+            }
+          },
+          "actual": null,
+          "message": "Observable message semantics changed"
+        },
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/tool_calls/1",
+          "expected": {
+            "id": "call_b",
+            "name": "price",
+            "args": {
+              "sku": "A"
+            }
+          },
+          "actual": null,
+          "message": "Observable message semantics changed"
+        }
+      ]
+    }
+  },
+  "retrieval": {
+    "provider": "tavily",
+    "endpoint": "https://api.tavily.com/search",
+    "timestamp": "2026-10-25T13:30:00.642272+00:00",
+    "provenance": "live HTTP attempt",
+    "status": "PASS",
+    "http_status": 200,
+    "latency_ms": 3281.0,
+    "usage": {
+      "credits": 1
+    },
+    "cost_usd": null,
+    "cost_note": "Unknown; no pricing assumption or zero-cost claim",
+    "parameters": {
+      "query": "LangChain AIMessage tool_calls tool_call_id ToolMessage conversion function arguments",
+      "include_domains": [
+        "docs.python.org",
+        "docs.langchain.com",
+        "reference.langchain.com",
+        "docs.nvidia.com",
+        "api-docs.deepseek.com",
+        "docs.crewai.com"
+      ],
+      "max_results": 3,
+      "search_depth": "basic",
+      "include_answer": false,
+      "include_raw_content": false,
+      "include_usage": true
+    },
+    "request_id": null,
+    "raw_response": "{\"query\":\"LangChain AIMessage tool_calls tool_call_id ToolMessage conversion function arguments\",\"follow_up_questions\":null,\"answer\":null,\"images\":[],\"results\":[{\"url\":\"https://docs.langchain.com/oss/javascript/langchain/tools\",\"title\":\"Tools - Docs by LangChain\",\"content\":\"Return a `Command` when the tool needs to update graph state (for example, setting user preferences or app state). When the `Command` targets the current graph, include a `ToolMessage` in the update whose tool call ID matches the current tool call. Every tool call in the message history must have a corresponding `ToolMessage`. Use `runtime.toolCallId` for the `tool_call_id` parameter.\",\"score\":0.7646988,\"raw_content\":null,\"id\":\"c13484-00\"},{\"url\":\"https://reference.langchain.com/python/langchain-core/messages/utils/convert_to_openai_messages\",\"title\":\"convert_to_openai_messages | langchain_core | LangChain Reference\",\"content\":\"this\\\"}, { { \\\"type\\\": \\\"image_url\\\",  \\\"type\\\": \\\"image_url\\\", \\\"image_url\\\": {\\\"url\\\": \\\"data:image/png;base64,'/9j/4AAQSk'\\\"},  \\\"image_url\\\": {\\\"url\\\": \\\"data:image/png;base64,'/9j/4AAQSk'\\\"}, }, }, ], ], }, }, AIMessage( AIMessage( \\\"\\\",  \\\"\\\", tool_calls=[ tool_calls =[ { { \\\"name\\\": \\\"analyze\\\",  \\\"name\\\": \\\"analyze\\\", \\\"args\\\": {\\\"baz\\\": \\\"buz\\\"},  \\\"args\\\": {\\\"baz\\\": \\\"buz\\\"}, \\\"id\\\": \\\"1\\\",  \\\"id\\\": \\\"1\\\", \\\"type\\\": \\\"tool_call\\\",  \\\"type\\\": \\\"tool_call\\\", } } ], ], ), ), ToolMessage(\\\"foobar\\\", tool_call_id=\\\"1\\\", name=\\\"bar\\\"), [...] name=\\\"bar\\\"), ToolMessage(\\\"foobar\\\", tool_call_id = \\\"1\\\", name = \\\"bar\\\"), {\\\"role\\\": \\\"assistant\\\", \\\"content\\\": \\\"that's nice\\\"}, {\\\"role\\\": \\\"assistant\\\", \\\"content\\\": \\\"that's nice\\\"},]]oai_messages = convert_to_openai_messages(messages) oai_messages = convert_to_openai_messages(messages)# -> [# -> [# {'role': 'system', 'content': 'foo'},# {'role': 'system', 'content': 'foo'},# {'role': 'user', 'content': [{'type': 'text', 'text': 'what's in this'}, {'type': 'image_url', 'image_url': {'url': [...] {'url': \\\"data:image/png;base64,'/9j/4AAQSk'\\\"}}]},# {'role': 'user', 'content': [{'type': 'text', 'text': 'what's in this'}, {'type': 'image_url', 'image_url': {'url': \\\"data:image/png;base64,'/9j/4AAQSk'\\\"}}]},# {'role': 'assistant', 'tool_calls': [{'type': 'function', 'id': '1','function': {'name': 'analyze', 'arguments': '{\\\"baz\\\": \\\"buz\\\"}'}}], 'content': ''},# {'role': 'assistant', 'tool_calls': [{'type': 'function', 'id': '1','function': {'name': 'analyze', 'arguments': '{\\\"baz\\\": \\\"buz\\\"}'}}],\",\"score\":0.7621591,\"raw_content\":null,\"id\":\"45dad5-01\"},{\"url\":\"https://docs.langchain.com/oss/python/integrations/chat/openai\",\"title\":\"ChatOpenAI integration - Docs by LangChain\",\"content\":\"AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'function': {'arguments': '{\\\"location\\\":\\\"San Francisco, CA\\\"}', 'name': 'GetWeather'}, 'type': 'function'}], 'refusal': None}, response_metadata={'token_usage': {'completion_tokens': 17, 'prompt_tokens': 68, 'total_tokens': 85}, 'model_name': 'gpt-4o-2024-05-13', 'system_fingerprint': 'fp_3aa7262c27', 'finish_reason': 'tool_calls', 'logprobs': None}, id='run-5e3356a9-132d-4623-8e73-dd5a898cf4a6-0', [...] tool_calls=[{'name': 'GetWeather', 'args': {'location': 'San Francisco, CA'}, 'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'type': 'tool_call'}], usage_metadata={'input_tokens': 68, 'output_tokens': 17, 'total_tokens': 85})AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'function': {'arguments': '{\\\"location\\\":\\\"San Francisco, CA\\\"}', 'name': 'GetWeather'}, 'type': 'function'}], 'refusal': None}, response_metadata={'token_usage': {'completion_tokens': 17, [...] from langchain.messages import ToolMessage from  langchain. messages import  ToolMessage tool_call_id = next(tool_call_id =  next( item[\\\"call_id\\\"] for item in response.content if item[\\\"type\\\"] == \\\"computer_call\\\"  item[\\\" call_id \\\"]  for  item in  response. content if  item[\\\" type \\\"] ==  \\\"computer_call\\\")) tool_message = ToolMessage(tool_message =  ToolMessage( content=[ content =[ { { \\\"type\\\": \\\"input_image\\\",  \\\"type\\\":  \\\"input_image\\\", \\\"image_url\\\": f\\\"data:image/png;base64,{screenshot_2_base64}\\\",\",\"score\":0.71995544,\"raw_content\":null,\"id\":\"aec367-02\"}],\"response_time\":1.84,\"usage\":{\"credits\":1},\"request_id\":\"10cf6698-16e2-4eec-b177-a6b982c738c9\"}",
+    "response": {
+      "query": "LangChain AIMessage tool_calls tool_call_id ToolMessage conversion function arguments",
+      "follow_up_questions": null,
+      "answer": null,
+      "images": [],
+      "results": [
+        {
+          "url": "https://docs.langchain.com/oss/javascript/langchain/tools",
+          "title": "Tools - Docs by LangChain",
+          "content": "Return a `Command` when the tool needs to update graph state (for example, setting user preferences or app state). When the `Command` targets the current graph, include a `ToolMessage` in the update whose tool call ID matches the current tool call. Every tool call in the message history must have a corresponding `ToolMessage`. Use `runtime.toolCallId` for the `tool_call_id` parameter.",
+          "score": 0.7646988,
+          "raw_content": null,
+          "id": "c13484-00"
+        },
+        {
+          "url": "https://reference.langchain.com/python/langchain-core/messages/utils/convert_to_openai_messages",
+          "title": "convert_to_openai_messages | langchain_core | LangChain Reference",
+          "content": "this\"}, { { \"type\": \"image_url\",  \"type\": \"image_url\", \"image_url\": {\"url\": \"data:image/png;base64,'/9j/4AAQSk'\"},  \"image_url\": {\"url\": \"data:image/png;base64,'/9j/4AAQSk'\"}, }, }, ], ], }, }, AIMessage( AIMessage( \"\",  \"\", tool_calls=[ tool_calls =[ { { \"name\": \"analyze\",  \"name\": \"analyze\", \"args\": {\"baz\": \"buz\"},  \"args\": {\"baz\": \"buz\"}, \"id\": \"1\",  \"id\": \"1\", \"type\": \"tool_call\",  \"type\": \"tool_call\", } } ], ], ), ), ToolMessage(\"foobar\", tool_call_id=\"1\", name=\"bar\"), [...] name=\"bar\"), ToolMessage(\"foobar\", tool_call_id = \"1\", name = \"bar\"), {\"role\": \"assistant\", \"content\": \"that's nice\"}, {\"role\": \"assistant\", \"content\": \"that's nice\"},]]oai_messages = convert_to_openai_messages(messages) oai_messages = convert_to_openai_messages(messages)# -> [# -> [# {'role': 'system', 'content': 'foo'},# {'role': 'system', 'content': 'foo'},# {'role': 'user', 'content': [{'type': 'text', 'text': 'what's in this'}, {'type': 'image_url', 'image_url': {'url': [...] {'url': \"data:image/png;base64,'/9j/4AAQSk'\"}}]},# {'role': 'user', 'content': [{'type': 'text', 'text': 'what's in this'}, {'type': 'image_url', 'image_url': {'url': \"data:image/png;base64,'/9j/4AAQSk'\"}}]},# {'role': 'assistant', 'tool_calls': [{'type': 'function', 'id': '1','function': {'name': 'analyze', 'arguments': '{\"baz\": \"buz\"}'}}], 'content': ''},# {'role': 'assistant', 'tool_calls': [{'type': 'function', 'id': '1','function': {'name': 'analyze', 'arguments': '{\"baz\": \"buz\"}'}}],",
+          "score": 0.7621591,
+          "raw_content": null,
+          "id": "45dad5-01"
+        },
+        {
+          "url": "https://docs.langchain.com/oss/python/integrations/chat/openai",
+          "title": "ChatOpenAI integration - Docs by LangChain",
+          "content": "AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'function': {'arguments': '{\"location\":\"San Francisco, CA\"}', 'name': 'GetWeather'}, 'type': 'function'}], 'refusal': None}, response_metadata={'token_usage': {'completion_tokens': 17, 'prompt_tokens': 68, 'total_tokens': 85}, 'model_name': 'gpt-4o-2024-05-13', 'system_fingerprint': 'fp_3aa7262c27', 'finish_reason': 'tool_calls', 'logprobs': None}, id='run-5e3356a9-132d-4623-8e73-dd5a898cf4a6-0', [...] tool_calls=[{'name': 'GetWeather', 'args': {'location': 'San Francisco, CA'}, 'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'type': 'tool_call'}], usage_metadata={'input_tokens': 68, 'output_tokens': 17, 'total_tokens': 85})AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'function': {'arguments': '{\"location\":\"San Francisco, CA\"}', 'name': 'GetWeather'}, 'type': 'function'}], 'refusal': None}, response_metadata={'token_usage': {'completion_tokens': 17, [...] from langchain.messages import ToolMessage from  langchain. messages import  ToolMessage tool_call_id = next(tool_call_id =  next( item[\"call_id\"] for item in response.content if item[\"type\"] == \"computer_call\"  item[\" call_id \"]  for  item in  response. content if  item[\" type \"] ==  \"computer_call\")) tool_message = ToolMessage(tool_message =  ToolMessage( content=[ content =[ { { \"type\": \"input_image\",  \"type\":  \"input_image\", \"image_url\": f\"data:image/png;base64,{screenshot_2_base64}\",",
+          "score": 0.71995544,
+          "raw_content": null,
+          "id": "aec367-02"
+        }
+      ],
+      "response_time": 1.84,
+      "usage": {
+        "credits": 1
+      },
+      "request_id": "10cf6698-16e2-4eec-b177-a6b982c738c9"
+    },
+    "search_contract": {
+      "search_depth": "basic",
+      "search_credits_per_request": 1,
+      "automatic_retries": 0,
+      "allowed_domains": [
+        "docs.python.org",
+        "docs.langchain.com",
+        "reference.langchain.com",
+        "docs.nvidia.com",
+        "api-docs.deepseek.com",
+        "docs.crewai.com"
+      ],
+      "max_results": 3,
+      "max_snippet_characters": 4000
+    },
+    "documents": [
+      {
+        "url": "https://docs.langchain.com/oss/javascript/langchain/tools",
+        "title": "Tools - Docs by LangChain",
+        "content": "Return a `Command` when the tool needs to update graph state (for example, setting user preferences or app state). When the `Command` targets the current graph, include a `ToolMessage` in the update whose tool call ID matches the current tool call. Every tool call in the message history must have a corresponding `ToolMessage`. Use `runtime.toolCallId` for the `tool_call_id` parameter."
+      },
+      {
+        "url": "https://reference.langchain.com/python/langchain-core/messages/utils/convert_to_openai_messages",
+        "title": "convert_to_openai_messages | langchain_core | LangChain Reference",
+        "content": "this\"}, { { \"type\": \"image_url\",  \"type\": \"image_url\", \"image_url\": {\"url\": \"data:image/png;base64,'/9j/4AAQSk'\"},  \"image_url\": {\"url\": \"data:image/png;base64,'/9j/4AAQSk'\"}, }, }, ], ], }, }, AIMessage( AIMessage( \"\",  \"\", tool_calls=[ tool_calls =[ { { \"name\": \"analyze\",  \"name\": \"analyze\", \"args\": {\"baz\": \"buz\"},  \"args\": {\"baz\": \"buz\"}, \"id\": \"1\",  \"id\": \"1\", \"type\": \"tool_call\",  \"type\": \"tool_call\", } } ], ], ), ), ToolMessage(\"foobar\", tool_call_id=\"1\", name=\"bar\"), [...] name=\"bar\"), ToolMessage(\"foobar\", tool_call_id = \"1\", name = \"bar\"), {\"role\": \"assistant\", \"content\": \"that's nice\"}, {\"role\": \"assistant\", \"content\": \"that's nice\"},]]oai_messages = convert_to_openai_messages(messages) oai_messages = convert_to_openai_messages(messages)# -> [# -> [# {'role': 'system', 'content': 'foo'},# {'role': 'system', 'content': 'foo'},# {'role': 'user', 'content': [{'type': 'text', 'text': 'what's in this'}, {'type': 'image_url', 'image_url': {'url': [...] {'url': \"data:image/png;base64,'/9j/4AAQSk'\"}}]},# {'role': 'user', 'content': [{'type': 'text', 'text': 'what's in this'}, {'type': 'image_url', 'image_url': {'url': \"data:image/png;base64,'/9j/4AAQSk'\"}}]},# {'role': 'assistant', 'tool_calls': [{'type': 'function', 'id': '1','function': {'name': 'analyze', 'arguments': '{\"baz\": \"buz\"}'}}], 'content': ''},# {'role': 'assistant', 'tool_calls': [{'type': 'function', 'id': '1','function': {'name': 'analyze', 'arguments': '{\"baz\": \"buz\"}'}}],"
+      },
+      {
+        "url": "https://docs.langchain.com/oss/python/integrations/chat/openai",
+        "title": "ChatOpenAI integration - Docs by LangChain",
+        "content": "AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'function': {'arguments': '{\"location\":\"San Francisco, CA\"}', 'name': 'GetWeather'}, 'type': 'function'}], 'refusal': None}, response_metadata={'token_usage': {'completion_tokens': 17, 'prompt_tokens': 68, 'total_tokens': 85}, 'model_name': 'gpt-4o-2024-05-13', 'system_fingerprint': 'fp_3aa7262c27', 'finish_reason': 'tool_calls', 'logprobs': None}, id='run-5e3356a9-132d-4623-8e73-dd5a898cf4a6-0', [...] tool_calls=[{'name': 'GetWeather', 'args': {'location': 'San Francisco, CA'}, 'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'type': 'tool_call'}], usage_metadata={'input_tokens': 68, 'output_tokens': 17, 'total_tokens': 85})AIMessage(content='', additional_kwargs={'tool_calls': [{'id': 'call_jUqhd8wzAIzInTJl72Rla8ht', 'function': {'arguments': '{\"location\":\"San Francisco, CA\"}', 'name': 'GetWeather'}, 'type': 'function'}], 'refusal': None}, response_metadata={'token_usage': {'completion_tokens': 17, [...] from langchain.messages import ToolMessage from  langchain. messages import  ToolMessage tool_call_id = next(tool_call_id =  next( item[\"call_id\"] for item in response.content if item[\"type\"] == \"computer_call\"  item[\" call_id \"]  for  item in  response. content if  item[\" type \"] ==  \"computer_call\")) tool_message = ToolMessage(tool_message =  ToolMessage( content=[ content =[ { { \"type\": \"input_image\",  \"type\":  \"input_image\", \"image_url\": f\"data:image/png;base64,{screenshot_2_base64}\","
+      }
+    ]
+  },
+  "documentation_context": {
+    "supplied_urls": [
+      "https://docs.langchain.com/oss/javascript/langchain/tools",
+      "https://reference.langchain.com/python/langchain-core/messages/utils/convert_to_openai_messages",
+      "https://docs.langchain.com/oss/python/integrations/chat/openai"
+    ],
+    "used_in": "repair proposal input",
+    "scope": "Official documentation supplied as untrusted context; no causal improvement claim"
+  },
+  "repair_attempts": [
+    {
+      "attempt": 1,
+      "plan": {
+        "source": "tool_calls",
+        "id_field": "id",
+        "name_field": "name",
+        "arguments_field": "args",
+        "arguments_encoding": "json",
+        "preserve_legacy": true,
+        "empty_content": "null"
+      },
+      "verification": {
+        "status": "VERIFIED",
+        "checks": [
+          {
+            "name": "two_calls",
+            "status": "PASS",
+            "findings": []
+          },
+          {
+            "name": "plain_text",
+            "status": "PASS",
+            "findings": []
+          },
+          {
+            "name": "system_text",
+            "status": "PASS",
+            "findings": []
+          },
+          {
+            "name": "nested_unicode",
+            "status": "PASS",
+            "findings": []
+          },
+          {
+            "name": "empty_arguments",
+            "status": "PASS",
+            "findings": []
+          },
+          {
+            "name": "boolean_not_integer",
+            "status": "PASS",
+            "findings": []
+          },
+          {
+            "name": "empty_tool_result",
+            "status": "PASS",
+            "findings": []
+          },
+          {
+            "name": "legacy_calls",
+            "status": "PASS"
+          }
+        ],
+        "scope": "Declarative mapping over hash-pinned upstream adapter with inert SDK message types; no model Python executed"
+      }
+    }
+  ],
+  "plan": {
+    "source": "tool_calls",
+    "id_field": "id",
+    "name_field": "name",
+    "arguments_field": "args",
+    "arguments_encoding": "json",
+    "preserve_legacy": true,
+    "empty_content": "null"
+  },
+  "verification": {
+    "status": "VERIFIED",
+    "checks": [
+      {
+        "name": "two_calls",
+        "status": "PASS",
+        "findings": []
+      },
+      {
+        "name": "plain_text",
+        "status": "PASS",
+        "findings": []
+      },
+      {
+        "name": "system_text",
+        "status": "PASS",
+        "findings": []
+      },
+      {
+        "name": "nested_unicode",
+        "status": "PASS",
+        "findings": []
+      },
+      {
+        "name": "empty_arguments",
+        "status": "PASS",
+        "findings": []
+      },
+      {
+        "name": "boolean_not_integer",
+        "status": "PASS",
+        "findings": []
+      },
+      {
+        "name": "empty_tool_result",
+        "status": "PASS",
+        "findings": []
+      },
+      {
+        "name": "legacy_calls",
+        "status": "PASS"
+      }
+    ],
+    "scope": "Declarative mapping over hash-pinned upstream adapter with inert SDK message types; no model Python executed"
+  },
+  "mutation_check": {
+    "status": "PASS",
+    "mutant": {
+      "source": "tool_calls",
+      "id_field": "name",
+      "name_field": "name",
+      "arguments_field": "args",
+      "arguments_encoding": "json",
+      "preserve_legacy": true,
+      "empty_content": "null"
+    },
+    "verification": {
+      "status": "REJECTED",
+      "checks": [
+        {
+          "name": "two_calls",
+          "status": "FAIL",
+          "findings": [
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/1/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/2/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/0/id",
+              "expected": "call_a",
+              "actual": "inventory",
+              "message": "Observable message semantics changed"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/1/id",
+              "expected": "call_b",
+              "actual": "price",
+              "message": "Observable message semantics changed"
+            }
+          ]
+        },
+        {
+          "name": "plain_text",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "system_text",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "nested_unicode",
+          "status": "FAIL",
+          "findings": [
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/1/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/2/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/0/id",
+              "expected": "call_a",
+              "actual": "inventory",
+              "message": "Observable message semantics changed"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/1/id",
+              "expected": "call_b",
+              "actual": "price",
+              "message": "Observable message semantics changed"
+            }
+          ]
+        },
+        {
+          "name": "empty_arguments",
+          "status": "FAIL",
+          "findings": [
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/1/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/2/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/0/id",
+              "expected": "call_a",
+              "actual": "inventory",
+              "message": "Observable message semantics changed"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/1/id",
+              "expected": "call_b",
+              "actual": "price",
+              "message": "Observable message semantics changed"
+            }
+          ]
+        },
+        {
+          "name": "boolean_not_integer",
+          "status": "FAIL",
+          "findings": [
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/1/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/2/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/0/id",
+              "expected": "call_a",
+              "actual": "inventory",
+              "message": "Observable message semantics changed"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/1/id",
+              "expected": "call_b",
+              "actual": "price",
+              "message": "Observable message semantics changed"
+            }
+          ]
+        },
+        {
+          "name": "empty_tool_result",
+          "status": "FAIL",
+          "findings": [
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/1/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/2/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/0/id",
+              "expected": "call_a",
+              "actual": "inventory",
+              "message": "Observable message semantics changed"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/1/id",
+              "expected": "call_b",
+              "actual": "price",
+              "message": "Observable message semantics changed"
+            }
+          ]
+        },
+        {
+          "name": "legacy_calls",
+          "status": "PASS"
+        }
+      ],
+      "scope": "Declarative mapping over hash-pinned upstream adapter with inert SDK message types; no model Python executed"
+    }
+  },
+  "response_projection": "Raw provider replies preserved. Optional integer call.index must equal list position before removal at the framework boundary. All other unknown call/function fields rejected.",
+  "live_boundaries": [
+    {
+      "before": {
+        "status": "FAIL",
+        "findings": [
+          {
+            "code": "ORPHAN_RESULT",
+            "path": "/1/tool_call_id",
+            "message": "Tool result lacks an earlier unmatched call"
+          },
+          {
+            "code": "ORPHAN_RESULT",
+            "path": "/2/tool_call_id",
+            "message": "Tool result lacks an earlier unmatched call"
+          },
+          {
+            "code": "SEMANTIC_CHANGE",
+            "path": "/0/tool_calls/0",
+            "expected": {
+              "id": "call_00_glPmS1JvTVr234covC212023",
+              "name": "inventory",
+              "args": {
+                "sku": "A"
+              }
+            },
+            "actual": null,
+            "message": "Observable message semantics changed"
+          },
+          {
+            "code": "SEMANTIC_CHANGE",
+            "path": "/0/tool_calls/1",
+            "expected": {
+              "id": "call_01_KnqoIgC2puhfp5RpYrdc0199",
+              "name": "price",
+              "args": {
+                "sku": "A"
+              }
+            },
+            "actual": null,
+            "message": "Observable message semantics changed"
+          }
+        ]
+      },
+      "after": {
+        "status": "PASS",
+        "findings": []
+      },
+      "input": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_00_glPmS1JvTVr234covC212023",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\": \"A\"}"
+              }
+            },
+            {
+              "id": "call_01_KnqoIgC2puhfp5RpYrdc0199",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\": \"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_00_glPmS1JvTVr234covC212023",
+          "content": "{\"quantity\": 3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_01_KnqoIgC2puhfp5RpYrdc0199",
+          "content": "{\"price\": 7}"
+        }
+      ],
+      "broken": [
+        {
+          "role": "assistant",
+          "content": ""
+        },
+        {
+          "role": "tool",
+          "content": "{\"quantity\": 3}",
+          "tool_call_id": "call_00_glPmS1JvTVr234covC212023"
+        },
+        {
+          "role": "tool",
+          "content": "{\"price\": 7}",
+          "tool_call_id": "call_01_KnqoIgC2puhfp5RpYrdc0199"
+        }
+      ],
+      "repaired": [
+        {
+          "role": "assistant",
+          "content": null,
+          "tool_calls": [
+            {
+              "id": "call_00_glPmS1JvTVr234covC212023",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\": \"A\"}"
+              }
+            },
+            {
+              "id": "call_01_KnqoIgC2puhfp5RpYrdc0199",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\": \"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "content": "{\"quantity\": 3}",
+          "tool_call_id": "call_00_glPmS1JvTVr234covC212023"
+        },
+        {
+          "role": "tool",
+          "content": "{\"price\": 7}",
+          "tool_call_id": "call_01_KnqoIgC2puhfp5RpYrdc0199"
+        }
+      ]
+    }
+  ],
+  "task": {
+    "tools": [
+      {
+        "tool": "inventory",
+        "arguments": {
+          "sku": "A"
+        },
+        "result": {
+          "quantity": 3
+        }
+      },
+      {
+        "tool": "price",
+        "arguments": {
+          "sku": "A"
+        },
+        "result": {
+          "price": 7
+        }
+      }
+    ],
+    "answer": {
+      "sku": "A",
+      "inventory_value": 21
+    },
+    "status": "PASS",
+    "scope": "Live deepseek conversation with actual local fixture tool execution; broken adapter rejected locally before an invalid HTTP submission"
+  },
+  "duration_ms": 7226.247,
+  "completed_at": "2026-10-25T13:30:07.858306+00:00",
+  "total_reported_tokens": 4094,
+  "cost_usd": null
+}

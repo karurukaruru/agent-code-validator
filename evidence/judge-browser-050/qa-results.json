@@ -1,0 +1,95 @@
+{
+  "status": "PASS",
+  "checks": [
+    "Installed browser available",
+    "Landing desktop has no horizontal overflow",
+    "Landing discloses recorded evidence",
+    "Exported link works: repair.html",
+    "Exported link works: sdk-upgrade.html",
+    "Exported link works: agent_code_validator-0.5.0-py3-none-any.whl",
+    "Exported link works: evidence/live/report.json",
+    "Replay identifies recording and provider",
+    "No recovered value before playback",
+    "Recovered task value comes from saved execution",
+    "Independent controls displayed",
+    "Corrupted repair rejection displayed",
+    "Replay desktop has no overflow",
+    "Repair pane contains eight actual controls",
+    "Requested and returned model identity visible",
+    "Second replay clears all prior success indicators",
+    "Replay mobile has no horizontal overflow",
+    "Landing mobile has no horizontal overflow",
+    "SDK inspector desktop has no horizontal overflow",
+    "No browser JavaScript exceptions",
+    "Playback made no mutating request",
+    "Static playback made no inference-service requests"
+  ],
+  "errors": [],
+  "package_manifest": {
+    "version": "0.5.0",
+    "live_run_id": "46794d2a4a7b4e2e8ba23b98a284cee0",
+    "provider": "deepseek",
+    "model": "deepseek-flash",
+    "files": {
+      "agent_code_validator-0.5.0-py3-none-any.whl": "153c27bed8819f9d929e8ab4756dcb199acea882b236001ffd9a439701482fa0",
+      "index.html": "a97c5e7eefc5f9d0e27c9b54b9b9f14af5b8b43dd7933e8b2b02e6e4b4047353",
+      "launch_demo.py": "679d4f217a5994142a060f044823f41439d2779bd506746f8614fb157a34b78d",
+      "LICENSE": "d81391386dd9f0e453c7b42a129a6a2646e699c797ce3e3d38d7a6dc8271fe8e",
+      "manifest.json": "cfa501200d630443cac0446a6c66e55ca3597e50e4211f262ba11649603de88e",
+      "repair.html": "322c10495a5347aef95f3e957ffa48106706090d6f00b670772f9e6ddd6e3c34",
+      "report.json": "efe45297083c2db641b3a40965534b9506803efd8495cbbf5baf15d89f762583",
+      "sdk-upgrade.html": "6a9a0e470ef1e4a3e8769f21bafe30515aef261590ecb6104823f0bce568add3",
+      "START-HERE.txt": "6857fd496ee21b1dfde9dae33342e19ebd745c05b34342e39759eab590384da0",
+      "Start-Judge-Demo.cmd": "944cbb02422432fbf7a190e0e203852626fe6142f3943e55b4751f3d33ff999d",
+      "evidence/live/manifest.json": "dc5a84978d93ec401c945893dd918224298a5e44becc3e6034edb83dc2b9c3dd",
+      "evidence/live/repair-proposal-1.json": "3bf1cd509a734875084acc49ee97a1894ac72db4d4b047c6a82773875d8f77e2",
+      "evidence/live/report.json": "d8da53a4596e81b696778ed7ee35666198976a3d3b581920561571f83e0b23b4",
+      "evidence/live/task-turn-1.json": "1e4cced7a847c218d3bd278d63e9a2faae243e3ffe4bf2741a26810c309dfd17",
+      "evidence/live/task-turn-2.json": "744f70240670c8efe780c853bc78d3fa9ce41b18c6651774b74365c194d1029c"
+    },
+    "replay_only": true,
+    "new_provider_requests": 0
+  },
+  "requests": [
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/repair.html"
+    },
+    {
+      "method": "GET",
+      "url": "/sdk-upgrade.html"
+    },
+    {
+      "method": "GET",
+      "url": "/agent_code_validator-0.5.0-py3-none-any.whl"
+    },
+    {
+      "method": "GET",
+      "url": "/evidence/live/report.json"
+    },
+    {
+      "method": "GET",
+      "url": "/repair.html"
+    },
+    {
+      "method": "GET",
+      "url": "/favicon.ico"
+    },
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/sdk-upgrade.html"
+    },
+    {
+      "method": "GET",
+      "url": "/report.json"
+    }
+  ]
+}

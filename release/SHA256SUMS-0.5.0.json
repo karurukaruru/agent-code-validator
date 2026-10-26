@@ -1,0 +1,22 @@
+{
+  "version": "0.5.0",
+  "scope": "Development build; required Nebius inference and final video publication are pending",
+  "files": {
+    "agent_code_validator-0.5.0-py3-none-any.whl": {
+      "bytes": 145633,
+      "sha256": "153c27bed8819f9d929e8ab4756dcb199acea882b236001ffd9a439701482fa0"
+    },
+    "patchcourt-judge-demo-0.5.0-development.zip": {
+      "bytes": 192741,
+      "sha256": "300161c8f0869738a8e84f4e5fa134e8434b9f68e8d825dae74fe51b5946a398"
+    },
+    "patchcourt-development-replay-0.5.0.mp4": {
+      "bytes": 3726110,
+      "sha256": "64d45cdd7459ff8a8377c5fdd352a039dac3047fc9d09303ee1226be08b6cdc0"
+    },
+    "patchcourt-development-replay-0.5.0.en.srt": {
+      "bytes": 2760,
+      "sha256": "a7b05279574f63ab8232f5283d1142050f20633b4c361db00266c2ee8c098341"
+    }
+  }
+}

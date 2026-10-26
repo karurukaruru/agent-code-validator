@@ -1,5 +1,23 @@
 # Competition audit
 
+## October 25 revalidation — current release work
+
+Re-opened the official rules, overview, FAQ, feedback guidance and public
+submission-management page on **2026-10-25, Asia/Singapore**. The required
+NVIDIA/Nebius runtime, public source/license, public YouTube, working demo/test
+build, English and feedback gates remain unchanged. Deadline: **2026-10-31
+01:00 SGT**. Free judge access must last through **2026-12-16 04:00 SGT**.
+The public submission-management page still exposes Join/Register rather than
+authenticated fields. No account or form-completion claim is possible from it.
+
+The entrant now explicitly intends to continue this event and supply Nebius
+access. Real DeepSeek Flash/Tavily development experiments have executed, but
+do not replace required NVIDIA inference on Nebius. Current exact acceptance
+gates and local records are in [SUBMISSION_CHECKLIST.md](SUBMISSION_CHECKLIST.md)
+and `submission-manifest.json`. Run `python scripts/submission_check.py` for a
+deterministic report; missing requirements remain BLOCKED. The historical audit
+below is retained with its original date.
+
 Checked 2026-10-24 (Asia/Shanghai) against public official pages. This is an evidence checklist, not confirmation that the entrant or current build is eligible. No entry was submitted and nobody was contacted.
 
 ## Rules that affect release decisions

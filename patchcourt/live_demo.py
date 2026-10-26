@@ -8,18 +8,22 @@ import threading
 from uuid import uuid4
 from .live_workflow import run_live_workflow
 from .evidence import sanitize
+from . import providers
 
-def serve_live_demo(output='outputs/live-demo',port=8780):
+def serve_live_demo(output='outputs/live-demo',port=8780,provider='glm',model=None,use_tavily=False,knowledge_dir=None):
+    selected=providers.select_model(provider,model,require_nemotron=provider=='nebius')
     root=Path(output).resolve();root.mkdir(parents=True,exist_ok=True)
     token=secrets.token_urlsafe(32)
     lock=threading.Lock()
-    state={'status':'IDLE','events':[],'report':None,'runs':0}
+    state={'status':'IDLE','events':[],'report':None,'runs':0,'provider':provider,'model':selected,'use_tavily':use_tavily,
+        'knowledge_enabled':knowledge_dir is not None}
     origin=f'http://127.0.0.1:{port}'
     def observe(event):
         with lock: state['events'].append(event)
     def execute():
         try:
-            result=run_live_workflow(root/('run-'+uuid4().hex[:12]),observe)
+            result=run_live_workflow(root/('run-'+uuid4().hex[:12]),observe,provider=provider,model=selected,
+                use_tavily=use_tavily,knowledge_dir=knowledge_dir)
             with lock: state.update(status=result['status'],report=result)
         except Exception as exc:
             with lock: state.update(status='FAIL',error=sanitize(type(exc).__name__+': '+str(exc)))
@@ -35,7 +39,8 @@ def serve_live_demo(output='outputs/live-demo',port=8780):
         def do_GET(self):
             if not self.authorized_host(): return self.send(403,{'error':'Invalid host'})
             if self.path=='/': return self.send(200,(Path(__file__).parent/'web/live.html').read_bytes(),'text/html; charset=utf-8')
-            if self.path=='/session': return self.send(200,{'session':token})
+            if self.path=='/session': return self.send(200,{'session':token,'provider':provider,'model':selected,
+                'use_tavily':use_tavily,'knowledge_enabled':knowledge_dir is not None})
             if self.path=='/state':
                 with lock: snapshot=deepcopy(state)
                 return self.send(200,snapshot)
@@ -53,7 +58,7 @@ def serve_live_demo(output='outputs/live-demo',port=8780):
             threading.Thread(target=execute,daemon=True).start()
             return self.send(202,{'status':'RUNNING'})
     server=ThreadingHTTPServer(('127.0.0.1',port),Handler)
-    print(f'PatchCourt live development demo: {origin} (glm-5.3-flash only)',flush=True)
+    print(f'PatchCourt live demo: {origin} ({provider}: {selected or "NVIDIA Nemotron discovery"})',flush=True)
     try: server.serve_forever()
     except KeyboardInterrupt: pass
     finally: server.server_close()

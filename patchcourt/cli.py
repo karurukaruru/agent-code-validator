@@ -22,6 +22,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(prog="patchcourt", description="Catch silent AI agent compatibility regressions with executable evidence.")
     from . import __version__
     parser.add_argument("--version", action="version", version="PatchCourt " + __version__)
+    parser.add_argument("--env-file", help="Explicit local credential file; only supported API variables are loaded")
     commands = parser.add_subparsers(dest="command", required=True)
     demo = commands.add_parser("demo", help="Execute pinned source cases, repairs, controls and export the dashboard")
     demo.add_argument("--output", default="outputs/patchcourt")
@@ -60,19 +61,29 @@ def main(argv=None):
     feedback.add_argument("--max-chars", type=int, default=2000)
     lab = commands.add_parser("lab", help="Run bounded real Nebius/Tavily trials; missing keys produce BLOCKED evidence")
     lab.add_argument("--output", default="outputs/lab"); lab.add_argument("--model"); lab.add_argument("--trials", type=int, default=3)
-    reasoning = commands.add_parser("reason", help="Ask real Nemotron for declarative tests and a repair proposal")
+    reasoning = commands.add_parser("reason", help="Ask a real provider for declarative tests and a repair proposal")
     reasoning.add_argument("source"); reasoning.add_argument("evidence")
     reasoning.add_argument("--model"); reasoning.add_argument("--tavily", action="store_true"); reasoning.add_argument("--output", default="outputs/reasoning.json")
-    reasoning.add_argument("--provider", choices=("nebius", "glm"), default="nebius")
+    reasoning.add_argument("--provider", choices=("nebius", "glm", "deepseek"), default="nebius")
     serve = commands.add_parser("serve", help="Serve only exported static evidence on loopback; no code-execution endpoint")
     serve.add_argument("directory", nargs="?", default="outputs/patchcourt"); serve.add_argument("--port", type=int, default=8765)
-    live = commands.add_parser("live", help="Run the GLM 5.3 Flash repair and fixture-tool workflow")
+    live = commands.add_parser("live", help="Run a bounded provider repair and fixture-tool workflow")
     live.add_argument("--output", required=True)
+    live.add_argument("--provider", choices=("glm", "deepseek", "nebius"), default="glm")
+    live.add_argument("--model", help="Explicit NVIDIA Nemotron ID for Nebius; fixed models on other providers")
+    live.add_argument("--tavily", action="store_true", help="Supply official documentation to the repair proposal")
     live.add_argument("--knowledge-dir", help="Reuse exact verified mapping after all checks rerun; task still makes real API calls")
-    live_demo = commands.add_parser("live-demo", help="Loopback-only interactive GLM workbench; at most three fixed runs per server")
+    live_demo = commands.add_parser("live-demo", help="Loopback-only interactive provider workbench; at most three fixed runs per server")
     live_demo.add_argument("--output", default="outputs/live-demo"); live_demo.add_argument("--port",type=int,default=8780)
+    live_demo.add_argument("--provider", choices=("glm", "deepseek", "nebius"), default="glm")
+    live_demo.add_argument("--model")
+    live_demo.add_argument("--tavily", action="store_true")
+    live_demo.add_argument("--knowledge-dir", help="Save verified mappings and reuse them only after fresh independent checks")
     args = parser.parse_args(argv)
     try:
+        if args.env_file:
+            from .credentials import load_local_credentials
+            load_local_credentials(args.env_file)
         if args.command == "demo":
             from .runner import demo
             report = demo(args.output, args.knowledge_dir)
@@ -150,12 +161,13 @@ def main(argv=None):
             return serve_static(args.directory, args.port)
         if args.command == "live":
             from .live_workflow import run_live_workflow
-            result=run_live_workflow(args.output,knowledge_dir=args.knowledge_dir)
+            result=run_live_workflow(args.output,knowledge_dir=args.knowledge_dir,provider=args.provider,model=args.model,use_tavily=args.tavily)
             print(json.dumps({"status":result['status'],"output":args.output,"tokens":result['total_reported_tokens']}))
             return 0 if result['status']=='PASS' else 1
         if args.command == "live-demo":
             from .live_demo import serve_live_demo
-            serve_live_demo(args.output,args.port)
+            serve_live_demo(args.output,args.port,provider=args.provider,model=args.model,use_tavily=args.tavily,
+                            knowledge_dir=args.knowledge_dir)
             return 0
     except (ValueError, OSError, KeyError, TypeError) as exc:
         from .evidence import sanitize

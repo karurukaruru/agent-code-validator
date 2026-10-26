@@ -17,6 +17,7 @@ from patchcourt.runner import acceptance_gates, export_report, make_report
 
 
 ROOT = Path(__file__).resolve().parents[1]
+LAB_MODEL = "nvidia/Nemotron-synthetic-test"
 
 
 def proposal(case):
@@ -24,15 +25,15 @@ def proposal(case):
 
 
 def mocked_reasoning(value):
-    response = {"status": "PASS", "provenance": "mocked release review", "response": {"choices": [
+    response = {"status": "PASS", "provenance": "mocked release review", "response": {"model": "mock/Nemotron", "choices": [
         {"finish_reason": "stop", "message": {"role": "assistant", "content": json.dumps(value)}}]}}
     with patch.dict(os.environ, {"NEBIUS_API_KEY": "dummy-release-key"}, clear=True), patch.object(providers, "request", return_value=response):
         return run_reasoning("reviewed example source", {}, model="mock/Nemotron")
 
 
 def stream_record():
-    return {"status": "PASS", "response": {"done": True, "events": [
-        {"choices": [{"index": 0, "delta": {"role": "assistant", "content": '{"ok":true}'}, "finish_reason": "stop"}]}
+    return {"status": "PASS", "parameters": {"model": LAB_MODEL}, "response": {"done": True, "events": [
+        {"model": LAB_MODEL, "choices": [{"index": 0, "delta": {"role": "assistant", "content": '{"ok":true}'}, "finish_reason": "stop"}]}
     ]}}
 
 
@@ -68,7 +69,7 @@ class ReleaseReasoningTests(unittest.TestCase):
 
 class ReleaseProtocolTests(unittest.TestCase):
     def test_duplicate_json_output_key_does_not_pass_schema(self):
-        record = {"status": "PASS", "response": {"choices": [{"finish_reason": "stop", "message": {
+        record = {"status": "PASS", "parameters": {"model": LAB_MODEL}, "response": {"model": LAB_MODEL, "choices": [{"finish_reason": "stop", "message": {
             "role": "assistant", "content": '{"ok":false,"ok":true}'}}]}}
         self.assertNotEqual(_check("structured_json", record)[0], "PASS")
 
@@ -89,19 +90,19 @@ class ReleaseProtocolTests(unittest.TestCase):
 
     def test_repeated_stream_finish_cannot_pass(self):
         record = stream_record()
-        record["response"]["events"].append({"choices": [{"index": 0, "delta": {}, "finish_reason": "stop"}]})
+        record["response"]["events"].append({"model": LAB_MODEL, "choices": [{"index": 0, "delta": {}, "finish_reason": "stop"}]})
         self.assertNotEqual(_check("streaming", record)[0], "PASS")
 
     def test_valid_stream_with_usage_only_tail_passes(self):
         record = stream_record()
-        record["response"]["events"].append({"choices": [], "usage": {"completion_tokens": 5}})
+        record["response"]["events"].append({"model": LAB_MODEL, "choices": [], "usage": {"completion_tokens": 5}})
         self.assertEqual(_check("streaming", record)[0], "PASS")
 
     def test_false_boolean_value_rejected_in_all_probe_forms(self):
         record = stream_record()
         record["response"]["events"][0]["choices"][0]["delta"]["content"] = '{"ok":false}'
         self.assertEqual(_check("streaming", record)[0], "FAIL")
-        plain = {"status": "PASS", "response": {"choices": [{"finish_reason": "stop", "message": {"role": "assistant", "content": '{"ok":false}'}}]}}
+        plain = {"status": "PASS", "parameters": {"model": LAB_MODEL}, "response": {"model": LAB_MODEL, "choices": [{"finish_reason": "stop", "message": {"role": "assistant", "content": '{"ok":false}'}}]}}
         self.assertEqual(_check("structured_json", plain)[0], "FAIL")
 
 

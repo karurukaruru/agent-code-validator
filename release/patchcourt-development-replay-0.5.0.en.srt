@@ -1,0 +1,83 @@
+1
+00:00:00,000 --> 00:00:09,932
+The tools ran. The agent still broke. PatchCourt makes a silent SDK regression visible. This is
+a recorded replay of an actual DeepSeek Flash
+
+2
+00:00:09,932 --> 00:00:14,070
+development run. Playback makes no new model or search requests.
+
+3
+00:00:15,000 --> 00:00:24,066
+The saved experiment used DeepSeek Flash through its development API. Its model read the
+historical adapter and proposed a restricted field mapping.
+
+4
+00:00:24,066 --> 00:00:32,720
+Watch the recorded stages reveal the missing tool calls, the proposal, independent
+verification, and the recovered task. Playback timing is editorial;
+
+5
+00:00:32,720 --> 00:00:34,780
+the source requests are preserved.
+
+6
+00:00:36,000 --> 00:00:44,134
+The returned mapping is data, never executable model generated Python. Eight independent checks
+preserve identifiers, multiple calls, nested
+
+7
+00:00:44,134 --> 00:00:53,624
+arguments, ordinary messages, and legacy behavior. We deliberately corrupt the identifiers too.
+That repair must be rejected. The model cannot approve
+
+8
+00:00:53,624 --> 00:00:54,980
+its own work.
+
+9
+00:00:56,000 --> 00:01:05,184
+The actual source conversation called two local fixture tools. Inventory returned three items.
+Price returned seven per item. The original adapter
+
+10
+00:01:05,184 --> 00:01:13,930
+dropped the calls. The verified mapping preserved their identities, and the model returned the
+independently checked inventory value: twenty one.
+
+11
+00:01:15,000 --> 00:01:25,400
+The saved report records the exact model, returned identities, 3 model requests, and 4094
+reported tokens. Tavily retrieved official documentation for
+
+12
+00:01:25,400 --> 00:01:35,799
+this repair proposal. We retain source hashes, request records, negative controls, and rejected
+attempts. Successful API use alone is not evidence
+
+13
+00:01:35,799 --> 00:01:37,780
+that retrieval improved accuracy.
+
+14
+00:01:39,000 --> 00:01:47,467
+This demonstration covers a bounded adapter repair and fixed local tools, not arbitrary
+production patching. The adapter uses audited historical
+
+15
+00:01:47,467 --> 00:01:55,933
+source and inert SDK message types. This development provider does not satisfy the
+competition's separate NVIDIA and Nebius runtime requirement.
+
+16
+00:01:55,933 --> 00:02:00,590
+Hashes protect local integrity; they do not independently authenticate the provider.
+
+17
+00:02:02,000 --> 00:02:11,813
+PatchCourt connects a concrete failure, a model proposal, an independent verdict, and a
+recovered task. Inspect the source and the saved evidence. A
+
+18
+00:02:11,813 --> 00:02:16,080
+convincing repair earns trust through execution, not a confident explanation.

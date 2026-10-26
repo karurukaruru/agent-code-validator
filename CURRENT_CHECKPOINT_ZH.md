@@ -1,3 +1,5 @@
+> 当前续作说明（2026-10-25）：用户已经明确要求继续本场比赛，授权使用本地提供的 DeepSeek Flash/Tavily，并承诺补 Nebius 访问。下方原 0.3.2 停止记录是历史，不是本轮指令。当前开发目录版本 0.5.0；以 README.md、SUBMISSION_CHECKLIST.md、submission-manifest.json 和 RELEASE_REVIEW_050_ZH.md 为当前状态。不得将 DeepSeek 开发实测当作 Nebius/NVIDIA 比赛平台证据。
+
 # 最终停止点与完整接手说明（2026-10-25）
 
 > 本文记录原交接包 0.3.2 的历史停止点。用户在当前聊天已要求继续开发，最新 0.4.0 实现、实际验证和剩余事项以 [DEVELOPMENT_REVIEW_ZH.md](DEVELOPMENT_REVIEW_ZH.md) 为准；不要把下文旧停止要求当作本轮指令。

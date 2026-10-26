@@ -1,3 +1,17 @@
+# PatchCourt 0.5.0 development delivery
+
+- `patchcourt-judge-demo-0.5.0-development.zip`: free recorded-evidence portal. Extract and double-click `Start-Judge-Demo.cmd` on Windows, or run `python launch_demo.py`. No API key, account or pip install is needed. Recorded DeepSeek repair, independent controls and real installed-SDK comparison are explicitly scoped.
+- `agent_code_validator-0.5.0-py3-none-any.whl`: installable Python build, isolated CLI/resource checks passed.
+- `patchcourt-development-replay-0.5.0.mp4`: 137-second English narrated, captioned browser replay of real saved DeepSeek development evidence. It is not a fresh inference capture or the final NVIDIA/Nebius competition video.
+- `patchcourt-development-replay-0.5.0.en.srt`: English subtitle file.
+- `SHA256SUMS-0.5.0.json`: byte counts and checksums for these files.
+
+Current verification and remaining required-platform/publication/form gates:
+[RELEASE_REVIEW_050_ZH.md](../RELEASE_REVIEW_050_ZH.md),
+[SUBMISSION_CHECKLIST.md](../SUBMISSION_CHECKLIST.md). No final submission or award is claimed.
+
+## Historical builds
+
 # Downloadable developer build
 
 Latest local build: **0.4.0**. `agent_code_validator-0.4.0-py3-none-any.whl`

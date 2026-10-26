@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "checked_date": "2026-10-25",
+  "timezone": "Asia/Singapore",
+  "access": "public web text fetch; no authenticated Devpost session",
+  "sources": [
+    "https://nebiusglobalaihackathon.devpost.com/rules",
+    "https://nebiusglobalaihackathon.devpost.com/",
+    "https://nebiusglobalaihackathon.devpost.com/details/faqs",
+    "https://nebiusglobalaihackathon.devpost.com/updates/46205-how-to-build-a-winning-project",
+    "https://devpost.com/submit-to/30790-nebius-x-nvidia-global-ai-hackathon/manage/submissions"
+  ],
+  "submission_deadline_sgt": "2026-10-31T01:00:00+08:00",
+  "judging_ends_sgt": "2026-12-16T04:00:00+08:00",
+  "required_runtime": "NVIDIA open-source model with a runtime Token Factory inference call, or qualifying Nebius AI Cloud execution",
+  "form_observation": "Public page shows Join/Register; editable entry fields, limits and required flags are not available",
+  "declarations": {
+    "entrant_registered": "UNVERIFIED",
+    "entrant_eligible": "UNVERIFIED",
+    "authenticated_form_reviewed": false,
+    "submission_made": false
+  },
+  "scope": "Review record with primary-source links; this is not a captured authenticated form, public final-build access proof or a submission receipt"
+}

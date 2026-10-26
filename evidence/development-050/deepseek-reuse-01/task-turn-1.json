@@ -1,0 +1,130 @@
+{
+  "provider": "deepseek",
+  "endpoint": "https://api.deepseek.com/chat/completions",
+  "timestamp": "2026-10-25T13:30:57.106834+00:00",
+  "provenance": "live HTTP attempt",
+  "status": "PASS",
+  "http_status": 200,
+  "latency_ms": 1032.0,
+  "usage": {
+    "prompt_tokens": 391,
+    "completion_tokens": 64,
+    "total_tokens": 455,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 135
+  },
+  "cost_usd": null,
+  "cost_note": "Unknown; no pricing assumption or zero-cost claim",
+  "parameters": {
+    "model": "deepseek-flash",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Use the provided tools to compute inventory value. Do not invent stock or price. Call both inventory and price for SKU A, in the same response if possible. After both tool results, return only JSON with sku and inventory_value."
+      },
+      {
+        "role": "user",
+        "content": "What is the inventory value of SKU A? Use inventory and price before calculating."
+      }
+    ],
+    "max_tokens": 2048,
+    "temperature": 0,
+    "thinking": {
+      "type": "disabled"
+    },
+    "tools": [
+      {
+        "type": "function",
+        "function": {
+          "name": "inventory",
+          "description": "Look up the quantity in stock for one SKU.",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "sku": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "sku"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      {
+        "type": "function",
+        "function": {
+          "name": "price",
+          "description": "Look up the unit price for one SKU.",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "sku": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "sku"
+            ],
+            "additionalProperties": false
+          }
+        }
+      }
+    ],
+    "tool_choice": "auto"
+  },
+  "request_id": null,
+  "raw_response": "{\"id\":\"6953b70c-ceb1-42cd-ab7a-a1bf505205be\",\"object\":\"chat.completion\",\"created\":1792935057,\"model\":\"deepseek-flash\",\"choices\":[{\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"\",\"tool_calls\":[{\"index\":0,\"id\":\"call_00_VwKaRgmYsVq7L9J9GBYS9773\",\"type\":\"function\",\"function\":{\"name\":\"inventory\",\"arguments\":\"{\\\"sku\\\": \\\"A\\\"}\"}},{\"index\":1,\"id\":\"call_01_tR4CzZCjijif8ZxidxWo1363\",\"type\":\"function\",\"function\":{\"name\":\"price\",\"arguments\":\"{\\\"sku\\\": \\\"A\\\"}\"}}]},\"logprobs\":null,\"finish_reason\":\"tool_calls\"}],\"usage\":{\"prompt_tokens\":391,\"completion_tokens\":64,\"total_tokens\":455,\"prompt_tokens_details\":{\"cached_tokens\":256},\"prompt_cache_hit_tokens\":256,\"prompt_cache_miss_tokens\":135},\"system_fingerprint\":\"e72d3c7f663d3e1383b00b3884cb4501\"}",
+  "response": {
+    "id": "6953b70c-ceb1-42cd-ab7a-a1bf505205be",
+    "object": "chat.completion",
+    "created": 1792935057,
+    "model": "deepseek-flash",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "index": 0,
+              "id": "call_00_VwKaRgmYsVq7L9J9GBYS9773",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\": \"A\"}"
+              }
+            },
+            {
+              "index": 1,
+              "id": "call_01_tR4CzZCjijif8ZxidxWo1363",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\": \"A\"}"
+              }
+            }
+          ]
+        },
+        "logprobs": null,
+        "finish_reason": "tool_calls"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 391,
+      "completion_tokens": 64,
+      "total_tokens": 455,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 135
+    },
+    "system_fingerprint": "e72d3c7f663d3e1383b00b3884cb4501"
+  }
+}

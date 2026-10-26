@@ -1,3 +1,19 @@
+## October 25 — version 0.5.0 provider and submission development
+
+Added exact DeepSeek Flash and NVIDIA Nemotron/Nebius workflow selection, strict
+returned-model and assistant-protocol validation, bounded official-document
+retrieval, an OS-locked persistent request ledger, reproducible five-arm release
+evaluation, source/environment fingerprints and revalidated repair reuse. Added
+a free static judge portal that explicitly replays recorded executions and an
+evidence-based submission checker. The new English submission materials retain
+all platform, video and entrant gates until evidence actually exists.
+
+Seven real DeepSeek completions and two Tavily searches are archived in
+[evidence/development-050](evidence/development-050/README.md). They were run while
+code was changing (reported version 0.4.0), and do not establish competition
+platform use. The second workflow was a cache MISS; no savings are claimed.
+Nebius access is pending. Original ACV history and credited SDK sources remain.
+
 ## October 25 — version 0.4.0 controlled release execution
 
 Added actual 1.4.3/1.5.0 SDK environment preparation and comparison, pinned common

@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "status": "BLOCKED",
+  "submission_complete": false,
+  "scope": "Deterministic validation of local records; no live access, eligibility determination, platform authentication or Devpost submission",
+  "gates": [
+    {
+      "gate": "document:README.md",
+      "status": "PASS",
+      "detail": "Present and nonempty"
+    },
+    {
+      "gate": "document:LICENSE",
+      "status": "PASS",
+      "detail": "Present and nonempty"
+    },
+    {
+      "gate": "document:DEVPOST_SUBMISSION.md",
+      "status": "PASS",
+      "detail": "Present and nonempty"
+    },
+    {
+      "gate": "document:MOST_VALUABLE_FEEDBACK.md",
+      "status": "PASS",
+      "detail": "Present and nonempty"
+    },
+    {
+      "gate": "document:DEMO_SCRIPT.md",
+      "status": "PASS",
+      "detail": "Present and nonempty"
+    },
+    {
+      "gate": "document:JUDGE_TESTING.md",
+      "status": "PASS",
+      "detail": "Present and nonempty"
+    },
+    {
+      "gate": "document:SUBMISSION_CHECKLIST.md",
+      "status": "PASS",
+      "detail": "Present and nonempty"
+    },
+    {
+      "gate": "document:COMPETITION_CHANGELOG.md",
+      "status": "PASS",
+      "detail": "Present and nonempty"
+    },
+    {
+      "gate": "nvidia_nebius_runtime",
+      "status": "BLOCKED",
+      "detail": "Required evidence is not yet supplied"
+    },
+    {
+      "gate": "public:source",
+      "status": "BLOCKED",
+      "detail": "Required evidence is not yet supplied"
+    },
+    {
+      "gate": "public:demo",
+      "status": "BLOCKED",
+      "detail": "Required evidence is not yet supplied"
+    },
+    {
+      "gate": "public:youtube",
+      "status": "BLOCKED",
+      "detail": "Required evidence is not yet supplied"
+    },
+    {
+      "gate": "video",
+      "status": "BLOCKED",
+      "detail": "Required evidence is not yet supplied"
+    },
+    {
+      "gate": "feedback",
+      "status": "BLOCKED",
+      "detail": "Required evidence is not yet supplied"
+    },
+    {
+      "gate": "entrant_and_form_review",
+      "status": "BLOCKED",
+      "detail": "Required evidence is not yet supplied"
+    }
+  ]
+}

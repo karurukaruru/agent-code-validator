@@ -1,0 +1,516 @@
+{
+  "schema_version": "1.0",
+  "run_id": "b65ff9bf-5efc-476f-b572-2d59944ad0bc",
+  "created_at": "2026-10-26T02:34:24.179600+00:00",
+  "mode": "upgrade-run",
+  "environment": {
+    "python": "3.12.13",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "patchcourt": "0.5.0"
+  },
+  "summary": {
+    "pass": 1,
+    "fail": 0,
+    "inconclusive": 0,
+    "needs_review": 0
+  },
+  "cases": [
+    {
+      "id": "nvidia-release-upgrade",
+      "title": "NVIDIA SDK 1.4.3 → 1.5.0",
+      "status": "PASS",
+      "execution": true,
+      "findings": [],
+      "provenance": {
+        "kind": "Two unmodified installed SDK releases; no model inference",
+        "dependency": "langchain-nvidia-ai-endpoints",
+        "baseline_version": "1.4.3",
+        "candidate_version": "1.5.0"
+      },
+      "duration_ms": 2988.943,
+      "baseline": [
+        {
+          "role": "system",
+          "content": "Be concise"
+        },
+        {
+          "role": "user",
+          "content": "hello"
+        },
+        {
+          "role": "assistant",
+          "content": "world"
+        }
+      ],
+      "candidate": [
+        {
+          "role": "system",
+          "content": "Be concise"
+        },
+        {
+          "role": "user",
+          "content": "hello"
+        },
+        {
+          "role": "assistant",
+          "content": "world"
+        }
+      ],
+      "contracts": {
+        "baseline": {
+          "status": "PASS",
+          "findings": []
+        },
+        "candidate": {
+          "status": "PASS",
+          "findings": []
+        },
+        "difference": {
+          "status": "PASS",
+          "findings": []
+        }
+      },
+      "direction": "unchanged"
+    }
+  ],
+  "knowledge": {},
+  "lab": {
+    "status": "BLOCKED",
+    "live_requests": 0,
+    "reason": "Offline execution; credentials and live platform behavior are not evaluated here"
+  },
+  "limitations": [
+    "Executes only reviewed NVIDIA 1.4.3 and 1.5.0 text/tool serializers with real LangChain message classes.",
+    "Repository inspection is read-only; application code and arbitrary model patches are never executed.",
+    "Pinned common dependencies must match across both environments; SDK releases remain unmodified.",
+    "Separate clean processes with deadlines and audit hooks; not an OS security sandbox. Dependencies must be trusted.",
+    "Checks the original input as well as the version difference. Matching broken releases cannot PASS.",
+    "Task replay is deterministic. No provider, model, Tavily or other paid requests are made.",
+    "Inventories and checksums detect changes; they do not authenticate an untrusted local writer."
+  ],
+  "status": "PASS",
+  "input": [
+    {
+      "role": "system",
+      "content": "Be concise"
+    },
+    {
+      "role": "user",
+      "content": "hello"
+    },
+    {
+      "role": "assistant",
+      "content": "world"
+    }
+  ],
+  "executions": {
+    "baseline": {
+      "status": "EXECUTED",
+      "variant": "release",
+      "pid": 21416,
+      "provenance": {
+        "backend": "installed-sdk",
+        "real_sdk_classes": true,
+        "source_sha256": "ec8d2ef813a184d37a347f493242124319dbe3c6f6926124ba2f8a3560ed2531",
+        "executed_source_sha256": "ec8d2ef813a184d37a347f493242124319dbe3c6f6926124ba2f8a3560ed2531",
+        "version": "1.4.3",
+        "dependencies": {
+          "aiohappyeyeballs": "2.7.1",
+          "aiohttp": "3.14.5",
+          "aiosignal": "1.4.0",
+          "annotated-types": "0.8.0",
+          "anyio": "4.15.1",
+          "attrs": "26.1.0",
+          "certifi": "2026.10.23",
+          "charset-normalizer": "3.5.2",
+          "distro": "1.9.0",
+          "frozenlist": "1.8.0",
+          "h11": "0.16.0",
+          "httpcore2": "2.16.0",
+          "httpx2": "2.16.0",
+          "idna": "3.20",
+          "jsonpatch": "1.37",
+          "jsonpointer": "3.5",
+          "langchain-core": "1.4.7",
+          "langchain-nvidia-ai-endpoints": "1.4.3",
+          "langchain-protocol": "0.0.20",
+          "langsmith": "0.14.12",
+          "multidict": "7.2.1",
+          "orjson": "3.13.0",
+          "packaging": "26.3",
+          "propcache": "0.5.4",
+          "pydantic": "2.14.1",
+          "pydantic_core": "2.50.1",
+          "PyYAML": "6.0.3",
+          "requests": "2.34.2",
+          "requests-toolbelt": "1.0.0",
+          "sniffio": "1.3.1",
+          "tenacity": "9.2.1",
+          "truststore": "0.10.5",
+          "typing_extensions": "4.16.0",
+          "typing-inspection": "0.4.4",
+          "urllib3": "2.8.0",
+          "uuid_utils": "0.18.0",
+          "websockets": "17.3",
+          "xxhash": "4.0.2",
+          "yarl": "1.25.1",
+          "zstandard": "0.25.0"
+        }
+      },
+      "events": [
+        {
+          "stage": "framework_input",
+          "timestamp": "2026-10-26T02:34:26.291625+00:00",
+          "payload": [
+            {
+              "role": "system",
+              "content": "Be concise"
+            },
+            {
+              "role": "user",
+              "content": "hello"
+            },
+            {
+              "role": "assistant",
+              "content": "world"
+            }
+          ]
+        },
+        {
+          "stage": "adapter_output",
+          "timestamp": "2026-10-26T02:34:26.291625+00:00",
+          "payload": [
+            {
+              "role": "system",
+              "content": "Be concise"
+            },
+            {
+              "role": "user",
+              "content": "hello"
+            },
+            {
+              "role": "assistant",
+              "content": "world"
+            }
+          ]
+        }
+      ],
+      "output": [
+        {
+          "role": "system",
+          "content": "Be concise"
+        },
+        {
+          "role": "user",
+          "content": "hello"
+        },
+        {
+          "role": "assistant",
+          "content": "world"
+        }
+      ],
+      "input_conversion": {
+        "status": "PASS",
+        "findings": []
+      },
+      "provider_requests": 0,
+      "duration_ms": 1480.992,
+      "exit_code": 0,
+      "environment_allowlist": [
+        "HOME",
+        "LANGCHAIN_TRACING_V2",
+        "LANGSMITH_TRACING",
+        "SystemRoot",
+        "TEMP",
+        "TMP",
+        "USERPROFILE",
+        "WINDIR"
+      ],
+      "stderr": ""
+    },
+    "candidate": {
+      "status": "EXECUTED",
+      "variant": "release",
+      "pid": 760,
+      "provenance": {
+        "backend": "installed-sdk",
+        "real_sdk_classes": true,
+        "source_sha256": "72be0432f302852d3d8c2b22be0778c14ceb406ce4b7755c7a4f6b2de97ddf03",
+        "executed_source_sha256": "72be0432f302852d3d8c2b22be0778c14ceb406ce4b7755c7a4f6b2de97ddf03",
+        "version": "1.5.0",
+        "dependencies": {
+          "aiohappyeyeballs": "2.7.1",
+          "aiohttp": "3.14.5",
+          "aiosignal": "1.4.0",
+          "annotated-types": "0.8.0",
+          "anyio": "4.15.1",
+          "attrs": "26.1.0",
+          "certifi": "2026.10.23",
+          "charset-normalizer": "3.5.2",
+          "distro": "1.9.0",
+          "frozenlist": "1.8.0",
+          "h11": "0.16.0",
+          "httpcore2": "2.16.0",
+          "httpx2": "2.16.0",
+          "idna": "3.20",
+          "jsonpatch": "1.37",
+          "jsonpointer": "3.5",
+          "langchain-core": "1.4.7",
+          "langchain-nvidia-ai-endpoints": "1.5.0",
+          "langchain-protocol": "0.0.20",
+          "langsmith": "0.14.12",
+          "multidict": "7.2.1",
+          "orjson": "3.13.0",
+          "packaging": "26.3",
+          "propcache": "0.5.4",
+          "pydantic": "2.14.1",
+          "pydantic_core": "2.50.1",
+          "PyYAML": "6.0.3",
+          "requests": "2.34.2",
+          "requests-toolbelt": "1.0.0",
+          "sniffio": "1.3.1",
+          "tenacity": "9.2.1",
+          "truststore": "0.10.5",
+          "typing_extensions": "4.16.0",
+          "typing-inspection": "0.4.4",
+          "urllib3": "2.8.0",
+          "uuid_utils": "0.18.0",
+          "websockets": "17.3",
+          "xxhash": "4.0.2",
+          "yarl": "1.25.1",
+          "zstandard": "0.25.0"
+        }
+      },
+      "events": [
+        {
+          "stage": "framework_input",
+          "timestamp": "2026-10-26T02:34:27.800080+00:00",
+          "payload": [
+            {
+              "role": "system",
+              "content": "Be concise"
+            },
+            {
+              "role": "user",
+              "content": "hello"
+            },
+            {
+              "role": "assistant",
+              "content": "world"
+            }
+          ]
+        },
+        {
+          "stage": "adapter_output",
+          "timestamp": "2026-10-26T02:34:27.800080+00:00",
+          "payload": [
+            {
+              "role": "system",
+              "content": "Be concise"
+            },
+            {
+              "role": "user",
+              "content": "hello"
+            },
+            {
+              "role": "assistant",
+              "content": "world"
+            }
+          ]
+        }
+      ],
+      "output": [
+        {
+          "role": "system",
+          "content": "Be concise"
+        },
+        {
+          "role": "user",
+          "content": "hello"
+        },
+        {
+          "role": "assistant",
+          "content": "world"
+        }
+      ],
+      "input_conversion": {
+        "status": "PASS",
+        "findings": []
+      },
+      "provider_requests": 0,
+      "duration_ms": 1507.951,
+      "exit_code": 0,
+      "environment_allowlist": [
+        "HOME",
+        "LANGCHAIN_TRACING_V2",
+        "LANGSMITH_TRACING",
+        "SystemRoot",
+        "TEMP",
+        "TMP",
+        "USERPROFILE",
+        "WINDIR"
+      ],
+      "stderr": ""
+    }
+  },
+  "environments": {
+    "baseline": {
+      "status": "READY",
+      "version": "1.4.3",
+      "root": "D:\\nv\\PatchCourt-Handoff-0.3.2-20261025\\work\\outputs\\sdk-environments-040\\nvidia-1.4.3",
+      "inventory_sha256": "a704690be8e6f73010c59a2de744962073a30f230ff72dd36a2a08c4df5216ac",
+      "dependencies": {
+        "aiohappyeyeballs": "2.7.1",
+        "aiohttp": "3.14.5",
+        "aiosignal": "1.4.0",
+        "annotated-types": "0.8.0",
+        "anyio": "4.15.1",
+        "attrs": "26.1.0",
+        "certifi": "2026.10.23",
+        "charset-normalizer": "3.5.2",
+        "distro": "1.9.0",
+        "frozenlist": "1.8.0",
+        "h11": "0.16.0",
+        "httpcore2": "2.16.0",
+        "httpx2": "2.16.0",
+        "idna": "3.20",
+        "jsonpatch": "1.37",
+        "jsonpointer": "3.5",
+        "langchain-core": "1.4.7",
+        "langchain-nvidia-ai-endpoints": "1.4.3",
+        "langchain-protocol": "0.0.20",
+        "langsmith": "0.14.12",
+        "multidict": "7.2.1",
+        "orjson": "3.13.0",
+        "packaging": "26.3",
+        "propcache": "0.5.4",
+        "pydantic": "2.14.1",
+        "pydantic-core": "2.50.1",
+        "pyyaml": "6.0.3",
+        "requests": "2.34.2",
+        "requests-toolbelt": "1.0.0",
+        "sniffio": "1.3.1",
+        "tenacity": "9.2.1",
+        "truststore": "0.10.5",
+        "typing-extensions": "4.16.0",
+        "typing-inspection": "0.4.4",
+        "urllib3": "2.8.0",
+        "uuid-utils": "0.18.0",
+        "websockets": "17.3",
+        "xxhash": "4.0.2",
+        "yarl": "1.25.1",
+        "zstandard": "0.25.0"
+      },
+      "installation": {
+        "python": "3.12.13",
+        "runtime": {
+          "implementation": "cpython",
+          "cache_tag": "cpython-312",
+          "platform": "win32",
+          "machine": "AMD64"
+        },
+        "wheel_only": true,
+        "source": "local-wheelhouse",
+        "pip_report_sha256": "e7d4dea15f4c1bf454e7229ed3d76255f49bc75dfbb6fa2108391db4f091d693",
+        "constraints_sha256": "d2836d8baf70b01d94b4f8507329d45ece8982e5ccd9c1adca567d9a1772eea9",
+        "duration_ms": 3505.611
+      },
+      "reused": true
+    },
+    "candidate": {
+      "status": "READY",
+      "version": "1.5.0",
+      "root": "D:\\nv\\PatchCourt-Handoff-0.3.2-20261025\\work\\outputs\\sdk-environments-040\\nvidia-1.5.0",
+      "inventory_sha256": "8aabaecfed3a94fdcf888797e2af356b1e50b58a3e8fdc974da3769106e4fccc",
+      "dependencies": {
+        "aiohappyeyeballs": "2.7.1",
+        "aiohttp": "3.14.5",
+        "aiosignal": "1.4.0",
+        "annotated-types": "0.8.0",
+        "anyio": "4.15.1",
+        "attrs": "26.1.0",
+        "certifi": "2026.10.23",
+        "charset-normalizer": "3.5.2",
+        "distro": "1.9.0",
+        "frozenlist": "1.8.0",
+        "h11": "0.16.0",
+        "httpcore2": "2.16.0",
+        "httpx2": "2.16.0",
+        "idna": "3.20",
+        "jsonpatch": "1.37",
+        "jsonpointer": "3.5",
+        "langchain-core": "1.4.7",
+        "langchain-nvidia-ai-endpoints": "1.5.0",
+        "langchain-protocol": "0.0.20",
+        "langsmith": "0.14.12",
+        "multidict": "7.2.1",
+        "orjson": "3.13.0",
+        "packaging": "26.3",
+        "propcache": "0.5.4",
+        "pydantic": "2.14.1",
+        "pydantic-core": "2.50.1",
+        "pyyaml": "6.0.3",
+        "requests": "2.34.2",
+        "requests-toolbelt": "1.0.0",
+        "sniffio": "1.3.1",
+        "tenacity": "9.2.1",
+        "truststore": "0.10.5",
+        "typing-extensions": "4.16.0",
+        "typing-inspection": "0.4.4",
+        "urllib3": "2.8.0",
+        "uuid-utils": "0.18.0",
+        "websockets": "17.3",
+        "xxhash": "4.0.2",
+        "yarl": "1.25.1",
+        "zstandard": "0.25.0"
+      },
+      "installation": {
+        "python": "3.12.13",
+        "runtime": {
+          "implementation": "cpython",
+          "cache_tag": "cpython-312",
+          "platform": "win32",
+          "machine": "AMD64"
+        },
+        "wheel_only": true,
+        "source": "local-wheelhouse",
+        "pip_report_sha256": "f017e2340b7db55993e917f7063cc62696902094ec2e548201e5f5c1990d2157",
+        "constraints_sha256": "d2836d8baf70b01d94b4f8507329d45ece8982e5ccd9c1adca567d9a1772eea9",
+        "duration_ms": 3610.951
+      },
+      "reused": true
+    }
+  },
+  "provider_requests": 0,
+  "inspection": {
+    "dependency": "langchain-nvidia-ai-endpoints",
+    "baseline_version": "1.4.3",
+    "candidate_version": "1.5.0",
+    "discovered_dependencies": [
+      {
+        "manifest": "requirements.txt",
+        "framework": "langchain-nvidia-ai-endpoints"
+      }
+    ],
+    "boundary_candidates": [
+      {
+        "query": "tool_calls",
+        "observation": "Search results for 'tool_calls': 1 match(es) shown\nagent.py:1\n >      1 | # convert_message_to_dict consumes AIMessage.tool_calls here"
+      },
+      {
+        "query": "image_url",
+        "observation": "Search results for 'image_url': 0 match(es) shown\n(no matches found)"
+      },
+      {
+        "query": "convert_message",
+        "observation": "Search results for 'convert_message': 1 match(es) shown\nagent.py:1\n >      1 | # convert_message_to_dict consumes AIMessage.tool_calls here"
+      },
+      {
+        "query": "format_messages",
+        "observation": "Search results for 'format_messages': 0 match(es) shown\n(no matches found)"
+      }
+    ],
+    "status": "NEEDS_REVIEW",
+    "reason": "Source matches identify inspection targets, not defects. Supply executed baseline/candidate traces for a verdict."
+  }
+}

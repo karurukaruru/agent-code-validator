@@ -13,7 +13,8 @@ from patchcourt.evidence import read_json, digest
 
 PLAN={'source':'tool_calls','id_field':'id','name_field':'name','arguments_field':'args','arguments_encoding':'json','preserve_legacy':True,'empty_content':'null'}
 def response(message):
-    return {'status':'PASS','http_status':200,'latency_ms':1,'usage':{'total_tokens':10},'provenance':'mocked transport','response':{'model':providers.GLM_MODEL,'choices':[{'finish_reason':'stop','message':message}]}}
+    message={'role':'assistant',**message}
+    return {'status':'PASS','http_status':200,'latency_ms':1,'usage':{'total_tokens':10},'provenance':'mocked transport','response':{'model':providers.GLM_MODEL,'choices':[{'finish_reason':'tool_calls' if message.get('tool_calls') else 'stop','message':message}]}}
 def replies():
     assistant=tool_conversation()[0]
     assistant['tool_calls'][0]['function']['arguments']='{"sku":"A"}'

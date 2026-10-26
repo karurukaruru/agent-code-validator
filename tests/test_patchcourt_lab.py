@@ -8,6 +8,7 @@ from unittest.mock import patch
 from patchcourt import providers
 from patchcourt.lab import _check, run_lab
 from patchcourt.reasoning import run_reasoning, validate_proposal
+MODEL = "nvidia/Nemotron-synthetic-test"
 
 
 class MockedProviderTests(unittest.TestCase):
@@ -57,12 +58,12 @@ class MockedProviderTests(unittest.TestCase):
 
     def test_stream_reassembly_and_truncation(self):
         events = [
-            {"choices": [{"index": 0, "delta": {"content": '{"ok":'}, "finish_reason": None}]},
-            {"choices": [{"index": 0, "delta": {"content": "true}"}, "finish_reason": "stop"}]},
-            {"choices": [], "usage": {"completion_tokens": 5}}]
+            {"model": MODEL, "choices": [{"index": 0, "delta": {"role": "assistant", "content": '{"ok":'}, "finish_reason": None}]},
+            {"model": MODEL, "choices": [{"index": 0, "delta": {"content": "true}"}, "finish_reason": "stop"}]},
+            {"model": MODEL, "choices": [], "usage": {"completion_tokens": 5}}]
         raw = "".join("data: " + json.dumps(e) + "\r\n\r\n" for e in events) + "data: [DONE]\r\n\r\n"
         body = providers.parse_stream(raw)
-        self.assertEqual(_check("streaming", {"status": "PASS", "response": body})[0], "PASS")
+        self.assertEqual(_check("streaming", {"status": "PASS", "response": body}, model=MODEL)[0], "PASS")
         with self.assertRaises(ValueError):
             providers.parse_stream(raw.replace("data: [DONE]", ""))
         with self.assertRaises(ValueError):
@@ -76,12 +77,12 @@ class MockedProviderTests(unittest.TestCase):
         self.assertEqual(_check("invalid_model_error", record)[0], "PASS")
 
     def test_schema_does_not_accept_integer_instead_of_boolean(self):
-        record = {"status": "PASS", "response": {"choices": [{"finish_reason": "stop", "message": {
+        record = {"status": "PASS", "parameters": {"model": MODEL}, "response": {"model": MODEL, "choices": [{"finish_reason": "stop", "message": {
             "role": "assistant", "content": '{"ok":1}'}}]}}
         self.assertEqual(_check("structured_json", record)[0], "FAIL")
 
     def test_malformed_choice_is_preserved_as_contract_failure(self):
-        record = {"status": "PASS", "response": {"choices": [7]}}
+        record = {"status": "PASS", "parameters": {"model": MODEL}, "response": {"model": MODEL, "choices": [7]}}
         self.assertEqual(_check("structured_json", record)[0], "FAIL")
 
 
@@ -99,7 +100,7 @@ class MockedLabTests(unittest.TestCase):
                 run_lab(root)
 
     def test_mocked_failed_trials_are_not_dropped(self):
-        discovery = {"status": "PASS", "models": ["mock/Nemotron"], "nemotron_models": ["mock/Nemotron"], "provenance": "mocked transport"}
+        discovery = {"status": "PASS", "models": [MODEL], "nemotron_models": [MODEL], "provenance": "mocked transport"}
         failure = {"status": "FAIL", "http_status": 429, "reason": "mocked rate limit", "latency_ms": 7,
                    "provenance": "mocked transport", "raw_response": '{"error":"rate limit"}'}
         with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parent) as root, patch.object(providers, "discover_models", return_value=discovery), patch.object(
@@ -124,8 +125,8 @@ class MockedLabTests(unittest.TestCase):
         proposal = {"hypothesis": "Text loss", "test_cases": [{"name": "text loss",
                     "baseline": [{"role": "user", "content": "hello"}], "candidate": [{"role": "user", "content": ""}], "expected_status": "FAIL"}],
                     "repair_proposals": ["Preserve content during conversion"], "citations": []}
-        response = {"status": "PASS", "provenance": "mocked transport", "response": {"choices": [
-            {"finish_reason": "stop", "message": {"content": json.dumps(proposal)}}]}}
+        response = {"status": "PASS", "provenance": "mocked transport", "response": {"model": "mock/Nemotron", "choices": [
+            {"finish_reason": "stop", "message": {"role": "assistant", "content": json.dumps(proposal)}}]}}
         with patch.dict("os.environ", {"NEBIUS_API_KEY": "mock-key"}, clear=True), patch.object(providers, "request", return_value=response):
             report = run_reasoning("adapter", {}, model="mock/Nemotron")
         self.assertEqual(report["status"], "PASS")

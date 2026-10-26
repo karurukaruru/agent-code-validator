@@ -1,0 +1,37 @@
+[
+  {
+    "scene": "intro",
+    "action": "top",
+    "text": "The tools ran. The agent still broke. PatchCourt makes a silent SDK regression visible. This is a recorded replay of an actual DeepSeek Flash development run. Playback makes no new model or search requests."
+  },
+  {
+    "scene": "replay",
+    "action": "replay",
+    "text": "The saved experiment used DeepSeek Flash through its development API. Its model read the historical adapter and proposed a restricted field mapping. Watch the recorded stages reveal the missing tool calls, the proposal, independent verification, and the recovered task. Playback timing is editorial; the source requests are preserved."
+  },
+  {
+    "scene": "repair",
+    "action": "repair",
+    "text": "The returned mapping is data, never executable model generated Python. Eight independent checks preserve identifiers, multiple calls, nested arguments, ordinary messages, and legacy behavior. We deliberately corrupt the identifiers too. That repair must be rejected. The model cannot approve its own work."
+  },
+  {
+    "scene": "task",
+    "action": "top",
+    "text": "The actual source conversation called two local fixture tools. Inventory returned three items. Price returned seven per item. The original adapter dropped the calls. The verified mapping preserved their identities, and the model returned the independently checked inventory value: twenty one."
+  },
+  {
+    "scene": "evidence",
+    "action": "evidence",
+    "text": "The saved report records the exact model, returned identities, 3 model requests, and 4094 reported tokens. Tavily retrieved official documentation for this repair proposal. We retain source hashes, request records, negative controls, and rejected attempts. Successful API use alone is not evidence that retrieval improved accuracy."
+  },
+  {
+    "scene": "limits",
+    "action": "evidence",
+    "text": "This demonstration covers a bounded adapter repair and fixed local tools, not arbitrary production patching. The adapter uses audited historical source and inert SDK message types. This development provider does not satisfy the competition's separate NVIDIA and Nebius runtime requirement. Hashes protect local integrity; they do not independently authenticate the provider."
+  },
+  {
+    "scene": "close",
+    "action": "top",
+    "text": "PatchCourt connects a concrete failure, a model proposal, an independent verdict, and a recovered task. Inspect the source and the saved evidence. A convincing repair earns trust through execution, not a confident explanation."
+  }
+]

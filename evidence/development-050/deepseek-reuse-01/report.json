@@ -1,0 +1,824 @@
+{
+  "run_id": "55f3a0a2a00340a7950b827c13c1a33c",
+  "kind": "live provider adapter repair and fixture task",
+  "status": "PASS",
+  "model": "deepseek-flash",
+  "provider": "deepseek",
+  "created_at": "2026-10-25T13:30:55.950614+00:00",
+  "events": [
+    {
+      "time": "2026-10-25T13:30:55.958729+00:00",
+      "stage": "detect",
+      "status": "FAIL",
+      "message": "Two tool calls disappear in the historical adapter; tool results become orphaned.",
+      "findings": [
+        {
+          "code": "ORPHAN_RESULT",
+          "path": "/1/tool_call_id",
+          "message": "Tool result lacks an earlier unmatched call"
+        },
+        {
+          "code": "ORPHAN_RESULT",
+          "path": "/2/tool_call_id",
+          "message": "Tool result lacks an earlier unmatched call"
+        },
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/tool_calls/0",
+          "expected": {
+            "id": "call_a",
+            "name": "inventory",
+            "args": {
+              "sku": "A",
+              "options": {
+                "warehouse": 2
+              }
+            }
+          },
+          "actual": null,
+          "message": "Observable message semantics changed"
+        },
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/tool_calls/1",
+          "expected": {
+            "id": "call_b",
+            "name": "price",
+            "args": {
+              "sku": "A"
+            }
+          },
+          "actual": null,
+          "message": "Observable message semantics changed"
+        }
+      ]
+    },
+    {
+      "time": "2026-10-25T13:30:55.962110+00:00",
+      "stage": "knowledge",
+      "status": "MISS",
+      "message": "No repair matches this exact source, environment and verifier."
+    },
+    {
+      "time": "2026-10-25T13:30:55.962110+00:00",
+      "stage": "propose",
+      "status": "RUNNING",
+      "message": "deepseek-flash is inspecting the original adapter and proposing a bounded mapping repair."
+    },
+    {
+      "time": "2026-10-25T13:30:57.028195+00:00",
+      "stage": "propose",
+      "status": "PASS",
+      "message": "The model returned a declarative repair. It has not yet earned verification.",
+      "plan": {
+        "source": "tool_calls",
+        "id_field": "id",
+        "name_field": "name",
+        "arguments_field": "args",
+        "arguments_encoding": "json",
+        "preserve_legacy": true,
+        "empty_content": "null"
+      },
+      "attempt": 1
+    },
+    {
+      "time": "2026-10-25T13:30:57.063437+00:00",
+      "stage": "verify",
+      "status": "VERIFIED",
+      "message": "Independent checks: 8/8 passed.",
+      "checks": [
+        {
+          "name": "two_calls",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "plain_text",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "system_text",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "nested_unicode",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "empty_arguments",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "boolean_not_integer",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "empty_tool_result",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "legacy_calls",
+          "status": "PASS"
+        }
+      ],
+      "attempt": 1
+    },
+    {
+      "time": "2026-10-25T13:30:57.098410+00:00",
+      "stage": "mutation",
+      "status": "PASS",
+      "message": "A deliberately corrupted repair was rejected by the same verifier."
+    },
+    {
+      "time": "2026-10-25T13:30:57.101900+00:00",
+      "stage": "task",
+      "status": "RUNNING",
+      "message": "Starting a real deepseek tool conversation with local inventory and price fixtures."
+    },
+    {
+      "time": "2026-10-25T13:30:58.151057+00:00",
+      "stage": "tools",
+      "status": "PASS",
+      "message": "Actual model tool calls survived the repaired adapter; original adapter failed locally.",
+      "tools": [
+        "inventory",
+        "price"
+      ],
+      "before": "FAIL",
+      "after": "PASS"
+    },
+    {
+      "time": "2026-10-25T13:30:58.928963+00:00",
+      "stage": "task",
+      "status": "PASS",
+      "message": "The real model conversation recovered the expected inventory value: 21.",
+      "answer": {
+        "sku": "A",
+        "inventory_value": 21
+      }
+    },
+    {
+      "time": "2026-10-25T13:30:58.937268+00:00",
+      "stage": "knowledge",
+      "status": "PASS",
+      "message": "Saved the verified mapping for a future exact-match run."
+    },
+    {
+      "time": "2026-10-25T13:30:58.948227+00:00",
+      "stage": "complete",
+      "status": "PASS",
+      "message": "Workflow finished; every request and failed candidate remains recorded."
+    }
+  ],
+  "requests": [
+    {
+      "name": "repair-proposal-1",
+      "status": "PASS",
+      "reserved": 13695,
+      "requested_model": "deepseek-flash",
+      "returned_model": "deepseek-flash",
+      "http_status": 200,
+      "latency_ms": 1047.0,
+      "usage": {
+        "prompt_tokens": 2108,
+        "completion_tokens": 53,
+        "total_tokens": 2161,
+        "prompt_tokens_details": {
+          "cached_tokens": 1920
+        },
+        "prompt_cache_hit_tokens": 1920,
+        "prompt_cache_miss_tokens": 188
+      },
+      "evidence_file": "repair-proposal-1.json",
+      "evidence_sha256": "970029473f90797de6a01d7524c20ef30741a5568eb93416c413c200783412a7",
+      "policy": "exact requested model or explicitly verified official DeepSeek version alias"
+    },
+    {
+      "name": "task-turn-1",
+      "status": "PASS",
+      "reserved": 3566,
+      "requested_model": "deepseek-flash",
+      "returned_model": "deepseek-flash",
+      "http_status": 200,
+      "latency_ms": 1032.0,
+      "usage": {
+        "prompt_tokens": 391,
+        "completion_tokens": 64,
+        "total_tokens": 455,
+        "prompt_tokens_details": {
+          "cached_tokens": 256
+        },
+        "prompt_cache_hit_tokens": 256,
+        "prompt_cache_miss_tokens": 135
+      },
+      "evidence_file": "task-turn-1.json",
+      "evidence_sha256": "5a4eeafe21c05319466c30da88c5dce7def22a64746a0a49eaadceb7b4061bf0",
+      "policy": "exact requested model or explicitly verified official DeepSeek version alias"
+    },
+    {
+      "name": "task-turn-2",
+      "status": "PASS",
+      "reserved": 3610,
+      "requested_model": "deepseek-flash",
+      "returned_model": "deepseek-flash",
+      "http_status": 200,
+      "latency_ms": 766.0,
+      "usage": {
+        "prompt_tokens": 186,
+        "completion_tokens": 14,
+        "total_tokens": 200,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 186
+      },
+      "evidence_file": "task-turn-2.json",
+      "evidence_sha256": "6da186fbc1f365eab1bb964cb4f343ced9d6d44aabc0b0495230f0a10d3fce8e",
+      "policy": "exact requested model or explicitly verified official DeepSeek version alias"
+    }
+  ],
+  "reserved_token_upper_estimate": 20871,
+  "limits": {
+    "max_requests": 8,
+    "input_bytes_plus_output_budget": 200000,
+    "automatic_retries": 0,
+    "model_discovery_requests": 0,
+    "search_requests": 0,
+    "max_output_tokens_per_request": 4096
+  },
+  "competition_eligibility": "Does not establish required Nebius/NVIDIA runtime use",
+  "scope": "Actual deepseek HTTP inference and local fixture tools; adapter executes audited source with inert SDK message types; model repair is data, never arbitrary Python",
+  "repair_source": "model_proposal",
+  "knowledge": {
+    "enabled": true,
+    "hit": false,
+    "revalidated": false,
+    "saved": true,
+    "record_id": "5b85524485ff2d823e1a8ae3b53f48e899421626ffb6e98804a827df99531e40",
+    "scope": "Exact matching prior plan only; all independent checks, mutation and task rerun. No measured token-savings claim."
+  },
+  "before": {
+    "baseline": [
+      {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "id": "call_a",
+            "type": "function",
+            "function": {
+              "name": "inventory",
+              "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+            }
+          },
+          {
+            "id": "call_b",
+            "type": "function",
+            "function": {
+              "name": "price",
+              "arguments": "{\"sku\":\"A\"}"
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_a",
+        "content": "{\"quantity\":3}"
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_b",
+        "content": "{\"price\":7}"
+      }
+    ],
+    "candidate": [
+      {
+        "role": "assistant",
+        "content": ""
+      },
+      {
+        "role": "tool",
+        "content": "{\"quantity\":3}",
+        "tool_call_id": "call_a"
+      },
+      {
+        "role": "tool",
+        "content": "{\"price\":7}",
+        "tool_call_id": "call_b"
+      }
+    ],
+    "verdict": {
+      "status": "FAIL",
+      "findings": [
+        {
+          "code": "ORPHAN_RESULT",
+          "path": "/1/tool_call_id",
+          "message": "Tool result lacks an earlier unmatched call"
+        },
+        {
+          "code": "ORPHAN_RESULT",
+          "path": "/2/tool_call_id",
+          "message": "Tool result lacks an earlier unmatched call"
+        },
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/tool_calls/0",
+          "expected": {
+            "id": "call_a",
+            "name": "inventory",
+            "args": {
+              "sku": "A",
+              "options": {
+                "warehouse": 2
+              }
+            }
+          },
+          "actual": null,
+          "message": "Observable message semantics changed"
+        },
+        {
+          "code": "SEMANTIC_CHANGE",
+          "path": "/0/tool_calls/1",
+          "expected": {
+            "id": "call_b",
+            "name": "price",
+            "args": {
+              "sku": "A"
+            }
+          },
+          "actual": null,
+          "message": "Observable message semantics changed"
+        }
+      ]
+    }
+  },
+  "repair_attempts": [
+    {
+      "attempt": 1,
+      "plan": {
+        "source": "tool_calls",
+        "id_field": "id",
+        "name_field": "name",
+        "arguments_field": "args",
+        "arguments_encoding": "json",
+        "preserve_legacy": true,
+        "empty_content": "null"
+      },
+      "verification": {
+        "status": "VERIFIED",
+        "checks": [
+          {
+            "name": "two_calls",
+            "status": "PASS",
+            "findings": []
+          },
+          {
+            "name": "plain_text",
+            "status": "PASS",
+            "findings": []
+          },
+          {
+            "name": "system_text",
+            "status": "PASS",
+            "findings": []
+          },
+          {
+            "name": "nested_unicode",
+            "status": "PASS",
+            "findings": []
+          },
+          {
+            "name": "empty_arguments",
+            "status": "PASS",
+            "findings": []
+          },
+          {
+            "name": "boolean_not_integer",
+            "status": "PASS",
+            "findings": []
+          },
+          {
+            "name": "empty_tool_result",
+            "status": "PASS",
+            "findings": []
+          },
+          {
+            "name": "legacy_calls",
+            "status": "PASS"
+          }
+        ],
+        "scope": "Declarative mapping over hash-pinned upstream adapter with inert SDK message types; no model Python executed"
+      }
+    }
+  ],
+  "plan": {
+    "source": "tool_calls",
+    "id_field": "id",
+    "name_field": "name",
+    "arguments_field": "args",
+    "arguments_encoding": "json",
+    "preserve_legacy": true,
+    "empty_content": "null"
+  },
+  "verification": {
+    "status": "VERIFIED",
+    "checks": [
+      {
+        "name": "two_calls",
+        "status": "PASS",
+        "findings": []
+      },
+      {
+        "name": "plain_text",
+        "status": "PASS",
+        "findings": []
+      },
+      {
+        "name": "system_text",
+        "status": "PASS",
+        "findings": []
+      },
+      {
+        "name": "nested_unicode",
+        "status": "PASS",
+        "findings": []
+      },
+      {
+        "name": "empty_arguments",
+        "status": "PASS",
+        "findings": []
+      },
+      {
+        "name": "boolean_not_integer",
+        "status": "PASS",
+        "findings": []
+      },
+      {
+        "name": "empty_tool_result",
+        "status": "PASS",
+        "findings": []
+      },
+      {
+        "name": "legacy_calls",
+        "status": "PASS"
+      }
+    ],
+    "scope": "Declarative mapping over hash-pinned upstream adapter with inert SDK message types; no model Python executed"
+  },
+  "mutation_check": {
+    "status": "PASS",
+    "mutant": {
+      "source": "tool_calls",
+      "id_field": "name",
+      "name_field": "name",
+      "arguments_field": "args",
+      "arguments_encoding": "json",
+      "preserve_legacy": true,
+      "empty_content": "null"
+    },
+    "verification": {
+      "status": "REJECTED",
+      "checks": [
+        {
+          "name": "two_calls",
+          "status": "FAIL",
+          "findings": [
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/1/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/2/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/0/id",
+              "expected": "call_a",
+              "actual": "inventory",
+              "message": "Observable message semantics changed"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/1/id",
+              "expected": "call_b",
+              "actual": "price",
+              "message": "Observable message semantics changed"
+            }
+          ]
+        },
+        {
+          "name": "plain_text",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "system_text",
+          "status": "PASS",
+          "findings": []
+        },
+        {
+          "name": "nested_unicode",
+          "status": "FAIL",
+          "findings": [
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/1/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/2/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/0/id",
+              "expected": "call_a",
+              "actual": "inventory",
+              "message": "Observable message semantics changed"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/1/id",
+              "expected": "call_b",
+              "actual": "price",
+              "message": "Observable message semantics changed"
+            }
+          ]
+        },
+        {
+          "name": "empty_arguments",
+          "status": "FAIL",
+          "findings": [
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/1/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/2/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/0/id",
+              "expected": "call_a",
+              "actual": "inventory",
+              "message": "Observable message semantics changed"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/1/id",
+              "expected": "call_b",
+              "actual": "price",
+              "message": "Observable message semantics changed"
+            }
+          ]
+        },
+        {
+          "name": "boolean_not_integer",
+          "status": "FAIL",
+          "findings": [
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/1/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/2/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/0/id",
+              "expected": "call_a",
+              "actual": "inventory",
+              "message": "Observable message semantics changed"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/1/id",
+              "expected": "call_b",
+              "actual": "price",
+              "message": "Observable message semantics changed"
+            }
+          ]
+        },
+        {
+          "name": "empty_tool_result",
+          "status": "FAIL",
+          "findings": [
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/1/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "ORPHAN_RESULT",
+              "path": "/2/tool_call_id",
+              "message": "Tool result lacks an earlier unmatched call"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/0/id",
+              "expected": "call_a",
+              "actual": "inventory",
+              "message": "Observable message semantics changed"
+            },
+            {
+              "code": "SEMANTIC_CHANGE",
+              "path": "/0/tool_calls/1/id",
+              "expected": "call_b",
+              "actual": "price",
+              "message": "Observable message semantics changed"
+            }
+          ]
+        },
+        {
+          "name": "legacy_calls",
+          "status": "PASS"
+        }
+      ],
+      "scope": "Declarative mapping over hash-pinned upstream adapter with inert SDK message types; no model Python executed"
+    }
+  },
+  "response_projection": "Raw provider replies preserved. Optional integer call.index must equal list position before removal at the framework boundary. All other unknown call/function fields rejected.",
+  "live_boundaries": [
+    {
+      "before": {
+        "status": "FAIL",
+        "findings": [
+          {
+            "code": "ORPHAN_RESULT",
+            "path": "/1/tool_call_id",
+            "message": "Tool result lacks an earlier unmatched call"
+          },
+          {
+            "code": "ORPHAN_RESULT",
+            "path": "/2/tool_call_id",
+            "message": "Tool result lacks an earlier unmatched call"
+          },
+          {
+            "code": "SEMANTIC_CHANGE",
+            "path": "/0/tool_calls/0",
+            "expected": {
+              "id": "call_00_VwKaRgmYsVq7L9J9GBYS9773",
+              "name": "inventory",
+              "args": {
+                "sku": "A"
+              }
+            },
+            "actual": null,
+            "message": "Observable message semantics changed"
+          },
+          {
+            "code": "SEMANTIC_CHANGE",
+            "path": "/0/tool_calls/1",
+            "expected": {
+              "id": "call_01_tR4CzZCjijif8ZxidxWo1363",
+              "name": "price",
+              "args": {
+                "sku": "A"
+              }
+            },
+            "actual": null,
+            "message": "Observable message semantics changed"
+          }
+        ]
+      },
+      "after": {
+        "status": "PASS",
+        "findings": []
+      },
+      "input": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_00_VwKaRgmYsVq7L9J9GBYS9773",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\": \"A\"}"
+              }
+            },
+            {
+              "id": "call_01_tR4CzZCjijif8ZxidxWo1363",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\": \"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_00_VwKaRgmYsVq7L9J9GBYS9773",
+          "content": "{\"quantity\": 3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_01_tR4CzZCjijif8ZxidxWo1363",
+          "content": "{\"price\": 7}"
+        }
+      ],
+      "broken": [
+        {
+          "role": "assistant",
+          "content": ""
+        },
+        {
+          "role": "tool",
+          "content": "{\"quantity\": 3}",
+          "tool_call_id": "call_00_VwKaRgmYsVq7L9J9GBYS9773"
+        },
+        {
+          "role": "tool",
+          "content": "{\"price\": 7}",
+          "tool_call_id": "call_01_tR4CzZCjijif8ZxidxWo1363"
+        }
+      ],
+      "repaired": [
+        {
+          "role": "assistant",
+          "content": null,
+          "tool_calls": [
+            {
+              "id": "call_00_VwKaRgmYsVq7L9J9GBYS9773",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\": \"A\"}"
+              }
+            },
+            {
+              "id": "call_01_tR4CzZCjijif8ZxidxWo1363",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\": \"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "content": "{\"quantity\": 3}",
+          "tool_call_id": "call_00_VwKaRgmYsVq7L9J9GBYS9773"
+        },
+        {
+          "role": "tool",
+          "content": "{\"price\": 7}",
+          "tool_call_id": "call_01_tR4CzZCjijif8ZxidxWo1363"
+        }
+      ]
+    }
+  ],
+  "task": {
+    "tools": [
+      {
+        "tool": "inventory",
+        "arguments": {
+          "sku": "A"
+        },
+        "result": {
+          "quantity": 3
+        }
+      },
+      {
+        "tool": "price",
+        "arguments": {
+          "sku": "A"
+        },
+        "result": {
+          "price": 7
+        }
+      }
+    ],
+    "answer": {
+      "sku": "A",
+      "inventory_value": 21
+    },
+    "status": "PASS",
+    "scope": "Live deepseek conversation with actual local fixture tool execution; broken adapter rejected locally before an invalid HTTP submission"
+  },
+  "duration_ms": 2989.777,
+  "completed_at": "2026-10-25T13:30:58.943613+00:00",
+  "total_reported_tokens": 2816,
+  "cost_usd": null
+}
