@@ -1,0 +1,573 @@
+{
+  "schema": "patchcourt-github-actions-evidence-v1",
+  "recorded_at_utc": "2026-10-26 02:52:36 UTC",
+  "source": "GitHub connector read-only workflow run metadata, latest-attempt jobs/steps, decoded job logs and artifact metadata",
+  "project_version": "0.5.0",
+  "repository": "karurukaruru/agent-code-validator",
+  "run": {
+    "id": 40260807511,
+    "name": "PatchCourt compatibility gate",
+    "html_url": "https://github.com/karurukaruru/agent-code-validator/actions/runs/40260807511",
+    "api_url": "https://api.github.com/repos/karurukaruru/agent-code-validator/actions/runs/40260807511",
+    "head_branch": "patchcourt/award-build-20261025",
+    "head_sha": "e3aa4bd47edd8b4f20d100b66e2d27833c90bac2",
+    "run_number": 6,
+    "run_attempt": 1,
+    "event": "push",
+    "workflow_path": ".github/workflows/patchcourt.yml",
+    "status": "completed",
+    "conclusion": "success",
+    "created_at": "2026-10-26T02:47:08Z",
+    "updated_at": "2026-10-26T02:48:15Z"
+  },
+  "exact_commit_verified": true,
+  "jobs": [
+    {
+      "id": 121372576709,
+      "name": "offline-evidence (3.13)",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40260807511,
+      "head_sha_verified_by_checkout": "e3aa4bd47edd8b4f20d100b66e2d27833c90bac2",
+      "html_url": "https://github.com/karurukaruru/agent-code-validator/actions/runs/40260807511/job/121372576709",
+      "logs_api_url": "https://api.github.com/repos/karurukaruru/agent-code-validator/actions/jobs/121372576709/logs",
+      "checkout_evidence": [
+        "2026-10-26T02:47:14.1231202Z e3aa4bd47edd8b4f20d100b66e2d27833c90bac2"
+      ],
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Run python -m pip install -e . pytest==8.4.2",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Run python -m pytest",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Run python -m patchcourt demo --output evidence/ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Run python -m unittest discover -s evidence/ci -p test_regression.py",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Run python -m patchcourt benchmark --output evidence/ci-benchmark",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19
+        }
+      ],
+      "pytest": {
+        "passed": 337,
+        "duration_seconds": 11.34,
+        "failed": 0,
+        "skipped": 0,
+        "summary_line": "2026-10-26T02:47:34.1028465Z 337 passed in 11.34s"
+      },
+      "generated_regression_unittest": {
+        "tests": 1,
+        "status": "PASS",
+        "summary_line": "2026-10-26T02:47:34.6167250Z Ran 1 test in 0.074s"
+      },
+      "installed_sdk": null,
+      "warnings": [
+        "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+      ]
+    },
+    {
+      "id": 121372576844,
+      "name": "installed-sdk (ubuntu-latest)",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40260807511,
+      "head_sha_verified_by_checkout": "e3aa4bd47edd8b4f20d100b66e2d27833c90bac2",
+      "html_url": "https://github.com/karurukaruru/agent-code-validator/actions/runs/40260807511/job/121372576844",
+      "logs_api_url": "https://api.github.com/repos/karurukaruru/agent-code-validator/actions/jobs/121372576844/logs",
+      "checkout_evidence": [
+        "2026-10-26T02:47:13.4859963Z e3aa4bd47edd8b4f20d100b66e2d27833c90bac2"
+      ],
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Run python -m pip install -e .",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Run python scripts/verify_sdk_upgrade.py --environment-dir outputs/sdk-environments --output evidence/ci-sdk-upgrade --prepare",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13
+        }
+      ],
+      "pytest": null,
+      "generated_regression_unittest": null,
+      "installed_sdk": {
+        "status": "PASS",
+        "rows": [
+          {
+            "scenario": "upgrade",
+            "expected": "NEEDS_REVIEW",
+            "actual": "NEEDS_REVIEW",
+            "integrity": true,
+            "real_sdk_workers": true,
+            "recovery": true,
+            "passed": true
+          },
+          {
+            "scenario": "text-control",
+            "expected": "PASS",
+            "actual": "PASS",
+            "integrity": true,
+            "real_sdk_workers": true,
+            "recovery": true,
+            "passed": true
+          },
+          {
+            "scenario": "regression",
+            "expected": "FAIL",
+            "actual": "FAIL",
+            "integrity": true,
+            "real_sdk_workers": true,
+            "recovery": true,
+            "passed": true
+          },
+          {
+            "scenario": "recovery",
+            "expected": "NEEDS_REVIEW",
+            "actual": "NEEDS_REVIEW",
+            "integrity": true,
+            "real_sdk_workers": true,
+            "recovery": true,
+            "passed": true
+          }
+        ],
+        "provider_requests": 0,
+        "scope": "Four controlled installed-SDK serializer scenarios; no model inference or full agent application execution"
+      },
+      "warnings": [
+        "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+      ]
+    },
+    {
+      "id": 121372576864,
+      "name": "offline-evidence (3.10)",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40260807511,
+      "head_sha_verified_by_checkout": "e3aa4bd47edd8b4f20d100b66e2d27833c90bac2",
+      "html_url": "https://github.com/karurukaruru/agent-code-validator/actions/runs/40260807511/job/121372576864",
+      "logs_api_url": "https://api.github.com/repos/karurukaruru/agent-code-validator/actions/jobs/121372576864/logs",
+      "checkout_evidence": [
+        "2026-10-26T02:47:13.4501566Z e3aa4bd47edd8b4f20d100b66e2d27833c90bac2"
+      ],
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Run python -m pip install -e . pytest==8.4.2",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Run python -m pytest",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Run python -m patchcourt demo --output evidence/ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Run python -m unittest discover -s evidence/ci -p test_regression.py",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Run python -m patchcourt benchmark --output evidence/ci-benchmark",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19
+        }
+      ],
+      "pytest": {
+        "passed": 337,
+        "duration_seconds": 12.14,
+        "failed": 0,
+        "skipped": 0,
+        "summary_line": "2026-10-26T02:47:44.3437068Z 337 passed in 12.14s"
+      },
+      "generated_regression_unittest": {
+        "tests": 1,
+        "status": "PASS",
+        "summary_line": "2026-10-26T02:47:44.8372935Z Ran 1 test in 0.068s"
+      },
+      "installed_sdk": null,
+      "warnings": [
+        "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+      ]
+    },
+    {
+      "id": 121372576912,
+      "name": "installed-sdk (windows-latest)",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40260807511,
+      "head_sha_verified_by_checkout": "e3aa4bd47edd8b4f20d100b66e2d27833c90bac2",
+      "html_url": "https://github.com/karurukaruru/agent-code-validator/actions/runs/40260807511/job/121372576912",
+      "logs_api_url": "https://api.github.com/repos/karurukaruru/agent-code-validator/actions/jobs/121372576912/logs",
+      "checkout_evidence": [
+        "2026-10-26T02:47:17.5096525Z e3aa4bd47edd8b4f20d100b66e2d27833c90bac2"
+      ],
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Run python -m pip install -e .",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Run python scripts/verify_sdk_upgrade.py --environment-dir outputs/sdk-environments --output evidence/ci-sdk-upgrade --prepare",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13
+        }
+      ],
+      "pytest": null,
+      "generated_regression_unittest": null,
+      "installed_sdk": {
+        "status": "PASS",
+        "rows": [
+          {
+            "scenario": "upgrade",
+            "expected": "NEEDS_REVIEW",
+            "actual": "NEEDS_REVIEW",
+            "integrity": true,
+            "real_sdk_workers": true,
+            "recovery": true,
+            "passed": true
+          },
+          {
+            "scenario": "text-control",
+            "expected": "PASS",
+            "actual": "PASS",
+            "integrity": true,
+            "real_sdk_workers": true,
+            "recovery": true,
+            "passed": true
+          },
+          {
+            "scenario": "regression",
+            "expected": "FAIL",
+            "actual": "FAIL",
+            "integrity": true,
+            "real_sdk_workers": true,
+            "recovery": true,
+            "passed": true
+          },
+          {
+            "scenario": "recovery",
+            "expected": "NEEDS_REVIEW",
+            "actual": "NEEDS_REVIEW",
+            "integrity": true,
+            "real_sdk_workers": true,
+            "recovery": true,
+            "passed": true
+          }
+        ],
+        "provider_requests": 0,
+        "scope": "Four controlled installed-SDK serializer scenarios; no model inference or full agent application execution"
+      },
+      "warnings": [
+        "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 12624686341,
+      "name": "installed-sdk-windows-latest",
+      "size_in_bytes": 79683,
+      "url": "https://api.github.com/repos/karurukaruru/agent-code-validator/actions/artifacts/12624686341",
+      "archive_download_url": "https://api.github.com/repos/karurukaruru/agent-code-validator/actions/artifacts/12624686341/zip",
+      "expired": false,
+      "created_at": "2026-10-26T02:48:11Z",
+      "expires_at": "2027-01-24T02:47:08Z",
+      "updated_at": "2026-10-26T02:48:11Z",
+      "digest": "sha256:50fe89e5fe70bbf23195c8cd817dcdb021daaf0e376f64b35b4b3ac40361a593",
+      "workflow_run": {
+        "id": 40260807511,
+        "repository_id": 1342940744,
+        "head_repository_id": 1342940744,
+        "head_branch": "patchcourt/award-build-20261025",
+        "head_sha": "e3aa4bd47edd8b4f20d100b66e2d27833c90bac2"
+      }
+    },
+    {
+      "id": 12624458256,
+      "name": "installed-sdk-ubuntu-latest",
+      "size_in_bytes": 79466,
+      "url": "https://api.github.com/repos/karurukaruru/agent-code-validator/actions/artifacts/12624458256",
+      "archive_download_url": "https://api.github.com/repos/karurukaruru/agent-code-validator/actions/artifacts/12624458256/zip",
+      "expired": false,
+      "created_at": "2026-10-26T02:47:57Z",
+      "expires_at": "2027-01-24T02:47:08Z",
+      "updated_at": "2026-10-26T02:47:57Z",
+      "digest": "sha256:302cb42fe4e6ac9e68a58d7490c5430e266538b31087031a604a6e082ee928db",
+      "workflow_run": {
+        "id": 40260807511,
+        "repository_id": 1342940744,
+        "head_repository_id": 1342940744,
+        "head_branch": "patchcourt/award-build-20261025",
+        "head_sha": "e3aa4bd47edd8b4f20d100b66e2d27833c90bac2"
+      }
+    },
+    {
+      "id": 12624154001,
+      "name": "compatibility-evidence-3.10",
+      "size_in_bytes": 27801,
+      "url": "https://api.github.com/repos/karurukaruru/agent-code-validator/actions/artifacts/12624154001",
+      "archive_download_url": "https://api.github.com/repos/karurukaruru/agent-code-validator/actions/artifacts/12624154001/zip",
+      "expired": false,
+      "created_at": "2026-10-26T02:47:45Z",
+      "expires_at": "2027-01-24T02:47:08Z",
+      "updated_at": "2026-10-26T02:47:45Z",
+      "digest": "sha256:952d07e2ed141f6e478d7530733ec28e00441cdba55d99d5aee6a28fc9b1ac57",
+      "workflow_run": {
+        "id": 40260807511,
+        "repository_id": 1342940744,
+        "head_repository_id": 1342940744,
+        "head_branch": "patchcourt/award-build-20261025",
+        "head_sha": "e3aa4bd47edd8b4f20d100b66e2d27833c90bac2"
+      }
+    },
+    {
+      "id": 12624092598,
+      "name": "compatibility-evidence-3.13",
+      "size_in_bytes": 27997,
+      "url": "https://api.github.com/repos/karurukaruru/agent-code-validator/actions/artifacts/12624092598",
+      "archive_download_url": "https://api.github.com/repos/karurukaruru/agent-code-validator/actions/artifacts/12624092598/zip",
+      "expired": false,
+      "created_at": "2026-10-26T02:47:35Z",
+      "expires_at": "2027-01-24T02:47:08Z",
+      "updated_at": "2026-10-26T02:47:35Z",
+      "digest": "sha256:213c917150d6d8aa8dc2f9284d17a8756796d16b4e4ef4ca980001a721769129",
+      "workflow_run": {
+        "id": 40260807511,
+        "repository_id": 1342940744,
+        "head_repository_id": 1342940744,
+        "head_branch": "patchcourt/award-build-20261025",
+        "head_sha": "e3aa4bd47edd8b4f20d100b66e2d27833c90bac2"
+      }
+    }
+  ],
+  "summary": {
+    "jobs_total": 4,
+    "jobs_success": 4,
+    "pytest_by_python": {
+      "3.10": 337,
+      "3.13": 337
+    },
+    "distinct_suite_test_count": 337,
+    "note_on_test_count": "The same 337-test suite passed on each Python version; 674 executions are not 674 distinct tests.",
+    "installed_sdk_by_platform": {
+      "ubuntu-latest": {
+        "status": "PASS",
+        "scenarios": 4,
+        "expectations_matched": 4
+      },
+      "windows-latest": {
+        "status": "PASS",
+        "scenarios": 4,
+        "expectations_matched": 4
+      }
+    },
+    "negative_control_note": "Installed-SDK regression is expected FAIL; upgrade/recovery are expected NEEDS_REVIEW. Job success means the asserted scenario expectations and integrity/recovery checks passed."
+  },
+  "limitations": [
+    "Evidence applies exactly to commit e3aa4bd47edd8b4f20d100b66e2d27833c90bac2, run 40260807511 attempt 1; no earlier 0.4 run is used.",
+    "Offline pytest and installed-SDK serializer checks do not establish live Nebius/NVIDIA platform inference or competition eligibility.",
+    "Artifact digest/availability values were read from GitHub metadata. Binary artifacts were not downloaded or independently rehashed.",
+    "No workflow rerun, remote mutation, credential read or paid provider request was performed to collect this evidence."
+  ]
+}

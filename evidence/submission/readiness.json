@@ -51,13 +51,13 @@
     },
     {
       "gate": "public:source",
-      "status": "BLOCKED",
-      "detail": "Required evidence is not yet supplied"
+      "status": "PASS",
+      "detail": "Dated anonymous access recorded; availability must be rechecked before submission"
     },
     {
       "gate": "public:demo",
-      "status": "BLOCKED",
-      "detail": "Required evidence is not yet supplied"
+      "status": "PASS",
+      "detail": "Dated anonymous access recorded; availability must be rechecked before submission"
     },
     {
       "gate": "public:youtube",

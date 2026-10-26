@@ -1,22 +1,25 @@
 {
   "schema_version": 1,
-  "project": "PatchCourt — AI Agent Compatibility Guardian",
+  "project": "PatchCourt \u2014 AI Agent Compatibility Guardian",
   "track": "Coding and Agentic Engineering",
-  "source_commit": null,
+  "source_commit": "e3aa4bd47edd8b4f20d100b66e2d27833c90bac2",
   "runtime_workflow": null,
   "feedback_review": null,
   "public_links": {
     "source": {
-      "url": "https://github.com/karurukaruru/agent-code-validator/tree/patchcourt/award-build-20261024",
-      "verification": null
+      "url": "https://github.com/karurukaruru/agent-code-validator/tree/e3aa4bd47edd8b4f20d100b66e2d27833c90bac2",
+      "verification": "evidence/submission/public-source-050.json"
     },
-    "demo": null,
+    "demo": {
+      "url": "https://raw.githubusercontent.com/karurukaruru/agent-code-validator/e3aa4bd47edd8b4f20d100b66e2d27833c90bac2/release/patchcourt-judge-demo-0.5.0-development.zip",
+      "verification": "evidence/submission/public-demo-050.json"
+    },
     "youtube": null
   },
   "video": null,
   "development_video": {
-    "file": "release/patchcourt-glm-live-demo.mp4",
-    "manifest": "evidence/live-video/video-manifest.json",
+    "file": "release/patchcourt-development-replay-0.5.0.mp4",
+    "manifest": "evidence/video-development-050/video-manifest.json",
     "english_reviewed": true,
     "competition_runtime_shown": false,
     "spoken_platform_attribution": false

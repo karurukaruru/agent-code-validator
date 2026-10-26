@@ -1,6 +1,6 @@
 # Submission acceptance checklist
 
-Reviewed **2026-10-25, Asia/Singapore**. This is a release gate, not a declaration of eligibility or an entry receipt. The entrant has selected the Nebius × NVIDIA event and will supply Nebius access. DeepSeek/GLM development calls cannot close the required-platform gate.
+Updated **2026-10-26, Asia/Singapore** (official rules reviewed October 25). This is a release gate, not a declaration of eligibility or an entry receipt. The entrant has selected the Nebius × NVIDIA event and will supply Nebius access. DeepSeek/GLM development calls cannot close the required-platform gate.
 
 The deadline is **2026-10-31 01:00 SGT** (October 30, 10:00 PDT). Keep free judge access available through **2026-12-16 04:00 SGT** (December 15, noon PST). The [official rules](https://nebiusglobalaihackathon.devpost.com/rules) require working software, an NVIDIA open model on Nebius runtime, a public licensed source repository, a demo/test-build URL, a public YouTube video shorter than three minutes, English materials, feedback and disclosure of significant changes to pre-existing work. Entrant eligibility and ownership remain personal declarations.
 
@@ -9,9 +9,9 @@ The deadline is **2026-10-31 01:00 SGT** (October 30, 10:00 PDT). Keep free judg
 | NVIDIA + Nebius execution | Actual NVIDIA-model inference through Token Factory, or qualifying Nebius compute; saved request/response and completed product workflow | Awaiting Nebius access; discovery alone is insufficient |
 | Product behavior | Actual repair proposal, independent checks, corrupted repair rejection and completed tool task; installed-SDK controls | GLM and preliminary DeepSeek/Tavily development workflows plus SDK evidence executed; final required-platform run pending |
 | English description | Reviewed product copy with exact model/platform roles and honest limits | `DEVPOST_SUBMISSION.md` prepared; live figures to be finalized |
-| Public source | Final revision published, license visible and README sufficient; anonymous access tied to final commit | Existing public branch is a candidate; local final revision not published |
-| Demo/test build | Public working demo or downloadable functional build with English judge instructions and free access | Local artifacts exist; final public URL not verified |
-| Video | Actual final file, <180 s, readable English, real runtime, spoken model/platform attribution, public YouTube link | 95-second GLM intermediate cut exists; final competition cut pending |
+| Public source | Final revision published, license visible and README sufficient; anonymous access tied to final commit | 0.5.0 development commit e3aa4bd published and anonymously verified; final required-platform run pending |
+| Demo/test build | Public working demo or downloadable functional build with English judge instructions and free access | Development ZIP anonymously downloaded, byte-checked and relaunched; manifest records public URL |
+| Video | Actual final file, <180 s, readable English, real runtime, spoken model/platform attribution, public YouTube link | 137-second English DeepSeek recorded-replay cut verified; final competition cut and public YouTube pending |
 | Feedback | Specific observed platform/model use, strengths, limits, onboarding and reuse decision | Honest working draft; no invented findings |
 | Existing work | Explain retained ACV baseline and significant in-period additions | `COMPETITION_CHANGELOG.md` exists |
 | Entrant/form | Legitimate registration, eligibility/rights declarations, every actual required field and feedback entered | Authenticated form unavailable in public session |
@@ -51,4 +51,4 @@ Form review booleans are `required_fields_reviewed`, `feedback_entered`, `entran
 
 ## Actual Devpost form limitation
 
-The [public submission-management page](https://devpost.com/submit-to/30790-nebius-x-nvidia-global-ai-hackathon/manage/submissions) was re-opened on October 25. It displays Join/Register and no editable entry fields in the available public session. Exact authenticated prompts, limits and required-field flags remain unverified. The entrant must inspect that form and adapt the prepared copy before final submission. No login, account declaration, upload, publication, message or final submission has been performed by this checklist.
+The [public submission-management page](https://devpost.com/submit-to/30790-nebius-x-nvidia-global-ai-hackathon/manage/submissions) was re-opened on October 25. It displays Join/Register and no editable entry fields in the available public session. Exact authenticated prompts, limits and required-field flags remain unverified. The entrant must inspect that form and adapt the prepared copy before final submission. Public development code and test assets have been published and verified separately. No Devpost login, entrant declaration, YouTube upload, external feedback message or final entry submission has been performed.

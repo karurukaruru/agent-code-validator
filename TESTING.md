@@ -19,8 +19,15 @@ New synthetic tests cover exact model identity, assistant/finish/refusal checks,
 reasoning metadata isolation, persisted failures, shared cross-process budgets,
 scoped plan reuse, fixed evaluation arms, and false-positive submission gates.
 Real DeepSeek HTTP records are separately frozen under `evidence/development-050`.
-NVIDIA/Nebius model inference remains pending access. New remote CI has not yet
-been recorded at this local checkpoint.
+NVIDIA/Nebius model inference remains pending access.
+
+The exact 0.5.0 code commit `e3aa4bd47edd8b4f20d100b66e2d27833c90bac2`
+passed [GitHub Actions run 40260807511](https://github.com/karurukaruru/agent-code-validator/actions/runs/40260807511):
+Python 3.10 and 3.13 each passed **337 tests** on Ubuntu; Ubuntu and Windows
+installed-SDK jobs each passed the four expected scenario outcomes. These are
+the same test suite on two interpreters, not 674 independent tests. Exact
+checkout SHAs, steps and result excerpts are recorded in
+`evidence/tests/github-actions-050.json`.
 
 ## Historical verification
 

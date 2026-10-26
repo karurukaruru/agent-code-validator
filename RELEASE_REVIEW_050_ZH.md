@@ -27,6 +27,12 @@
 - 评委导出包 **22项Chrome检查** 通过，含手机布局、第二次重放清空状态和无推理服务请求。
 - **137秒** 英文配音/字幕开发样片已完整解码和视觉检查，明确DeepSeek与录制回放；它不是正式Nebius视频。
 
+## 公开交付与远程验收
+
+公开源码为 `e3aa4bd47edd8b4f20d100b66e2d27833c90bac2`，开发评委ZIP、wheel、137秒样片均匿名下载并与已审查字节一致；下载ZIP重新启动通过。证明在 `evidence/submission/public-*-050.json`。公开内容不需要评委购买API访问。
+
+[远程CI run40260807511](https://github.com/karurukaruru/agent-code-validator/actions/runs/40260807511) **4/4 jobs成功**：Python3.10、3.13各337项通过；Ubuntu、Windows各4项SDK场景符合预期。每项均核对相同源码commit，证据 `evidence/tests/github-actions-050.json`。当前提交检查器10项PASS、5项BLOCKED；待补项来自正式平台、视频/YouTube、反馈与参赛人表单。
+
 ## 正式提交尚需
 
 1. 用户补充可用 Nebius 访问后，在冻结代码上实际运行 NVIDIA Nemotron；保存原始请求、失败、模型身份与环境。DeepSeek 不能替代。

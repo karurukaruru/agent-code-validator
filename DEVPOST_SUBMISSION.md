@@ -48,9 +48,9 @@ Python; Agent Code Validator; ASM evidence conventions; LangChain NVIDIA AI Endp
 
 ## Delivery fields and disclosures
 
-- **Current published source candidate:** https://github.com/karurukaruru/agent-code-validator/tree/patchcourt/award-build-20261024 . The final local revision still needs publication and anonymous verification.
-- **Working demo or test-build URL:** not yet verified for the final release. Local loopback URLs are not public submission URLs.
-- **YouTube:** no public final competition-video URL is recorded. The genuine 95-second GLM development cut remains an intermediate artifact.
+- **Published development source:** https://github.com/karurukaruru/agent-code-validator/tree/e3aa4bd47edd8b4f20d100b66e2d27833c90bac2 . Version 0.5.0 source and license were verified anonymously; the separate final required-platform run is pending.
+- **Working development test build:** https://raw.githubusercontent.com/karurukaruru/agent-code-validator/e3aa4bd47edd8b4f20d100b66e2d27833c90bac2/release/patchcourt-judge-demo-0.5.0-development.zip . Anonymous download, exact-byte comparison and a fresh launch passed; recorded DeepSeek development evidence is clearly labelled.
+- **YouTube:** no public final competition-video URL is recorded. The 137-second English DeepSeek recorded-replay development cut is published under release/; it is an intermediate artifact and does not show the pending required-platform inference.
 - **Testing instructions:** [JUDGE_TESTING.md](JUDGE_TESTING.md).
 - **Platform feedback:** [MOST_VALUABLE_FEEDBACK.md](MOST_VALUABLE_FEEDBACK.md); final copy must describe actual required-platform use.
 - **Pre-existing work:** Agent Code Validator v0.2.0 predates the event. Significant competition-period additions and retained upstream components are disclosed in [COMPETITION_CHANGELOG.md](COMPETITION_CHANGELOG.md). Known upstream defects are credited; they are not claimed as new discoveries.

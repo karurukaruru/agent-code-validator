@@ -57,7 +57,7 @@ Some optional installed-SDK/permission checks may skip when their explicit envir
 
 The final delivery must link the actual completed required-platform run through `submission-manifest.json` → `runtime_workflow`. Its directory includes the workflow report, request/response records, independent verifier results, corruption control, tool-call boundaries and integrity manifest. Read those saved records without supplying credentials.
 
-At this checkpoint that manifest field is **null**: the existing GLM development run and successful Nebius model discovery do not establish NVIDIA inference through Nebius. Do not treat a missing live-evidence gate as an executed result. The final public test-build link will be added only after anonymous download and launch are verified.
+At this checkpoint that manifest field is **null**: the existing GLM development run and successful Nebius model discovery do not establish NVIDIA inference through Nebius. Do not treat a missing live-evidence gate as an executed result. The current public development ZIP has passed anonymous download, byte comparison and a fresh local launch; its URL and verification record are in the manifest. This does not replace the missing required-platform inference.
 
 Fresh model inference requires legitimate platform access and incurs the provider's normal usage. API keys stay in local environment variables or an ignored local credential file; they are never requested from judges through the public viewer. The offline review and published evidence remain usable without a judge buying access. A local-only server is not a public remote inference endpoint.
 
