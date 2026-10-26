@@ -1,0 +1,50 @@
+{
+  "status": "PASS",
+  "source_html_sha256": "726a9c83c7db8e1fdc692956763837fb7513b3154b18af0ab292a0daff0766cd",
+  "source_report_sha256": "b790fff31c86cca1b331de610f8f10d160c56c8bfba5ddbbb4207bba4ba6b599",
+  "scope": "Actual captured installed-SDK gate report rendering, plus synthetic BLOCKED and separate-file import UI controls. Browser only; no SDK or model is executed by the viewer.",
+  "checks": [
+    "Actual exported gate separates EXPORTED from expected failing test",
+    "Visible standalone unittest command matches export instructions",
+    "Only fixed sibling artifacts are linked",
+    "Actual exported attachment is accessible: ./REGRESSION-GATE.md",
+    "Actual exported attachment is accessible: ./test_boundary_contract.py",
+    "Actual exported attachment is accessible: ./contract.json",
+    "Keyboard moves from run command to gate downloads",
+    "Gate card fits desktop",
+    "Gate card and command fit mobile",
+    "Separately imported JSON does not imply current-folder attachment locations",
+    "Blocked reason is inert text with no runnable command or misleading downloads",
+    "Marked static file export uses fixed local download links without fetch or code execution",
+    "No unhandled browser JavaScript exception",
+    "Viewer performed only read-only local requests"
+  ],
+  "errors": [],
+  "requests": [
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/report.json"
+    },
+    {
+      "method": "GET",
+      "url": "/REGRESSION-GATE.md"
+    },
+    {
+      "method": "GET",
+      "url": "/test_boundary_contract.py"
+    },
+    {
+      "method": "GET",
+      "url": "/contract.json"
+    },
+    {
+      "method": "GET",
+      "url": "/report.json"
+    }
+  ],
+  "new_model_requests": 0
+}

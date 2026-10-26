@@ -1,3 +1,5 @@
+> 2026-10-26 最新：用户明确“只把开发做完”，不要继续查邮件/账户；先不花约1美元余额。本轮0.5.1聚焦真实BoundaryRecorder→独立CI门禁和工作台故障恢复。没有新付费模型或搜索调用。当前正式平台资格仍待实际Nebius执行，不要以开发或SDK本地验证替代。以本轮源码/测试/发布记录为准。
+
 > 当前续作说明（2026-10-25）：用户已经明确要求继续本场比赛，授权使用本地提供的 DeepSeek Flash/Tavily，并承诺补 Nebius 访问。下方原 0.3.2 停止记录是历史，不是本轮指令。当前开发目录版本 0.5.0；以 README.md、SUBMISSION_CHECKLIST.md、submission-manifest.json 和 RELEASE_REVIEW_050_ZH.md 为当前状态。不得将 DeepSeek 开发实测当作 Nebius/NVIDIA 比赛平台证据。
 
 # 最终停止点与完整接手说明（2026-10-25）

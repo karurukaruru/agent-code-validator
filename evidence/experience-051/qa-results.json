@@ -1,0 +1,118 @@
+{
+  "status": "PASS",
+  "scope": "Real Chrome UI/transport tests using synthetic localhost states, including a saved development-report fixture. No provider HTTP, credentials or model execution.",
+  "checks": [
+    "Run disabled before session and state handshake",
+    "Successful handshake clears connecting notice",
+    "HTTP 403 explanation survives polling",
+    "Expired session cannot submit another inference request",
+    "Disabled Run does not repeat a denied POST",
+    "Reconnect uses GET only and does not execute a workflow",
+    "Lost POST response explains uncertain execution",
+    "Unconfirmed POST is never automatically retried",
+    "Run stays disabled until uncertain execution is checked",
+    "Reconnect recovers completed task without a second POST",
+    "Recovered result keeps original verification evidence",
+    "Disconnect retains completed value with explicit stale-evidence notice",
+    "Connection recovery fits mobile width",
+    "Late previous-state response cannot restore prior success or enable duplicate execution",
+    "Arrow key selects and focuses associated repair panel",
+    "End selects final live tab",
+    "Home selects first live tab",
+    "SDK keyboard tabs expose linked provenance panel",
+    "Reduced-motion replay reveals saved evidence without staged animation",
+    "Recorded mode stays offline and preserves real saved value",
+    "Replay makes no session, state or run request",
+    "Reduced-motion mode disables pulse animation",
+    "No unhandled browser JavaScript exceptions"
+  ],
+  "errors": [],
+  "requests": [
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/session"
+    },
+    {
+      "method": "GET",
+      "url": "/favicon.ico"
+    },
+    {
+      "method": "GET",
+      "url": "/state"
+    },
+    {
+      "method": "POST",
+      "url": "/run"
+    },
+    {
+      "method": "GET",
+      "url": "/session"
+    },
+    {
+      "method": "GET",
+      "url": "/state"
+    },
+    {
+      "method": "POST",
+      "url": "/run"
+    },
+    {
+      "method": "POST",
+      "url": "/run"
+    },
+    {
+      "method": "GET",
+      "url": "/session"
+    },
+    {
+      "method": "GET",
+      "url": "/state"
+    },
+    {
+      "method": "GET",
+      "url": "/state"
+    },
+    {
+      "method": "GET",
+      "url": "/state"
+    },
+    {
+      "method": "GET",
+      "url": "/session"
+    },
+    {
+      "method": "GET",
+      "url": "/state"
+    },
+    {
+      "method": "GET",
+      "url": "/state"
+    },
+    {
+      "method": "POST",
+      "url": "/run"
+    },
+    {
+      "method": "GET",
+      "url": "/state"
+    },
+    {
+      "method": "GET",
+      "url": "/sdk"
+    },
+    {
+      "method": "GET",
+      "url": "/report.json"
+    },
+    {
+      "method": "GET",
+      "url": "/replay"
+    }
+  ],
+  "new_model_requests": 0,
+  "new_search_requests": 0
+}

@@ -1,3 +1,27 @@
+# Testing and verification — 0.5.1
+
+New checks exercise real captured input/output, standalone gate generation and
+future candidate verification, late credential redaction, adapter identity,
+mutating adapters, bounded inputs and checker-source isolation. The full loop
+runs with `python -I -S` using only the exported files and standard library.
+
+`evidence/recording-gate-051` preserves installed SDK execution and red/green/
+corruption outcomes. `evidence/experience-051-final-v2` contains 24 real Chrome
+transport/accessibility checks over synthetic localhost states; no real model
+request occurs. `evidence/gate-viewer-051-final-v2` contains the 16-check gate
+viewer/download review. Each browser record includes source hashes and scope.
+The frozen local suite passed **373 tests**, with four Windows symlink-permission
+skips; see `evidence/tests/pytest-051.txt`. The duplicate ZIP-member warning is
+an intentional adversarial archive fixture. Final wheel extraction/CLI and
+standalone-gate checks passed in `evidence/tests/wheel-verification-051-final.json`.
+All 35 current packaged resource/source files match the wheel byte-for-byte.
+The release installed-SDK gate matrix is
+`evidence/recording-gate-051/release-installed-sdk/matrix.json`: all three cases
+reached their expected contract assertion under `-I -S`, with no provider call.
+Remote 0.5.1 CI is checked after publication; historical 0.5.0 CI stays separate.
+
+## Historical 0.5.0 verification
+
 # Testing and verification — 0.5.0
 
 Local full suite: **333 passed, 4 skipped** on CPython 3.12.13 / pytest 8.4.2,

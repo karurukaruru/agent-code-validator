@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "kind": "captured-boundary-regression-contract",
+  "adapter": "langchain-nvidia-ai-endpoints/convert_message_to_dict",
+  "captured_version": "1.4.3",
+  "request_id": "sdk-contract-1",
+  "expected_input": [
+    {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "id": "call_a",
+          "type": "function",
+          "function": {
+            "name": "inventory",
+            "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+          }
+        },
+        {
+          "id": "call_b",
+          "type": "function",
+          "function": {
+            "name": "price",
+            "arguments": "{\"sku\":\"A\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_a",
+      "content": "{\"quantity\":3}"
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_b",
+      "content": "{\"price\":7}"
+    }
+  ],
+  "observed_status": "FAIL",
+  "runtime_files_sha256": {
+    "_patchcourt_contract/__init__.py": "5bce783039b78f3c8dfa77b028c0433e791d11b29f36a26831ee3de4a76b4d52",
+    "_patchcourt_contract/evidence.py": "17f6ade86c391d698826eb9ea12c85116efc2a53fa5b5d0a5ddc259b3727e5ef",
+    "_patchcourt_contract/LICENSE": "d81391386dd9f0e453c7b42a129a6a2646e699c797ce3e3d38d7a6dc8271fe8e",
+    "_patchcourt_contract/recording.py": "b50f09b5ab1d0b76e2841c4f76e10708348e93335b2cb1a483c80910092ff562",
+    "_patchcourt_contract/semantic.py": "d989d1b9258675e21604ec6415a58b9f1b0819260c53b37054b04a10545ae3b1"
+  },
+  "observed_candidate_file_sha256": "23b3d073e827ccfb8d7324ccba01cbbee7bbaf6a6b913c71f5c21dcc116bd048",
+  "scope": "Checks captured messages, not future SDK execution; the source recording is user-supplied and is not independently authenticated"
+}

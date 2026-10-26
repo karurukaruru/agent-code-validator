@@ -1,3 +1,14 @@
+## October 26 — version 0.5.1 captured-boundary regression gates
+
+Added explicitly paired BoundaryRecorder transactions, direct recording checks,
+and a portable regression gate bound to each user's own captured input. Its
+bundled checker and license run without a project installation or API access.
+The observed broken candidate fails by default; later captures must retain the
+same input and adapter contract. Added installed-SDK red/green/corruption
+integration and CI coverage. Workbench connection recovery prevents accidental
+repeat inference when a request outcome is unknown; both viewers support keyboard
+tabs and reduced motion. No paid inference/search request is part of this upgrade.
+
 ## October 25 — version 0.5.0 provider and submission development
 
 Added exact DeepSeek Flash and NVIDIA Nemotron/Nebius workflow selection, strict

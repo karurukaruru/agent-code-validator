@@ -4,7 +4,7 @@
 
 ## Start the exported judge portal
 
-Download `release/patchcourt-judge-demo-0.5.0-development.zip` and extract it.
+Download `release/patchcourt-judge-demo-0.5.1-development.zip` and extract it.
 Double-click `Start-Judge-Demo.cmd` on Windows, or run `python launch_demo.py`.
 The launcher uses a free dynamic localhost port and opens the browser; stop it
 with Ctrl+C. It installs nothing and sends no provider request. Alternatively,
@@ -37,6 +37,15 @@ Open `http://127.0.0.1:8765` on the same computer. On Windows, `Start-PatchCourt
 5. Open saved provenance and scope. Source hashes, environment, failed attempts and request records show which paths actually executed.
 
 The dependency-free demo uses audited source functions and inert SDK-shaped types. Stronger installed-SDK evidence is retained in `evidence/full-sdk`, `evidence/crewai-sdk` and `evidence/upgrade-run-050/real-sdk`. These are separate executed experiments, with exact setup and limitations described in [REPRODUCTION_GUIDE.md](REPRODUCTION_GUIDE.md) and [UPGRADE_RUN.md](UPGRADE_RUN.md).
+
+## Inspect a captured-boundary CI gate
+
+The 0.5.1 portal also links a complete standalone CI gate. Extract it and run
+`python -I -S -m unittest discover -s . -p test_boundary_contract.py` from its
+folder. Its observed broken candidate intentionally fails. The frozen input,
+observed output, checker source and license are included. Supply a freshly
+captured candidate to reuse this contract; the gate does not execute a future
+SDK. [Complete capture-to-CI steps](CAPTURED_BOUNDARIES.md).
 
 ## Replay exported regression checks
 

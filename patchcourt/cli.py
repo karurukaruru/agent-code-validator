@@ -31,6 +31,10 @@ def main(argv=None):
     check.add_argument("baseline"); check.add_argument("candidate")
     check.add_argument("--output", default="outputs/check")
     check.add_argument("--input", help="Original message-array JSON; also check that each trace preserves its semantics")
+    captured = commands.add_parser("check-recording", help="Check one opt-in captured transaction and export a portable regression gate; no SDK execution")
+    captured.add_argument("recording", help="BoundaryRecorder schema 1.0 JSON")
+    captured.add_argument("--request-id", help="Required when more than one adapter transaction was captured")
+    captured.add_argument("--output", required=True, help="New evidence directory; prior output is never overwritten")
     boundary = commands.add_parser("boundary-run", help="Execute two reviewed NVIDIA serializer variants; no provider calls")
     boundary.add_argument("--baseline", choices=("upstream", "reviewed-patch"), default="reviewed-patch")
     boundary.add_argument("--candidate", choices=("upstream", "reviewed-patch"), default="upstream")
@@ -100,6 +104,12 @@ def main(argv=None):
             export_report(report, args.output)
             print(case["status"])
             return {"PASS": 0, "FAIL": 1}.get(case["status"], 2)
+        if args.command == "check-recording":
+            from .recording_export import check_recording
+            report = check_recording(args.recording, args.output, args.request_id)
+            print(json.dumps({"status": report["status"], "output": str(Path(args.output).resolve()),
+                              "regression_gate": report["regression_gate"]["status"], "provider_requests": 0}))
+            return {"PASS": 0, "FAIL": 1}.get(report["status"], 2)
         if args.command == "boundary-run":
             from .boundary_run import run_boundary
             report = run_boundary(args.output, baseline=args.baseline, candidate=args.candidate,
@@ -183,6 +193,10 @@ def serve_static(directory, port):
         raise ValueError("Run patchcourt demo first, or point serve at an exported report")
     # Explicit file allowlist; no directory traversal, source browsing, symlink reads or POSTs.
     allowed = {"/": ("index.html", "text/html; charset=utf-8"), "/index.html": ("index.html", "text/html; charset=utf-8"), "/report.json": ("report.json", "application/json"), "/report.md": ("report.md", "text/plain; charset=utf-8")}
+    allowed.update({"/contract.json": ("contract.json", "application/json"),
+                    "/REGRESSION-GATE.md": ("REGRESSION-GATE.md", "text/plain; charset=utf-8"),
+                    "/test_boundary_contract.py": ("test_boundary_contract.py", "text/plain; charset=utf-8"),
+                    "/regression-gate.zip": ("regression-gate.zip", "application/zip")})
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self):
             if self.headers.get("Host", "").lower() not in {f"127.0.0.1:{port}", f"localhost:{port}"}:

@@ -7,10 +7,12 @@ import argparse
 import hashlib
 import html
 import json
+import os
 from pathlib import Path
 import re
 import shutil
 import sys
+import stat
 import zipfile
 from urllib.parse import urlsplit
 
@@ -19,7 +21,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from patchcourt import __version__
-from patchcourt.evidence import digest
+from patchcourt.evidence import digest, strict_json
 from scripts.submission_check import public_evidence, read_json, verify_workflow
 
 LAUNCHER = '''"""Serve this exported judge demo locally. No installation or API access."""
@@ -132,7 +134,126 @@ def verify_wheel(path):
     return path
 
 
-def package(live_folder, sdk_folder, output, *, wheel=None, source_url=None):
+def verify_gate_bundle(folder):
+    """Validate data and exact trusted checker source; never execute supplied tests."""
+    from acv.scanner import _is_link_like
+    from patchcourt.recording_export import GATE_TEST, PORTABLE_GATE_FILES
+    from patchcourt.semantic import compare_messages
+    folder = Path(folder)
+    if _is_link_like(folder) or not folder.is_dir():
+        raise ValueError("Gate bundle must be a regular exported directory")
+    folder = folder.resolve()
+    portable = set(PORTABLE_GATE_FILES)
+    allowed = portable | {"report.json", "manifest.json", "report.md", "index.html", "regression-gate.zip"}
+    found = set()
+    for base, dirs, files in os.walk(folder, followlinks=False):
+        retained = []
+        for name in dirs:
+            path = Path(base) / name
+            relative = path.relative_to(folder).as_posix()
+            if _is_link_like(path):
+                raise ValueError("Gate bundle contains an unexpected directory or link")
+            if relative in {"__pycache__", "_patchcourt_contract/__pycache__"}:
+                continue  # Never read, execute or publish local bytecode caches.
+            if relative != "_patchcourt_contract":
+                raise ValueError("Gate bundle contains an unexpected directory or link")
+            retained.append(name)
+        dirs[:] = retained
+        for name in files:
+            path = Path(base) / name
+            relative = path.relative_to(folder).as_posix()
+            if _is_link_like(path) or relative not in allowed:
+                raise ValueError("Gate bundle contains an unexpected file or link")
+            found.add(relative)
+        if len(found) > len(allowed):
+            raise ValueError("Gate bundle exceeds its file limit")
+    if not (portable | {"report.json", "manifest.json", "regression-gate.zip"}) <= found:
+        raise ValueError("Gate bundle is incomplete")
+    def bounded(name, limit=8_000_000):
+        path = folder / name
+        if path.stat().st_size > limit:
+            raise ValueError("Gate file exceeds its size limit")
+        with path.open("rb") as stream:
+            data = stream.read(limit + 1)
+        if len(data) > limit:
+            raise ValueError("Gate file exceeds its size limit")
+        return data
+    files = {name: bounded(name, 1_000_000 if name.startswith("_patchcourt_contract/") else 8_000_000)
+             for name in portable}
+    proof = {name: bounded(name) for name in ("report.json", "manifest.json")}
+    report, manifest = (strict_json(proof[name].decode("utf-8-sig")) for name in ("report.json", "manifest.json"))
+    if (not isinstance(report, dict) or not isinstance(manifest, dict) or not report.get("run_id")
+            or report["run_id"] != manifest.get("run_id") or digest(report) != manifest.get("report_sha256")):
+        raise ValueError("Gate report integrity does not match its manifest")
+    contract = strict_json(files["contract.json"].decode("utf-8-sig"))
+    observed = strict_json(files["observed-candidate.json"].decode("utf-8-sig"))
+    for item in (report, manifest, contract, observed):
+        public_evidence(item)
+    expected_keys = {"schema_version", "kind", "adapter", "captured_version", "request_id", "expected_input",
+                     "observed_status", "runtime_files_sha256", "observed_candidate_file_sha256", "scope"}
+    if (not isinstance(contract, dict) or set(contract) != expected_keys or contract.get("schema_version") != "1.0"
+            or contract.get("kind") != "captured-boundary-regression-contract"
+            or not isinstance(observed, list) or report.get("mode") != "recording-check"
+            or not isinstance(report.get("cases"), list) or len(report["cases"]) != 1
+            or not isinstance(report["cases"][0], dict) or not isinstance(report.get("regression_gate"), dict)
+            or not isinstance(report.get("recording"), dict) or report.get("provider_requests") != 0
+            or report["recording"].get("payload_redacted") is not False):
+        raise ValueError("Gate input does not establish a supported captured-boundary export")
+    case, gate = report["cases"][0], report.get("regression_gate", {})
+    baseline = compare_messages(contract["expected_input"], contract["expected_input"])
+    verdict = compare_messages(contract["expected_input"], observed)
+    if (baseline["status"] != "PASS" or report.get("status") != verdict["status"]
+            or case.get("status") != verdict["status"] or case.get("execution") is not False
+            or digest(case.get("baseline")) != digest(contract["expected_input"])
+            or digest(report.get("input")) != digest(contract["expected_input"])
+            or digest(case.get("candidate")) != digest(observed)
+            or digest(case.get("findings")) != digest(verdict["findings"])
+            or digest(case.get("contracts")) != digest({"input": baseline, "baseline": baseline, "candidate": verdict, "difference": verdict})
+            or contract.get("observed_status") != verdict["status"]
+            or gate.get("status") != "EXPORTED" or gate.get("default_candidate_status") != verdict["status"]
+            or gate.get("default_test_expected") != ("PASS" if verdict["status"] == "PASS" else "FAIL")
+            or gate.get("standalone_standard_library") is not True):
+        raise ValueError("Gate headline differs from fresh captured-input comparison")
+    for key, recorded in (("adapter", "adapter"), ("captured_version", "version"), ("request_id", "request_id")):
+        if contract.get(key) != report["recording"].get(recorded):
+            raise ValueError("Gate identity differs from its report")
+    runtime = contract["runtime_files_sha256"]
+    runtime_names = {name for name in portable if name.startswith("_patchcourt_contract/")}
+    if not isinstance(runtime, dict) or set(runtime) != runtime_names or runtime != gate.get("runtime_files_sha256"):
+        raise ValueError("Gate runtime file allowlist differs")
+    current = {"version_snapshot.py": ('__version__ = ' + repr(__version__) + '\n').encode("utf-8"),
+               "LICENSE": (ROOT / "patchcourt/fixtures/PATCHCOURT-LICENSE").read_bytes()}
+    current.update({name: (ROOT / "patchcourt" / name).read_bytes() for name in ("evidence.py", "semantic.py", "recording.py")})
+    for name in runtime_names:
+        data = files[name]
+        if hashlib.sha256(data).hexdigest() != runtime[name]:
+            raise ValueError("Gate checker source does not match its recorded hash")
+        if data.decode("utf-8").replace("\r\n", "\n") != current[Path(name).name].decode("utf-8").replace("\r\n", "\n"):
+            raise ValueError("Gate checker source differs from the current reviewed project source")
+        public_evidence(data.decode("utf-8"))
+    contract_sha = hashlib.sha256(files["contract.json"]).hexdigest()
+    expected_test = GATE_TEST.replace("CONTRACT_SHA256", contract_sha)
+    if (files["test_boundary_contract.py"].decode("utf-8").replace("\r\n", "\n") != expected_test.replace("\r\n", "\n")
+            or gate.get("contract_file_sha256") != contract_sha
+            or gate.get("test_file_sha256") != hashlib.sha256(files["test_boundary_contract.py"]).hexdigest()
+            or contract.get("observed_candidate_file_sha256") != hashlib.sha256(files["observed-candidate.json"]).hexdigest()):
+        raise ValueError("Gate test or captured fixture differs from the exact reviewed export")
+    public_evidence(files["REGRESSION-GATE.md"].decode("utf-8"))
+    archive = bounded("regression-gate.zip", 20_000_000)
+    if gate.get("download_file") != "regression-gate.zip" or gate.get("archive_sha256") != hashlib.sha256(archive).hexdigest():
+        raise ValueError("Gate archive differs from the verified report")
+    import io
+    with zipfile.ZipFile(io.BytesIO(archive)) as zipped:
+        entries = zipped.infolist()
+        if len(entries) != len(portable) or {row.filename for row in entries} != portable or sum(row.file_size for row in entries) > 20_000_000:
+            raise ValueError("Gate archive does not match the portable file allowlist")
+        for row in entries:
+            if row.is_dir() or stat.S_ISLNK(row.external_attr >> 16) or row.flag_bits & 1 or zipped.read(row) != files[row.filename]:
+                raise ValueError("Gate archive member differs from the reviewed files")
+    return {"report": report, "files": files, "proof": proof, "archive": archive}
+
+
+def package(live_folder, sdk_folder, output, *, wheel=None, source_url=None, gate_dir=None):
     live_folder, sdk_folder, output = Path(live_folder), Path(sdk_folder), Path(output)
     if output.exists() or output.with_suffix(".zip").exists():
         raise ValueError("Refusing to overwrite an existing judge package")
@@ -145,6 +266,7 @@ def package(live_folder, sdk_folder, output, *, wheel=None, source_url=None):
     sdk = verified_report(sdk_folder)
     verify_sdk_report(sdk)
     wheel = verify_wheel(wheel) if wheel else None
+    gate_bundle = verify_gate_bundle(gate_dir) if gate_dir is not None else None
     evidence_files = ["report.json", "manifest.json"]
     evidence_files.extend(row["name"] + ".json" for row, _ in records)
     output.mkdir(parents=True, exist_ok=False)
@@ -153,6 +275,20 @@ def package(live_folder, sdk_folder, output, *, wheel=None, source_url=None):
         shutil.copyfile(live_folder / name, output / "evidence" / "live" / name)
     for name in ("report.json", "manifest.json"):
         shutil.copyfile(sdk_folder / name, output / name)
+    gate_card = ""
+    if gate_bundle:
+        for name, data in gate_bundle["files"].items():
+            path = output / "ci-gate" / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(data)
+        for name, data in gate_bundle["proof"].items():
+            path = output / "evidence" / "ci-gate" / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(data)
+        (output / "ci-gate.zip").write_bytes(gate_bundle["archive"])
+        status = html.escape(gate_bundle["report"]["status"])
+        default = "intentionally fails" if status != "PASS" else "passes for the saved observation"
+        gate_card = '<article class="card" id="ci-gate" style="grid-column:1/-1;background:#eaf4ec"><div class="eyebrow">03 / Bring your captured boundary into CI</div><h2>A regression test for the messages you actually captured.</h2><p>The saved candidate is <strong>' + status + '</strong>; the default test ' + default + '. Download the standalone checker and supply a fresh candidate trace or recording to check the same frozen input. No API key or pip install is required. The gate checks captured data and does not execute a future SDK.</p><p><code>python -m unittest discover -s ci-gate -p test_boundary_contract.py</code></p><a href="ci-gate.zip" download>Download complete CI gate ↓</a> · <a href="evidence/ci-gate/report.json">Inspect the captured-boundary evidence →</a></article>'
     shutil.copyfile(ROOT / "patchcourt/web/index.html", output / "sdk-upgrade.html")
     replay = (ROOT / "patchcourt/web/live.html").read_text(encoding="utf-8")
     embedded = json.dumps(live, ensure_ascii=True, allow_nan=False).replace("<", "\\u003c")
@@ -185,6 +321,8 @@ def package(live_folder, sdk_folder, output, *, wheel=None, source_url=None):
     replacements = {"SOURCE_LINK": source, "DOWNLOAD_LINK": download, "PROVIDER_LABEL": provider, "MODEL_LABEL": model,
                     "CHECKS_LABEL": f"{passed}/{len(checks)}", "ANSWER_LABEL": answer, "REQUESTS_LABEL": str(len(live["requests"])),
                     "SCOPE_LABEL": html.escape(scope), "VERSION_LABEL": __version__, "RUN_LABEL": html.escape(live["run_id"])}
+    if gate_card:
+        page = page.replace('</article></div>\n<p class="scope">', '</article>' + gate_card + '</div>\n<p class="scope">', 1)
     for key, value in replacements.items():
         page = page.replace(key, value)
     (output / "index.html").write_text(page, encoding="utf-8")
@@ -212,8 +350,9 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--wheel", type=Path)
     parser.add_argument("--source-url")
+    parser.add_argument("--gate-dir", type=Path, help="Optional current captured-boundary export; its exact checker is verified without executing it")
     args = parser.parse_args()
-    print(json.dumps(package(args.live_report, args.sdk_report, args.output, wheel=args.wheel, source_url=args.source_url)))
+    print(json.dumps(package(args.live_report, args.sdk_report, args.output, wheel=args.wheel, source_url=args.source_url, gate_dir=args.gate_dir)))
 
 
 if __name__ == "__main__":

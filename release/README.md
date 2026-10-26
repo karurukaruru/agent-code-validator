@@ -1,3 +1,17 @@
+# PatchCourt 0.5.1 developer delivery
+
+- [Judge demo ZIP](patchcourt-judge-demo-0.5.1-development.zip): extract and double-click Start-Judge-Demo.cmd on Windows, or run `python launch_demo.py`. Includes actual saved repair evidence, installed-SDK inspection and a downloadable captured-boundary CI gate. No API key is needed.
+- [Python wheel](agent_code_validator-0.5.1-py3-none-any.whl): current installable CLI, recording checker and source resources; isolated checks passed.
+- [Standalone captured CI gate](patchcourt-captured-gate-0.5.1.zip): only Python's standard library is required. Its saved broken candidate intentionally fails. A future candidate must preserve the captured input; [instructions](../CAPTURED_BOUNDARIES.md) explain the complete loop.
+- [Checksums](SHA256SUMS-0.5.1.json).
+
+[Current review](../RELEASE_REVIEW_051_ZH.md) records fixes, verification and limits.
+No model/search credit was used for 0.5.1 development. The earlier English
+DeepSeek video is development evidence; the final competition video awaits
+actual required-platform inference. [Your three final steps](../USER_ACTIONS_ZH.md).
+
+## Historical 0.5.0 assets
+
 # PatchCourt 0.5.0 development delivery
 
 - [patchcourt-judge-demo-0.5.0-development.zip](patchcourt-judge-demo-0.5.0-development.zip): free recorded-evidence portal. Extract and double-click `Start-Judge-Demo.cmd` on Windows, or run `python launch_demo.py`. No API key, account or pip install is needed. Recorded DeepSeek repair, independent controls and real installed-SDK comparison are explicitly scoped.

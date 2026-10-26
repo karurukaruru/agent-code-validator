@@ -2,13 +2,32 @@
 
 **Catch silent AI agent regressions before they reach production.**
 
+**0.5.1 adds a practical CI loop:** capture an adapter you choose, check its
+actual message pair, and export a standalone regression gate for future SDK
+candidates. The gate freezes the original input, includes the checker source
+and license, and runs with Python's standard library. A broken captured output
+correctly produces a red test; a fresh repaired candidate can turn it green.
+[Capture-to-CI walkthrough](CAPTURED_BOUNDARIES.md).
+
+```bash
+python examples/captured-boundary/capture.py --output outputs/courier-broken.json
+python -m patchcourt check-recording outputs/courier-broken.json --output outputs/courier-gate
+python -I -S -m unittest discover -s outputs/courier-gate -p test_boundary_contract.py
+```
+
+The last two commands intentionally return failure for the broken example.
+[Capture a fixed candidate and reuse the same gate](CAPTURED_BOUNDARIES.md).
+No API key or SDK install is needed for this example. It is a controlled
+application adapter, separate from the real installed-SDK execution evidence.
+
+
 An agent can execute its tools, then fail on the next request because an SDK adapter silently removed their identifiers. PatchCourt detects the lost semantics, challenges a model-proposed repair, and verifies task recovery with independent controls.
 
-**0.5.0 development — competition submission is still pending.** The new workflow supports exact DeepSeek Flash and NVIDIA Nemotron on Nebius, strict response/model validation, documentation retrieval, scoped repair reuse, and a persistent request budget. Real [DeepSeek development runs](evidence/development-050/README.md) passed eight checks, rejected a corrupted repair and recovered inventory value **21**. These runs do not establish Nebius/NVIDIA runtime use. The entrant has confirmed continuing this competition and will supply Nebius access; the earlier handoff's stop instruction is historical.
+**Development status — competition submission is still pending.** The new workflow supports exact DeepSeek Flash and NVIDIA Nemotron on Nebius, strict response/model validation, documentation retrieval, scoped repair reuse, and a persistent request budget. Real [DeepSeek development runs](evidence/development-050/README.md) passed eight checks, rejected a corrupted repair and recovered inventory value **21**. These runs do not establish Nebius/NVIDIA runtime use. The entrant has confirmed continuing this competition and will supply Nebius access; the earlier handoff's stop instruction is historical.
 
-[Verified 0.5.0 CI](https://github.com/karurukaruru/agent-code-validator/actions/runs/40260807511): 337 tests on Python 3.10/3.13; installed-SDK controls on Ubuntu/Windows. [Free development judge package](release/patchcourt-judge-demo-0.5.0-development.zip) and [137-second English recorded replay](release/patchcourt-development-replay-0.5.0.mp4) have passed anonymous download checks.
+[Verified 0.5.0 CI](https://github.com/karurukaruru/agent-code-validator/actions/runs/40260807511): 337 tests on Python 3.10/3.13; installed-SDK controls on Ubuntu/Windows. [Free current development judge package](release/patchcourt-judge-demo-0.5.1-development.zip) and [137-second English recorded replay](release/patchcourt-development-replay-0.5.0.mp4) have passed anonymous download checks.
 
-[Judge instructions](JUDGE_TESTING.md) · [Submission checklist](SUBMISSION_CHECKLIST.md) · [SDK upgrade evidence](UPGRADE_RUN.md) · [Development review](DEVELOPMENT_REVIEW_ZH.md)
+[Judge instructions](JUDGE_TESTING.md) · [Submission checklist](SUBMISSION_CHECKLIST.md) · [SDK upgrade evidence](UPGRADE_RUN.md) · [Current development review](RELEASE_REVIEW_051_ZH.md)
 
 ## Run a model-proposed repair
 

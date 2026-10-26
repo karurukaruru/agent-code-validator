@@ -1,3 +1,5 @@
+> 0.5.1 新增实际可复用的闭环：捕获你自己的适配器消息 → 比较原始输入与实际输出 → 导出只依赖Python标准库的回归门禁。后续用新版本SDK的重新捕获结果复验，默认坏结果应失败。完整步骤见 [CAPTURED_BOUNDARIES.md](CAPTURED_BOUNDARIES.md)。工作台同时修复断线/未知请求结果导致的误重跑，并增加键盘操作。
+
 > 2026-10-25 更新：本地开发版 **0.5.0** 接入 DeepSeek Flash / Nebius Nemotron、真实工具会话、严格模型身份检查、持久调用预算和可独立复验的修复回放。真实 DeepSeek 开发记录见 [evidence/development-050](evidence/development-050/README.md)。比赛指定的 Nebius 访问仍待补齐，因此尚未宣布可正式提交。最新结果与未完成事项见 [本轮开发 review](DEVELOPMENT_REVIEW_ZH.md)。旧版本的 GLM 证据仍在 [GLM_DEVELOPMENT.md](GLM_DEVELOPMENT.md)，不能替代比赛指定平台的实测。
 
 ## PatchCourt 0.5.0 快速体验

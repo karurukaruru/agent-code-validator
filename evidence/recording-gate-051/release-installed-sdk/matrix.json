@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "created_at": "2026-10-26T04:05:32.254882+00:00",
+  "kind": "Executed boundary capture to standalone regression gate",
+  "sdk_execution_report": "sdk-execution/report.json",
+  "sdk_execution_report_sha256": "59dac33938ed9d0cbd38316cf5aac8b5e1c444196640b5664ea9b1db0aed2ed1",
+  "real_sdk_classes": true,
+  "recordings": {
+    "baseline": {
+      "path": "baseline-recording.json",
+      "sha256": "91b9266cf626e05e2d5984269a03beb44ba7fc3080fd536be4501e8443f19942",
+      "input_matches_executed_worker": true,
+      "output_matches_executed_worker": true
+    },
+    "candidate": {
+      "path": "candidate-recording.json",
+      "sha256": "7614bf94604db9ffaecb85915b97c92890452031d496a312a619f2634279bb2a",
+      "input_matches_executed_worker": true,
+      "output_matches_executed_worker": true
+    }
+  },
+  "scenarios": [
+    {
+      "scenario": "observed-broken",
+      "expected_exit_code": 1,
+      "actual_exit_code": 1,
+      "reached_expected_contract_assertion": true,
+      "passed": true
+    },
+    {
+      "scenario": "reviewed-patch",
+      "expected_exit_code": 0,
+      "actual_exit_code": 0,
+      "reached_expected_contract_assertion": true,
+      "passed": true
+    },
+    {
+      "scenario": "corrupted-patch",
+      "expected_exit_code": 1,
+      "actual_exit_code": 1,
+      "reached_expected_contract_assertion": true,
+      "passed": true
+    }
+  ],
+  "provider_requests": 0,
+  "standalone_test_flags": [
+    "-I",
+    "-S"
+  ],
+  "scope": "Actual reviewed serializer execution and its captured messages; future candidate records are data supplied to the gate, not SDK execution initiated by the gate. The repaired variant is a reviewed patch, not an upstream fixed release."
+}

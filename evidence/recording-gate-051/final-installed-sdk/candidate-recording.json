@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0",
+  "kind": "boundary-recording",
+  "adapter": "langchain-nvidia-ai-endpoints/convert_message_to_dict",
+  "version": "1.4.3+reviewed-patch",
+  "events": [
+    {
+      "stage": "framework_input",
+      "timestamp": "2026-10-26T03:52:35.390355+00:00",
+      "request_id": "sdk-contract-1",
+      "payload": [
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\":\"A\",\"options\":{\"warehouse\":2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\":\"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_a",
+          "content": "{\"quantity\":3}"
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_b",
+          "content": "{\"price\":7}"
+        }
+      ],
+      "payload_redacted": false
+    },
+    {
+      "stage": "adapter_output",
+      "timestamp": "2026-10-26T03:52:35.390355+00:00",
+      "request_id": "sdk-contract-1",
+      "payload": [
+        {
+          "role": "assistant",
+          "content": null,
+          "tool_calls": [
+            {
+              "id": "call_a",
+              "type": "function",
+              "function": {
+                "name": "inventory",
+                "arguments": "{\"sku\": \"A\", \"options\": {\"warehouse\": 2}}"
+              }
+            },
+            {
+              "id": "call_b",
+              "type": "function",
+              "function": {
+                "name": "price",
+                "arguments": "{\"sku\": \"A\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "content": "{\"quantity\":3}",
+          "tool_call_id": "call_a"
+        },
+        {
+          "role": "tool",
+          "content": "{\"price\":7}",
+          "tool_call_id": "call_b"
+        }
+      ],
+      "payload_redacted": false
+    }
+  ]
+}

@@ -40,4 +40,20 @@ with tempfile.TemporaryDirectory(dir=ROOT / ".local-tmp") as tmp:
     assert upgrade.returncode == 2, upgrade.stderr
     upgrade_report = json.loads((target / "upgrade" / "report.json").read_text(encoding="utf-8"))
     assert upgrade_report["status"] == "INCONCLUSIVE" and upgrade_report["provider_requests"] == 0
-    print(json.dumps({"status":"PASS", "wheel":wheel.name, "isolated_mode":True, "summary":report["summary"], "entrypoint":"patchcourt", "fixtures_and_dashboard":True, "boundary_workers_executed_from_wheel":True, "upgrade_runner_and_constraints_packaged":True}))
+    capture_script = ("import sys;sys.path.insert(0,sys.argv[1]);from patchcourt.recorder import BoundaryRecorder;"
+                      "r=BoundaryRecorder('wheel-adapter','1');"
+                      "r.transform([{'role':'user','content':'preserve this'}],lambda messages:[{'role':'user','content':'changed'}]);"
+                      "r.save(sys.argv[2])")
+    subprocess.run([sys.executable, "-I", "-S", "-c", capture_script, str(target / "installed"), str(target / "capture.json")],
+                   cwd=target, capture_output=True, text=True, check=True, timeout=20)
+    gate_script = "import sys;sys.path.insert(0,sys.argv[1]);from patchcourt.cli import main;raise SystemExit(main(['check-recording',sys.argv[2],'--output',sys.argv[3]]))"
+    captured = subprocess.run([sys.executable, "-I", "-S", "-c", gate_script, str(target / "installed"),
+                               str(target / "capture.json"), str(target / "gate")], cwd=target,
+                              capture_output=True, text=True, timeout=30)
+    assert captured.returncode == 1, captured.stderr
+    standalone = subprocess.run([sys.executable, "-I", "-S", "-m", "unittest", "discover", "-s", str(target / "gate"),
+                                 "-p", "test_boundary_contract.py"], cwd=target,
+                                capture_output=True, text=True, timeout=20)
+    assert standalone.returncode == 1 and "Captured contract is not preserved" in standalone.stderr, standalone.stderr
+    assert (target / "installed" / "patchcourt" / "fixtures" / "PATCHCOURT-LICENSE").is_file()
+    print(json.dumps({"status":"PASS", "wheel":wheel.name, "isolated_mode":True, "summary":report["summary"], "entrypoint":"patchcourt", "fixtures_and_dashboard":True, "boundary_workers_executed_from_wheel":True, "upgrade_runner_and_constraints_packaged":True, "captured_boundary_exports_standalone_gate_without_site_packages":True}))

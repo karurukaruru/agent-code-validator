@@ -18,13 +18,15 @@ An SDK upgrade can preserve valid Python while silently removing the tool-call I
 
 PatchCourt compares the meaning of messages at an agent/SDK boundary. It reports preserved behavior, lost behavior and cases that need review, with exact differences developers can inspect. It reproduces two credited historical defects: NVIDIA LangChain tool-call loss and CrewAI/Gemini image loss.
 
+Developers can also capture their own adapter transaction and export a standalone CI gate from that actual input. The saved broken candidate fails by default; a later captured candidate must preserve the same input and adapter identity. The generated gate includes its reviewed checker source and license and runs with only Python’s standard library, so a discovered regression can remain a test after the demo is over.
+
 Its repair workflow asks a model for a bounded field mapping, checks that mapping independently, deliberately corrupts it to verify rejection, and runs an actual model conversation with two local fixture tools. The recorded development run restores the tool calls and completes an inventory task with value **21**. The result is a complete evidence trail: source hashes, request records, controls, failed attempts and regression exports.
 
 Controlled upgrade runs also compare two real installed NVIDIA SDK releases with shared dependency pins. When both releases have the same defect, PatchCourt returns **NEEDS_REVIEW** rather than treating equality as compatibility.
 
 ## How we built it
 
-The core is Python, a conservative semantic comparator and a local browser workbench. Version-scoped ASM observations retain source and environment context and require fresh verification before reuse. Model-generated Python is never executed. A declarative repair can change only the fields allowed by the reviewed mapping contract.
+The core is Python, a conservative semantic comparator, opt-in transaction recording, portable captured-input regression gates and a local browser workbench. Version-scoped ASM observations retain source and environment context and require fresh verification before reuse. Model-generated Python is never executed. A declarative repair can change only the fields allowed by the reviewed mapping contract.
 
 GLM 5.3 Flash supplied the earlier recorded development workflow. The current development iteration also completed a real **DeepSeek Flash** repair and tool conversation, with **Tavily** official-document retrieval: three model requests, one search, eight independent checks, rejection of a corrupted repair and the checked result 21. A separate retrieval-backed reasoning run produced declarative cases that were actually evaluated. These are preliminary development runs before the final 0.5.0 freeze, retained under `evidence/development-050`.
 
@@ -35,6 +37,8 @@ Tavily retrieves allowlisted official documentation. Its contribution is evaluat
 ## Challenges and accomplishments
 
 The difficult part was deciding what could count as evidence. A model's plausible answer is not a repair. Matching two broken releases is not a pass. Preserving image bytes is not proof of a successful vision task. A local API discovery response is not required-platform inference.
+
+Version 0.5.1 closes the capture-to-CI loop and prevents connection recovery from accidentally repeating an inference request. Independent review caught and fixed late-redaction collisions and checker-cache interference.
 
 We executed installed-SDK reproductions, real two-version comparisons, eight independent repair checks, a corruption control and a real development-model fixture-tool conversation. The exported viewer keeps provenance and limits next to the result, so reviewers can distinguish the reproducible defect from the scope of the demonstration.
 

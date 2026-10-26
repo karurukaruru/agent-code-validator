@@ -1,0 +1,18 @@
+.......ss............................................................... [ 19%]
+........................................................................ [ 38%]
+........................................................................ [ 57%]
+........................................................................ [ 76%]
+.......................................ss............................... [ 95%]
+.................                                                        [100%]
+============================== warnings summary ===============================
+tests/test_judge_package.py::test_rehashed_archive_path_and_member_attacks_are_rejected[duplicate]
+  C:\Users\30469\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\zipfile\__init__.py:1624: UserWarning: Duplicate name: 'contract.json'
+    return self._open_to_write(zinfo, force_zip64=force_zip64)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+SKIPPED [1] tests\test_agent_tools.py:80: Creating symbolic links is not permitted on this system
+SKIPPED [1] tests\test_agent_tools.py:96: Creating directory links is not permitted on this system
+SKIPPED [1] tests\test_scanner.py:70: Creating symbolic links is not permitted on this system
+SKIPPED [1] tests\test_scanner.py:88: Creating directory links is not permitted on this system
+373 passed, 4 skipped, 1 warning in 29.16s
